@@ -1,0 +1,136 @@
+{
+  "testID": "how-you-dare",
+  "app": {
+    "title": "你敢吗",
+    "subtitle": "终极通配符大挑战",
+    "language": "chinese",
+    "type": "premium",
+    "playerGroup": ["friends", "strangers"]
+  },
+  "ui": {
+    "startScreen": {
+      "title": "你敢吗",
+      "description": [
+        "欢迎来到舒适区的边缘。",
+        "每一张卡片都是一个挑战。",
+        "只有勇敢者才能继续前进。"
+      ],
+      "startButton": "接受挑战"
+    },
+    "navigation": {
+      "nextButton": "下一个挑战",
+      "prevButton": "认怂了"
+    },
+    "endScreen": {
+      "title": "你存活了下来",
+      "subtitle": "你赢得了吹牛的资本",
+      "restartButton": "再次挑战"
+    }
+  },
+  "theme": {
+    "categories": {
+      "physical": {
+        "name": "肢体大挑战",
+        "color": "#fb923c",
+        "description": "动起来，放飞自我"
+      },
+      "social": {
+        "name": "社死瞬间",
+        "color": "#38bdf8",
+        "description": "令人尴尬的互动"
+      },
+      "awkward": {
+        "name": "蜜汁尴尬",
+        "color": "#a855f7",
+        "description": "尴尬就是我们的目标"
+      },
+      "wild": {
+        "name": "终极通配符",
+        "color": "#f43f5e",
+        "description": "预测不可预测的一切"
+      }
+    }
+  },
+  "questions": [
+    {
+      "category": "physical",
+      "questions": [
+        {
+          "type": "wildcard",
+          "question": "用肢体动作即兴表演30秒“一块刚炸好的鸡”。"
+        },
+        {
+          "type": "wildcard",
+          "question": "摆出一个极高冷的时尚造型并保持到下一轮。"
+        },
+        {
+          "type": "wildcard",
+          "question": "尝试用舌头舔到自己的手肘，在此期间要一直盯着左边人的眼睛。"
+        },
+        {
+          "type": "wildcard",
+          "question": "做5个俯卧撑，每做一个都要大喊一声“我是冠军”。"
+        }
+      ]
+    },
+    {
+      "category": "social",
+      "questions": [
+        {
+          "type": "wildcard",
+          "question": "打开窗户大喊一声“我发现了一个超级稀有的皮卡丘”。"
+        },
+        {
+          "type": "wildcard",
+          "question": "给联系人列表中倒数第5个人发一条消息：“我知道你对那个三明治做了什么。”"
+        },
+        {
+          "type": "wildcard",
+          "question": "在接下来的5分钟里，只能通过歌剧般的歌声来对话。"
+        },
+        {
+          "type": "wildcard",
+          "question": "让大家从你的相册里选一张照片，发在你的社交网络/朋友圈里，且不能有任何解释。"
+        }
+      ]
+    },
+    {
+      "category": "awkward",
+      "questions": [
+        {
+          "type": "wildcard",
+          "question": "闻一下每个人的手，并从“最香”到“最值得怀疑”进行排名。"
+        },
+        {
+          "type": "wildcard",
+          "question": "看着右边人的眼睛，告诉他们如果他们是一种水果，会是什么，并给出极其详细的解释。"
+        },
+        {
+          "type": "wildcard",
+          "question": "在某人耳边轻轻地低语你最喜欢的迪士尼电影标题。"
+        },
+        {
+          "type": "wildcard",
+          "question": "和离你最近的一个没生命的物体进行眼神对视。如果你眨眼了，就必须向它道歉。"
+        }
+      ]
+    },
+    {
+      "category": "wild",
+      "questions": [
+        {
+          "type": "wildcard",
+          "question": "和在座的一位同伴互换一件衣服，直到游戏结束。"
+        },
+        {
+          "type": "wildcard",
+          "question": "每个人喝一口水含在嘴里，你必须想尽办法让他们忍俊不禁噴出来。"
+        },
+        {
+          "type": "wildcard",
+          "question": "在这个房间里找到一个最奇怪的东西，像个绝望的电视直销主持人一样把它推销给在场所有人。"
+        }
+      ]
+    }
+  ]
+}

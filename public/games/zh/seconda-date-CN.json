@@ -68,7 +68,7 @@
           "question": "你对现在的生活状态满意吗？"
         },
         {
-          "type": "open",
+          "type": "wildcard",
           "question": "特别环节：请交换彼此的高中照片"
         },
         {
@@ -96,8 +96,8 @@
           "question": "父母不知道的你的一面是？"
         },
         {
-          "type": "end",
-          "question": "请同时回答是否期待第三次约会"
+          "type": "wildcard",
+          "question": "特别环节：请同时回答是否期待第三次约会"
         }
       ]
     }

@@ -68,8 +68,8 @@
           "question": "Do you feel satisfied with where you're at in life? Explain."
         },
         {
-          "type": "open",
-          "question": "Wildcard: Both players, show a photo of yourself in high school."
+          "type": "wildcard",
+          "question": "WILDCARD: Both players, show a photo of yourself in high school."
         },
         {
           "type": "open",
@@ -96,8 +96,8 @@
           "question": "What's something your parents don't know about you?"
         },
         {
-          "type": "end",
-          "question": "Both players answer, will there be a third date?"
+          "type": "wildcard",
+          "question": "WILDCARD: Both players answer, will there be a third date?"
         }
       ]
     }

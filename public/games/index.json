@@ -2,6 +2,9 @@
   "games": [
     "confidence-boost.json",
     "deep-connections.json",
+    "how-you-dare.json",
+    "talking-with-parents.json",
+    "we-are-not-really-strangers2.json",
     "end-of-day.json",
     "ex-friend.json",
     "gratitude-journal.json",
@@ -23,6 +26,9 @@
     "en": [
       "confidence-boost.json",
       "deep-connections.json",
+      "how-you-dare.json",
+      "talking-with-parents.json",
+      "we-are-not-really-strangers2.json",
       "end-of-day.json",
       "ex-friend.json",
       "gratitude-journal.json",
@@ -43,6 +49,9 @@
     "zh": [
       "confidence-boost-CN.json",
       "deep-connections-CN.json",
+      "how-you-dare-CN.json",
+      "talking-with-parents-CN.json",
+      "we-are-not-really-strangers2-CN.json",
       "end-of-day-CN.json",
       "ex-friend-CN.json",
       "gratitude-journal-CN.json",
@@ -61,10 +70,10 @@
       "xxx-CN.json"
     ]
   },
-  "lastUpdated": "2025-12-20T02:22:52.161Z",
+  "lastUpdated": "2025-12-20T17:38:00.000Z",
   "version": "1.0.0",
-  "generatedAt": "2025-12-20T02:22:52.162Z",
-  "totalGames": 18,
+  "generatedAt": "2025-12-20T17:38:00.000Z",
+  "totalGames": 21,
   "languages": [
     "en",
     "zh"

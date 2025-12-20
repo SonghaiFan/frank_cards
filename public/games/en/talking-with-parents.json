@@ -1,0 +1,136 @@
+{
+  "testID": "talking-with-parents",
+  "app": {
+    "title": "Talking with Parents",
+    "subtitle": "Bridge the gap with meaningful questions",
+    "language": "english",
+    "type": "normal",
+    "playerGroup": ["family"]
+  },
+  "ui": {
+    "startScreen": {
+      "title": "Talking with Parents",
+      "description": [
+        "A space for generations to meet.",
+        "Take turns asking and listening.",
+        "There are no wrong answers, only new discoveries."
+      ],
+      "startButton": "Start the Conversation"
+    },
+    "navigation": {
+      "nextButton": "Next Question",
+      "prevButton": "Back"
+    },
+    "endScreen": {
+      "title": "Connection Made",
+      "subtitle": "Thank you for sharing this time together",
+      "restartButton": "Talk Again"
+    }
+  },
+  "theme": {
+    "categories": {
+      "childhood": {
+        "name": "Childhood",
+        "color": "#bae6fd",
+        "description": "Stories from when it all began"
+      },
+      "wisdom": {
+        "name": "Wisdom",
+        "color": "#fef08a",
+        "description": "Lessons learned through life"
+      },
+      "connection": {
+        "name": "Connection",
+        "color": "#fecdd3",
+        "description": "Getting to know the person behind the parent"
+      },
+      "future": {
+        "name": "Future",
+        "color": "#bbf7d0",
+        "description": "Looking ahead together"
+      }
+    }
+  },
+  "questions": [
+    {
+      "category": "childhood",
+      "questions": [
+        {
+          "type": "open",
+          "question": "What is your favorite memory of me from when I was very small?"
+        },
+        {
+          "type": "open",
+          "question": "What was the most rebellious thing you did when you were my age?"
+        },
+        {
+          "type": "open",
+          "question": "Which of your own parents' traits do you see most in yourself?"
+        },
+        {
+          "type": "open",
+          "question": "What did you want to be 'when you grew up' when you were ten years old?"
+        }
+      ]
+    },
+    {
+      "category": "wisdom",
+      "questions": [
+        {
+          "type": "open",
+          "question": "What's the hardest lesson life has taught you so far?"
+        },
+        {
+          "type": "open",
+          "question": "If you could go back and tell your 20-year-old self one thing, what would it be?"
+        },
+        {
+          "type": "open",
+          "question": "What is one thing you're proudest of, that most people don't know about?"
+        },
+        {
+          "type": "open",
+          "question": "What does 'success' mean to you now versus what it meant in your 20s?"
+        }
+      ]
+    },
+    {
+      "category": "connection",
+      "questions": [
+        {
+          "type": "open",
+          "question": "Is there a question you've always wanted to ask me but never did?"
+        },
+        {
+          "type": "open",
+          "question": "What's the biggest difference between how you were raised and how you raised me?"
+        },
+        {
+          "type": "open",
+          "question": "When do you feel most appreciated by me?"
+        },
+        {
+          "type": "open",
+          "question": "What's a fear you had as a parent that you never told me about?"
+        }
+      ]
+    },
+    {
+      "category": "future",
+      "questions": [
+        {
+          "type": "open",
+          "question": "What is one dream you still have for your life?"
+        },
+        {
+          "type": "open",
+          "question": "What's one thing you hope will never change about our relationship?"
+        },
+        {
+          "type": "open",
+          "question": "If we could go on an adventure anywhere together, where would it be?"
+        }
+      ]
+    }
+  ]
+}

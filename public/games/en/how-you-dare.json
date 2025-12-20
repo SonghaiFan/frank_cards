@@ -1,0 +1,136 @@
+{
+  "testID": "how-you-dare",
+  "app": {
+    "title": "How You Dare",
+    "subtitle": "The ultimate wild card challenge",
+    "language": "english",
+    "type": "premium",
+    "playerGroup": ["friends", "strangers"]
+  },
+  "ui": {
+    "startScreen": {
+      "title": "How You Dare",
+      "description": [
+        "Welcome to the edge of comfort.",
+        "Every card is a dare.",
+        "Only the brave should proceed."
+      ],
+      "startButton": "Accept the Challenge"
+    },
+    "navigation": {
+      "nextButton": "Next Dare",
+      "prevButton": "Pussy Out"
+    },
+    "endScreen": {
+      "title": "You Survived",
+      "subtitle": "You've earned your bragging rights",
+      "restartButton": "Dare Again"
+    }
+  },
+  "theme": {
+    "categories": {
+      "physical": {
+        "name": "Physical",
+        "color": "#fb923c",
+        "description": "Get moving, get goofy"
+      },
+      "social": {
+        "name": "Social",
+        "color": "#38bdf8",
+        "description": "Interactive embarrassment"
+      },
+      "awkward": {
+        "name": "Awkward",
+        "color": "#a855f7",
+        "description": "Cringe is the goal"
+      },
+      "wild": {
+        "name": "Wild Card",
+        "color": "#f43f5e",
+        "description": "Expect the unexpected"
+      }
+    }
+  },
+  "questions": [
+    {
+      "category": "physical",
+      "questions": [
+        {
+          "type": "wildcard",
+          "question": "Do your best 30-second interpretive dance of a piece of fried chicken."
+        },
+        {
+          "type": "wildcard",
+          "question": "Strike and hold a high-fashion pose until your next turn."
+        },
+        {
+          "type": "wildcard",
+          "question": "Try to lick your elbow while maintaining eye contact with the person to your left."
+        },
+        {
+          "type": "wildcard",
+          "question": "Do 5 pushups while yelling 'I AM THE CHAMPION' after each one."
+        }
+      ]
+    },
+    {
+      "category": "social",
+      "questions": [
+        {
+          "type": "wildcard",
+          "question": "Open your window and scream 'I FOUND A RARE POKEMON' at the top of your lungs."
+        },
+        {
+          "type": "wildcard",
+          "question": "Text your 5th most recent contact: 'I know what you did with the sandwich.'"
+        },
+        {
+          "type": "wildcard",
+          "question": "Speak only in an operatic singing voice for the next 5 minutes."
+        },
+        {
+          "type": "wildcard",
+          "question": "Let the group post any photo from your gallery to your Instagram/WeChat story with no context."
+        }
+      ]
+    },
+    {
+      "category": "awkward",
+      "questions": [
+        {
+          "type": "wildcard",
+          "question": "Smell everyone's hands and rank them from 'Most Flowery' to 'Most Concerning'."
+        },
+        {
+          "type": "wildcard",
+          "question": "Look at the person to your right and tell them what fruit they would be, with an uncomfortably detailed explanation."
+        },
+        {
+          "type": "wildcard",
+          "question": "Gently whisper your favorite Disney movie title into someone's ear."
+        },
+        {
+          "type": "wildcard",
+          "question": "Staring contest with the nearest inanimate object. If you blink, you must apologize to it."
+        }
+      ]
+    },
+    {
+      "category": "wild",
+      "questions": [
+        {
+          "type": "wildcard",
+          "question": "Swap a piece of clothing with someone else in the group for the rest of the game."
+        },
+        {
+          "type": "wildcard",
+          "question": "Everyone take a sip of water, and you have to make them bark or laugh until they spit it out."
+        },
+        {
+          "type": "wildcard",
+          "question": "Find the weirdest thing in this room and try to sell it to the group like a desperate infomercial host."
+        }
+      ]
+    }
+  ]
+}

@@ -62,24 +62,30 @@ const GameController: React.FC<GameControllerProps> = ({ games, onExit, autoStar
             // Since we just setSyntheticGame, it won't be in state this render cycle.
             // PROPER FIX: Use the 'singleGame' variable directly to generate questions.
             
-           // Prepare questions for Immediate Play (Default: All categories, 100%, Shuffled)
-           const processedQuestions: any[] = [];
-           singleGame.questions.forEach(cat => {
-               cat.questions.forEach((q, qIndex) => {
-                   processedQuestions.push({
-                       ...q,
-                       category: cat.category,
-                       categoryIndex: singleGame.questions.findIndex(c => c.category === cat.category),
-                       questionIndex: qIndex,
-                       originGame: singleGame.app.title
-                   });
-               });
-           });
-           
-           // Shuffle
-           const shuffled = [...processedQuestions].sort(() => Math.random() - 0.5);
-           setMixedQuestions(shuffled);
-           setCurrentStage(GameStage.PLAYING);
+            // Prepare questions for Immediate Play (Default: All categories, 100%)
+            const processedQuestions: any[] = [];
+            singleGame.questions.forEach(cat => {
+                const catQuestions = cat.questions.map((q, qIndex) => ({
+                    ...q,
+                    category: cat.category,
+                    categoryIndex: singleGame.questions.findIndex(c => c.category === cat.category),
+                    questionIndex: qIndex,
+                    originGame: singleGame.app.title
+                }));
+                
+                // Shuffle WITHIN this specific category
+                const shuffledCatQuestions = [...catQuestions].sort(() => Math.random() - 0.5);
+                processedQuestions.push(...shuffledCatQuestions);
+            });
+            
+            // For Quick Mode, follow category order but random within categories
+            // Move 'end' type questions to the very end of the entire session
+            const endQuestions = processedQuestions.filter((q: any) => q.type === "end");
+            const nonEndQuestions = processedQuestions.filter((q: any) => q.type !== "end");
+            const finalSequence = [...nonEndQuestions, ...endQuestions];
+
+            setMixedQuestions(finalSequence);
+            setCurrentStage(GameStage.PLAYING);
 
         } else {
             // Standard Flow
