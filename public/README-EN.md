@@ -37,16 +37,31 @@ CueCards is a cross-platform conversation card application designed to foster de
 
 Visit the [Releases page](https://github.com/SonghaiFan/have_a_talk_by_cards/releases) to download the version for your system:
 
-- **Windows**: `CueCards_0.1.0_x64.msi`
-- **macOS**: `CueCards_0.1.0_x64.dmg`
+- **Windows**: `CueCards_*.msi` or `CueCards_*.exe`
+- **macOS (Intel)**: `CueCards_*_x64.dmg` or `CueCards_*_x64.app.tar.gz`
+- **macOS (Apple Silicon)**: `CueCards_*_aarch64.dmg` or `CueCards_*_aarch64.app.tar.gz`
 
 ### Installation Instructions
 
 **Windows Users:**
 
-1. Download the `.msi` file
+1. Download the `.msi` or `.exe` file
 2. Double-click to install
 3. If SmartScreen warning appears, click "More info" → "Run anyway"
+
+**macOS Users:**
+
+⚠️ **Important**: Due to ad-hoc signing, special steps are required for the first run.
+
+1. Download the `.dmg` file
+2. Double-click to open, and drag the app to the Applications folder
+3. **First Run**: Do NOT double-click the app directly
+4. **Right-click** the CueCards app → Select **"Open"**
+5. Click **"Open"** in the security warning dialog
+6. You can double-click to run normally afterwards
+
+> **Why right-click to open?**  
+> To keep costs low, we use ad-hoc signing instead of a paid Apple Developer account. This is completely safe; macOS just requires manual user confirmation to trust the app.
 
 **macOS Users:**
 

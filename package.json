@@ -1,7 +1,7 @@
 {
   "name": "cuecards",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "Thoughtfully curated conversation cards for deeper human connection",
   "author": "CueCards",
