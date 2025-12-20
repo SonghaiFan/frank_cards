@@ -25,9 +25,9 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
   };
 
   return (
-    <div className="space-y-6 sm:space-y-8 px-4 sm:px-6">
+    <div className="space-y-4 sm:space-y-6 px-4 sm:px-6">
       {/* Section Header */}
-      <div className="space-y-2">
+      <div className="space-y-1">
         <h2 className="text-xl sm:text-2xl font-light text-gray-900 dark:text-white">
           {t("categorySelector.title")}
         </h2>
@@ -82,7 +82,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
                       whileTap={{ scale: 0.9 }}
                       onClick={() => handleCategoryToggle(categoryKey)}
                       className={`
-                      relative w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full transition-all duration-300 cursor-pointer touch-manipulation
+                      relative w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full transition-all duration-300 cursor-pointer touch-manipulation
                       ${
                         isSelected
                           ? "shadow-lg scale-110"
@@ -100,7 +100,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
                           className="absolute inset-0 flex items-center justify-center"
                         >
                           <svg
-                            className="w-4 h-4 sm:w-6 sm:h-6 text-white"
+                            className="w-3 h-3 sm:w-4 sm:h-4 text-white"
                             fill="currentColor"
                             viewBox="0 0 20 20"
                           >

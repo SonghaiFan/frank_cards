@@ -12,6 +12,8 @@ interface GameSettingsProps {
   onCategoryChange: (categories: string[]) => void;
   questionPercentage: number;
   onPercentageChange: (percentage: number) => void;
+  isChaosMode: boolean;
+  onChaosModeChange: (isChaos: boolean) => void;
   onStartGame: () => void;
   onBack: () => void;
 }
@@ -22,6 +24,8 @@ const GameSettings: React.FC<GameSettingsProps> = ({
   onCategoryChange,
   questionPercentage,
   onPercentageChange,
+  isChaosMode,
+  onChaosModeChange,
   onStartGame,
   onBack,
 }) => {
@@ -42,13 +46,13 @@ const GameSettings: React.FC<GameSettingsProps> = ({
         </motion.button>
 
         {/* Main Content Container */}
-        <div className="text-center max-w-2xl w-full space-y-8 sm:space-y-12">
+        <div className="text-center max-w-2xl w-full space-y-8 sm:space-y-10">
           {/* Header Section */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
-            className="space-y-4"
+            className="space-y-2"
           >
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white tracking-tight leading-tight">
               {t("gameInterface.createYourJourney")}
@@ -63,7 +67,7 @@ const GameSettings: React.FC<GameSettingsProps> = ({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="space-y-6"
+            className="space-y-4"
           >
             <CategorySelector
               game={game}
@@ -85,7 +89,7 @@ const GameSettings: React.FC<GameSettingsProps> = ({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
-            className="space-y-6"
+            className="space-y-4"
           >
             <TimePercentageSlider
               game={game}
@@ -95,12 +99,41 @@ const GameSettings: React.FC<GameSettingsProps> = ({
             />
           </motion.div>
 
+          {/* Chaos Mode Toggle - Styled to match Section Headers */}
+           <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9 }}
+            className="space-y-4"
+          >
+             <div className="space-y-1">
+                <h2 className="text-lg sm:text-xl font-light text-gray-900 dark:text-white">
+                  {t("gameInterface.chaosMode", "Chaos Shuffle")}
+                </h2>
+                <div className="flex items-center justify-center space-x-3 pt-2">
+                   <p className="text-sm text-gray-600 dark:text-gray-300 font-light max-w-xs text-center">
+                      {t("gameInterface.chaosModeDesc", "Mix all questions together, ignoring categories.")}
+                   </p>
+                    <label className="flex items-center cursor-pointer relative">
+                      <input
+                        type="checkbox"
+                        className="sr-only"
+                        checked={isChaosMode}
+                        onChange={(e) => onChaosModeChange(e.target.checked)}
+                      />
+                      <div className={`block w-10 h-6 rounded-full transition-colors duration-300 ${isChaosMode ? 'bg-pink-400' : 'bg-gray-300 dark:bg-gray-600'}`}></div>
+                      <div className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-300 ${isChaosMode ? 'transform translate-x-4' : ''}`}></div>
+                    </label>
+                </div>
+             </div>
+          </motion.div>
+
           {/* Action Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1 }}
-            className="pt-4 flex justify-center"
+            className="pt-2 flex justify-center"
           >
             <Button
               variant="primary"

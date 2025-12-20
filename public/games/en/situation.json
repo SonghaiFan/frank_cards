@@ -30,24 +30,24 @@
   "theme": {
     "categories": {
       "vibe": {
-        "name": "The Vibe",
-        "color": "#fbcfe8",
-        "description": "Exploring the energy between us"
+        "name": "The Performance",
+        "color": "#f9a8d4",
+        "description": "The effort of being 'chill'"
       },
       "undefined": {
-        "name": "The Undefined",
-        "color": "#fbcfe8",
-        "description": "Navigating the undefined"
+        "name": "The Roster",
+        "color": "#d8b4fe",
+        "description": "Competition and options"
       },
       "expectations": {
-        "name": "Expectations",
-        "color": "#fbcfe8",
-        "description": "What we actually want right now"
+        "name": "Asymmetry",
+        "color": "#c4b5fd",
+        "description": "Power dynamics and care"
       },
       "reality": {
-        "name": "Deep Reality",
-        "color": "#fbcfe8",
-        "description": "The person behind the situation"
+        "name": "The Placeholder",
+        "color": "#94a3b8",
+        "description": "Are we a destination or a stop?"
       }
     }
   },
@@ -55,33 +55,37 @@
     {
       "category": "vibe",
       "questions": [
-        { "type": "open", "question": "What was your first impression of our 'energy', and how has it changed since?" },
-        { "type": "open", "question": "What’s one thing we do together that makes you feel most 'in the moment'?" },
-        { "type": "open", "question": "How would you describe the 'vibe' between us to a stranger without using relationship labels?" }
+        { "type": "open", "question": "Do you ever purposefully wait to reply to my messages just to seem less interested than you actually are?" },
+        { "type": "open", "question": "What is a part of yourself you suppress around me to keep things 'light'?" },
+        { "type": "open", "question": "Do you feel relieved or anxious when we spend time together?" },
+        { "type": "wildcard", "question": "WILDCARD: Unlock your phone and show me your last 3 used emojis. Explain who they were sent to." }
       ]
     },
     {
       "category": "undefined",
       "questions": [
-        { "type": "open", "question": "What’s a boundary you have that you haven’t mentioned because we aren't 'official'?" },
-        { "type": "open", "question": "On a scale of 1-10, how much of your real self do you hide to keep things 'chill'?" },
-        { "type": "open", "question": "Is there something you want to ask me but feel like you don't have the 'right' to ask?" }
+        { "type": "open", "question": "Do you assume I am seeing other people? Do you want to know the specific answer?" },
+        { "type": "open", "question": "If I posted a romantic story with someone else tonight, would you feel you had the *right* to be upset?" },
+        { "type": "open", "question": "Have you described me to your friends as 'just a friend' to protect yourself from questions?" },
+        { "type": "wildcard", "question": "WILDCARD: Describe your 'Plan B' person without mentioning their name." }
       ]
     },
     {
       "category": "expectations",
       "questions": [
-        { "type": "open", "question": "Does it bother you if I talk about other potential dates, or do we have an unspoken 'don't ask don't tell' rule?" },
-        { "type": "open", "question": "If you woke up tomorrow and wanted more (or less) from this, would you feel safe telling me immediately?" },
-        { "type": "open", "question": "What’s your 'green flag' and 'red flag' for how a situationship should end?" }
+        { "type": "open", "question": "Who holds the power in our dynamic right now—the one who cares less, or the one who asks for less?" },
+        { "type": "open", "question": "If one of us catches real feelings, is this arrangement automatically over?" },
+        { "type": "open", "question": "Are we avoiding the 'what are we' conversation because we don't know, or because we know the answer will end this?" },
+        { "type": "wildcard", "question": "WILDCARD: Staring Contest. Maintains eye contact for 30 seconds. The first to look away cares less." }
       ]
     },
     {
       "category": "reality",
       "questions": [
-        { "type": "open", "question": "If we were to stop seeing each other tomorrow, would we stay friends or become strangers?" },
-        { "type": "open", "question": "What’s one thing about your life outside of 'us' that I know absolutely nothing about?" },
-        { "type": "open", "question": "In this moment, what are you most afraid of losing if we defined what we are?" }
+        { "type": "open", "question": "Be honest: Am I a placeholder for the relationship you actually want, or am I the destination?" },
+        { "type": "open", "question": "When this ends, what single sentence will you use to explain why it didn't work to your friends?" },
+        { "type": "open", "question": "If you met your 'dream person' tomorrow, would you drop me immediately?" },
+        { "type": "wildcard", "question": "WILDCARD: Ask me the one question you've been too afraid to ask because it might 'ruin' this." }
       ]
     }
   ]

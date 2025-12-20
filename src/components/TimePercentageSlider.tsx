@@ -37,9 +37,9 @@ const TimePercentageSlider: React.FC<TimePercentageSliderProps> = ({
   const progressPercentage = ((percentage - 10) / (100 - 10)) * 100;
 
   return (
-    <div className="space-y-6 sm:space-y-8 px-4 sm:px-6">
+    <div className="space-y-4 sm:space-y-6 px-4 sm:px-6">
       {/* Section Header */}
-      <div className="space-y-2">
+      <div className="space-y-1">
         <h2 className="text-xl sm:text-2xl font-light text-gray-900 dark:text-white">
           {t("timePercentage.title")}
         </h2>

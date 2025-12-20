@@ -29,6 +29,7 @@ const GameController: React.FC<GameControllerProps> = ({ games, onExit, autoStar
   // Single Game specific state
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [questionPercentage, setQuestionPercentage] = useState(100);
+  const [isChaosMode, setIsChaosMode] = useState(false);
 
   useEffect(() => {
     console.log("Processing games in GameController");
@@ -44,26 +45,11 @@ const GameController: React.FC<GameControllerProps> = ({ games, onExit, autoStar
         setSelectedCategories(Object.keys(singleGame.theme.categories));
         
         if (autoStart) {
-            // Immediate Start for Quick Mode
-            // We need to trigger generation here because the effect runs once
-            // But we can't call generateSingleGameQuestions directly inside useEffect safely without dependencies
-            // So we set a flag or handle it by setting stage and relying on a separate effect
-            // OR: simpler, just define the helper outside or use a ref.
-            // Actually, we can just set the state and let a 2nd effect handle "If playing and no questions, generate"
-            // BUT: easiest way -> just call a robust generator or set stage to PLAYING and have a guard in render?
+            // Immediate Start for Quick Mode (Chaos Default: False)
+            // ... (quick mode logic omitted for brevity, it uses its own simple shuffle logic) ...
             
-            // Let's modify the logic: set stage to PLAYING. 
-            // We need to ensure questions are generated. 
-            // Let's make generateQuestions accessible or duplicating the simple "all questions" logic here.
-            
-            // Let's make generateQuestions accessible or duplicating the simple "all questions" logic here.
-            
-            // BETTER: Use the existing generateQuestions helper? It relies on state that might not be set yet (syntheticGame).
-            // Since we just setSyntheticGame, it won't be in state this render cycle.
-            // PROPER FIX: Use the 'singleGame' variable directly to generate questions.
-            
-            // Prepare questions for Immediate Play (Default: All categories, 100%)
-            const processedQuestions: any[] = [];
+            // Prepare questions (similar to generateQuestions but simple immediate)
+             const processedQuestions: any[] = [];
             singleGame.questions.forEach(cat => {
                 const catQuestions = cat.questions.map((q, qIndex) => ({
                     ...q,
@@ -72,15 +58,12 @@ const GameController: React.FC<GameControllerProps> = ({ games, onExit, autoStar
                     questionIndex: qIndex,
                     originGame: singleGame.app.title
                 }));
-                
-                // Shuffle WITHIN this specific category
+                 // Shuffle WITHIN category
                 const shuffledCatQuestions = [...catQuestions].sort(() => Math.random() - 0.5);
                 processedQuestions.push(...shuffledCatQuestions);
             });
-            
-            // For Quick Mode, follow category order but random within categories
-            // Move 'end' type questions to the very end of the entire session
-            const endQuestions = processedQuestions.filter((q: any) => q.type === "end");
+
+             const endQuestions = processedQuestions.filter((q: any) => q.type === "end");
             const nonEndQuestions = processedQuestions.filter((q: any) => q.type !== "end");
             const finalSequence = [...nonEndQuestions, ...endQuestions];
 
@@ -96,6 +79,7 @@ const GameController: React.FC<GameControllerProps> = ({ games, onExit, autoStar
 
     // CASE 2: Multiple Games Selected -> Merge and Prepare for Settings
     if (games.length > 1) {
+        // ... (merging logic remains same) ...
         // 1. Merge Categories
         const mergedCategories: Record<string, any> = {};
         const mergedQuestions: any[] = [];
@@ -209,14 +193,13 @@ const GameController: React.FC<GameControllerProps> = ({ games, onExit, autoStar
             };
         });
 
-        // Adjust for rounding differences
+        // Adjust for rounding differences (same logic as before)
         const actualTotal = questionsPerCategory.reduce(
             (sum, cat) => sum + cat.targetCount,
             0
         );
         if (actualTotal > totalQuestions) {
-            // Remove questions from the category with the most questions
-            const maxCategory = questionsPerCategory.reduce((max, cat) =>
+             const maxCategory = questionsPerCategory.reduce((max, cat) =>
                 cat.targetCount > max.targetCount ? cat : max
             );
             maxCategory.targetCount -= actualTotal - totalQuestions;
@@ -232,9 +215,15 @@ const GameController: React.FC<GameControllerProps> = ({ games, onExit, autoStar
             finalQuestions.push(...selectedQuestions);
         });
 
-        // Move 'end' type questions to the end
+        // CHAOS MODE LOGIC:
+        let nonEndQuestions = finalQuestions.filter((q: any) => q.type !== "end");
         const endQuestions = finalQuestions.filter((q: any) => q.type === "end");
-        const nonEndQuestions = finalQuestions.filter((q: any) => q.type !== "end");
+
+        if (isChaosMode) {
+            // Global shuffle for non-end questions
+             nonEndQuestions = nonEndQuestions.sort(() => 0.5 - Math.random());
+        }
+
         return [...nonEndQuestions, ...endQuestions];
   };
 
@@ -290,6 +279,8 @@ const GameController: React.FC<GameControllerProps> = ({ games, onExit, autoStar
           onCategoryChange={setSelectedCategories}
           questionPercentage={questionPercentage}
           onPercentageChange={setQuestionPercentage}
+          isChaosMode={isChaosMode}
+          onChaosModeChange={setIsChaosMode}
           onStartGame={handleStartGame}
           onBack={handleBackToLanding}
         />

@@ -30,24 +30,24 @@
   "theme": {
     "categories": {
       "vibe": {
-        "name": "气场 (The Vibe)",
-        "color": "#fbcfe8",
-        "description": "探索我们目前的共鸣"
+        "name": "表演式松弛 (The Performance)",
+        "color": "#f9a8d4",
+        "description": "为了维持“轻松”而付出的努力"
       },
       "undefined": {
-        "name": "未定义",
-        "color": "#fbcfe8",
-        "description": "应对未定义的现状"
+        "name": "鱼塘心态 (The Roster)",
+        "color": "#d8b4fe",
+        "description": "竞争、选项与默认状态"
       },
       "expectations": {
-        "name": "预期",
-        "color": "#fbcfe8",
-        "description": "了解我们现在想要什么"
+        "name": "不对等关系 (Asymmetry)",
+        "color": "#c4b5fd",
+        "description": "权力动态与谁更在乎"
       },
       "reality": {
-        "name": "真实面面观",
-        "color": "#fbcfe8",
-        "description": "现状背后的真实个体"
+        "name": "占位符 (The Placeholder)",
+        "color": "#94a3b8",
+        "description": "我是目的地，还是中转站？"
       }
     }
   },
@@ -55,33 +55,37 @@
     {
       "category": "vibe",
       "questions": [
-        { "type": "open", "question": "你对我们之间“能量”的第一印象是什么？从那时起到现在有了哪些变化？" },
-        { "type": "open", "question": "我们在一起做的哪件事最让你感到“活在当下”？" },
-        { "type": "open", "question": "如果不使用任何关系标签，你会如何向陌生人描述我们之间的“氛围”？" }
+        { "type": "open", "question": "你有没有故意晚回我的消息，只是为了让自己看起来没那么在意？" },
+        { "type": "open", "question": "为了保持这种“轻松”的氛围，你在我面前压抑了哪一部分真实的自己？" },
+        { "type": "open", "question": "当我们在一起时，你更多感到的是如释重负还是焦虑不安？" },
+        { "type": "wildcard", "question": "特别环节：解锁你的手机，让我看你最近使用的3个表情。解释一下是发给谁的。" }
       ]
     },
     {
       "category": "undefined",
       "questions": [
-        { "type": "open", "question": "有什么边界是你因为我们还没“正式”而从未提过的？" },
-        { "type": "open", "question": "从1到10打分，为了保持目前的轻松感，你隐藏了多少真实的自我？" },
-        { "type": "open", "question": "有什么事是你一直想问我，但觉得现在还“没权利”开口的？" }
+        { "type": "open", "question": "你是否默认我在见其他人？你想知道具体的答案吗？" },
+        { "type": "open", "question": "如果我今晚发了和别人的暧昧动态，你觉得你有“权利”生气吗？" },
+        { "type": "open", "question": "为了避免被追问，你是不是跟朋友介绍我时只说我是“普通朋友”？" },
+        { "type": "wildcard", "question": "特别环节：描述一下你的“备胎” (Plan B)，但不要提名字。" }
       ]
     },
     {
       "category": "expectations",
       "questions": [
-        { "type": "open", "question": "如果我提到其他的潜在约会对象，你会介意吗？还是我们默认“不闻不问”？" },
-        { "type": "open", "question": "如果你明天醒来，想要从这段关系中获得更多（或更少），你会觉得可以安全地立刻告诉我吗？" },
-        { "type": "open", "question": "对于一段 Situationship 该如何结束，你心中的“加分项”和“雷点”分别是什么？" }
+        { "type": "open", "question": "现在谁掌握着这段关系的主动权？是那个更不在乎的人，还是那个索取更少的人？" },
+        { "type": "open", "question": "如果我们中的一人动了真感情，这段关系是否就自动结束了？" },
+        { "type": "open", "question": "我们回避“我们是什么”这个话题，是因为我们不知道，还是因为我们知道答案会终结这一切？" },
+        { "type": "wildcard", "question": "特别环节：对视挑战。保持眼神接触30秒。先移开视线的人，是那个更不在乎的人。" }
       ]
     },
     {
       "category": "reality",
       "questions": [
-        { "type": "open", "question": "如果我们明天停止见面，我们会继续做朋友还是彻底变成陌生人？" },
-        { "type": "open", "question": "在“我们”之外，关于你的生活，有什么是我绝对一无所知的？" },
-        { "type": "open", "question": "在这一刻，如果我们要明确彼此的关系，你最害怕失去的是什么？" }
+        { "type": "open", "question": "诚实地说：我是你理想关系的“占位符”，还是你的目的地？" },
+        { "type": "open", "question": "当这段关系结束时，你会用哪一句话向朋友解释为什么我们没成？" },
+        { "type": "open", "question": "如果你明天遇到了你的“理想型”，你会立刻放弃我吗？" },
+        { "type": "wildcard", "question": "特别环节：问我那个你一直不敢问的问题，因为你怕它会“毁了”这一切。" }
       ]
     }
   ]
