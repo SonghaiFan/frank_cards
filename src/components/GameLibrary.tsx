@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { ConversationGame } from "../types/ConversationGame";
 import { useEasterEgg } from "../hooks/useEasterEgg";
-import Card from "./Card";
+import CardPack from "./CardPack";
 import LanguageSwitcher from "./LanguageSwitcher";
 import FilterGroup from "./FilterGroup";
 
@@ -12,13 +12,17 @@ type GameType = "normal" | "edition" | "premium";
 
 interface GameLibraryProps {
   games: ConversationGame[];
-  onGameSelect: (game: ConversationGame) => void;
+  selectedGames: ConversationGame[];
+  onToggleGame: (game: ConversationGame) => void;
+  onStartSession: () => void;
 }
 
-const GameLibrary: React.FC<GameLibraryProps> = ({ games, onGameSelect }) => {
+const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggleGame, onStartSession }) => {
   const { t } = useTranslation();
   const [hoveredGame, setHoveredGame] = useState<string | null>(null);
-  const [selectedGameIndex, setSelectedGameIndex] = useState(0);
+  const [selectedGameIndex, setSelectedGameIndex] = useState(0); // For keyboard nav (focus)
+  
+  // Filters
   const [selectedType, setSelectedType] = useState<GameType | null>(null);
   const [selectedGroup, setSelectedGroup] = useState<PlayerGroup | null>(null);
   const [showUnlockMessage, setShowUnlockMessage] = useState(false);
@@ -79,7 +83,7 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, onGameSelect }) => {
         case " ": // Spacebar
           event.preventDefault();
           if (filteredGames[selectedGameIndex]) {
-            onGameSelect(filteredGames[selectedGameIndex]);
+            onToggleGame(filteredGames[selectedGameIndex]);
           }
           break;
       }
@@ -87,7 +91,7 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, onGameSelect }) => {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [filteredGames, selectedGameIndex, onGameSelect]);
+  }, [filteredGames, selectedGameIndex, onToggleGame]);
 
   // Update hover when keyboard selection changes
   useEffect(() => {
@@ -96,8 +100,12 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, onGameSelect }) => {
     }
   }, [selectedGameIndex, filteredGames]);
 
+  const isGameSelected = (gameId: string) => {
+    return selectedGames.some(g => g.testID === gameId);
+  };
+
   return (
-    <div className="h-full w-full bg-white dark:bg-black flex flex-col items-center px-4 sm:px-8 py-8 sm:py-16 overflow-y-auto">
+    <div className="h-full w-full bg-white dark:bg-black flex flex-col items-center px-4 sm:px-8 py-8 sm:py-16 overflow-y-auto relative">
       {/* Language Switcher */}
       <div className="absolute top-4 right-4 sm:top-8 sm:right-8">
         <LanguageSwitcher />
@@ -203,143 +211,28 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, onGameSelect }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.4 }}
-        className="w-full max-w-4xl grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-12 mb-8 sm:mb-16 justify-items-center"
+        className="w-full max-w-4xl grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-12 mb-32 justify-items-center"
       >
-        {filteredGames.map((game, index) => (
-          <motion.div
-            key={game.testID}
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.6,
-              delay: index * 0.2,
-              ease: "easeOut",
-            }}
-            className="cursor-pointer relative"
-            onHoverStart={() => setHoveredGame(game.testID)}
-            onHoverEnd={() => setHoveredGame(null)}
-            onClick={() => onGameSelect(game)}
-          >
-            {/* Card Pack Container */}
-            <div className="relative">
-              {/* Background Cards - Dynamic based on categories */}
-              <AnimatePresence>
-                {hoveredGame === game.testID && (
-                  <>
-                    {Object.entries(game.theme.categories).map(
-                      (categoryEntry, cardIndex) => {
-                        const [categoryKey, category] = categoryEntry;
-
-                        return (
-                          <Card
-                            key={categoryKey}
-                            size="medium"
-                            variant="game"
-                            className="absolute top-0 left-0"
-                            style={{
-                              aspectRatio: "400/250",
-                              backgroundColor: category.color,
-                            }}
-                            initial={{
-                              x: 0,
-                              y: 0,
-                              rotate: 0,
-                              scale: 1,
-                              opacity: 0,
-                            }}
-                            animate={{
-                              x: -12 * (cardIndex + 1),
-                              y: -16 * (cardIndex + 1),
-                              rotate: -2.5 * (cardIndex + 1),
-                              scale: 1 - 0.04 * (cardIndex + 1),
-                              opacity: 1,
-                            }}
-                            exit={{
-                              x: 0,
-                              y: 0,
-                              rotate: 0,
-                              scale: 1,
-                              opacity: 0,
-                            }}
-                            transition={{
-                              duration: 0.3,
-                              ease: "easeOut",
-                              delay: 0.05 + cardIndex * 0.02,
-                            }}
-                          />
-                        );
-                      }
-                    )}
-                  </>
-                )}
-              </AnimatePresence>
-
-              {/* Main Card - Always visible (White Cover) */}
-              <Card
-                size="medium"
-                variant="game"
-                className={`relative z-10 cursor-pointer ${
-                  selectedGameIndex === index
-                    ? "ring-3 ring-black ring-opacity-50"
-                    : ""
-                }`}
-                style={{
-                  aspectRatio: "400/250",
-                  backgroundColor: "#ffffff",
+        {filteredGames.map((game, index) => {
+           const isSelected = isGameSelected(game.testID);
+           const isHovered = hoveredGame === game.testID;
+           
+           return (
+             <CardPack
+                key={game.testID}
+                game={game}
+                index={index}
+                isSelected={isSelected}
+                isHovered={isHovered}
+                onToggle={onToggleGame}
+                onHoverStart={() => {
+                    setHoveredGame(game.testID);
+                    setSelectedGameIndex(index);
                 }}
-                whileHover={{
-                  scale: 1.02,
-                  y: -4,
-                }}
-                whileTap={{ scale: 0.98 }}
-                transition={{
-                  duration: 0.2,
-                  ease: "easeOut",
-                }}
-                onClick={() => onGameSelect(game)}
-                onMouseEnter={() => {
-                  setHoveredGame(game.testID);
-                  setSelectedGameIndex(index);
-                }}
-                onMouseLeave={() => setHoveredGame(null)}
-              >
-                {/* Game Title */}
-                <h2 className="text-xl sm:text-2xl font-bold text-black mb-3 sm:mb-4 text-center leading-tight px-2">
-                  {game.app.title}
-                </h2>
-
-                {/* Game Description */}
-                <p className="text-xs sm:text-sm text-gray-700 font-medium text-center leading-relaxed px-2">
-                  {game.app.subtitle}
-                </p>
-
-                {/* Category Dots */}
-                <div className="flex justify-center gap-1.5 sm:gap-2 mt-3 sm:mt-4">
-                  {Object.values(game.theme.categories).map(
-                    (category, index) => (
-                      <div
-                        key={index}
-                        className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full"
-                        style={{ backgroundColor: category.color }}
-                        title={category.name}
-                      />
-                    )
-                  )}
-                </div>
-
-                {/* Card Count Indicator */}
-                <div className="mt-3 sm:mt-4 text-xs text-gray-600 font-semibold uppercase tracking-wider text-center px-2">
-                  {game.questions.reduce(
-                    (total: number, category: any) =>
-                      total + category.questions.length,
-                    0
-                  )}{" "}
-                  Cards • {Object.keys(game.theme.categories).length} Categories
-                </div>
-              </Card>
-            </div>
-          </motion.div>
-        ))}
+                onHoverEnd={() => setHoveredGame(null)}
+             />
+        );
+      })}
       </motion.div>
 
       {/* No Results Message */}
@@ -358,20 +251,32 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, onGameSelect }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
-        className="text-center text-gray-600 font-medium"
+        className="text-center text-gray-600 font-medium pb-24"
       >
         <p className="text-sm">{t("gameLibrary.footnote")}</p>
       </motion.div>
 
-      {/* Keyboard Hints - Subtle */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.4 }}
-        transition={{ delay: 1 }}
-        className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 text-xs text-gray-500 font-medium text-right hidden sm:block"
-      >
-        <p>↑↓ Navigate • Enter Select</p>
-      </motion.div>
+      {/* Floating Action Bar (Start Session) */}
+      <AnimatePresence>
+      {selectedGames.length > 0 && (
+          <motion.div
+             initial={{ y: 100, opacity: 0 }}
+             animate={{ y: 0, opacity: 1 }}
+             exit={{ y: 100, opacity: 0 }}
+             className="fixed bottom-8 left-0 right-0 flex justify-center z-50 pointer-events-none"
+          >
+              <button 
+                onClick={onStartSession}
+                className="pointer-events-auto shadow-2xl bg-black dark:bg-white text-white dark:text-black font-bold text-lg px-8 py-4 rounded-full flex items-center gap-3 hover:scale-105 transition-transform"
+              >
+                  <span>Play {selectedGames.length} Pack{selectedGames.length > 1 ? 's' : ''}</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+              </button>
+          </motion.div>
+      )}
+      </AnimatePresence>
     </div>
   );
 };

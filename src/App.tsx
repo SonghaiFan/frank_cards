@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import "./App.css";
 import { ConversationGame } from "./types/ConversationGame";
 import GameLibrary from "./components/GameLibrary";
+import QuickGameLibrary from "./components/QuickGameLibrary";
 import GameController from "./components/GameController";
 import MinimumScreenSize from "./components/MinimumScreenSize";
 import { useScreenSize } from "./hooks/useScreenSize";
@@ -10,13 +11,23 @@ import { useScreenSize } from "./hooks/useScreenSize";
 function App() {
   const { i18n } = useTranslation();
   const [games, setGames] = useState<ConversationGame[]>([]);
-  const [currentGame, setCurrentGame] = useState<ConversationGame | null>(null);
+  
+  // Refactor state for multi-selection
+  const [selectedGames, setSelectedGames] = useState<ConversationGame[]>([]);
+  const [isSessionActive, setIsSessionActive] = useState(false);
+  
   const [loading, setLoading] = useState(true);
   const { isMinimumSizeMet } = useScreenSize();
 
   useEffect(() => {
     loadGames();
   }, [i18n.language]); // React to language changes
+
+  // Clear selections when language changes to avoid conflicting content
+  useEffect(() => {
+    setSelectedGames([]);
+    setIsSessionActive(false);
+  }, [i18n.language]);
 
   const loadGames = async () => {
     setLoading(true);
@@ -71,16 +82,6 @@ function App() {
       }
 
       setGames(loadedGames);
-
-      // If there's a current game, update it with the new language version
-      if (currentGame) {
-        const updatedGame = loadedGames.find(
-          (game) => game.testID === currentGame.testID
-        );
-        if (updatedGame) {
-          setCurrentGame(updatedGame);
-        }
-      }
     } catch (error) {
       console.error("Failed to load games:", error);
     } finally {
@@ -105,12 +106,45 @@ function App() {
     return `/games/zh/${baseName}-CN.${extension}`;
   };
 
-  const handleGameSelect = (game: ConversationGame) => {
-    setCurrentGame(game);
+  // View Mode: 'customize' or 'quick'
+  const [viewMode, setViewMode] = useState<"customize" | "quick">("customize");
+  
+  // Auto-start flag for Quick Mode
+  const [shouldAutoStart, setShouldAutoStart] = useState(false);
+
+  // Toggle selection for a game
+  const handleToggleGame = (game: ConversationGame) => {
+    console.log("Toggling game:", game.testID);
+    setSelectedGames(prev => {
+        const exists = prev.some(g => g.testID === game.testID);
+        let newSelection;
+        if (exists) {
+            newSelection = prev.filter(g => g.testID !== game.testID);
+        } else {
+            newSelection = [...prev, game];
+        }
+        console.log("New selection count:", newSelection.length);
+        return newSelection;
+    });
+  };
+
+  const handleStartSession = () => {
+    console.log("Starting session with games:", selectedGames.length);
+    if (selectedGames.length > 0) {
+        setShouldAutoStart(false); // Default flow
+        setIsSessionActive(true);
+    }
+  };
+
+  const handleQuickStart = (game: ConversationGame) => {
+      setSelectedGames([game]);
+      setShouldAutoStart(true); // Enable auto-start for Quick Mode
+      setIsSessionActive(true);
   };
 
   const handleGameExit = () => {
-    setCurrentGame(null);
+    setIsSessionActive(false);
+    setShouldAutoStart(false);
   };
 
   // Check if screen meets minimum size requirements
@@ -130,16 +164,56 @@ function App() {
   }
 
   return (
-    <div className="h-screen w-screen overflow-hidden">
-      {currentGame ? (
-        <GameController
-          key={currentGame.testID}
-          game={currentGame}
-          onExit={handleGameExit}
-        />
-      ) : (
-        <GameLibrary games={games} onGameSelect={handleGameSelect} />
-      )}
+    <div className="h-screen w-screen overflow-hidden flex flex-col">
+       {/* Top Bar for Mode Switching (Only visible when not playing) */}
+       {!isSessionActive && (
+           <div className="w-full h-16 bg-white dark:bg-black border-b border-gray-100 dark:border-gray-900 flex items-center justify-between px-8 absolute top-0 z-50">
+               <div className="font-black text-xl tracking-tight">CueCards</div>
+               
+               <div className="flex bg-gray-100 dark:bg-gray-900 p-1 rounded-full">
+                   <button 
+                    onClick={() => setViewMode("customize")}
+                    className={`px-4 py-1.5 rounded-full text-sm font-bold transition-all ${viewMode === "customize" ? "bg-white dark:bg-black shadow-sm text-black dark:text-white" : "text-gray-500 hover:text-gray-800 dark:hover:text-gray-300"}`}
+                   >
+                       Custom
+                   </button>
+                   <button 
+                    onClick={() => setViewMode("quick")}
+                    className={`px-4 py-1.5 rounded-full text-sm font-bold transition-all ${viewMode === "quick" ? "bg-white dark:bg-black shadow-sm text-black dark:text-white" : "text-gray-500 hover:text-gray-800 dark:hover:text-gray-300"}`}
+                   >
+                       Quick Play
+                   </button>
+               </div>
+               
+               <div className="w-20" /> {/* Spacer for balance */}
+           </div>
+       )}
+
+      <div className="flex-1 w-full h-full pt-16 relative">
+          {isSessionActive ? (
+            <GameController
+            key={selectedGames.map(g => g.testID).join("-")} 
+            games={selectedGames}
+            onExit={handleGameExit}
+            autoStart={shouldAutoStart}
+            />
+        ) : (
+            viewMode === "quick" ? (
+                // Import QuickGameLibrary dynamically or use existing import
+                <QuickGameLibrary 
+                    games={games}
+                    onStartGame={handleQuickStart}
+                />
+            ) : (
+                <GameLibrary 
+                    games={games} 
+                    selectedGames={selectedGames}
+                    onToggleGame={handleToggleGame} 
+                    onStartSession={handleStartSession}
+                />
+            )
+        )}
+      </div>
     </div>
   );
 }
