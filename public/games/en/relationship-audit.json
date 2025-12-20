@@ -1,0 +1,150 @@
+{
+  "testID": "relationship-audit",
+  "app": {
+    "title": "Relationship Audit",
+    "subtitle": "Structural Dialogue: Not just chatting, but scrutinizing the connection.",
+    "language": "english",
+    "type": "premium",
+    "playerGroup": ["couple", "friends"]
+  },
+  "ui": {
+    "startScreen": {
+      "title": "Relationship Audit",
+      "description": [
+        "This is not a casual conversation.",
+        "It is a structural dialogue designed to surface needs, misunderstandings, and responsibilities.",
+        "Both parties must be willing to be honest, vulnerable, and accountable."
+      ],
+      "startButton": "Begin Audit"
+    },
+    "navigation": {
+      "nextButton": "Next Question",
+      "prevButton": "Previous"
+    },
+    "endScreen": {
+      "title": "audit complete",
+      "subtitle": "Take a deep breath. Acknowledge the courage it took to be here.",
+      "restartButton": "Re-evaluate"
+    }
+  },
+  "theme": {
+    "categories": {
+      "needs": {
+        "name": "Needs & Expectations",
+        "color": "#1e3a8a",
+        "description": "What is missing? What is required?"
+      },
+      "pain": {
+        "name": "Misunderstandings & Pain",
+        "color": "#991b1b",
+        "description": "Addressing the friction and hurts"
+      },
+      "truth": {
+        "name": "Fears & Truths",
+        "color": "#111827",
+        "description": "The things we are afraid to say"
+      }
+    }
+  },
+  "questions": [
+    {
+      "category": "needs",
+      "questions": [
+        {
+          "type": "open",
+          "question": "What do you need from me that you’re not getting?"
+        },
+        {
+          "type": "open",
+          "question": "In what specific way do you feel I take you for granted?"
+        },
+        {
+          "type": "open",
+          "question": "What is one thing I could do this week that would make you feel truly supported?"
+        },
+        {
+          "type": "open",
+          "question": "How do I fail to meet your expectations in our relationship?"
+        },
+        {
+          "type": "open",
+          "question": "What is a need of yours that you feel uncomfortable expressing to me?"
+        },
+        {
+          "type": "open",
+          "question": "Where in our relationship do you feel you are doing more of the heavy lifting?"
+        },
+        {
+          "type": "open",
+          "question": "If you could change one way I communicate with you, what would it be?"
+        }
+      ]
+    },
+    {
+      "category": "pain",
+      "questions": [
+        {
+          "type": "open",
+          "question": "When do you feel most misunderstood by me?"
+        },
+        {
+          "type": "open",
+          "question": "What is a past hurt between us that you haven't fully let go of?"
+        },
+        {
+          "type": "open",
+          "question": "When I apologize, what is missing for you to feel it's sincere?"
+        },
+        {
+          "type": "open",
+          "question": "What is the most painful thing I have ever said to you?"
+        },
+        {
+          "type": "open",
+          "question": "In what situations do you feel I am not on your team?"
+        },
+        {
+          "type": "open",
+          "question": "What is a recurring conflict we have that you feel is unresolved?"
+        },
+        {
+          "type": "open",
+          "question": "When do you feel judged by me?"
+        }
+      ]
+    },
+    {
+      "category": "truth",
+      "questions": [
+        {
+          "type": "open",
+          "question": "What are you afraid to ask me?"
+        },
+        {
+          "type": "open",
+          "question": "What is something you are pretending not to know about our relationship?"
+        },
+        {
+          "type": "open",
+          "question": "If we were to end our relationship today, what would be the reason?"
+        },
+        {
+          "type": "open",
+          "question": "What part of yourself do you feel you have to hide from me?"
+        },
+        {
+          "type": "open",
+          "question": "What hesitation do you have about our future together?"
+        },
+        {
+          "type": "open",
+          "question": "What is a secret you’ve kept from me to protect my feelings?"
+        },
+        {
+          "type": "open",
+          "question": "What is the hardest truth you have had to accept about me?"
+        }
+      ]
+    }
+  ]
+}

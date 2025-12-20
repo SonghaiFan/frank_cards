@@ -1,0 +1,153 @@
+{
+  "testID": "relationship-audit",
+  "app": {
+    "title": "关系深度审视",
+    "subtitle": "那些我们不敢触碰的真相",
+    "language": "chinese",
+    "type": "premium",
+    "playerGroup": [
+      "couple",
+      "friends"
+    ]
+  },
+  "ui": {
+    "startScreen": {
+      "title": "关系深度审视",
+      "description": [
+        "直面关系中的痛点与盲区",
+        "这不是轻松的闲聊",
+        "这是为了不仅想要维持，更想要进化的伴侣"
+      ],
+      "startButton": "开始审视"
+    },
+    "navigation": {
+      "nextButton": "下一题",
+      "prevButton": "上一题"
+    },
+    "endScreen": {
+      "title": "审视完成",
+      "subtitle": "深呼吸。感谢彼此直面真相的勇气。",
+      "restartButton": "重新评估"
+    }
+  },
+  "theme": {
+    "categories": {
+      "needs": {
+        "name": "需求与期待",
+        "color": "#1e3a8a",
+        "description": "缺失了什么？需要什么？"
+      },
+      "pain": {
+        "name": "误解与痛点",
+        "color": "#991b1b",
+        "description": "直面摩擦与伤害"
+      },
+      "truth": {
+        "name": "恐惧与真相",
+        "color": "#111827",
+        "description": "那些我们不敢说出口的话"
+      }
+    }
+  },
+  "questions": [
+    {
+      "category": "needs",
+      "questions": [
+        {
+          "type": "open",
+          "question": "你需要我给你什么，而你目前没有得到的？"
+        },
+        {
+          "type": "open",
+          "question": "在哪些具体方面，你觉得我把你的付出视作理所当然？"
+        },
+        {
+          "type": "open",
+          "question": "有什么事是我这周可以为你做的，能让你感到真正的被支持？"
+        },
+        {
+          "type": "open",
+          "question": "我在哪些方面未能满足你对这段关系的期待？"
+        },
+        {
+          "type": "open",
+          "question": "你有什么需求是让你觉得难以向我启齿的？"
+        },
+        {
+          "type": "open",
+          "question": "在关系的哪些方面，你觉得你在承担更多？"
+        },
+        {
+          "type": "open",
+          "question": "如果你能改变我与你沟通的一种方式，那会是什么？"
+        }
+      ]
+    },
+    {
+      "category": "pain",
+      "questions": [
+        {
+          "type": "open",
+          "question": "你在什么时候感到最不被我理解？"
+        },
+        {
+          "type": "open",
+          "question": "我们之间有哪个过去的伤害是你还没有完全释怀的？"
+        },
+        {
+          "type": "open",
+          "question": "当我道歉时，你觉得缺了什么让你感觉不到诚意？"
+        },
+        {
+          "type": "open",
+          "question": "我对你说过最伤人的话是什么？"
+        },
+        {
+          "type": "open",
+          "question": "在什么情况下，你觉得我没有和你站在一边？"
+        },
+        {
+          "type": "open",
+          "question": "我们之间有什么反复出现的冲突是你觉得至今未解决的？"
+        },
+        {
+          "type": "open",
+          "question": "你在什么时候感到被我评判？"
+        }
+      ]
+    },
+    {
+      "category": "truth",
+      "questions": [
+        {
+          "type": "open",
+          "question": "你害怕问我什么问题？"
+        },
+        {
+          "type": "open",
+          "question": "关于我们的关系，你在假装不知道什么？"
+        },
+        {
+          "type": "open",
+          "question": "如果我们今天结束这段关系，原因会是什么？"
+        },
+        {
+          "type": "open",
+          "question": "你觉得自己必须向我隐藏哪一部分的自己？"
+        },
+        {
+          "type": "open",
+          "question": "对于我们的未来，你有什么犹豫？"
+        },
+        {
+          "type": "open",
+          "question": "为了保护我的感受，你对我隐瞒了什么秘密？"
+        },
+        {
+          "type": "open",
+          "question": "关于我，你不得不接受的最艰难的真相是什么？"
+        }
+      ]
+    }
+  ]
+}

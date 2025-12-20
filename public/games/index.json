@@ -8,6 +8,7 @@
     "laugh-out-loud.json",
     "long-distance.json",
     "meaningful-connections.json",
+    "relationship-audit.json",
     "relationship-check.json",
     "seconda-date.json",
     "self-love.json",
@@ -28,6 +29,7 @@
       "laugh-out-loud.json",
       "long-distance.json",
       "meaningful-connections.json",
+      "relationship-audit.json",
       "relationship-check.json",
       "seconda-date.json",
       "self-love.json",
@@ -47,6 +49,7 @@
       "laugh-out-loud-CN.json",
       "long-distance-CN.json",
       "meaningful-connections-CN.json",
+      "relationship-audit-CN.json",
       "relationship-check-CN.json",
       "seconda-date-CN.json",
       "self-love-CN.json",
@@ -58,10 +61,10 @@
       "xxx-CN.json"
     ]
   },
-  "lastUpdated": "2025-12-20T02:09:45.869Z",
+  "lastUpdated": "2025-12-20T02:22:52.161Z",
   "version": "1.0.0",
-  "generatedAt": "2025-12-20T02:09:45.870Z",
-  "totalGames": 17,
+  "generatedAt": "2025-12-20T02:22:52.162Z",
+  "totalGames": 18,
   "languages": [
     "en",
     "zh"
