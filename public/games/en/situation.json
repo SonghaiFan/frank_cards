@@ -1,0 +1,89 @@
+{
+  "testID": "deep-connections",
+  "app": {
+    "title": "Situationship",
+    "subtitle": "Navigating the undefined with clarity and intention",
+    "language": "english",
+    "type": "edition",
+    "playerGroup": ["partners", "dating"]
+  },
+  "ui": {
+    "startScreen": {
+      "title": "Situationship",
+      "description": [
+        "A safe space to discuss the undefined.",
+        "No pressure to label, just space to understand.",
+        "Be honest about the vibe, the boundaries, and the undefined."
+      ],
+      "startButton": "Open the undefined"
+    },
+    "navigation": {
+      "nextButton": "Next Topic",
+      "prevButton": "Back"
+    },
+    "endScreen": {
+      "title": "Clarity Found",
+      "subtitle": "Whatever we are, thank you for being real",
+      "restartButton": "Restart"
+    }
+  },
+  "theme": {
+    "categories": {
+      "vibe": {
+        "name": "The Vibe",
+        "color": "#fbcfe8",
+        "description": "Exploring the energy between us"
+      },
+      "undefined": {
+        "name": "The Undefined",
+        "color": "#fbcfe8",
+        "description": "Navigating the undefined"
+      },
+      "expectations": {
+        "name": "Expectations",
+        "color": "#fbcfe8",
+        "description": "What we actually want right now"
+      },
+      "reality": {
+        "name": "Deep Reality",
+        "color": "#fbcfe8",
+        "description": "The person behind the situation"
+      }
+    }
+  },
+  "questions": [
+    {
+      "category": "vibe",
+      "questions": [
+        { "type": "open", "question": "What was your first impression of our 'energy', and how has it changed since?" },
+        { "type": "open", "question": "What’s one thing we do together that makes you feel most 'in the moment'?" },
+        { "type": "open", "question": "How would you describe the 'vibe' between us to a stranger without using relationship labels?" }
+      ]
+    },
+    {
+      "category": "undefined",
+      "questions": [
+        { "type": "open", "question": "What’s a boundary you have that you haven’t mentioned because we aren't 'official'?" },
+        { "type": "open", "question": "On a scale of 1-10, how much of your real self do you hide to keep things 'chill'?" },
+        { "type": "open", "question": "Is there something you want to ask me but feel like you don't have the 'right' to ask?" }
+      ]
+    },
+    {
+      "category": "expectations",
+      "questions": [
+        { "type": "open", "question": "Does it bother you if I talk about other potential dates, or do we have an unspoken 'don't ask don't tell' rule?" },
+        { "type": "open", "question": "If you woke up tomorrow and wanted more (or less) from this, would you feel safe telling me immediately?" },
+        { "type": "open", "question": "What’s your 'green flag' and 'red flag' for how a situationship should end?" }
+      ]
+    },
+    {
+      "category": "reality",
+      "questions": [
+        { "type": "open", "question": "If we were to stop seeing each other tomorrow, would we stay friends or become strangers?" },
+        { "type": "open", "question": "What’s one thing about your life outside of 'us' that I know absolutely nothing about?" },
+        { "type": "open", "question": "In this moment, what are you most afraid of losing if we defined what we are?" }
+      ]
+    }
+  ]
+}
+

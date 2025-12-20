@@ -1,7 +1,7 @@
 {
   "games": [
     "confidence-boost.json",
-    "deep-connections.json",
+    "situation.json",
     "how-you-dare.json",
     "talking-with-parents.json",
     "we-are-not-really-strangers2.json",
@@ -26,7 +26,7 @@
   "gamesByLanguage": {
     "en": [
       "confidence-boost.json",
-      "deep-connections.json",
+      "situation.json",
       "how-you-dare.json",
       "talking-with-parents.json",
       "we-are-not-really-strangers2.json",
@@ -50,7 +50,7 @@
     ],
     "zh": [
       "confidence-boost-CN.json",
-      "deep-connections-CN.json",
+      "situation-CN.json",
       "how-you-dare-CN.json",
       "talking-with-parents-CN.json",
       "we-are-not-really-strangers2-CN.json",

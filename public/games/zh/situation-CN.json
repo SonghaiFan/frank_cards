@@ -1,0 +1,89 @@
+{
+  "testID": "deep-connections",
+  "app": {
+    "title": "Situationship",
+    "subtitle": "在未定义关系中寻找清晰与真实",
+    "language": "chinese",
+    "type": "edition",
+    "playerGroup": ["partners", "dating"]
+  },
+  "ui": {
+    "startScreen": {
+      "title": "Situationship",
+      "description": [
+        "探讨“未定义关系”的安全空间。",
+        "暂不考虑标签，只为相互理解。",
+        "坦诚面对气场、边界与那些不可言说。 "
+      ],
+      "startButton": "开启未定义关系"
+    },
+    "navigation": {
+      "nextButton": "下一个话题",
+      "prevButton": "返回"
+    },
+    "endScreen": {
+      "title": "获得清晰",
+      "subtitle": "无论我们处于什么状态，感谢你的真实",
+      "restartButton": "重新开始"
+    }
+  },
+  "theme": {
+    "categories": {
+      "vibe": {
+        "name": "气场 (The Vibe)",
+        "color": "#fbcfe8",
+        "description": "探索我们目前的共鸣"
+      },
+      "undefined": {
+        "name": "未定义",
+        "color": "#fbcfe8",
+        "description": "应对未定义的现状"
+      },
+      "expectations": {
+        "name": "预期",
+        "color": "#fbcfe8",
+        "description": "了解我们现在想要什么"
+      },
+      "reality": {
+        "name": "真实面面观",
+        "color": "#fbcfe8",
+        "description": "现状背后的真实个体"
+      }
+    }
+  },
+  "questions": [
+    {
+      "category": "vibe",
+      "questions": [
+        { "type": "open", "question": "你对我们之间“能量”的第一印象是什么？从那时起到现在有了哪些变化？" },
+        { "type": "open", "question": "我们在一起做的哪件事最让你感到“活在当下”？" },
+        { "type": "open", "question": "如果不使用任何关系标签，你会如何向陌生人描述我们之间的“氛围”？" }
+      ]
+    },
+    {
+      "category": "undefined",
+      "questions": [
+        { "type": "open", "question": "有什么边界是你因为我们还没“正式”而从未提过的？" },
+        { "type": "open", "question": "从1到10打分，为了保持目前的轻松感，你隐藏了多少真实的自我？" },
+        { "type": "open", "question": "有什么事是你一直想问我，但觉得现在还“没权利”开口的？" }
+      ]
+    },
+    {
+      "category": "expectations",
+      "questions": [
+        { "type": "open", "question": "如果我提到其他的潜在约会对象，你会介意吗？还是我们默认“不闻不问”？" },
+        { "type": "open", "question": "如果你明天醒来，想要从这段关系中获得更多（或更少），你会觉得可以安全地立刻告诉我吗？" },
+        { "type": "open", "question": "对于一段 Situationship 该如何结束，你心中的“加分项”和“雷点”分别是什么？" }
+      ]
+    },
+    {
+      "category": "reality",
+      "questions": [
+        { "type": "open", "question": "如果我们明天停止见面，我们会继续做朋友还是彻底变成陌生人？" },
+        { "type": "open", "question": "在“我们”之外，关于你的生活，有什么是我绝对一无所知的？" },
+        { "type": "open", "question": "在这一刻，如果我们要明确彼此的关系，你最害怕失去的是什么？" }
+      ]
+    }
+  ]
+}
+
