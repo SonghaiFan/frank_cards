@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import "./App.css";
 import { ConversationGame } from "./types/ConversationGame";
-import GameLibrary from "./components/GameLibrary";
+import GameLibrary from "./components/CustomGameLibrary";
 import QuickGameLibrary from "./components/QuickGameLibrary";
 import GameController from "./components/GameController";
 import MinimumScreenSize from "./components/MinimumScreenSize";
@@ -203,6 +203,7 @@ function App() {
                 <QuickGameLibrary 
                     games={games}
                     onStartGame={handleQuickStart}
+                    onSwitchToCustom={() => setViewMode("customize")}
                 />
             ) : (
                 <GameLibrary 

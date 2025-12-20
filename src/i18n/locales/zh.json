@@ -73,5 +73,12 @@
       "desktop": "使用平板电脑或桌面设备",
       "zoom": "调整浏览器缩放级别"
     }
+  },
+  "quickMode": {
+    "title": "来聊聊吧",
+    "subtitle": "快速模式",
+    "description": "转动轮盘，探索精选对话包。寻找与你当下一拍即合的氛围。",
+    "cta": "开始转动 ↓",
+    "switchToCustom": "或者切换到自定义模式"
   }
 }

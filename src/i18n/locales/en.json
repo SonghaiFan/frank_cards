@@ -73,5 +73,12 @@
       "desktop": "Use a tablet or desktop",
       "zoom": "Adjust browser zoom level"
     }
+  },
+  "quickMode": {
+    "title": "Have a Talk",
+    "subtitle": "Quick Mode",
+    "description": "Spin the wheel to explore curated conversation packs. Find the perfect vibe for your moment.",
+    "cta": "Start Spinning ↓",
+    "switchToCustom": "Or Switch to Custom Mode"
   }
 }
