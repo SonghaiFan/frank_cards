@@ -188,6 +188,7 @@ function App() {
                     onToggleGame={handleToggleGame} 
                     onStartSession={handleStartSession}
                     onBackToQuick={() => setViewMode("quick")}
+                    onClearSelection={() => setSelectedGames([])}
                 />
             )
         )}

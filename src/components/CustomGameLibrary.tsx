@@ -14,12 +14,12 @@ interface GameLibraryProps {
   games: ConversationGame[];
   selectedGames: ConversationGame[];
   onToggleGame: (game: ConversationGame) => void;
-
+  onClearSelection: () => void;
   onStartSession: () => void;
   onBackToQuick: () => void;
 }
 
-const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggleGame, onStartSession, onBackToQuick }) => {
+const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggleGame, onStartSession, onBackToQuick, onClearSelection }) => {
   const { t } = useTranslation();
   const [hoveredGame, setHoveredGame] = useState<string | null>(null);
   const [selectedGameIndex, setSelectedGameIndex] = useState(0); // For keyboard nav (focus)
@@ -280,16 +280,24 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
              initial={{ y: 100, opacity: 0 }}
              animate={{ y: 0, opacity: 1 }}
              exit={{ y: 100, opacity: 0 }}
-             className="fixed bottom-8 left-0 right-0 flex justify-center z-50 pointer-events-none"
+             className="fixed bottom-8 left-0 right-0 flex justify-center items-center z-50 pointer-events-none gap-4"
           >
+              {/* Clear Selection Button */}
+              <button
+                onClick={onClearSelection}
+                className="pointer-events-auto shadow-2xl bg-white dark:bg-zinc-900 text-gray-500 dark:text-gray-400 h-[60px] w-[60px] rounded-full flex items-center justify-center hover:scale-110 hover:text-red-500 dark:hover:text-red-400 transition-all border border-gray-200 dark:border-zinc-700"
+                aria-label="Clear selection"
+              >
+                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+              </button>
+
               <button 
                 onClick={onStartSession}
-                className="pointer-events-auto shadow-2xl bg-black dark:bg-white text-white dark:text-black font-bold text-lg px-8 py-4 rounded-full flex items-center gap-3 hover:scale-105 transition-transform"
+                className="pointer-events-auto shadow-2xl bg-black dark:bg-white text-white dark:text-black font-bold text-lg px-8 py-4 rounded-full flex items-center gap-3 hover:scale-105 transition-transform border border-gray-200 dark:border-gray-700"
               >
                   <span>Play {selectedGames.length} Pack{selectedGames.length > 1 ? 's' : ''}</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                  </svg>
               </button>
           </motion.div>
       )}

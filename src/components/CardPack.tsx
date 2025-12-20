@@ -125,7 +125,7 @@ const CardPack: React.FC<CardPackProps> = ({
           size={size} // Pass size
           variant="game"
           className={`relative z-10 cursor-pointer transition-colors duration-200 ${isSelected
-              ? "border-4 !border-black dark:!border-white"
+              ? "border-3 !border-black dark:!border-white"
               : minimal
                 ? "hover:border-gray-300 dark:hover:border-gray-700 border-2 border-transparent"
                 : "hover:border-gray-300 dark:hover:border-gray-700"
