@@ -1,0 +1,86 @@
+{
+  "testID": "gratitude-journal",
+  "app": {
+    "title": "Gratitude Journal",
+    "subtitle": "Shift your focus to the positive",
+    "language": "english",
+    "type": "normal",
+    "playerGroup": ["solo", "friends", "family", "couples"]
+  },
+  "ui": {
+    "startScreen": {
+      "title": "Gratitude Journal",
+      "description": [
+        "Practicing gratitude has been shown to improve mental health and strengthen relationships.",
+        "Take a moment to appreciate the good in your life.",
+        "Share these with someone, or reflect on them yourself."
+      ],
+      "startButton": "Begin Reflection"
+    },
+    "navigation": {
+      "nextButton": "Next",
+      "prevButton": "Back"
+    },
+    "endScreen": {
+      "title": "Heart Full",
+      "subtitle": "Carrying a sense of gratitude can transform your perspective. Keep looking for the good.",
+      "restartButton": "Reflect Again"
+    }
+  },
+  "theme": {
+    "categories": {
+      "gratitude": {
+        "name": "Gratitude",
+        "color": "#20B2AA",
+        "description": "Questions to help you recognize and appreciate the positives."
+      }
+    }
+  },
+  "questions": [
+    {
+      "category": "gratitude",
+      "questions": [
+        {
+          "type": "open",
+          "question": "What is a small thing that happened today that made you smile?"
+        },
+        {
+          "type": "open",
+          "question": "Who is someone you are grateful to have in your life, and why?"
+        },
+        {
+          "type": "open",
+          "question": "What is a challenge you've overcome that you are now thankful for?"
+        },
+        {
+          "type": "open",
+          "question": "What is a possession you own that makes your life easier or more enjoyable?"
+        },
+        {
+          "type": "open",
+          "question": "Describe a favorite memory that always brings you joy."
+        },
+        {
+          "type": "open",
+          "question": "What is something about your body or health that you appreciate?"
+        },
+        {
+          "type": "open",
+          "question": "What is a skill or talent you have that you are grateful for?"
+        },
+        {
+          "type": "open",
+          "question": "What is something in nature that you find beautiful?"
+        },
+        {
+          "type": "open",
+          "question": "What is a lesson you learned recently that you value?"
+        },
+        {
+          "type": "open",
+          "question": "What is something you are looking forward to in the near future?"
+        }
+      ]
+    }
+  ]
+}

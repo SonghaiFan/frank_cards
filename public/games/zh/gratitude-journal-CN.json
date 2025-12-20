@@ -1,0 +1,86 @@
+{
+  "testID": "gratitude-journal",
+  "app": {
+    "title": "感恩日记",
+    "subtitle": "将注意力转向生活中的美好",
+    "language": "chinese",
+    "type": "normal",
+    "playerGroup": ["solo", "friends", "family", "couples"]
+  },
+  "ui": {
+    "startScreen": {
+      "title": "感恩日记",
+      "description": [
+        "练习感恩已被证明能改善心理健康并加强人际关系。",
+        "花点时间去欣赏你生活中的美好事物。",
+        "与他人分享，或独自反思。"
+      ],
+      "startButton": "开始反思"
+    },
+    "navigation": {
+      "nextButton": "下一个",
+      "prevButton": "上一个"
+    },
+    "endScreen": {
+      "title": "心怀感激",
+      "subtitle": "怀着感恩的心可以改变你的视角。继续寻找生活中的美好吧。",
+      "restartButton": "再次反思"
+    }
+  },
+  "theme": {
+    "categories": {
+      "gratitude": {
+        "name": "感恩",
+        "color": "#20B2AA",
+        "description": "帮助你识别和欣赏积极事物的问题。"
+      }
+    }
+  },
+  "questions": [
+    {
+      "category": "gratitude",
+      "questions": [
+        {
+          "type": "open",
+          "question": "今天发生的哪件小事让你微笑了？"
+        },
+        {
+          "type": "open",
+          "question": "你很感激谁出现在你的生命中，为什么？"
+        },
+        {
+          "type": "open",
+          "question": "你克服了哪个挑战，现在对此心存感激？"
+        },
+        {
+          "type": "open",
+          "question": "你拥有的哪件物品让你的生活更轻松或更愉快？"
+        },
+        {
+          "type": "open",
+          "question": "描述一个总是带给你快乐的美好回忆。"
+        },
+        {
+          "type": "open",
+          "question": "关于你的身体或健康，你感激什么？"
+        },
+        {
+          "type": "open",
+          "question": "你拥有的哪项技能或才华让你心存感激？"
+        },
+        {
+          "type": "open",
+          "question": "大自然中的什么让你觉得很美？"
+        },
+        {
+          "type": "open",
+          "question": "你最近学到的哪个教训让你觉得很有价值？"
+        },
+        {
+          "type": "open",
+          "question": "你对不久的将来有什么期待？"
+        }
+      ]
+    }
+  ]
+}

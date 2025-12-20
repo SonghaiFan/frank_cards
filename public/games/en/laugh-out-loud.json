@@ -1,0 +1,162 @@
+{
+  "testID": "laugh-out-loud",
+  "app": {
+    "title": "Laugh Out Loud",
+    "subtitle": "A collection of hilarious, awkward, and creative questions",
+    "language": "english",
+    "type": "normal",
+    "playerGroup": ["friends", "party"]
+  },
+  "ui": {
+    "startScreen": {
+      "title": "Laugh Out Loud",
+      "description": [
+        "Prepare for embarrassment, terrible ideas, and bad acting.",
+        "This collection combines our funniest themes into one.",
+        "Don't take anything too seriously!"
+      ],
+      "startButton": "Let's Get Weird"
+    },
+    "navigation": {
+      "nextButton": "Next Laugh",
+      "prevButton": "Previous"
+    },
+    "endScreen": {
+      "title": "Chaos Managed",
+      "subtitle": "Hope you still have friends after this.",
+      "restartButton": "One More Time"
+    }
+  },
+  "theme": {
+    "categories": {
+      "social-suicide": {
+        "name": "Social Suicide",
+        "color": "#fbbf24",
+        "description": "Embarrassing stories & confessions"
+      },
+      "bad-ideas": {
+        "name": "Bad Ideas Only",
+        "color": "#ef4444",
+        "description": "Terrible advice & witty comebacks"
+      },
+      "drama-queen": {
+        "name": "Drama Queen",
+        "color": "#ec4899",
+        "description": "Improv, impressions & acting"
+      }
+    }
+  },
+  "questions": [
+    {
+      "category": "social-suicide",
+      "questions": [
+        {
+          "type": "open",
+          "question": "What is the weirdest thing you have ever Googled?"
+        },
+        {
+          "type": "open",
+          "question": "What is a fashion choice from your past that you deeply regret?"
+        },
+        {
+          "type": "open",
+          "question": "Have you ever waved at someone who wasn't waving at you? What did you do next?"
+        },
+        {
+          "type": "open",
+          "question": "What's the most embarrassing thing you've done in front of a crush?"
+        },
+        {
+          "type": "open",
+          "question": "What is a song you love but are embarrassed to admit?"
+        },
+        {
+          "type": "open",
+          "question": "Have you ever sent a text to the person you were talking about? What happened?"
+        },
+        {
+          "type": "open",
+          "question": "What is the dumbest way you’ve injured yourself?"
+        },
+        {
+          "type": "open",
+          "question": "If we looked through your camera roll right now, what is the weirdest photo we’d find?"
+        }
+      ]
+    },
+    {
+      "category": "bad-ideas",
+      "questions": [
+        {
+          "type": "open",
+          "question": "What is the worst possible thing to say at a funeral?"
+        },
+        {
+          "type": "open",
+          "question": "Give me terrible advice on how to break up with someone."
+        },
+        {
+          "type": "open",
+          "question": "What is the worst pickup line that might actually work on you?"
+        },
+        {
+          "type": "open",
+          "question": "How would you explain the internet to a medieval peasant using only bad analogies?"
+        },
+        {
+          "type": "open",
+          "question": "What is a terrible name for a new pet dog?"
+        },
+        {
+          "type": "open",
+          "question": "If you had to ruin a first date in five words or less, what would you say?"
+        },
+        {
+          "type": "open",
+          "question": "What is the wrong way to quit a job?"
+        },
+        {
+          "type": "open",
+          "question": "Invent a useless superhero power and explain why it's great."
+        }
+      ]
+    },
+    {
+      "category": "drama-queen",
+      "questions": [
+        {
+          "type": "wildcard",
+          "question": "Read the last text you sent in the voice of an evil villain."
+        },
+        {
+          "type": "wildcard",
+          "question": "Do your best impression of a celebrity of the group's choice."
+        },
+        {
+          "type": "wildcard",
+          "question": "Act out your morning routine without saying a word."
+        },
+        {
+          "type": "wildcard",
+          "question": "Speak with a fake accent for the next 30 seconds."
+        },
+        {
+          "type": "wildcard",
+          "question": "Dramatically reenact how you would react if you won the lottery right now."
+        },
+        {
+          "type": "wildcard",
+          "question": "Make a sound like a farm animal. The group rates your accuracy."
+        },
+        {
+          "type": "wildcard",
+          "question": "Propose marriage to the person on your left using only object names."
+        },
+        {
+          "type": "wildcard",
+          "question": "Pretend you are an alien trying to fit in at a human party."
+        }
+      ]
+    }
+  ]
+}

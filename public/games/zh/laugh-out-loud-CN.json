@@ -1,0 +1,162 @@
+{
+  "testID": "laugh-out-loud",
+  "app": {
+    "title": "笑破肚皮",
+    "subtitle": "集合了尴尬、搞笑与脑洞的终极合集",
+    "language": "chinese",
+    "type": "normal",
+    "playerGroup": ["friends", "party"]
+  },
+  "ui": {
+    "startScreen": {
+      "title": "笑破肚皮",
+      "description": [
+        "准备好迎接社死瞬间、馊主意和拙劣的演技吧。",
+        "这个合集包含了我们最搞笑的三个主题。",
+        "切记：认真你就输了！"
+      ],
+      "startButton": "开始搞怪"
+    },
+    "navigation": {
+      "nextButton": "下一个",
+      "prevButton": "上一个"
+    },
+    "endScreen": {
+      "title": "混乱结束",
+      "subtitle": "希望玩完这把你们还是朋友。",
+      "restartButton": "再来亿把"
+    }
+  },
+  "theme": {
+    "categories": {
+      "social-suicide": {
+        "name": "社死现场",
+        "color": "#fbbf24",
+        "description": "尴尬故事与坦白局"
+      },
+      "bad-ideas": {
+        "name": "馊主意",
+        "color": "#ef4444",
+        "description": "糟糕建议与神回复"
+      },
+      "drama-queen": {
+        "name": "戏精附体",
+        "color": "#ec4899",
+        "description": "模仿、表演与接梗"
+      }
+    }
+  },
+  "questions": [
+    {
+      "category": "social-suicide",
+      "questions": [
+        {
+          "type": "open",
+          "question": "你搜过的最奇怪的东西是什么？"
+        },
+        {
+          "type": "open",
+          "question": "你过去有没有什么让你现在想起来就后悔的时尚打扮？"
+        },
+        {
+          "type": "open",
+          "question": "你有没有跟一个根本没在看你的人打过招呼？假装看风景了吗？"
+        },
+        {
+          "type": "open",
+          "question": "你在暗恋对象面前做过最尴尬的事是什么？"
+        },
+        {
+          "type": "open",
+          "question": "有一首你很爱听但不好意思承认的歌吗？是哪首？"
+        },
+        {
+          "type": "open",
+          "question": "你有没有误把吐槽某人的信息发给了本人？后来呢？"
+        },
+        {
+          "type": "open",
+          "question": "你受过最蠢的伤是怎么搞的？"
+        },
+        {
+          "type": "open",
+          "question": "如果我们现在翻你的相册，里面最奇怪的一张照片会是什么？"
+        }
+      ]
+    },
+    {
+      "category": "bad-ideas",
+      "questions": [
+        {
+          "type": "open",
+          "question": "在葬礼上能说的最糟糕的话是什么？"
+        },
+        {
+          "type": "open",
+          "question": "给我一个绝对会导致分手的馊主意。"
+        },
+        {
+          "type": "open",
+          "question": "你听过最烂的土味情话是什么？（或者你自己会用的）"
+        },
+        {
+          "type": "open",
+          "question": "你会怎么用最糟糕的比喻给古代人解释互联网？"
+        },
+        {
+          "type": "open",
+          "question": "给一只新宠物狗起个最难听的名字。"
+        },
+        {
+          "type": "open",
+          "question": "如果你要在5个字以内毁掉一次初次约会，你会说什么？"
+        },
+        {
+          "type": "open",
+          "question": "演示一个错误的辞职方式。"
+        },
+        {
+          "type": "open",
+          "question": "发明一个毫无用处的超能力，并强行解释它为什么很棒。"
+        }
+      ]
+    },
+    {
+      "category": "drama-queen",
+      "questions": [
+        {
+          "type": "wildcard",
+          "question": "用邪恶大反派的语气读出你发的上一条微信/信息。"
+        },
+        {
+          "type": "wildcard",
+          "question": "模仿一位大家指定的明星或名人。"
+        },
+        {
+          "type": "wildcard",
+          "question": "不说话，只用肢体语言表演你早上的起床流程。"
+        },
+        {
+          "type": "wildcard",
+          "question": "在接下来的30秒里，用一种奇怪的口音说话。"
+        },
+        {
+          "type": "wildcard",
+          "question": "戏剧性地表演：如果你现在中了彩票大奖会是什么反应。"
+        },
+        {
+          "type": "wildcard",
+          "question": "发出一声农场动物的叫声，大家给你的相似度打分。"
+        },
+        {
+          "type": "wildcard",
+          "question": "只用家具的名字向坐在你左边的人求婚。"
+        },
+        {
+          "type": "wildcard",
+          "question": "假装你是一个试图融入人类派对的外星人。"
+        }
+      ]
+    }
+  ]
+}

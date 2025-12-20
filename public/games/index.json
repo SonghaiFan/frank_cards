@@ -4,6 +4,8 @@
     "deep-connections.json",
     "end-of-day.json",
     "ex-friend.json",
+    "gratitude-journal.json",
+    "laugh-out-loud.json",
     "long-distance.json",
     "meaningful-connections.json",
     "relationship-check.json",
@@ -13,6 +15,7 @@
     "test-love-36.json",
     "truth_truth.json",
     "we-are-not-really-strangers.json",
+    "what-if-worlds.json",
     "xxx.json"
   ],
   "gamesByLanguage": {
@@ -21,6 +24,8 @@
       "deep-connections.json",
       "end-of-day.json",
       "ex-friend.json",
+      "gratitude-journal.json",
+      "laugh-out-loud.json",
       "long-distance.json",
       "meaningful-connections.json",
       "relationship-check.json",
@@ -30,6 +35,7 @@
       "test-love-36.json",
       "truth_truth.json",
       "we-are-not-really-strangers.json",
+      "what-if-worlds.json",
       "xxx.json"
     ],
     "zh": [
@@ -37,6 +43,8 @@
       "deep-connections-CN.json",
       "end-of-day-CN.json",
       "ex-friend-CN.json",
+      "gratitude-journal-CN.json",
+      "laugh-out-loud-CN.json",
       "long-distance-CN.json",
       "meaningful-connections-CN.json",
       "relationship-check-CN.json",
@@ -46,12 +54,16 @@
       "test-love-36-CN.json",
       "truth_truth-CN.json",
       "we-are-not-really-strangers-CN.json",
+      "what-if-worlds-CN.json",
       "xxx-CN.json"
     ]
   },
-  "lastUpdated": "2025-07-16T12:50:48.212Z",
+  "lastUpdated": "2025-12-20T02:09:45.869Z",
   "version": "1.0.0",
-  "generatedAt": "2025-07-16T12:50:48.214Z",
-  "totalGames": 14,
-  "languages": ["en", "zh"]
+  "generatedAt": "2025-12-20T02:09:45.870Z",
+  "totalGames": 17,
+  "languages": [
+    "en",
+    "zh"
+  ]
 }
