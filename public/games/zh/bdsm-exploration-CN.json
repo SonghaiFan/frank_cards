@@ -1,0 +1,119 @@
+{
+  "testID": "bdsm-exploration",
+  "app": {
+    "title": "BDSM 趣向探索",
+    "subtitle": "安全、理性、知情同意的深度交流",
+    "language": "chinese",
+    "type": "premium",
+    "playerGroup": ["couple", "partners"]
+  },
+  "ui": {
+    "startScreen": {
+      "title": "情趣倾向探索",
+      "description": [
+        "讨论边界与幻想的安全空间。",
+        "将“知情同意”放在一切行为的首位。",
+        "坦诚是建立高质量属性关系的钥匙。"
+      ],
+      "startButton": "开启探索"
+    },
+    "navigation": {
+      "nextButton": "下一个话题",
+      "prevButton": "返回"
+    },
+    "endScreen": {
+      "title": "探索完成",
+      "subtitle": "充分的沟通是最好的事后关怀",
+      "restartButton": "再次讨论"
+    }
+  },
+  "theme": {
+    "categories": {
+      "boundaries": {
+        "name": "第一阶段：边界",
+        "color": "#e2e8f0",
+        "description": "硬限制、软限制与安全原则"
+      },
+      "dynamics": {
+        "name": "第二阶段：关系与角色",
+        "color": "#94a3b8",
+        "description": "权力交换、属性与心态"
+      },
+      "activities": {
+        "name": "第三阶段：项目与实践",
+        "color": "#475569",
+        "description": "感官刺激、束缚与实践细节"
+      },
+      "aftercare": {
+        "name": "事后关怀 (Aftercare)",
+        "color": "#1e293b",
+        "description": "情绪回落与身心复位"
+      }
+    }
+  },
+  "questions": [
+    {
+      "category": "boundaries",
+      "questions": [
+        { "type": "open", "question": "在实践中，SSC（安全、理性、知情同意）对你意味着什么？" },
+        { "type": "open", "question": "有什么“硬限制”是我们需要现在明确的？" },
+        { "type": "open", "question": "如果我不能满足你所有的幻想，你会接受我去寻找别人吗？或者反之？" },
+        { "type": "open", "question": "对于尝试完全新鲜的事物，即使不确定是否喜欢，你的态度是？" },
+        { "type": "open", "question": "你愿意放弃现在所有的生活，去接受理想中的SM的生活吗？" },
+        { "type": "open", "question": "如果你伴侣无法满足你的偏好，你会去寻找其他人来满足吗？" },
+        { "type": "open", "question": "你曾有过“恋物”的念头以及相关的性联想吗？" },
+        { "type": "open", "question": "你觉得可以接受处于不完全私密空间里的性行为吗？" },
+        { "type": "open", "question": "你喜欢让别人看到你的裸体或大尺度照片吗，尤其是在他们没有预期的时候？" },
+        { "type": "open", "question": "在性生活中受到哪怕一点不公平的对待都会引起你的反感吗？" },
+        { "type": "open", "question": "你理想中的“安全词”或“安全信号”是什么？" },
+        { "type": "open", "question": "有没有什么生理或心理上的触发点（Trigger）是我需要避开的？" }
+      ]
+    },
+    {
+      "category": "dynamics",
+      "questions": [
+        { "type": "open", "question": "你是更倾向于支配方、从属方，还是可以切换的 Switch？" },
+        { "type": "open", "question": "你可以接受在某一时间段处于支配地位，而在另一时间变成被支配的对象吗？" },
+        { "type": "open", "question": "你会希望伴侣为你服务，并认为你的地位更高吗？" },
+        { "type": "open", "question": "你觉得有必要为伴侣服务，并带着崇高的尊敬去仰慕TA吗？" },
+        { "type": "open", "question": "你喜欢被控制吗，尤其是在卧室里？" },
+        { "type": "open", "question": "你希望你的伴侣24小时不间断地向你臣服，并愿意承担相应的责任吗？" },
+        { "type": "open", "question": "你喜欢支配你的伴侣吗，尤其是在卧室里？" },
+        { "type": "open", "question": "你喜欢被限制行为、被掌控自由、被命令要求或指派任务吗？" },
+        { "type": "open", "question": "你会自然而然地承担引导和教导的责任吗，类似于父母的角色一样？" },
+        { "type": "open", "question": "在理想的生活中，你愿意完全属于伴侣，由TA来决定什么是对你好吗？" },
+        { "type": "open", "question": "你想24小时不间断地服务你的伴侣，并把它当做一个长久目标吗？" },
+        { "type": "open", "question": "故意反抗支配方的命令，会是作为被支配者的乐趣之一吗？" },
+        { "type": "wildcard", "question": "特别环节：用三个词描述你伴侣身上最明显的“情趣”特质。" }
+      ]
+    },
+    {
+      "category": "activities",
+      "questions": [
+        { "type": "open", "question": "你对性生活中的疼痛感（如淤青、哭泣等后果）持什么态度？" },
+        { "type": "open", "question": "你喜欢看到伴侣眼中的恐惧，并享受给他们带来痛苦的过程吗？" },
+        { "type": "open", "question": "你希望在发生性行为时，你的伴侣是被束缚住（绳子、镣铐等）的吗？" },
+        { "type": "open", "question": "你在性生活中对被限制身体行动（绳子、镣铐等）感兴趣吗？" },
+        { "type": "open", "question": "你喜欢被你的性伴侣贬低和羞辱吗？" },
+        { "type": "open", "question": "你喜欢在性生活中被语言羞辱或者辱骂吗？" },
+        { "type": "open", "question": "你会喜欢偶尔骚扰或羞辱你的伴侣吗？" },
+        { "type": "open", "question": "你幻想过把伴侣关在笼子里，给予食物和爱抚吗？" },
+        { "type": "open", "question": "你喜欢欣赏别人的裸体和大尺度行为，尤其是在别人不知情的情况下吗？" },
+        { "type": "open", "question": "你喜欢被伴侣当成宠物（关在笼子里、喂食或抚摸）吗？" },
+        { "type": "open", "question": "你享受自己表现得像个动物（猫、狗）吗？" },
+        { "type": "open", "question": "你喜欢身体被各种工具玩弄、控制或“折磨”吗？" },
+        { "type": "open", "question": "你喜欢和自己不在一个年龄阶段的人交往吗？" },
+        { "type": "wildcard", "question": "特别环节：如果我们下周要买一个新的“小玩具”，你觉得会是什么？" }
+      ]
+    },
+    {
+      "category": "aftercare",
+      "questions": [
+        { "type": "open", "question": "你理想中的“事后关怀”是什么样的？（拥抱、零食、安静、还是简单的交谈？）" },
+        { "type": "open", "question": "如果实践结束后你感到情绪低落（Sub-drop），我该如何察觉并帮助你？" },
+        { "type": "open", "question": "在实践结束后，我们该以什么样的方式交换意见而不伤害彼此？" },
+        { "type": "wildcard", "question": "特别环节：给彼此一个长达30秒的、让内心平静下来的深情拥抱。" }
+      ]
+    }
+  ]
+}

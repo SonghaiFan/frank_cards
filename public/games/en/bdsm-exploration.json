@@ -1,0 +1,117 @@
+{
+  "testID": "bdsm-exploration",
+  "app": {
+    "title": "BDSM & Kink Exploration",
+    "subtitle": "Safe, Sane, and Consensual discoveries",
+    "language": "english",
+    "type": "premium",
+    "playerGroup": ["couple", "partners"]
+  },
+  "ui": {
+    "startScreen": {
+      "title": "Kink Exploration",
+      "description": [
+        "A safe space to discuss boundaries and fantasies.",
+        "Prioritize consent (SSC/RACK) above all else.",
+        "Honesty is the key to a fulfilling dynamic."
+      ],
+      "startButton": "Open the Box"
+    },
+    "navigation": {
+      "nextButton": "Next Topic",
+      "prevButton": "Back"
+    },
+    "endScreen": {
+      "title": "Discovery Complete",
+      "subtitle": "Communication is the best aftercare",
+      "restartButton": "Discuss More"
+    }
+  },
+  "theme": {
+    "categories": {
+      "boundaries": {
+        "name": "Level 1: Boundaries",
+        "color": "#e2e8f0",
+        "description": "Hard limits, soft limits, and safety"
+      },
+      "dynamics": {
+        "name": "Level 2: Dynamics",
+        "color": "#94a3b8",
+        "description": "Roles, power exchange, and mindsets"
+      },
+      "activities": {
+        "name": "Level 3: Activities",
+        "color": "#475569",
+        "description": "Sensation, bondage, and impact play"
+      },
+      "aftercare": {
+        "name": "Aftercare",
+        "color": "#1e293b",
+        "description": "Closing the scene and emotional care"
+      }
+    }
+  },
+  "questions": [
+    {
+      "category": "boundaries",
+      "questions": [
+        { "type": "open", "question": "What does SSC (Safe, Sane, Consensual) mean to you in practice?" },
+        { "type": "open", "question": "What is one 'Hard Limit' that we should establish right now?" },
+        { "type": "open", "question": "If I couldn't satisfy all your fantasies, would you accept me finding someone else who can? Or vice versa?" },
+        { "type": "open", "question": "How would you feel about trying something completely new, even if we aren't sure we'll like it?" },
+        { "type": "open", "question": "How do you feel about sexual behavior in spaces that aren't completely private?" },
+        { "type": "open", "question": "How would you feel about sharing explicit photos with others, especially when they aren't expecting it?" },
+        { "type": "open", "question": "Does the idea of even slightly 'unfair' treatment during sex bother you?" },
+        { "type": "open", "question": "Would you be willing to give up your current life to pursue an ideal BDSM lifestyle?" },
+        { "type": "open", "question": "If your partner can't satisfy your specific kinks, is finding others to fill that gap an option for you?" },
+        { "type": "open", "question": "Have you ever had fetishistic thoughts or sexual associations with specific objects?" },
+        { "type": "open", "question": "What would be your ideal safeword or safe-signal?" },
+        { "type": "open", "question": "Are there any physical or emotional triggers I should be aware of?" }
+      ]
+    },
+    {
+      "category": "dynamics",
+      "questions": [
+        { "type": "open", "question": "Are you more drawn to being a dominant, a submissive, or a switch?" },
+        { "type": "open", "question": "Can you imagine switching roles between being dominant and dominated at different times?" },
+        { "type": "open", "question": "Would you want a partner to serve you and view your status as higher?" },
+        { "type": "open", "question": "How do you feel about serving a partner and admiring them with high respect?" },
+        { "type": "open", "question": "Do you like to be controlled, especially in the bedroom?" },
+        { "type": "open", "question": "Would you want your partner to surrender to you 24/7 and take on the responsibility that comes with it?" },
+        { "type": "open", "question": "How do you feel about taking on a guiding or teaching role, similar to a parent?" },
+        { "type": "open", "question": "Do you enjoy being restricted, having your freedom controlled, and being given specific tasks or orders?" },
+        { "type": "open", "question": "In an ideal world, would you want to belong entirely to your partner and let them decide what's best for you?" },
+        { "type": "open", "question": "Does the idea of serving a partner 24/7 as a long-term goal appeal to you?" },
+        { "type": "open", "question": "Do you find pleasure in deliberately resisting a dominant partner's orders?" },
+        { "type": "wildcard", "question": "WILDCARD: Describe your partner's 'kinkiest' trait in three words." }
+      ]
+    },
+    {
+      "category": "activities",
+      "questions": [
+        { "type": "open", "question": "How do you feel about physical pain and its consequences (like crying or bruising) during play?" },
+        { "type": "open", "question": "Does seeing fear in your partner's eyes and bringing them pain give you pleasure?" },
+        { "type": "open", "question": "What is your stance on physical restraint or bondage (ropes, shackles) for your partner?" },
+        { "type": "open", "question": "How do you feel about being degraded or humiliated by a sexual partner?" },
+        { "type": "open", "question": "How do you feel about verbal humiliation or being talked down to during sex?" },
+        { "type": "open", "question": "Is harassing or humiliating your partner something that interests you?" },
+        { "type": "open", "question": "Do you fantasize about locking your partner in a cage, providing food and affection?" },
+        { "type": "open", "question": "Are you interested in being treated like a pet (cages, feeding, petting)?" },
+        { "type": "open", "question": "Do you enjoy behaving like an animal (cat, dog)?" },
+        { "type": "open", "question": "Do you enjoy watching others' nudity or large-scale behavior, especially without their knowledge?" },
+        { "type": "open", "question": "Do you like the idea of your body being 'tortured' or controlled by various tools?" },
+        { "type": "open", "question": "How do you feel about age-gap dynamics in a relationship?" },
+        { "type": "wildcard", "question": "WILDCARD: If we were to buy one new 'toy' next week, what should it be?" }
+      ]
+    },
+    {
+      "category": "aftercare",
+      "questions": [
+        { "type": "open", "question": "What does your ideal 'Aftercare' look like? (Cuddling, silence, snacks?)" },
+        { "type": "open", "question": "How can I tell if you're in a 'Sub-drop' or feeling low after a session?" },
+        { "type": "open", "question": "What's the best way for us to give and receive feedback after playing?" },
+        { "type": "wildcard", "question": "WILDCARD: Give each other a long, grounding hug for 30 seconds." }
+      ]
+    }
+  ]
+}
