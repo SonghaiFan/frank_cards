@@ -57,13 +57,10 @@
       "questions": [
         { "type": "open", "question": "What does SSC (Safe, Sane, Consensual) mean to you in practice?" },
         { "type": "open", "question": "What is one 'Hard Limit' that we should establish right now?" },
-        { "type": "open", "question": "If I couldn't satisfy all your fantasies, would you accept me finding someone else who can? Or vice versa?" },
+        { "type": "open", "question": "If one of us cannot satisfy a specific fantasy or kink for the other, how do we feel about 'outsourcing' that need to someone else?" },
         { "type": "open", "question": "How would you feel about trying something completely new, even if we aren't sure we'll like it?" },
-        { "type": "open", "question": "How do you feel about sexual behavior in spaces that aren't completely private?" },
-        { "type": "open", "question": "How would you feel about sharing explicit photos with others, especially when they aren't expecting it?" },
         { "type": "open", "question": "Does the idea of even slightly 'unfair' treatment during sex bother you?" },
         { "type": "open", "question": "Would you be willing to give up your current life to pursue an ideal BDSM lifestyle?" },
-        { "type": "open", "question": "If your partner can't satisfy your specific kinks, is finding others to fill that gap an option for you?" },
         { "type": "open", "question": "Have you ever had fetishistic thoughts or sexual associations with specific objects?" },
         { "type": "open", "question": "What would be your ideal safeword or safe-signal?" },
         { "type": "open", "question": "Are there any physical or emotional triggers I should be aware of?" }
@@ -72,16 +69,12 @@
     {
       "category": "dynamics",
       "questions": [
-        { "type": "open", "question": "Are you more drawn to being a dominant, a submissive, or a switch?" },
-        { "type": "open", "question": "Can you imagine switching roles between being dominant and dominated at different times?" },
+        { "type": "open", "question": "Are you more drawn to being a dominant, a submissive, or a switch—and if so, how do you feel about switching roles between different sessions or moments?" },
         { "type": "open", "question": "Would you want a partner to serve you and view your status as higher?" },
         { "type": "open", "question": "How do you feel about serving a partner and admiring them with high respect?" },
-        { "type": "open", "question": "Do you like to be controlled, especially in the bedroom?" },
-        { "type": "open", "question": "Would you want your partner to surrender to you 24/7 and take on the responsibility that comes with it?" },
+        { "type": "open", "question": "In the bedroom, do you find more pleasure in being the one in control, being the one who is controlled, or exploring both sides?" },
+        { "type": "open", "question": "How do you feel about a 24/7 power exchange dynamic—either in terms of surrendering entirely to your partner or taking on the full responsibility of guiding their life?" },
         { "type": "open", "question": "How do you feel about taking on a guiding or teaching role, similar to a parent?" },
-        { "type": "open", "question": "Do you enjoy being restricted, having your freedom controlled, and being given specific tasks or orders?" },
-        { "type": "open", "question": "In an ideal world, would you want to belong entirely to your partner and let them decide what's best for you?" },
-        { "type": "open", "question": "Does the idea of serving a partner 24/7 as a long-term goal appeal to you?" },
         { "type": "open", "question": "Do you find pleasure in deliberately resisting a dominant partner's orders?" },
         { "type": "wildcard", "question": "WILDCARD: Describe your partner's 'kinkiest' trait in three words." }
       ]
@@ -91,14 +84,10 @@
       "questions": [
         { "type": "open", "question": "How do you feel about physical pain and its consequences (like crying or bruising) during play?" },
         { "type": "open", "question": "Does seeing fear in your partner's eyes and bringing them pain give you pleasure?" },
-        { "type": "open", "question": "What is your stance on physical restraint or bondage (ropes, shackles) for your partner?" },
-        { "type": "open", "question": "How do you feel about being degraded or humiliated by a sexual partner?" },
-        { "type": "open", "question": "How do you feel about verbal humiliation or being talked down to during sex?" },
-        { "type": "open", "question": "Is harassing or humiliating your partner something that interests you?" },
-        { "type": "open", "question": "Do you fantasize about locking your partner in a cage, providing food and affection?" },
-        { "type": "open", "question": "Are you interested in being treated like a pet (cages, feeding, petting)?" },
-        { "type": "open", "question": "Do you enjoy behaving like an animal (cat, dog)?" },
-        { "type": "open", "question": "Do you enjoy watching others' nudity or large-scale behavior, especially without their knowledge?" },
+        { "type": "open", "question": "What are your feelings on physical restraint and bondage (ropes, cuffs, etc.)—do you prefer to be the one bound, the one doing the binding, or both?" },
+        { "type": "open", "question": "How do you feel about humiliation and degradation (verbal or physical)—and do you have a preference for giving it, receiving it, or both?" },
+        { "type": "open", "question": "Are you interested in 'Pet Play' or animal roleplay—such as behaving like a pet, being treated like one (cages, feeding), or being the 'owner'?" },
+        { "type": "open", "question": "How do you feel about exhibitionism and voyeurism—such as being seen in semi-public spaces, sharing photos, or watching others?" },
         { "type": "open", "question": "Do you like the idea of your body being 'tortured' or controlled by various tools?" },
         { "type": "open", "question": "How do you feel about age-gap dynamics in a relationship?" },
         { "type": "wildcard", "question": "WILDCARD: If we were to buy one new 'toy' next week, what should it be?" }
