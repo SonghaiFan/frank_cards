@@ -77,8 +77,15 @@
   "quickMode": {
     "title": "Have a Talk",
     "subtitle": "Quick Mode",
-    "description": "Spin the wheel to explore curated conversation packs. Find the perfect vibe for your moment.",
-    "cta": "Start Spinning ↓",
-    "switchToCustom": "Or Switch to Custom Mode"
+    "description": "Scroll down to explore curated conversation packs.",
+    "cta": "Start ↓",
+    "cta2": "So That's All",
+    "switchToCustom": "Or Switch to Custom Mode",
+    "backToTop": "Back to Top"
+  },
+  "customMode": {
+    "title": "Want to chat something different?",
+    "subtitle": "Custom Mode",
+    "description": "Select multiple packs to combine them into a unique conversation experience."
   }
 }

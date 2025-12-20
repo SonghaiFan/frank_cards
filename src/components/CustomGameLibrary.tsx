@@ -14,10 +14,12 @@ interface GameLibraryProps {
   games: ConversationGame[];
   selectedGames: ConversationGame[];
   onToggleGame: (game: ConversationGame) => void;
+
   onStartSession: () => void;
+  onBackToQuick: () => void;
 }
 
-const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggleGame, onStartSession }) => {
+const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggleGame, onStartSession, onBackToQuick }) => {
   const { t } = useTranslation();
   const [hoveredGame, setHoveredGame] = useState<string | null>(null);
   const [selectedGameIndex, setSelectedGameIndex] = useState(0); // For keyboard nav (focus)
@@ -107,9 +109,20 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
   return (
     <div className="h-full w-full bg-white dark:bg-black flex flex-col items-center px-4 sm:px-8 py-8 sm:py-16 overflow-y-auto relative">
       {/* Language Switcher */}
-      <div className="absolute top-4 right-4 sm:top-8 sm:right-8">
+      <div className="absolute top-4 right-4 sm:top-8 sm:right-8 z-50">
         <LanguageSwitcher />
       </div>
+
+        {/* Back Button */}
+        <motion.button
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.3 }}
+          className="absolute top-4 left-4 sm:top-8 sm:left-8 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-xl sm:text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200 z-50"
+          onClick={onBackToQuick}
+        >
+          ←
+        </motion.button>
 
       {/* Header with Easter Egg */}
       <motion.div
@@ -136,7 +149,7 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
             {/* Subtle progress indicator */}
             {clickProgress > 0 && clickProgress < 1 && (
               <motion.div
-                className="absolute inset-0 rounded-full border-2 border-black"
+                className="absolute inset-0 rounded-full border-2 border-black dark:border-white"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{
                   opacity: [0, 0.2, 0],
@@ -150,12 +163,15 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
               />
             )}
           </motion.div>
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-black text-gray-900 dark:text-white tracking-tight leading-none text-center">
-            CueCards
-          </h1>
+         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-black dark:text-white tracking-tight leading-none">
+          {t("customMode.title")}
+        </h1>
         </div>
-        <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 text-intimate font-light px-4 mb-2 sm:mb-6">
-          {t("gameLibrary.subtitle")}
+        <p className="text-xl sm:text-2xl text-black dark:text-white font-bold mb-2">
+            {t("customMode.subtitle")}
+        </p>
+        <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 text-intimate font-light px-4 mb-6">
+          {t("customMode.description")}
         </p>
 
         {/* Unlock Message */}
@@ -165,7 +181,7 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
-              className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-black text-white px-6 py-3 rounded-full text-sm font-medium shadow-lg"
+              className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-black text-white px-6 py-3 rounded-full text-sm font-medium shadow-lg z-50"
             >
               {t("gameLibrary.premiumUnlocked")}
             </motion.div>
@@ -175,6 +191,7 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
 
       {/* Filters Section */}
       <motion.div
+
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}

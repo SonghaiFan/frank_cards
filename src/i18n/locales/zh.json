@@ -75,10 +75,17 @@
     }
   },
   "quickMode": {
-    "title": "来聊聊吧",
+    "title": "聊会儿么",
     "subtitle": "快速模式",
-    "description": "转动轮盘，探索精选对话包。寻找与你当下一拍即合的氛围。",
-    "cta": "开始转动 ↓",
-    "switchToCustom": "或者切换到自定义模式"
+    "description": "向下滚动，探索对话包。",
+    "cta": "开始 ↓",
+    "cta2": "就这么多了",
+    "switchToCustom": "或者切换到自定义模式",
+    "backToTop": "回头看看"
+  },
+  "customMode": {
+    "title": "想聊点不一样的",
+    "subtitle": "自定义模式",
+    "description": "选择多个对话包，通过组合创造独特的对话体验。"
   }
 }

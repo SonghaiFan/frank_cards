@@ -41,6 +41,9 @@ const CardPack: React.FC<CardPackProps> = ({
   style,
   className = "cursor-pointer relative",
 }) => {
+
+  if (minimal) isSelected = false;
+
   return (
     <motion.div
       layout={!disableEntranceAnimation}
@@ -55,7 +58,11 @@ const CardPack: React.FC<CardPackProps> = ({
       style={style}
       onHoverStart={onHoverStart}
       onHoverEnd={onHoverEnd}
-      onClick={() => onToggle(game)}
+      onClick={
+        minimal
+          ? undefined
+          : () => onToggle(game)
+      }
     >
       {/* Card Pack Container */}
       <div className="relative w-full h-full"> {/* Ensure container fills wrapper */}
@@ -117,11 +124,12 @@ const CardPack: React.FC<CardPackProps> = ({
         <Card
           size={size} // Pass size
           variant="game"
-          className={`relative z-10 cursor-pointer transition-colors duration-200 ${
-            isSelected
+          className={`relative z-10 cursor-pointer transition-colors duration-200 ${isSelected
               ? "border-4 !border-black dark:!border-white"
-              : "hover:border-gray-300 dark:hover:border-gray-700"
-          } ${minimal ? 'justify-center items-center' : ''}`}
+              : minimal
+                ? "hover:border-gray-300 dark:hover:border-gray-700 border-2 border-transparent"
+                : "hover:border-gray-300 dark:hover:border-gray-700"
+            } ${minimal ? 'justify-center items-center opacity-80 hover:opacity-100' : ''}`}
           style={{
             width: '100%',
             height: '100%',
@@ -161,12 +169,10 @@ const CardPack: React.FC<CardPackProps> = ({
             {game.app.title}
           </h2>
 
-          {/* Game Description - Hidden in minimal mode */}
-          {!minimal && (
-             <p className="text-xs sm:text-sm text-gray-700 font-medium text-center leading-relaxed px-2">
-              {game.app.subtitle}
-             </p>
-          )}
+          {/* Game Description */}
+          <p className="text-xs sm:text-sm text-gray-700 font-medium text-center leading-relaxed px-2">
+            {game.app.subtitle}
+          </p>
 
           {/* Category Dots */}
           <div className="flex justify-center gap-1.5 sm:gap-2 mt-3 sm:mt-4">
@@ -181,7 +187,7 @@ const CardPack: React.FC<CardPackProps> = ({
           </div>
 
           {/* Card Count Indicator - Hidden in minimal mode */}
-           {!minimal && (
+          {!minimal && (
             <div className="mt-3 sm:mt-4 text-xs text-gray-600 font-semibold uppercase tracking-wider text-center px-2">
               {game.questions.reduce(
                 (total: number, category: any) =>
@@ -190,7 +196,7 @@ const CardPack: React.FC<CardPackProps> = ({
               )}{" "}
               Cards • {Object.keys(game.theme.categories).length} Categories
             </div>
-           )}
+          )}
         </Card>
       </div>
     </motion.div>

@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import "./App.css";
 import { ConversationGame } from "./types/ConversationGame";
 import GameLibrary from "./components/CustomGameLibrary";
-import QuickGameLibrary from "./components/QuickGameLibrary";
+import QuickGameLibrary from "./components/GameLibrary";
 import GameController from "./components/GameController";
 import MinimumScreenSize from "./components/MinimumScreenSize";
 import { useScreenSize } from "./hooks/useScreenSize";
@@ -107,7 +107,7 @@ function App() {
   };
 
   // View Mode: 'customize' or 'quick'
-  const [viewMode, setViewMode] = useState<"customize" | "quick">("customize");
+  const [viewMode, setViewMode] = useState<"customize" | "quick">("quick");
   
   // Auto-start flag for Quick Mode
   const [shouldAutoStart, setShouldAutoStart] = useState(false);
@@ -165,31 +165,7 @@ function App() {
 
   return (
     <div className="h-screen w-screen overflow-hidden flex flex-col">
-       {/* Top Bar for Mode Switching (Only visible when not playing) */}
-       {!isSessionActive && (
-           <div className="w-full h-16 bg-white dark:bg-black border-b border-gray-100 dark:border-gray-900 flex items-center justify-between px-8 absolute top-0 z-50">
-               <div className="font-black text-xl tracking-tight">CueCards</div>
-               
-               <div className="flex bg-gray-100 dark:bg-gray-900 p-1 rounded-full">
-                   <button 
-                    onClick={() => setViewMode("customize")}
-                    className={`px-4 py-1.5 rounded-full text-sm font-bold transition-all ${viewMode === "customize" ? "bg-white dark:bg-black shadow-sm text-black dark:text-white" : "text-gray-500 hover:text-gray-800 dark:hover:text-gray-300"}`}
-                   >
-                       Custom
-                   </button>
-                   <button 
-                    onClick={() => setViewMode("quick")}
-                    className={`px-4 py-1.5 rounded-full text-sm font-bold transition-all ${viewMode === "quick" ? "bg-white dark:bg-black shadow-sm text-black dark:text-white" : "text-gray-500 hover:text-gray-800 dark:hover:text-gray-300"}`}
-                   >
-                       Quick Play
-                   </button>
-               </div>
-               
-               <div className="w-20" /> {/* Spacer for balance */}
-           </div>
-       )}
-
-      <div className="flex-1 w-full h-full pt-16 relative">
+      <div className="flex-1 w-full h-full relative">
           {isSessionActive ? (
             <GameController
             key={selectedGames.map(g => g.testID).join("-")} 
@@ -211,6 +187,7 @@ function App() {
                     selectedGames={selectedGames}
                     onToggleGame={handleToggleGame} 
                     onStartSession={handleStartSession}
+                    onBackToQuick={() => setViewMode("quick")}
                 />
             )
         )}
