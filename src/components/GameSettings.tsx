@@ -100,7 +100,7 @@ const GameSettings: React.FC<GameSettingsProps> = ({
           </motion.div>
 
           {/* Chaos Mode Toggle - Styled to match Section Headers */}
-           <motion.div
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9 }}
@@ -121,8 +121,8 @@ const GameSettings: React.FC<GameSettingsProps> = ({
                         checked={isChaosMode}
                         onChange={(e) => onChaosModeChange(e.target.checked)}
                       />
-                      <div className={`block w-10 h-6 rounded-full transition-colors duration-300 ${isChaosMode ? 'bg-pink-400' : 'bg-gray-300 dark:bg-gray-600'}`}></div>
-                      <div className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-300 ${isChaosMode ? 'transform translate-x-4' : ''}`}></div>
+                      <div className={`block w-10 h-6 rounded-full transition-colors duration-300 ${isChaosMode ? 'bg-black dark:bg-white' : 'bg-gray-300 dark:bg-gray-600'}`}></div>
+                      <div className={`absolute left-1 top-1 w-4 h-4 rounded-full transition-transform duration-300 shadow-sm ${isChaosMode ? 'transform translate-x-4 bg-white dark:bg-black' : 'bg-white'}`}></div>
                     </label>
                 </div>
              </div>

@@ -42,7 +42,10 @@
     "createJourneySubtitle": "每一次有意义的对话都始于用心",
     "beginTheJourney": "开始对话",
     "clickToReveal": "点击查看更多",
-    "progressIndicator": "第 {{current}} / {{total}} 个"
+    "progressIndicator": "第 {{current}} / {{total}} 个",
+    "chaosMode": "随机洗牌",
+    "chaosModeDesc": "打乱所有问题顺序，不再受分类限制。"
+    
   },
   "categorySelector": {
     "title": "你想探索什么？",

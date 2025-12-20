@@ -42,7 +42,9 @@
     "createJourneySubtitle": "Every meaningful conversation begins with intention",
     "beginTheJourney": "Begin the Conversation",
     "clickToReveal": "Click to reveal more",
-    "progressIndicator": "{{current}} of {{total}}"
+    "progressIndicator": "{{current}} of {{total}}",
+    "chaosMode": "Chaos Shuffle",
+    "chaosModeDesc": "Mix all questions together, ignoring categories."
   },
   "categorySelector": {
     "title": "What would you like to explore?",

@@ -285,7 +285,7 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
               {/* Clear Selection Button */}
               <button
                 onClick={onClearSelection}
-                className="pointer-events-auto shadow-2xl bg-white dark:bg-zinc-900 text-gray-500 dark:text-gray-400 h-[60px] w-[60px] rounded-full flex items-center justify-center hover:scale-110 hover:text-red-500 dark:hover:text-red-400 transition-all border border-gray-200 dark:border-zinc-700"
+                className="pointer-events-auto shadow-2xl bg-white dark:bg-zinc-900 text-gray-500 dark:text-gray-400 h-[60px] w-[60px] rounded-full flex items-center justify-center hover:scale-110 hover:text-red-500 dark:hover:text-red-400 transition-all border-2 border-gray-200 dark:border-gray-700"
                 aria-label="Clear selection"
               >
                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -295,7 +295,7 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
 
               <button 
                 onClick={onStartSession}
-                className="pointer-events-auto shadow-2xl bg-black dark:bg-white text-white dark:text-black font-bold text-lg px-8 py-4 rounded-full flex items-center gap-3 hover:scale-105 transition-transform border border-gray-200 dark:border-gray-700"
+                className="pointer-events-auto shadow-2xl bg-black dark:bg-white text-white dark:text-black font-bold text-lg px-8 py-4 rounded-full flex items-center gap-3 hover:scale-105 transition-transform border-2 border-gray-200 dark:border-gray-700"
               >
                   <span>Play {selectedGames.length} Pack{selectedGames.length > 1 ? 's' : ''}</span>
               </button>

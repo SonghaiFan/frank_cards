@@ -27,11 +27,11 @@ const FilterGroup = <T extends string>({
       <div className="flex flex-wrap gap-2 justify-center">
         <button
           onClick={() => onSelectionChange(null)}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors border border-gray-200 dark:border-gray-700
+          className={`px-6 py-2 rounded-full text-sm font-bold transition-all duration-300 border-2 border-gray-200 dark:border-gray-700 hover:scale-105
             ${
               !selectedValue
-                ? "bg-black text-white"
-                : "bg-white text-gray-600 hover:bg-gray-100"
+                ? "bg-black text-white shadow-md"
+                : "bg-white dark:bg-black text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900"
             }`}
         >
           {allLabel}
@@ -40,11 +40,11 @@ const FilterGroup = <T extends string>({
           <button
             key={option}
             onClick={() => onSelectionChange(option)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors border border-gray-200 dark:border-gray-700
+            className={`px-6 py-2 rounded-full text-sm font-bold transition-all duration-300 border-2 border-gray-200 dark:border-gray-700 hover:scale-105
               ${
                 selectedValue === option
-                  ? "bg-black text-white"
-                  : "bg-white text-gray-600 hover:bg-gray-100"
+                  ? "bg-black text-white shadow-md"
+                  : "bg-white dark:bg-black text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900"
               }`}
           >
             {t(`${translationKey}.${option}`)}

@@ -178,7 +178,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
                    
                       <button
                         onClick={() => containerRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}
-                        className="px-8 py-3 bg-black text-white rounded-full font-bold hover:scale-105 transition-transform shadow-lg border border-gray-200 dark:border-gray-700"
+                        className="px-8 py-3 bg-black dark:bg-white text-white dark:text-black rounded-full font-bold hover:scale-105 transition-transform shadow-lg border-2 border-gray-200 dark:border-gray-700"
                       >
                         {t("quickMode.backToTop")}
                       </button>
