@@ -51,92 +51,209 @@
       "category": "perception",
       "questions": [
         { "type": "open", "question": "你注意到我的第一件事是什么？" },
-        { "type": "open", "question": "你认为我维持生计的工作中最困难的部分是什么？" },
+        {
+          "type": "open",
+          "question": "你认为我维持生计的工作中最困难的部分是什么？"
+        },
         { "type": "open", "question": "你认为我最可能看哪种真人秀节目？" },
-        { "type": "open", "question": "我们两个之间，谁看起来更擅长发信息交流？解释一下。" },
+        {
+          "type": "open",
+          "question": "我们两个之间，谁看起来更擅长发信息交流？解释一下。"
+        },
         { "type": "open", "question": "你对我的第一印象是什么？" },
-        { "type": "open", "question": "完成句子：仅仅看着你，我会觉得__________。" },
-        { "type": "open", "question": "我看起来像是会在身上纹名字的人吗？为什么？" },
+        {
+          "type": "open",
+          "question": "完成句子：仅仅看着你，我会觉得__________。"
+        },
+        {
+          "type": "open",
+          "question": "我看起来像是会在身上纹名字的人吗？为什么？"
+        },
         { "type": "wildcard", "question": "特别环节：对我做一个假设。" },
-        { "type": "open", "question": "如果你要送我一件礼物，除了我的外貌之外对我一无所知，那会是什么？" },
+        {
+          "type": "open",
+          "question": "如果你要送我一件礼物，除了我的外貌之外对我一无所知，那会是什么？"
+        },
         { "type": "open", "question": "我身上的什么特质吸引了你？" },
-        { "type": "open", "question": "我的社交媒体内容告诉你关于我的什么信息？" },
-        { "type": "open", "question": "我看起来更像感性创作型还是理性分析型？" },
+        {
+          "type": "open",
+          "question": "我的社交媒体内容告诉你关于我的什么信息？"
+        },
+        {
+          "type": "open",
+          "question": "我看起来更像感性创作型还是理性分析型？"
+        },
         { "type": "open", "question": "我的鞋子告诉你关于我的什么？" },
         { "type": "wildcard", "question": "特别环节：展示彼此儿时的照片。" },
-        { "type": "open", "question": "你觉得我在学校里哪些科目表现出色，哪些科目挂过课？" },
+        {
+          "type": "open",
+          "question": "你觉得我在学校里哪些科目表现出色，哪些科目挂过课？"
+        },
         { "type": "open", "question": "你觉得我容易坠入爱河吗？为什么？" },
         { "type": "open", "question": "你觉得我最可能在什么东西上挥霍钱财？" },
         { "type": "open", "question": "你觉得我这辈子拿过多少张超速罚单？" },
-        { "type": "wildcard", "question": "特别环节：画出你现在的心情，然后对比。" },
-        { "type": "open", "question": "你会用哪三个词来形容你认为我喜欢的类型？" },
-        { "type": "open", "question": "你觉得我被辞退过吗？如果有，是因为什么？" },
+        {
+          "type": "wildcard",
+          "question": "特别环节：画出你现在的心情，然后对比。"
+        },
+        {
+          "type": "open",
+          "question": "你会用哪三个词来形容你认为我喜欢的类型？"
+        },
+        {
+          "type": "open",
+          "question": "你觉得我被辞退过吗？如果有，是因为什么？"
+        },
         { "type": "open", "question": "你对我发的第一条信息有什么看法？" },
         { "type": "open", "question": "有什么事是你永远不会拒绝的？" },
         { "type": "open", "question": "你觉得我小时候梦想成为什么样的人？" },
-        { "type": "wildcard", "question": "特别环节：用不同的口音回答下一个问题。" },
+        {
+          "type": "wildcard",
+          "question": "特别环节：用不同的口音回答下一个问题。"
+        },
         { "type": "open", "question": "我看起来像晨型人还是夜猫子？" },
         { "type": "open", "question": "我是那种你通常会想要建立联系的人吗？" },
         { "type": "open", "question": "你觉得我在学校里受欢迎吗？解释一下。" },
         { "type": "open", "question": "你觉得我听到最多的赞美是什么？" },
         { "type": "open", "question": "哪一条建议真的让你铭记于心？" },
-        { "type": "open", "question": "你觉得我最像哪部电影或哪本书里的人物？为什么？" },
-        { "type": "open", "question": "你觉得我通常是提前到达、准时还是迟到？解释一下。" },
+        {
+          "type": "open",
+          "question": "你觉得我最像哪部电影或哪本书里的人物？为什么？"
+        },
+        {
+          "type": "open",
+          "question": "你觉得我通常是提前到达、准时还是迟到？解释一下。"
+        },
         { "type": "open", "question": "我让你感到畏惧吗？为什么？" },
         { "type": "open", "question": "我的手机壁纸告诉你关于我的什么？" },
-        { "type": "open", "question": "你觉得我有没有翻看过前任的手机寻找证据？" },
+        {
+          "type": "open",
+          "question": "你觉得我有没有翻看过前任的手机寻找证据？"
+        },
         { "type": "open", "question": "我让你想起过你认识的任何人吗？" },
-        { "type": "open", "question": "本周让我由衷感到快乐的一件事是______。" },
-        { "type": "open", "question": "你脑海里第一时间跳出来的最喜欢的歌词是什么？" }
+        {
+          "type": "open",
+          "question": "本周让我由衷感到快乐的一件事是______。"
+        },
+        {
+          "type": "open",
+          "question": "你脑海里第一时间跳出来的最喜欢的歌词是什么？"
+        }
       ]
     },
     {
       "category": "connection",
       "questions": [
         { "type": "open", "question": "你在任何事情上对自己撒谎吗？" },
-        { "type": "open", "question": "现在你生命中，你最想寻找答案的问题是什么？" },
+        {
+          "type": "open",
+          "question": "现在你生命中，你最想寻找答案的问题是什么？"
+        },
         { "type": "open", "question": "过去一年里你最快乐的回忆是什么？" },
         { "type": "open", "question": "你最近在什么事情上改变了主意吗？" },
-        { "type": "wildcard", "question": "特别环节：写下在一段关系中对你最重要的三件事（30秒），然后对比。" },
+        {
+          "type": "wildcard",
+          "question": "特别环节：写下在一段关系中对你最重要的三件事（30秒），然后对比。"
+        },
         { "type": "open", "question": "上一次你让自己感到惊喜是什么时候？" },
-        { "type": "open", "question": "如果用一个词来形容坠入爱河的感觉，你会用哪个词？" },
+        {
+          "type": "open",
+          "question": "如果用一个词来形容坠入爱河的感觉，你会用哪个词？"
+        },
         { "type": "open", "question": "有没有一个陌生人曾改变过你的生活？" },
         { "type": "open", "question": "你哪种不安全感最让你裹足不前？" },
         { "type": "wildcard", "question": "链接卡片 1" },
         { "type": "open", "question": "你如何能成为一个更好的人？" },
         { "type": "open", "question": "你会给你目前的人生篇章起什么标题？" },
-        { "type": "wildcard", "question": "特别环节：写下一件在约会中让你反感的事（30秒）。对比。" },
+        {
+          "type": "wildcard",
+          "question": "特别环节：写下一件在约会中让你反感的事（30秒）。对比。"
+        },
         { "type": "open", "question": "你经历过的最严重的非生理痛苦是什么？" },
-        { "type": "open", "question": "有什么关于你自己的特质是你不想改变的？" },
-        { "type": "open", "question": "你初恋的名字是什么，你为什么会爱上他们？" },
-        { "type": "open", "question": "关于你现在的生活，你年少时的自己会有什么不敢相信的地方？" },
+        {
+          "type": "open",
+          "question": "有什么关于你自己的特质是你不想改变的？"
+        },
+        {
+          "type": "open",
+          "question": "你初恋的名字是什么，你为什么会爱上他们？"
+        },
+        {
+          "type": "open",
+          "question": "关于你现在的生活，你年少时的自己会有什么不敢相信的地方？"
+        },
         { "type": "wildcard", "question": "特别环节：创造一个你自己的问题。" },
-        { "type": "open", "question": "你母亲的名字是什么，她身上最美的一点是什么？" },
+        {
+          "type": "open",
+          "question": "你母亲的名字是什么，她身上最美的一点是什么？"
+        },
         { "type": "open", "question": "你曾放弃过的一个梦想是什么？" },
-        { "type": "open", "question": "如果你能更深入地了解你生活中的某个人，你会选谁？为什么？" },
-        { "type": "open", "question": "你生活中哪部分运行良好，哪部分让你感到痛苦？" },
-        { "type": "open", "question": "你认为你对自己的看法与别人眼中的你一致吗？" },
-        { "type": "open", "question": "朋友（或伴侣）为你做过的最贴心的一件事是什么？" },
-        { "type": "wildcard", "question": "特别环节：给你的同伴一个你认为他们平日里不常听到的赞美。" },
+        {
+          "type": "open",
+          "question": "如果你能更深入地了解你生活中的某个人，你会选谁？为什么？"
+        },
+        {
+          "type": "open",
+          "question": "你生活中哪部分运行良好，哪部分让你感到痛苦？"
+        },
+        {
+          "type": "open",
+          "question": "你认为你对自己的看法与别人眼中的你一致吗？"
+        },
+        {
+          "type": "open",
+          "question": "朋友（或伴侣）为你做过的最贴心的一件事是什么？"
+        },
+        {
+          "type": "wildcard",
+          "question": "特别环节：给你的同伴一个你认为他们平日里不常听到的赞美。"
+        },
         { "type": "open", "question": "约会中发生过最让你尴尬的事是什么？" },
-        { "type": "open", "question": "在以往的关系中，你本可以做得更好的一点是什么？" },
-        { "type": "open", "question": "你觉得我会让其他人感到畏惧吗？为什么？" },
-        { "type": "open", "question": "当被问到“你好吗”时，你多久会如实回答一次？" },
+        {
+          "type": "open",
+          "question": "在以往的关系中，你本可以做得更好的一点是什么？"
+        },
+        {
+          "type": "open",
+          "question": "你觉得我会让其他人感到畏惧吗？为什么？"
+        },
+        {
+          "type": "open",
+          "question": "当被问到“你好吗”时，你多久会如实回答一次？"
+        },
         { "type": "open", "question": "你过得好吗，说真的？" },
-        { "type": "open", "question": "约会中最讨厌被问到的问题是什么？你希望被问到什么？" },
-        { "type": "open", "question": "发生在你自己身上最无法解释的一件事是什么？" },
+        {
+          "type": "open",
+          "question": "约会中最讨厌被问到的问题是什么？你希望被问到什么？"
+        },
+        {
+          "type": "open",
+          "question": "发生在你自己身上最无法解释的一件事是什么？"
+        },
         { "type": "open", "question": "描述你完美的一天！" },
         { "type": "open", "question": "你会给年轻时的自己什么样的约会建议？" },
         { "type": "open", "question": "抚养你长大的人教过你关于爱的什么？" },
         { "type": "open", "question": "你在情感上觉得自己多少岁了？" },
-        { "type": "open", "question": "在第一次约会中，有没有一个你想投射出来的形象是你希望自己能放下的？" },
+        {
+          "type": "open",
+          "question": "在第一次约会中，有没有一个你想投射出来的形象是你希望自己能放下的？"
+        },
         { "type": "open", "question": "你对什么充满热情？" },
         { "type": "open", "question": "谁是能让你感到舒服和安全的人？" },
-        { "type": "open", "question": "如果你能随心所欲：你会和谁在一起？你在哪里？你在做什么？" },
-        { "type": "open", "question": "如果你必须选一首歌来代表我，那会是什么？为什么？" },
+        {
+          "type": "open",
+          "question": "如果你能随心所欲：你会和谁在一起？你在哪里？你在做什么？"
+        },
+        {
+          "type": "open",
+          "question": "如果你必须选一首歌来代表我，那会是什么？为什么？"
+        },
         { "type": "open", "question": "你今天感受到最多的是什么情绪？" },
         { "type": "open", "question": "你目前没有给予足够时间关注的是什么？" },
-        { "type": "open", "question": "上一次你感到被某人真正理解是什么时候？是谁？他们理解了什么？" },
+        {
+          "type": "open",
+          "question": "上一次你感到被某人真正理解是什么时候？是谁？他们理解了什么？"
+        },
         { "type": "open", "question": "上一次你哭是什么时候？" }
       ]
     },
@@ -147,58 +264,120 @@
         { "type": "wildcard", "question": "特别环节：承认一件事。" },
         { "type": "open", "question": "关于我，有什么让你感到惊讶的？" },
         { "type": "open", "question": "你会如何向陌生人描述我？" },
-        { "type": "wildcard", "question": "特别环节：基于你的了解，重写对方的约会应用简介。" },
+        {
+          "type": "wildcard",
+          "question": "特别环节：基于你的了解，重写对方的约会应用简介。"
+        },
         { "type": "open", "question": "你觉得我们最重要的相似之处是什么？" },
-        { "type": "open", "question": "基于你对我的了解，你会推荐我读什么书？" },
-        { "type": "open", "question": "你觉得我做哪件事能极大地改善我的生活？" },
+        {
+          "type": "open",
+          "question": "基于你对我的了解，你会推荐我读什么书？"
+        },
+        {
+          "type": "open",
+          "question": "你觉得我做哪件事能极大地改善我的生活？"
+        },
         { "type": "open", "question": "我想允许自己去感受___________。" },
-        { "type": "wildcard", "question": "反思卡片 1" },
         { "type": "open", "question": "我能帮你做点什么？" },
-        { "type": "open", "question": "你觉得有什么事对我来说很容易却对别人很难？" },
-        { "type": "wildcard", "question": "特别环节：写下你下个月的头号目标。然后对比。" },
+        {
+          "type": "open",
+          "question": "你觉得有什么事对我来说很容易却对别人很难？"
+        },
+        {
+          "type": "wildcard",
+          "question": "特别环节：写下你下个月的头号目标。然后对比。"
+        },
         { "type": "open", "question": "你在我身上看到了你自己的哪些部分？" },
         { "type": "open", "question": "在什么领域我最有资格给出建议？" },
         { "type": "open", "question": "对我来说完美的礼物会是什么？" },
         { "type": "open", "question": "我现在最需要听到什么？" },
         { "type": "open", "question": "我的哪个回答让你感到眼前一亮？" },
         { "type": "open", "question": "你最害怕回答的是哪个问题？" },
-        { "type": "open", "question": "一个人如何才能赢得你的信任和展示脆弱的一面？" },
-        { "type": "open", "question": "基于你对我的了解，我的社交媒体展示准确吗？" },
-        { "type": "open", "question": "如果我们断联了，你会记住关于我的什么？" },
+        {
+          "type": "open",
+          "question": "一个人如何才能赢得你的信任和展示脆弱的一面？"
+        },
+        {
+          "type": "open",
+          "question": "基于你对我的了解，我的社交媒体展示准确吗？"
+        },
+        {
+          "type": "open",
+          "question": "如果我们断联了，你会记住关于我的什么？"
+        },
         { "type": "open", "question": "当游戏结束时，会有什么事让你记住我？" },
-        { "type": "wildcard", "question": "特别环节：画出你和我在一起最美好的回忆。对比。" },
+        {
+          "type": "wildcard",
+          "question": "特别环节：画出你和我在一起最美好的回忆。对比。"
+        },
         { "type": "open", "question": "你觉得我的弱点是什么？" },
         { "type": "open", "question": "你最欣赏我哪一点？" },
         { "type": "open", "question": "我身上最有吸引力的非外在特质是什么？" },
         { "type": "open", "question": "我们可以一起创造什么？" },
-        { "type": "wildcard", "question": "特别环节：要求你的同伴下周做一件突破舒适区的事。" },
+        {
+          "type": "wildcard",
+          "question": "特别环节：要求你的同伴下周做一件突破舒适区的事。"
+        },
         { "type": "open", "question": "你会从我们的对话中带走什么样的教训？" },
         { "type": "open", "question": "你觉得我最害怕的是什么？" },
-        { "type": "open", "question": "一个人如果不直接开口，该如何向你示爱？" },
+        {
+          "type": "open",
+          "question": "一个人如果不直接开口，该如何向你示爱？"
+        },
         { "type": "open", "question": "你会建议我放下什么？" },
-        { "type": "wildcard", "question": "特别环节：问一个你平常不敢问的问题，或者一个挑战胆量的问题。" },
+        {
+          "type": "wildcard",
+          "question": "特别环节：问一个你平常不敢问的问题，或者一个挑战胆量的问题。"
+        },
         { "type": "open", "question": "关于我，最让你难以理解的是什么？" },
-        { "type": "open", "question": "如果我们是一个乐队，我们会叫什么名字？" },
+        {
+          "type": "open",
+          "question": "如果我们是一个乐队，我们会叫什么名字？"
+        },
         { "type": "open", "question": "这次对话让你对自己有了什么新了解？" },
         { "type": "open", "question": "你觉得我的核心性格特征是什么？" },
         { "type": "open", "question": "你为什么觉得我们会相遇？" },
         { "type": "open", "question": "我们的性格是如何互补的？" },
         { "type": "open", "question": "你还在尝试向自己证明什么？" },
-        { "type": "open", "question": "关于我自己，有什么是你觉得我应该知道但我可能没意识到的？" },
+        {
+          "type": "open",
+          "question": "关于我自己，有什么是你觉得我应该知道但我可能没意识到的？"
+        },
         { "type": "open", "question": "什么事会让你觉得和我的距离更近了？" },
-        { "type": "open", "question": "如果我们没见过面，你觉得我们的生活会有什么不同？" },
-        { "type": "open", "question": "如果你能选一个词来形容我们的链接，那会是什么？" },
+        {
+          "type": "open",
+          "question": "如果我们没见过面，你觉得我们的生活会有什么不同？"
+        },
+        {
+          "type": "open",
+          "question": "如果你能选一个词来形容我们的链接，那会是什么？"
+        },
         { "type": "open", "question": "有没有什么东西会让你想起我？" },
-        { "type": "open", "question": "你觉得我们的联系影响了你的个人成长吗？" },
+        {
+          "type": "open",
+          "question": "你觉得我们的联系影响了你的个人成长吗？"
+        },
         { "type": "open", "question": "我和你预想的一样吗？" },
         { "type": "open", "question": "你觉得我目前生活中最大的障碍是什么？" },
         { "type": "open", "question": "用一个词形容你现在的感受。" },
-        { "type": "open", "question": "你相信每个人都有使命（调用）吗？如果有，你觉得我找到了吗？" },
+        {
+          "type": "open",
+          "question": "你相信每个人都有使命（调用）吗？如果有，你觉得我找到了吗？"
+        },
         { "type": "open", "question": "你觉得我的核心特征是什么？" },
-        { "type": "open", "question": "你最近目睹了什么让你对人性产生希望的事（无论大小）？" },
+        {
+          "type": "open",
+          "question": "你最近目睹了什么让你对人性产生希望的事（无论大小）？"
+        },
         { "type": "open", "question": "你觉得我教给你的最大的教训是什么？" },
-        { "type": "open", "question": "你觉得我们作为一个团队共同克服的一项挑战是什么？" },
-        { "type": "wildcard", "question": "特别环节：在小纸条上互写一段话，离开后再打开。" }
+        {
+          "type": "open",
+          "question": "你觉得我们作为一个团队共同克服的一项挑战是什么？"
+        },
+        {
+          "type": "wildcard",
+          "question": "特别环节：在小纸条上互写一段话，离开后再打开。"
+        }
       ]
     }
   ]

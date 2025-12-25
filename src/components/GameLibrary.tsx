@@ -142,7 +142,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-full bg-white dark:bg-black overflow-y-auto overflow-x-hidden no-scrollbar scroll-smooth"
+      className={`relative w-full h-full bg-white dark:bg-black overflow-y-auto overflow-x-hidden no-scrollbar scroll-smooth ${isMobile ? 'snap-y snap-mandatory' : ''}`}
       style={{ scrollBehavior: 'smooth' }}
     >
       {/* Scrollable Track - height defined by number of items */}
@@ -150,6 +150,18 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
         className="relative w-full"
         style={{ height: `${TOTAL_HEIGHT}px` }}
       >
+        {/* Snap Points for Mobile */}
+        {isMobile && allItems.map((_, index) => (
+          <div
+            key={`snap-${index}`}
+            className="absolute w-full pointer-events-none snap-start snap-always"
+            style={{
+              height: `${ITEM_HEIGHT}px`,
+              top: `${index * ITEM_HEIGHT}px`,
+            }}
+          />
+        ))}
+
         {/* Sticky Viewport - Standard CSS Sticky to keep UI fixed while scrolling */}
         <div className="sticky top-0 h-screen w-full overflow-hidden">
 
@@ -175,7 +187,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
                   ) : focusedGame.testID === "end-card" ? (
 
                     <div className="text-center">
-                   
+
                       <button
                         onClick={() => containerRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}
                         className="px-8 py-3 bg-black dark:bg-white text-white dark:text-black rounded-full font-bold hover:scale-105 transition-transform shadow-lg border-2 border-gray-200 dark:border-gray-700"
@@ -228,6 +240,40 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
               </motion.div>
             </AnimatePresence>
           </div>
+
+          {/* Mobile Scroll Hint */}
+          <AnimatePresence>
+            {isMobile && focusedGame.testID === "intro-card" && (
+              <motion.div
+                initial={{ opacity: 0, y: 0 }}
+                animate={{ opacity: 1, y: 10 }}
+                exit={{ opacity: 0 }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  ease: "easeInOut"
+                }}
+                className="absolute bottom-8 left-0 right-0 flex justify-center items-center z-50 pointer-events-none"
+              >
+                <div className="p-2 bg-white/10 dark:bg-black/10 backdrop-blur-sm rounded-full">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-black dark:text-white opacity-60"
+                  >
+                    <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
+                  </svg>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* 2. Wheel Layer - Desktop Only */}
           {!isMobile && (
@@ -283,17 +329,17 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
                         index={index}
                         isSelected={focusedGameId === game.testID}
                         isHovered={false}
-                          onToggle={() => onStartGame(game)}
-                          onHoverStart={() => { }}
-                          onHoverEnd={() => { }}
-                          minimal={isPlaceholder}
-                          disableEntranceAnimation={true}
-                          style={{
-                            width: isMobile ? '300px' : '400px',
-                            height: isMobile ? '190px' : '250px',
-                          }}
-                          className="relative cursor-pointer group shadow-2xl rounded-3xl"
-                        />
+                        onToggle={() => onStartGame(game)}
+                        onHoverStart={() => { }}
+                        onHoverEnd={() => { }}
+                        minimal={isPlaceholder}
+                        disableEntranceAnimation={true}
+                        style={{
+                          width: isMobile ? '300px' : '400px',
+                          height: isMobile ? '190px' : '250px',
+                        }}
+                        className="relative cursor-pointer group shadow-2xl rounded-3xl"
+                      />
                     </div>
                   );
                 })}
