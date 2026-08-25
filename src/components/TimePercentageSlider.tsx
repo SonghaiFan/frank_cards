@@ -40,17 +40,17 @@ const TimePercentageSlider: React.FC<TimePercentageSliderProps> = ({
     <div className="space-y-4 sm:space-y-6 px-4 sm:px-6">
       {/* Section Header */}
       <div className="space-y-1">
-        <h2 className="text-xl sm:text-2xl font-light text-gray-900 dark:text-white">
+        <h2 className="theme-text-primary text-xl sm:text-2xl font-light">
           {t("timePercentage.title")}
         </h2>
-        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 text-intimate font-light">
+        <p className="theme-text-secondary text-sm sm:text-base text-intimate font-light">
           {t("timePercentage.subtitle")}
         </p>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 font-light"
+          className="theme-text-secondary text-xs sm:text-sm font-light"
         >
           {estimatedQuestions} questions • ~{estimatedTime} minutes together
         </motion.div>
@@ -63,7 +63,7 @@ const TimePercentageSlider: React.FC<TimePercentageSliderProps> = ({
           <div className="px-2 sm:px-4">
             <div className="relative h-3 sm:h-2 mb-6 py-2">
               <div
-                className="absolute inset-0 w-full h-2 bg-gray-100 dark:bg-gray-700 rounded-full"
+                className="absolute inset-0 w-full h-2 rounded-full"
                 style={{
                   background: `linear-gradient(to right, var(--slider-thumb) 0%, var(--slider-thumb) ${progressPercentage}%, var(--slider-track) ${progressPercentage}%, var(--slider-track) 100%)`,
                   zIndex: 1,
@@ -84,7 +84,7 @@ const TimePercentageSlider: React.FC<TimePercentageSliderProps> = ({
               />
             </div>
 
-            <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 font-light">
+            <div className="theme-text-tertiary flex justify-between text-xs font-light">
               <span>{t("timePercentage.labels.light")}</span>
               <span>{t("timePercentage.labels.meaningful")}</span>
               <span>{t("timePercentage.labels.deep")}</span>

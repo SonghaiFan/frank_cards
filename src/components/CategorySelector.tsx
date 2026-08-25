@@ -29,10 +29,10 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
     <div className="space-y-4 sm:space-y-6 px-4 sm:px-6">
       {/* Section Header */}
       <div className="space-y-1">
-        <h2 className="text-xl sm:text-2xl font-light text-gray-900 dark:text-white">
+        <h2 className="theme-text-primary text-xl sm:text-2xl font-light">
           {t("categorySelector.title")}
         </h2>
-        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 text-intimate font-light">
+        <p className="theme-text-secondary text-sm sm:text-base text-intimate font-light">
           {t("categorySelector.subtitle")}
         </p>
       </div>
@@ -57,7 +57,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
             <React.Fragment key={origin}>
               {/* Divider between game groups (but not before the first one) */}
               {groupIndex > 0 && (
-                <div className="h-8 w-px bg-gray-300 dark:bg-gray-700 mx-2 sm:mx-4" />
+                <div className="theme-divider h-8 w-px mx-2 sm:mx-4" />
               )}
 
               {/* Categories for this game */}
@@ -84,7 +84,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
                       whileTap={{ scale: 0.9 }}
                       onClick={() => handleCategoryToggle(categoryKey)}
                       className={`
-                      material-category-control relative w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full transition-all duration-300 cursor-pointer touch-manipulation
+                      material-category-control relative w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full transition-[transform,box-shadow,background-color] duration-300 cursor-pointer touch-manipulation
                       ${isSelected
                           ? "shadow-lg scale-110"
                           : "hover:shadow-md opacity-60 hover:opacity-100 active:scale-95"
@@ -117,7 +117,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
                     </motion.button>
 
                     <div className="text-center max-w-[90px] space-y-0.5">
-                      <div className="text-xs sm:text-sm font-medium text-gray-900 dark:text-white leading-tight break-words">
+                      <div className="theme-text-primary text-xs sm:text-sm font-medium leading-tight break-words">
                         {/* Remove appended game title from name if present */}
                         {category.name.replace(/\s*\(.*?\)$/, "")}
                       </div>
@@ -135,7 +135,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center text-gray-600 dark:text-gray-400 font-light text-xs sm:text-sm px-4"
+          className="theme-text-secondary text-center font-light text-xs sm:text-sm px-4"
         >
           Select at least one area to begin your journey
         </motion.p>

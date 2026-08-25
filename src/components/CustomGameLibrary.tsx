@@ -106,13 +106,13 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
   };
 
   return (
-    <div className="h-full w-full bg-white dark:bg-black flex flex-col items-center px-4 sm:px-8 py-8 sm:py-16 overflow-y-auto relative">
+    <div className="theme-canvas h-full w-full flex flex-col items-center px-4 sm:px-8 py-8 sm:py-16 overflow-y-auto relative">
       {/* Back Button */}
       <motion.button
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.3 }}
-        className="absolute top-4 left-4 sm:top-8 sm:left-8 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-xl sm:text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200 z-50"
+        className="theme-interactive-text absolute top-4 left-4 sm:top-8 sm:left-8 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-xl sm:text-2xl transition-colors duration-200 z-50"
         onClick={onBackToQuick}
       >
         ←
@@ -143,7 +143,7 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
             {/* Subtle progress indicator */}
             {clickProgress > 0 && clickProgress < 1 && (
               <motion.div
-                className="absolute inset-0 rounded-full border-2 border-black dark:border-white"
+                className="theme-selection-ring absolute inset-0 rounded-full border-2"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{
                   opacity: [0, 0.2, 0],
@@ -157,14 +157,14 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
               />
             )}
           </motion.div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-black dark:text-white tracking-tight leading-none">
+          <h1 className="theme-text-primary text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-none">
             {t("customMode.title")}
           </h1>
         </div>
-        <p className="text-xl sm:text-2xl text-black dark:text-white font-bold mb-2">
+        <p className="theme-text-primary text-xl sm:text-2xl font-bold mb-2">
           {t("customMode.subtitle")}
         </p>
-        <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 text-intimate font-light px-4 mb-6">
+        <p className="theme-text-secondary text-lg sm:text-xl text-intimate font-light px-4 mb-6">
           {t("customMode.description")}
         </p>
 
@@ -175,7 +175,7 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
-              className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-black text-white px-6 py-3 rounded-full text-sm font-medium shadow-lg z-50"
+              className="theme-primary-control fixed top-4 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-full text-sm font-medium shadow-lg z-50"
             >
               {t("gameLibrary.premiumUnlocked")}
             </motion.div>
@@ -203,7 +203,7 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
           />
 
           {/* Vertical Separator for Desktop */}
-          <div className="hidden sm:block w-px h-15 bg-gray-200 dark:bg-gray-700 mx-4" />
+          <div className="theme-divider hidden sm:block w-px h-15 mx-4" />
 
           {/* Player Group Filter */}
           <FilterGroup
@@ -251,7 +251,7 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-center text-gray-500 py-12"
+          className="theme-text-tertiary text-center py-12"
         >
           <p>{t("gameLibrary.noResults")}</p>
         </motion.div>
@@ -262,7 +262,7 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
-        className="text-center text-gray-600 font-medium pb-24"
+        className="theme-text-secondary text-center font-medium pb-24"
       >
         <p className="text-sm">{t("gameLibrary.footnote")}</p>
       </motion.div>
@@ -279,7 +279,7 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
             {/* Clear Selection Button */}
             <button
               onClick={onClearSelection}
-              className="paper-control pointer-events-auto bg-white dark:bg-zinc-900 text-gray-500 dark:text-gray-400 h-[60px] w-[60px] rounded-full flex items-center justify-center hover:scale-110 hover:text-red-500 dark:hover:text-red-400 transition-all"
+              className="paper-control theme-secondary-control theme-danger-control pointer-events-auto h-[60px] w-[60px] rounded-full flex items-center justify-center hover:scale-110 transition-[transform,color,background-color]"
               aria-label="Clear selection"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -289,7 +289,7 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
 
             <button
               onClick={onStartSession}
-              className="material-control pointer-events-auto bg-black dark:bg-white text-white dark:text-black font-bold text-lg px-8 py-4 rounded-full flex items-center gap-3 hover:scale-105 transition-transform"
+              className="material-control theme-primary-control pointer-events-auto font-bold text-lg px-8 py-4 rounded-full flex items-center gap-3 hover:scale-105 transition-transform"
             >
               <span>Play {selectedGames.length} Pack{selectedGames.length > 1 ? 's' : ''}</span>
             </button>

@@ -21,16 +21,16 @@ const FilterGroup = <T extends string>({
 
   return (
     <div className="flex flex-col items-center gap-3 w-full sm:w-auto">
-      <span className="text-xs uppercase tracking-wider text-gray-500 font-medium">
+      <span className="theme-text-tertiary text-xs uppercase tracking-wider font-medium">
         {title}
       </span>
       <div className="flex flex-wrap gap-2 justify-center">
         <button
           onClick={() => onSelectionChange(null)}
-          className={`paper-control px-6 py-2 rounded-full text-sm font-bold transition-all duration-300 hover:scale-105
+          className={`paper-control px-6 py-2 rounded-full text-sm font-bold transition-[transform,background-color,color,box-shadow] duration-300 hover:scale-105
             ${!selectedValue
-              ? "bg-black text-white shadow-md"
-              : "bg-white dark:bg-black text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900"
+              ? "theme-primary-control shadow-md"
+              : "theme-secondary-control"
             }`}
         >
           {allLabel}
@@ -39,10 +39,10 @@ const FilterGroup = <T extends string>({
           <button
             key={option}
             onClick={() => onSelectionChange(option)}
-            className={`paper-control px-6 py-2 rounded-full text-sm font-bold transition-all duration-300 hover:scale-105
+            className={`paper-control px-6 py-2 rounded-full text-sm font-bold transition-[transform,background-color,color,box-shadow] duration-300 hover:scale-105
               ${selectedValue === option
-                ? "bg-black text-white shadow-md"
-                : "bg-white dark:bg-black text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900"
+                ? "theme-primary-control shadow-md"
+                : "theme-secondary-control"
               }`}
           >
             {t(`${translationKey}.${option}`)}

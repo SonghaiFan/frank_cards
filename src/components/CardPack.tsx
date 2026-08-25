@@ -153,7 +153,7 @@ const CardPack: React.FC<CardPackProps> = ({
         >
           {/* Selected Checkmark Overlay */}
           {isSelected && showSelectionIndicator && (
-            <div className="absolute top-4 right-4 bg-black text-white rounded-full p-1 shadow-md">
+            <div className="theme-primary-control absolute top-4 right-4 rounded-full p-1 shadow-md">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-4 w-4"
@@ -170,12 +170,12 @@ const CardPack: React.FC<CardPackProps> = ({
           )}
 
           {/* Game Title */}
-          <h2 className="text-xl sm:text-2xl font-bold text-black mb-3 sm:mb-4 text-center leading-tight px-2">
+          <h2 className="theme-text-primary text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-center leading-tight px-2">
             {game.app.title}
           </h2>
 
           {/* Game Description */}
-          <p className="text-xs sm:text-sm text-gray-700 font-medium text-center leading-relaxed px-2">
+          <p className="theme-text-secondary text-xs sm:text-sm font-medium text-center leading-relaxed px-2">
             {game.app.subtitle}
           </p>
 
@@ -193,7 +193,7 @@ const CardPack: React.FC<CardPackProps> = ({
 
           {/* Card Count Indicator - Hidden in minimal mode */}
           {!minimal && (
-            <div className="mt-3 sm:mt-4 text-xs text-gray-600 font-semibold uppercase tracking-wider text-center px-2">
+            <div className="theme-text-secondary mt-3 sm:mt-4 text-xs font-semibold uppercase tracking-wider text-center px-2">
               {game.questions.reduce(
                 (total: number, category: any) =>
                   total + category.questions.length,

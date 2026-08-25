@@ -2,7 +2,7 @@ import { getContrastColor } from "./color";
 
 interface ResolveGameSurfaceThemeOptions {
   categoryColor: string;
-  isDarkTheme: boolean;
+  isDarkTheme?: boolean;
   isWildcard?: boolean;
 }
 
@@ -17,10 +17,10 @@ export const resolveUiColor = (backgroundColor: string) => getContrastColor(back
 
 export const resolveGameSurfaceTheme = ({
   categoryColor,
-  isDarkTheme,
+  isDarkTheme = false,
   isWildcard = false,
 }: ResolveGameSurfaceThemeOptions): GameSurfaceTheme => {
-  const canvasColor = isDarkTheme ? "#000000" : "#ffffff";
+  const canvasColor = isDarkTheme ? "#191917" : "#fdfdfa";
   const backgroundColor = isWildcard ? canvasColor : categoryColor;
   const cardColor = isWildcard ? categoryColor : canvasColor;
 

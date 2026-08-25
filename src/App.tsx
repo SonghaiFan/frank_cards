@@ -104,9 +104,9 @@ function App() {
 
   if (loading) {
     return (
-      <div className="h-screen w-screen flex flex-col justify-center items-center bg-white dark:bg-black overflow-hidden material-canvas">
-        <div className="w-8 h-8 border-2 border-gray-300 dark:border-gray-600 border-t-primary rounded-full animate-spin mb-6"></div>
-        <p className="text-lg text-gray-600 dark:text-gray-300 font-light">
+      <div className="h-screen w-screen flex flex-col justify-center items-center overflow-hidden material-canvas">
+        <div className="theme-spinner w-8 h-8 border-2 rounded-full animate-spin mb-6"></div>
+        <p className="theme-text-secondary text-lg font-light">
           Loading conversations...
         </p>
       </div>

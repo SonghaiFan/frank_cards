@@ -38,7 +38,7 @@ const GameIntroPanel: React.FC<GameIntroPanelProps> = ({
           {/* Subtle progress indicator */}
           {clickProgress > 0 && clickProgress < 1 && (
             <motion.div
-              className="absolute inset-0 rounded-full border-2 border-black dark:border-white"
+              className="theme-selection-ring absolute inset-0 rounded-full border-2"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{
                 opacity: [0, 0.2, 0],
@@ -65,7 +65,7 @@ const GameIntroPanel: React.FC<GameIntroPanelProps> = ({
 
       <div className="flex flex-col items-center lg:items-end gap-4">
         <button
-          className="material-control px-8 py-3 bg-black dark:bg-white text-white dark:text-black rounded-full font-bold hover:scale-105 transition-transform"
+          className="material-control theme-primary-control px-8 py-3 rounded-full font-bold hover:scale-105 transition-transform"
           onClick={onSwitchToCustom}
         >
           {t("quickMode.switchToCustom")}

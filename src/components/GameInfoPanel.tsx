@@ -24,7 +24,7 @@ const GameInfoPanel: React.FC<GameInfoPanelProps> = ({
       <div data-game-info-scroll className="min-h-0 flex-1 overflow-y-auto no-scrollbar py-2">
         <div className="flex min-h-full min-w-0 flex-col justify-center">
           <h1
-            className={`mb-6 max-w-full whitespace-normal break-words text-3xl font-black leading-tight tracking-tight text-gray-900 transition-colors duration-700 [text-wrap:balance] sm:mb-8 sm:text-4xl md:text-5xl lg:ml-auto lg:max-w-[17rem] xl:max-w-[19rem] xl:text-5xl ${hasLongTitle ? "2xl:text-5xl" : "2xl:text-6xl"} dark:text-white`}
+            className={`theme-text-primary mb-6 max-w-full whitespace-normal break-words text-3xl font-black leading-tight tracking-tight transition-colors duration-700 [text-wrap:balance] sm:mb-8 sm:text-4xl md:text-5xl lg:ml-auto lg:max-w-[17rem] xl:max-w-[19rem] xl:text-5xl ${hasLongTitle ? "2xl:text-5xl" : "2xl:text-6xl"}`}
             style={uiColor ? { color: uiColor } : undefined}
           >
             {game.ui.startScreen.title}
@@ -33,7 +33,7 @@ const GameInfoPanel: React.FC<GameInfoPanelProps> = ({
           <ContourText
             color={uiColor}
             paragraphs={game.ui.startScreen.description}
-            className="text-base font-light leading-relaxed text-gray-600 transition-colors duration-700 sm:text-lg md:text-xl dark:text-gray-300"
+            className="theme-text-secondary text-base font-light leading-relaxed transition-colors duration-700 sm:text-lg md:text-xl"
           />
         </div>
 

@@ -22,9 +22,8 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
       onClick={toggleLanguage}
       className={`
         flex items-center gap-2 px-2 py-1
-        text-gray-600 hover:text-gray-900
-        dark:text-gray-300 dark:hover:text-gray-100
-        transition-all duration-200
+        theme-interactive-text
+        transition-[color,transform] duration-200
         hover:scale-110
         ${className}
       `}
