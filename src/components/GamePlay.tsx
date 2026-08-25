@@ -34,7 +34,7 @@ const GamePlay: React.FC<GamePlayProps> = ({
 
   // Color logic based on Theme × Mode
   const isWildMode = currentQuestion?.type === "wildcard";
-  const categoryColor = currentCategory?.color || "#ffffff";
+  const categoryColor = currentCategory?.color || "#fdfdfa";
 
   const {
     backgroundColor,
@@ -116,21 +116,6 @@ const GamePlay: React.FC<GamePlayProps> = ({
       animate={{ backgroundColor }}
       transition={{ backgroundColor: { duration: 1.6, ease: "easeInOut" } }}
     >
-      {/* Dark mode darkening overlay */}
-      {isDarkTheme && (
-        <motion.div
-          className="absolute inset-0 bg-black pointer-events-none"
-          style={{ zIndex: 0 }}
-          animate={{
-            opacity: isWildMode ? 0 : 0.5,
-          }}
-          transition={{
-            duration: 0.5,
-            ease: "easeInOut",
-          }}
-        />
-      )}
-
       {/* Header - Minimal Navigation */}
       <motion.header
         initial={{ opacity: 0, y: -12 }}
@@ -139,7 +124,7 @@ const GamePlay: React.FC<GamePlayProps> = ({
         className="flex justify-between items-center p-4 sm:p-8 relative z-10"
       >
         <button
-          className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-xl sm:text-2xl hover:text-gray-200 transition-colors duration-200"
+          className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-xl sm:text-2xl transition-opacity duration-200 hover:opacity-65"
           style={{ color: uiColor }}
           onClick={onExit}
         >

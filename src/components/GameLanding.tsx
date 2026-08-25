@@ -11,14 +11,14 @@ interface GameLandingProps {
 
 const GameLanding: React.FC<GameLandingProps> = ({ game, onStart, onExit }) => {
   return (
-    <div className="h-full w-full bg-white dark:bg-black overflow-y-auto">
+    <div className="theme-canvas h-full w-full overflow-y-auto">
       <div className="min-h-full flex flex-col items-center justify-center px-4 sm:px-8 py-8 sm:py-16">
         {/* Exit Button - Minimal */}
         <motion.button
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3 }}
-          className="absolute top-4 left-4 sm:top-8 sm:left-8 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-xl sm:text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"
+          className="theme-interactive-text absolute top-4 left-4 sm:top-8 sm:left-8 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-xl sm:text-2xl transition-colors duration-200"
           onClick={onExit}
         >
           ←

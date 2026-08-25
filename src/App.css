@@ -52,35 +52,6 @@ body {
   --animate-slide-up: slide-up 0.4s ease-out;
 }
 
-/* Dark mode CSS variables */
-:root {
-  --bg-primary: #ffffff;
-  --bg-secondary: #f9fafb;
-  --bg-card: #ffffff;
-  --text-primary: #1a1a1a;
-  --text-secondary: #4a4a4a;
-  --text-muted: #6b7280;
-  --border-color: #e5e7eb;
-  --shadow-color: rgba(0, 0, 0, 0.1);
-  --slider-track: #f3f4f6;
-  --slider-thumb: #1a1a1a;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-primary: #0f172a;
-    --bg-secondary: #1e293b;
-    --bg-card: #334155;
-    --text-primary: #f1f5f9;
-    --text-secondary: #cbd5e1;
-    --text-muted: #94a3b8;
-    --border-color: #475569;
-    --shadow-color: rgba(0, 0, 0, 0.3);
-    --slider-track: #374151;
-    --slider-thumb: #f1f5f9;
-  }
-}
-
 @keyframes fade-in {
   0% {
     opacity: 0;
@@ -206,16 +177,27 @@ body {
    Layout and interaction stay intact; separation comes from paper tone,
    fibre, light and shadow rather than visible borders. */
 :root {
+  color-scheme: light;
   --material-canvas: #f2f2ef;
   --material-surface: #fbfbf7;
   --paper-card: #fdfdfa;
   --material-ink: #171715;
   --material-muted-ink: #5d5d57;
+  --material-faint-ink: #7d7d75;
   --material-input: #f0f0eb;
+  --material-divider: #d8d8d1;
   --material-error: #a3302e;
+  --material-overlay: rgba(22, 22, 20, 0.34);
+  --material-edge-highlight: rgba(255, 255, 255, 0.72);
+  --material-edge-highlight-strong: rgba(255, 255, 255, 0.80);
+  --material-shadow-tail: rgba(35, 33, 28, 0.045);
   --material-shadow-soft: rgba(46, 44, 38, 0.075);
   --material-shadow-mid: rgba(42, 40, 34, 0.11);
   --material-shadow-deep: rgba(35, 33, 28, 0.15);
+  --theme-mesh-neutral: #fbfbf7;
+  --theme-mesh-opacity: 0.84;
+  --slider-track: #deded8;
+  --slider-thumb: #171715;
   --layer-account-toolbar: 80;
   --layer-account-overlay: 200;
 }
@@ -239,7 +221,7 @@ body {
 .theme-color-blur-mesh {
   position: absolute;
   inset: -12%;
-  opacity: 0.84;
+  opacity: var(--theme-mesh-opacity);
   -webkit-mask-image: linear-gradient(
     90deg,
     rgb(0 0 0 / 0.05) 0%,
@@ -268,7 +250,7 @@ body {
 
 .theme-color-blur-field-primary {
   background:
-    radial-gradient(ellipse 38% 44% at 12% 18%, color-mix(in srgb, var(--theme-mesh-1) 72%, white), transparent 74%),
+    radial-gradient(ellipse 38% 44% at 12% 18%, color-mix(in srgb, var(--theme-mesh-1) 72%, var(--theme-mesh-neutral)), transparent 74%),
     radial-gradient(ellipse 42% 40% at 43% 17%, var(--theme-mesh-2), transparent 72%),
     radial-gradient(ellipse 45% 48% at 83% 16%, var(--theme-mesh-3), transparent 73%),
     radial-gradient(ellipse 48% 48% at 42% 78%, var(--theme-mesh-4), transparent 74%),
@@ -278,9 +260,9 @@ body {
 
 .theme-color-blur-field-secondary {
   background:
-    radial-gradient(ellipse 32% 36% at 27% 54%, color-mix(in srgb, var(--theme-mesh-3) 76%, white), transparent 72%),
-    radial-gradient(ellipse 33% 42% at 64% 42%, color-mix(in srgb, var(--theme-mesh-5) 86%, white), transparent 72%),
-    radial-gradient(ellipse 38% 40% at 74% 80%, color-mix(in srgb, var(--theme-mesh-4) 84%, white), transparent 74%),
+    radial-gradient(ellipse 32% 36% at 27% 54%, color-mix(in srgb, var(--theme-mesh-3) 76%, var(--theme-mesh-neutral)), transparent 72%),
+    radial-gradient(ellipse 33% 42% at 64% 42%, color-mix(in srgb, var(--theme-mesh-5) 86%, var(--theme-mesh-neutral)), transparent 72%),
+    radial-gradient(ellipse 38% 40% at 74% 80%, color-mix(in srgb, var(--theme-mesh-4) 84%, var(--theme-mesh-neutral)), transparent 74%),
     radial-gradient(ellipse 28% 34% at 92% 40%, var(--theme-mesh-1), transparent 72%);
   opacity: 0.72;
   transform: translate3d(2%, 1%, 0) scale(1.12) rotate(1.4deg);
@@ -387,16 +369,27 @@ body {
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --material-canvas: #0d0d0c;
-    --material-surface: #161614;
-    --paper-card: #f7f7f2;
-    --material-ink: #f3f2ec;
-    --material-muted-ink: #b9b9b1;
-    --material-input: #242421;
+    color-scheme: dark;
+    --material-canvas: #11110f;
+    --material-surface: #191917;
+    --paper-card: #22221f;
+    --material-ink: #efeee7;
+    --material-muted-ink: #b8b7af;
+    --material-faint-ink: #8f8e87;
+    --material-input: #292925;
+    --material-divider: #3a3a35;
     --material-error: #ffaaa4;
+    --material-overlay: rgba(0, 0, 0, 0.58);
+    --material-edge-highlight: rgba(255, 255, 255, 0.075);
+    --material-edge-highlight-strong: rgba(255, 255, 255, 0.11);
+    --material-shadow-tail: rgba(0, 0, 0, 0.18);
     --material-shadow-soft: rgba(0, 0, 0, 0.20);
     --material-shadow-mid: rgba(0, 0, 0, 0.30);
     --material-shadow-deep: rgba(0, 0, 0, 0.42);
+    --theme-mesh-neutral: #171714;
+    --theme-mesh-opacity: 0.72;
+    --slider-track: #3a3a35;
+    --slider-thumb: #efeee7;
   }
 
   .knee-conversation-background {
@@ -406,37 +399,121 @@ body {
 
 body {
   background-color: var(--material-canvas);
+  color: var(--material-ink);
 }
 
-.material-canvas {
+.material-canvas,
+.theme-canvas {
   background-color: var(--material-canvas);
+  color: var(--material-ink);
 }
 
-.bg-white {
+.theme-surface {
   background-color: var(--material-surface);
+  color: var(--material-ink);
+}
+
+.theme-paper-card {
+  background-color: var(--paper-card);
+  color: var(--material-ink);
+}
+
+.theme-text-primary {
+  color: var(--material-ink);
+}
+
+.theme-text-secondary {
+  color: var(--material-muted-ink);
+}
+
+.theme-text-tertiary {
+  color: var(--material-faint-ink);
+}
+
+.theme-interactive-text {
+  color: var(--material-muted-ink);
+}
+
+.theme-interactive-text:hover {
+  color: var(--material-ink);
+}
+
+.theme-divider {
+  background-color: var(--material-divider);
+}
+
+.theme-icon-surface,
+.theme-secondary-control {
+  color: var(--material-muted-ink);
+  background-color: color-mix(in srgb, var(--material-surface) 84%, transparent);
+}
+
+.theme-icon-surface:hover,
+.theme-secondary-control:hover {
+  color: var(--material-ink);
+  background-color: color-mix(in srgb, var(--material-ink) 9%, var(--material-surface));
+}
+
+.theme-primary-control {
+  color: var(--material-canvas);
+  background-color: var(--material-ink);
+}
+
+.theme-translucent-chip {
+  color: var(--material-ink);
+  background-color: color-mix(in srgb, var(--material-surface) 28%, transparent);
+}
+
+.theme-danger-control:hover {
+  color: var(--material-error);
+}
+
+.theme-spinner {
+  border-color: var(--material-divider);
+  border-top-color: var(--material-ink);
+}
+
+.theme-selection-ring {
+  border-color: var(--material-ink);
+}
+
+.theme-toggle-track {
+  background-color: var(--material-divider);
+}
+
+.theme-toggle-track-active {
+  background-color: var(--material-ink);
+}
+
+.theme-toggle-knob {
+  background-color: var(--material-surface);
+}
+
+.theme-toggle-knob-active {
+  background-color: var(--material-canvas);
 }
 
 .material-card {
   isolation: isolate;
   overflow: hidden;
   box-shadow:
-    0 1px 1px rgba(255, 255, 255, 0.72),
+    0 1px 1px var(--material-edge-highlight),
     0 3px 7px var(--material-shadow-soft),
     0 18px 38px var(--material-shadow-mid),
-    0 38px 64px rgba(35, 33, 28, 0.045);
+    0 38px 64px var(--material-shadow-tail);
 }
 
 .material-card:hover {
   box-shadow:
-    0 1px 1px rgba(255, 255, 255, 0.76),
+    0 1px 1px var(--material-edge-highlight),
     0 5px 10px var(--material-shadow-soft),
     0 24px 48px var(--material-shadow-mid),
-    0 46px 76px rgba(35, 33, 28, 0.055);
+    0 46px 76px var(--material-shadow-tail);
 }
 
 .material-card.paper-card-selected {
   box-shadow:
-    0 2px 3px rgba(255, 255, 255, 0.80),
+    0 2px 3px var(--material-edge-highlight-strong),
     0 7px 14px var(--material-shadow-mid),
     0 30px 58px var(--material-shadow-deep);
 }
@@ -557,7 +634,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background: rgba(22, 22, 20, 0.34);
+  background: var(--material-overlay);
 }
 
 .account-overlay-align-end {
@@ -575,7 +652,7 @@ body {
   color: var(--material-ink);
   background: var(--paper-card);
   box-shadow:
-    0 2px 4px rgba(255, 255, 255, 0.62) inset,
+    0 2px 4px var(--material-edge-highlight-strong) inset,
     0 24px 56px rgba(20, 20, 18, 0.22),
     0 48px 96px rgba(20, 20, 18, 0.14);
 }
@@ -679,6 +756,7 @@ body {
   line-height: 1.4;
   box-shadow: inset 0 1px 3px var(--material-shadow-soft);
   resize: vertical;
+  color-scheme: inherit;
 }
 
 .account-field input::placeholder,

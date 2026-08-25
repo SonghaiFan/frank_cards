@@ -391,8 +391,8 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
   const themeMeshPalette = createThemeMeshPalette(backgroundThemeColors);
   const panelTheme = resolveGameSurfaceTheme({
     categoryColor: backgroundThemeColors[backgroundThemeColors.length - 1],
-    isDarkTheme,
   });
+  const panelUiColor = isDarkTheme ? "var(--material-ink)" : panelTheme.uiColor;
 
   const handleStartGame = useCallback((game: ConversationGame) => {
     if (isLaunching || game.testID === "intro-card" || game.testID === "end-card") return;
@@ -417,7 +417,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`relative w-full h-full bg-white dark:bg-black ${isLaunching ? 'overflow-hidden' : 'overflow-y-auto'} overflow-x-hidden no-scrollbar scroll-smooth ${isMobile ? 'snap-y snap-mandatory' : ''}`}
+      className={`theme-canvas relative w-full h-full ${isLaunching ? 'overflow-hidden' : 'overflow-y-auto'} overflow-x-hidden no-scrollbar scroll-smooth ${isMobile ? 'snap-y snap-mandatory' : ''}`}
       style={{ scrollBehavior: 'smooth' }}
       data-launching={isLaunching ? "true" : "false"}
       data-topic-count={games.length}
@@ -477,7 +477,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
               onAnimationComplete={handleLaunchAnimationComplete}
               className={`absolute inset-0 w-full h-full flex items-center z-10 ${isMobile ? 'justify-center' : 'justify-end pl-[380px] xl:pl-[520px]'}`}
             >
-              <div className={`transition-all duration-300 ${
+              <div className={`transition-[width,padding] duration-300 ${
                 isMobile
                   ? 'w-full max-w-2xl px-4 sm:px-8'
                   : 'w-full max-w-[30rem] px-8 pr-8 xl:max-w-2xl xl:pr-24'
@@ -498,7 +498,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
                         onSwitchToCustom={onSwitchToCustom}
                         handleClick={handleClick}
                         clickProgress={clickProgress}
-                        uiColor={panelTheme.uiColor}
+                        uiColor={panelUiColor}
                       />
                     ) : focusedGame.testID === "end-card" ? (
 
@@ -506,7 +506,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
 
                         <button
                           onClick={() => containerRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}
-                          className="material-control px-8 py-3 bg-black dark:bg-white text-white dark:text-black rounded-full font-bold hover:scale-105 transition-transform"
+                          className="material-control theme-primary-control px-8 py-3 rounded-full font-bold hover:scale-105 transition-transform"
                         >
                           {t("quickMode.backToTop")}
                         </button>
@@ -516,7 +516,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
                         game={focusedGame}
                         onStart={() => handleStartGame(focusedGame)}
                         showStartButton={true}
-                        uiColor={panelTheme.uiColor}
+                        uiColor={panelUiColor}
                       />
                     )}
                   </motion.div>
@@ -529,7 +529,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
                       initial={{ opacity: 0, y: -20 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 20 }}
-                      className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-black text-white px-6 py-3 rounded-full text-sm font-medium shadow-lg z-[100]"
+                      className="theme-primary-control fixed top-20 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-full text-sm font-medium shadow-lg z-[100]"
                     >
                       {t("gameLibrary.premiumUnlocked")}
                     </motion.div>
@@ -553,7 +553,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
                   }}
                   className="absolute bottom-8 left-0 right-0 flex justify-center items-center z-50 pointer-events-none"
                 >
-                  <div className="p-2 bg-white/10 dark:bg-black/10 backdrop-blur-sm rounded-full">
+                  <div className="theme-translucent-chip p-2 backdrop-blur-sm rounded-full">
                     <svg
                       width="24"
                       height="24"
@@ -563,7 +563,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="text-black dark:text-white opacity-60"
+                      className="opacity-60"
                     >
                       <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
                     </svg>

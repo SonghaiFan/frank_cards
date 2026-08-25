@@ -18,7 +18,7 @@ const Button: React.FC<ButtonProps> = ({
   ...motionProps
 }) => {
   const baseClasses =
-    "material-control transition-all duration-300 touch-manipulation min-h-[48px] flex items-center justify-center font-bold relative";
+    "material-control transition-[transform,box-shadow,background-color,color] duration-300 touch-manipulation min-h-[48px] flex items-center justify-center font-bold relative";
 
   const sizeClasses = {
     default: "px-6 py-3 text-base rounded-full",
@@ -28,9 +28,9 @@ const Button: React.FC<ButtonProps> = ({
 
   const variantClasses = {
     primary:
-      "bg-black dark:bg-white text-white dark:text-black hover:scale-105 origin-center transform-gpu cursor-pointer disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none",
+      "theme-primary-control hover:scale-105 origin-center transform-gpu cursor-pointer disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none",
     secondary:
-      "paper-control bg-white/60 dark:bg-white/5 text-gray-900 dark:text-white hover:scale-105 origin-center transform-gpu cursor-pointer disabled:cursor-not-allowed",
+      "paper-control theme-secondary-control hover:scale-105 origin-center transform-gpu cursor-pointer disabled:cursor-not-allowed",
   };
 
   const disabledClasses =

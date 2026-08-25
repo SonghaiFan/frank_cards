@@ -11,7 +11,7 @@ const MinimumScreenSize: React.FC<MinimumScreenSizeProps> = ({ height, width }) 
   const { t } = useTranslation();
 
   return (
-    <div className="h-screen w-screen bg-white dark:bg-black flex flex-col items-center justify-center px-6 py-8 overflow-hidden">
+    <div className="theme-canvas h-screen w-screen flex flex-col items-center justify-center px-6 py-8 overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -25,9 +25,9 @@ const MinimumScreenSize: React.FC<MinimumScreenSizeProps> = ({ height, width }) 
           transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
           className="mb-6"
         >
-          <div className="w-16 h-16 mx-auto bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
+          <div className="theme-icon-surface w-16 h-16 mx-auto rounded-full flex items-center justify-center">
             <svg
-              className="w-8 h-8 text-gray-600 dark:text-gray-400"
+              className="w-8 h-8"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -47,7 +47,7 @@ const MinimumScreenSize: React.FC<MinimumScreenSizeProps> = ({ height, width }) 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4"
+          className="theme-text-primary text-xl sm:text-2xl font-bold mb-4"
         >
           {t("minimumScreen.title", "Screen Too Small")}
         </motion.h1>
@@ -57,7 +57,7 @@ const MinimumScreenSize: React.FC<MinimumScreenSizeProps> = ({ height, width }) 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="text-sm text-gray-600 dark:text-gray-300 mb-6 leading-relaxed"
+          className="theme-text-secondary text-sm mb-6 leading-relaxed"
         >
           {t(
             "minimumScreen.description",
@@ -70,7 +70,7 @@ const MinimumScreenSize: React.FC<MinimumScreenSizeProps> = ({ height, width }) 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="text-xs text-gray-500 dark:text-gray-400 space-y-2"
+          className="theme-text-secondary text-xs space-y-2"
         >
           <p>
             •{" "}
@@ -90,7 +90,7 @@ const MinimumScreenSize: React.FC<MinimumScreenSizeProps> = ({ height, width }) 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
-          className="mt-8 text-xs text-gray-400 dark:text-gray-500"
+          className="theme-text-tertiary mt-8 text-xs"
         >
           <p>
             Current: {width}×{height}px
