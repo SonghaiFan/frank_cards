@@ -15,13 +15,13 @@ const GameEnding: React.FC<GameEndingProps> = ({ game, onRestart, onExit }) => {
   const endScreen = game.ui.endScreen;
 
   return (
-    <div className="h-full w-full bg-white dark:bg-black flex flex-col items-center justify-center px-4 sm:px-8 py-8 sm:py-16">
+    <div className="theme-canvas h-full w-full flex flex-col items-center justify-center px-4 sm:px-8 py-8 sm:py-16">
       <div className="text-center max-w-2xl">
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 tracking-tight"
+          className="theme-text-primary text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 tracking-tight"
         >
           {endScreen.title}
         </motion.h1>
@@ -30,7 +30,7 @@ const GameEnding: React.FC<GameEndingProps> = ({ game, onRestart, onExit }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 text-intimate font-light mb-8 sm:mb-12 px-4"
+          className="theme-text-secondary text-lg sm:text-xl text-intimate font-light mb-8 sm:mb-12 px-4"
         >
           {endScreen.subtitle}
         </motion.p>

@@ -33,8 +33,8 @@ export const getContrastRatio = (foreground: string, background: string) => {
 };
 
 export const getContrastColor = (backgroundColor: string): string => {
-  const darkUi = "#000000";
-  const lightUi = "#ffffff";
+  const darkUi = "#171715";
+  const lightUi = "#f7f7f2";
   return getContrastRatio(darkUi, backgroundColor) >= getContrastRatio(lightUi, backgroundColor)
     ? darkUi
     : lightUi;
