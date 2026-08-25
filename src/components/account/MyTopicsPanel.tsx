@@ -1,15 +1,17 @@
 import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightFromBracket, faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightFromBracket, faPlay, faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../auth/AuthProvider";
 import type { MutableTopicRepository } from "../../data/topics/TopicRepository";
+import type { ConversationGame } from "../../types/ConversationGame";
 import type { TopicRecord } from "../../types/Topic";
 import CreateTopicForm from "./CreateTopicForm";
 
 interface MyTopicsPanelProps {
   onClose: () => void;
+  onUseTopic: (game: ConversationGame) => void;
 }
 
 let repositoryPromise: Promise<MutableTopicRepository> | null = null;
@@ -27,7 +29,7 @@ const countQuestions = (topic: TopicRecord): number => topic.game.questions.redu
   0,
 );
 
-export default function MyTopicsPanel({ onClose }: MyTopicsPanelProps) {
+export default function MyTopicsPanel({ onClose, onUseTopic }: MyTopicsPanelProps) {
   const { i18n, t } = useTranslation();
   const { signOut, user } = useAuth();
   const [topics, setTopics] = useState<TopicRecord[]>([]);
@@ -76,6 +78,11 @@ export default function MyTopicsPanel({ onClose }: MyTopicsPanelProps) {
     }
   };
 
+  const handleUseTopic = (topic: TopicRecord) => {
+    onUseTopic(topic.game);
+    onClose();
+  };
+
   return (
     <motion.div
       className="account-overlay account-overlay-align-end"
@@ -119,7 +126,7 @@ export default function MyTopicsPanel({ onClose }: MyTopicsPanelProps) {
               </button>
 
               {isLoading ? (
-                <div className="account-topic-skeletons" aria-label={t("account.loadingTopics")}>
+                <div className="account-topic-skeletons" role="status" aria-live="polite" aria-label={t("account.loadingTopics")}>
                   <span />
                   <span />
                   <span />
@@ -156,6 +163,15 @@ export default function MyTopicsPanel({ onClose }: MyTopicsPanelProps) {
                           <dd>{topic.updatedAt ? new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium" }).format(new Date(topic.updatedAt)) : t("account.justNow")}</dd>
                         </div>
                       </dl>
+                      <button
+                        className="account-topic-use-button"
+                        type="button"
+                        onClick={() => handleUseTopic(topic)}
+                        disabled={countQuestions(topic) === 0}
+                      >
+                        <FontAwesomeIcon icon={faPlay} />
+                        <span>{t("account.useTopic")}</span>
+                      </button>
                     </article>
                   ))}
                 </div>

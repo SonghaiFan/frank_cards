@@ -8,6 +8,7 @@ import GameIntroPanel from "./GameIntroPanel";
 import KneeConversationIllustration from "./KneeConversationIllustration";
 import { useEasterEgg } from "../hooks/useEasterEgg";
 import { LIBRARY_DESKTOP_QUERY, useMediaQuery } from "../hooks/useMediaQuery";
+import { useAppTheme } from "../hooks/useAppTheme";
 import { resolveGameSurfaceTheme } from "../utils/gameTheme";
 
 
@@ -302,7 +303,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
   const [viewportHeight, setViewportHeight] = useState(window.innerHeight);
   const isDesktopLayout = useMediaQuery(LIBRARY_DESKTOP_QUERY);
   const isWideDesktop = useMediaQuery("(min-width: 80rem)");
-  const isDarkTheme = useMediaQuery("(prefers-color-scheme: dark)");
+  const isDarkTheme = useAppTheme() === "dark";
 
   useEffect(() => {
     const handleResize = () => {

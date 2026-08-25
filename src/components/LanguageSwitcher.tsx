@@ -19,15 +19,10 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
 
   return (
     <button
+      type="button"
       onClick={toggleLanguage}
-      className={`
-        flex items-center gap-2 px-2 py-1
-        text-gray-600 hover:text-gray-900
-        dark:text-gray-300 dark:hover:text-gray-100
-        transition-all duration-200
-        hover:scale-110
-        ${className}
-      `}
+      className={`account-toolbar-icon-button ${className}`}
+      aria-label={`Switch to ${i18n.language === "en" ? "中文" : "English"}`}
       title={`Switch to ${i18n.language === "en" ? "中文" : "English"}`}
     >
       <FontAwesomeIcon icon={faLanguage} size="xl" />

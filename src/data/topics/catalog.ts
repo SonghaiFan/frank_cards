@@ -16,3 +16,7 @@ export const listAvailableTopics = async (options: TopicListOptions = {}): Promi
   const [builtInTopics, userTopics] = await Promise.all([builtInRequest, userRequest]);
   return [...userTopics, ...builtInTopics];
 };
+
+export const clearAvailableTopicsCache = (language?: TopicListOptions["language"]): void => {
+  builtInTopicRepository.clearCache(language);
+};

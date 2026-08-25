@@ -19,8 +19,9 @@ interface AuthContextValue {
   error: string | null;
   isWorking: boolean;
   clearError: () => void;
-  requestEmailOtp: (email: string) => Promise<void>;
-  verifyEmailOtp: (email: string, token: string) => Promise<void>;
+  signInWithPassword: (email: string, password: string) => Promise<void>;
+  signUpWithPassword: (email: string, password: string) => Promise<boolean>;
+  signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<void>;
 }
 
@@ -76,7 +77,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const clearError = useCallback(() => setError(null), []);
 
-  const requestEmailOtp = useCallback(async (email: string) => {
+  const signInWithPassword = useCallback(async (email: string, password: string) => {
     if (!configured) {
       setError("Accounts have not been connected yet.");
       return;
@@ -86,20 +87,47 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setError(null);
     try {
       const client = await getSupabaseClient();
-      const { error: otpError } = await client.auth.signInWithOtp({
+      const { error: signInError } = await client.auth.signInWithPassword({
         email: email.trim(),
-        options: { shouldCreateUser: true },
+        password,
       });
-      if (otpError) throw otpError;
-    } catch (otpError) {
-      setError(readableAuthError(otpError));
-      throw otpError;
+      if (signInError) throw signInError;
+    } catch (signInError) {
+      setError(readableAuthError(signInError));
+      throw signInError;
     } finally {
       setIsWorking(false);
     }
   }, [configured]);
 
-  const verifyEmailOtp = useCallback(async (email: string, token: string) => {
+  const signUpWithPassword = useCallback(async (email: string, password: string): Promise<boolean> => {
+    if (!configured) {
+      setError("Accounts have not been connected yet.");
+      return false;
+    }
+
+    setIsWorking(true);
+    setError(null);
+    try {
+      const client = await getSupabaseClient();
+      const { data, error: signUpError } = await client.auth.signUp({
+        email: email.trim(),
+        password,
+        options: {
+          emailRedirectTo: window.location.origin,
+        },
+      });
+      if (signUpError) throw signUpError;
+      return Boolean(data.session);
+    } catch (signUpError) {
+      setError(readableAuthError(signUpError));
+      throw signUpError;
+    } finally {
+      setIsWorking(false);
+    }
+  }, [configured]);
+
+  const signInWithGoogle = useCallback(async () => {
     if (!configured) {
       setError("Accounts have not been connected yet.");
       return;
@@ -109,20 +137,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setError(null);
     try {
       const client = await getSupabaseClient();
-      const { data, error: verificationError } = await client.auth.verifyOtp({
-        email: email.trim(),
-        token: token.trim(),
-        type: "email",
+      const { error: oauthError } = await client.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: window.location.origin,
+        },
       });
-      if (verificationError) throw verificationError;
-
-      setSession(data.session);
-      setStatus(data.session ? "authenticated" : "anonymous");
-    } catch (verificationError) {
-      setError(readableAuthError(verificationError));
-      throw verificationError;
-    } finally {
+      if (oauthError) throw oauthError;
+    } catch (oauthError) {
+      setError(readableAuthError(oauthError));
       setIsWorking(false);
+      throw oauthError;
     }
   }, [configured]);
 
@@ -152,18 +177,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     error,
     isWorking,
     clearError,
-    requestEmailOtp,
-    verifyEmailOtp,
+    signInWithPassword,
+    signUpWithPassword,
+    signInWithGoogle,
     signOut,
   }), [
     clearError,
     error,
     isWorking,
-    requestEmailOtp,
     session,
+    signInWithGoogle,
+    signInWithPassword,
     signOut,
+    signUpWithPassword,
     status,
-    verifyEmailOtp,
   ]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

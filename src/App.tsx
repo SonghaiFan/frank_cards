@@ -8,9 +8,12 @@ import QuickGameLibrary from "./components/GameLibrary";
 import GameController from "./components/GameController";
 import MinimumScreenSize from "./components/MinimumScreenSize";
 import { useScreenSize } from "./hooks/useScreenSize";
-import { listAvailableTopics } from "./data/topics/catalog";
+import { clearAvailableTopicsCache, listAvailableTopics } from "./data/topics/catalog";
 import { toTopicLanguage } from "./types/Topic";
 import AccountHub from "./components/account/AccountHub";
+import AppStatusScreen from "./components/AppStatusScreen";
+
+type TopicLoadStatus = "loading" | "ready" | "error";
 
 function App() {
   const { i18n } = useTranslation();
@@ -20,34 +23,36 @@ function App() {
   const [selectedGames, setSelectedGames] = useState<ConversationGame[]>([]);
   const [isSessionActive, setIsSessionActive] = useState(false);
 
-  const [loading, setLoading] = useState(true);
+  const [loadStatus, setLoadStatus] = useState<TopicLoadStatus>("loading");
+  const [loadAttempt, setLoadAttempt] = useState(0);
   const { height: viewportHeight, isMinimumSizeMet, width: viewportWidth } = useScreenSize();
 
   useEffect(() => {
     let cancelled = false;
-    setLoading(true);
+    setLoadStatus("loading");
+    setGames([]);
 
     listAvailableTopics({
       language: toTopicLanguage(i18n.language),
       scope: "available",
     })
       .then((topics) => {
-        if (!cancelled) setGames(topics.map((topic) => topic.game));
+        if (!cancelled) {
+          setGames(topics.map((topic) => topic.game));
+          setLoadStatus("ready");
+        }
       })
       .catch((error) => {
         if (!cancelled) {
           console.error("Failed to load topics:", error);
-          setGames([]);
+          setLoadStatus("error");
         }
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
       });
 
     return () => {
       cancelled = true;
     };
-  }, [i18n.language]);
+  }, [i18n.language, loadAttempt]);
 
   // Clear selections when language changes to avoid conflicting content
   useEffect(() => {
@@ -97,27 +102,29 @@ function App() {
     }
   };
 
+  const handleRetryTopics = () => {
+    clearAvailableTopicsCache(toTopicLanguage(i18n.language));
+    setLoadAttempt((attempt) => attempt + 1);
+  };
+
   // Check if screen meets minimum size requirements
   if (!isMinimumSizeMet) {
     return <MinimumScreenSize height={viewportHeight} width={viewportWidth} />;
   }
 
-  if (loading) {
-    return (
-      <div className="h-screen w-screen flex flex-col justify-center items-center bg-white dark:bg-black overflow-hidden material-canvas">
-        <div className="w-8 h-8 border-2 border-gray-300 dark:border-gray-600 border-t-primary rounded-full animate-spin mb-6"></div>
-        <p className="text-lg text-gray-600 dark:text-gray-300 font-light">
-          Loading conversations...
-        </p>
-      </div>
-    );
+  if (loadStatus === "loading") return <AppStatusScreen variant="loading" />;
+  if (loadStatus === "error") {
+    return <AppStatusScreen variant="error" onRetry={handleRetryTopics} />;
+  }
+  if (games.length === 0) {
+    return <AppStatusScreen variant="empty" onRetry={handleRetryTopics} />;
   }
 
   return (
     <MotionConfig reducedMotion="user">
       <LayoutGroup id="frankcards-conversation-stage">
         <div className="h-screen w-screen overflow-hidden flex flex-col material-canvas">
-          {!isSessionActive ? <AccountHub /> : null}
+          {!isSessionActive ? <AccountHub onUseTopic={handleQuickStart} /> : null}
           <div className="flex-1 w-full h-full relative isolate overflow-hidden">
             <AnimatePresence initial={false} mode="sync">
               {isSessionActive ? (

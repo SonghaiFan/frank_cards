@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faEnvelope, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../auth/AuthProvider";
 
@@ -9,22 +9,20 @@ interface AuthDialogProps {
   onClose: () => void;
 }
 
+type AuthMode = "signIn" | "signUp" | "confirmation";
+
 export default function AuthDialog({ onClose }: AuthDialogProps) {
   const { t } = useTranslation();
-  const { clearError, error, isWorking, requestEmailOtp, status, verifyEmailOtp } = useAuth();
-  const [step, setStep] = useState<"email" | "code">("email");
+  const { clearError, error, isWorking, signInWithGoogle, signInWithPassword, signUpWithPassword, status } = useAuth();
+  const [mode, setMode] = useState<AuthMode>("signIn");
   const [email, setEmail] = useState("");
-  const [code, setCode] = useState("");
+  const [password, setPassword] = useState("");
   const emailRef = useRef<HTMLInputElement>(null);
-  const codeRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const focusTimer = window.setTimeout(() => {
-      if (step === "email") emailRef.current?.focus();
-      else codeRef.current?.focus();
-    }, 80);
+    const focusTimer = window.setTimeout(() => emailRef.current?.focus(), 80);
     return () => window.clearTimeout(focusTimer);
-  }, [step]);
+  }, [mode]);
 
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
@@ -38,36 +36,35 @@ export default function AuthDialog({ onClose }: AuthDialogProps) {
     if (status === "authenticated") onClose();
   }, [onClose, status]);
 
-  const sendEmail = async () => {
-    if (!email.trim()) return;
-    try {
-      await requestEmailOtp(email);
-      setStep("code");
-    } catch {
-      // AuthProvider exposes the readable error beside the field.
-    }
-  };
-
-  const submitEmail = (event: FormEvent) => {
-    event.preventDefault();
-    void sendEmail();
-  };
-
-  const submitCode = async (event: FormEvent) => {
-    event.preventDefault();
-    if (code.trim().length < 6) return;
-    try {
-      await verifyEmailOtp(email, code);
-      onClose();
-    } catch {
-      // AuthProvider exposes the readable error beside the field.
-    }
-  };
-
-  const goBack = () => {
+  const switchMode = (nextMode: Exclude<AuthMode, "confirmation">) => {
     clearError();
-    setCode("");
-    setStep("email");
+    setPassword("");
+    setMode(nextMode);
+  };
+
+  const submitCredentials = async (event: FormEvent) => {
+    event.preventDefault();
+    if (!email.trim() || password.length < 8) return;
+
+    try {
+      if (mode === "signUp") {
+        const hasSession = await signUpWithPassword(email, password);
+        if (!hasSession) setMode("confirmation");
+      } else {
+        await signInWithPassword(email, password);
+        onClose();
+      }
+    } catch {
+      // AuthProvider exposes the readable error beside the fields.
+    }
+  };
+
+  const continueWithGoogle = async () => {
+    try {
+      await signInWithGoogle();
+    } catch {
+      // AuthProvider exposes the readable error in the dialog.
+    }
   };
 
   return (
@@ -99,24 +96,51 @@ export default function AuthDialog({ onClose }: AuthDialogProps) {
             <p className="account-kicker">FrankCards</p>
             <h2 id="account-auth-title">{t("account.notConnectedTitle")}</h2>
             <p>{t("account.notConnectedBody")}</p>
-            <button className="account-primary-button" type="button" onClick={onClose}>
-              {t("account.keepExploring")}
-            </button>
+            <button className="account-primary-button" type="button" onClick={onClose}>{t("account.keepExploring")}</button>
           </div>
         ) : (
           <AnimatePresence mode="wait" initial={false}>
-            {step === "email" ? (
-              <motion.form
-                key="email"
-                className="account-sheet-copy"
-                onSubmit={submitEmail}
-                initial={{ opacity: 0, x: -10 }}
+            {mode === "confirmation" ? (
+              <motion.div
+                key="confirmation"
+                className="account-sheet-copy account-confirmation"
+                initial={{ opacity: 0, x: 10 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -10 }}
+                exit={{ opacity: 0, x: 10 }}
               >
+                <span className="account-confirmation-icon" aria-hidden="true"><FontAwesomeIcon icon={faEnvelope} /></span>
+                <h2 id="account-auth-title">{t("account.confirmEmailTitle")}</h2>
+                <p>{t("account.confirmEmailBody", { email })}</p>
+                <button className="account-primary-button" type="button" onClick={() => switchMode("signIn")}>
+                  {t("account.backToSignIn")}
+                </button>
+              </motion.div>
+            ) : (
+              <motion.form
+                key={mode}
+                className="account-sheet-copy"
+                onSubmit={submitCredentials}
+                initial={{ opacity: 0, x: mode === "signUp" ? 10 : -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: mode === "signUp" ? 10 : -10 }}
+              >
+                {mode === "signUp" ? (
+                  <button className="account-back-button" type="button" onClick={() => switchMode("signIn")}>
+                    <FontAwesomeIcon icon={faArrowLeft} />
+                    <span>{t("common.back")}</span>
+                  </button>
+                ) : null}
+
                 <p className="account-kicker">FrankCards</p>
-                <h2 id="account-auth-title">{t("account.signInTitle")}</h2>
-                <p>{t("account.signInBody")}</p>
+                <h2 id="account-auth-title">{t(mode === "signUp" ? "account.createAccountTitle" : "account.signInTitle")}</h2>
+                <p>{t(mode === "signUp" ? "account.createAccountBody" : "account.signInBody")}</p>
+
+                <button className="account-google-button" type="button" onClick={() => void continueWithGoogle()} disabled={isWorking}>
+                  <span className="account-google-mark" aria-hidden="true">G</span>
+                  <span>{t("account.continueWithGoogle")}</span>
+                </button>
+
+                <div className="account-auth-divider"><span>{t("account.orUseEmail")}</span></div>
 
                 <label className="account-field">
                   <span>{t("account.emailLabel")}</span>
@@ -134,56 +158,36 @@ export default function AuthDialog({ onClose }: AuthDialogProps) {
                   />
                 </label>
 
-                {error ? <p className="account-field-error" role="alert">{error}</p> : null}
-
-                <button className="account-primary-button" type="submit" disabled={isWorking || !email.trim()}>
-                  {isWorking ? t("account.sendingCode") : t("account.sendCode")}
-                </button>
-              </motion.form>
-            ) : (
-              <motion.form
-                key="code"
-                className="account-sheet-copy"
-                onSubmit={submitCode}
-                initial={{ opacity: 0, x: 10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 10 }}
-              >
-                <button className="account-back-button" type="button" onClick={goBack}>
-                  <FontAwesomeIcon icon={faArrowLeft} />
-                  <span>{t("common.back")}</span>
-                </button>
-                <h2 id="account-auth-title">{t("account.codeTitle")}</h2>
-                <p>{t("account.codeBody", { email })}</p>
-
                 <label className="account-field">
-                  <span>{t("account.codeLabel")}</span>
+                  <span>{t("account.passwordLabel")}</span>
                   <input
-                    ref={codeRef}
-                    type="text"
-                    inputMode="numeric"
-                    autoComplete="one-time-code"
-                    pattern="[0-9]*"
-                    maxLength={8}
-                    value={code}
+                    type="password"
+                    value={password}
                     onChange={(event) => {
-                      setCode(event.target.value.replace(/\D/g, ""));
+                      setPassword(event.target.value);
                       if (error) clearError();
                     }}
+                    autoComplete={mode === "signUp" ? "new-password" : "current-password"}
+                    minLength={8}
                     required
-                    placeholder="000000"
-                    className="account-code-input"
+                    placeholder={t("account.passwordPlaceholder")}
                   />
                 </label>
 
+                {mode === "signUp" ? <p className="account-form-note">{t("account.passwordHint")}</p> : null}
                 {error ? <p className="account-field-error" role="alert">{error}</p> : null}
 
-                <button className="account-primary-button" type="submit" disabled={isWorking || code.trim().length < 6}>
-                  {isWorking ? t("account.verifying") : t("account.verify")}
+                <button className="account-primary-button" type="submit" disabled={isWorking || !email.trim() || password.length < 8}>
+                  {isWorking
+                    ? t(mode === "signUp" ? "account.creatingAccount" : "account.signingIn")
+                    : t(mode === "signUp" ? "account.createAccount" : "account.signIn")}
                 </button>
-                <button className="account-text-button" type="button" onClick={() => void sendEmail()} disabled={isWorking}>
-                  {t("account.sendAgain")}
-                </button>
+
+                {mode === "signIn" ? (
+                  <button className="account-text-button" type="button" onClick={() => switchMode("signUp")} disabled={isWorking}>
+                    {t("account.needAccount")}
+                  </button>
+                ) : null}
               </motion.form>
             )}
           </AnimatePresence>

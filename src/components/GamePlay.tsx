@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 import { ConversationGame } from "../types/ConversationGame";
-import { useMediaQuery } from "../hooks/useMediaQuery";
+import { useAppTheme } from "../hooks/useAppTheme";
 import { resolveGameSurfaceTheme } from "../utils/gameTheme";
 import QuestionCard from "./QuestionCard";
 
@@ -25,7 +25,7 @@ const GamePlay: React.FC<GamePlayProps> = ({
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const [direction, setDirection] = useState(0);
-  const isDarkTheme = useMediaQuery("(prefers-color-scheme: dark)");
+  const isDarkTheme = useAppTheme() === "dark";
 
   const currentQuestion = questions[currentQuestionIndex] || null;
   const currentCategory = currentQuestion
