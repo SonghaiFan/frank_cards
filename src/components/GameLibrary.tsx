@@ -290,7 +290,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
   const [showUnlockMessage, setShowUnlockMessage] = useState(false);
 
   // Easter egg hook for premium unlock
-  const { handleClick, isUnlocked, clickProgress } = useEasterEgg({
+  const { handleClick, isUnlocked } = useEasterEgg({
     clickCount: 4,
     timeWindow: 2000,
     onUnlock: () => {
@@ -498,7 +498,6 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
                       <GameIntroPanel
                         onSwitchToCustom={onSwitchToCustom}
                         handleClick={handleClick}
-                        clickProgress={clickProgress}
                         uiColor={panelUiColor}
                       />
                     ) : focusedGame.testID === "end-card" ? (

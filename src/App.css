@@ -421,7 +421,7 @@ body {
     color-scheme: dark;
     --material-canvas: #0d0d0c;
     --material-surface: #161614;
-    --paper-card: #f7f7f2;
+    --paper-card: #22221f;
     --material-ink: #f3f2ec;
     --material-muted-ink: #b9b9b1;
     --material-faint-ink: #8f8e87;
@@ -447,16 +447,27 @@ body {
 }
 
 :root[data-theme="dark"] {
+  color-scheme: dark;
   --material-canvas: #0d0d0c;
   --material-surface: #161614;
-  --paper-card: #f7f7f2;
+  --paper-card: #22221f;
   --material-ink: #f3f2ec;
   --material-muted-ink: #b9b9b1;
+  --material-faint-ink: #8f8e87;
   --material-input: #242421;
+  --material-divider: #3a3a35;
   --material-error: #ffaaa4;
+  --material-overlay: rgba(0, 0, 0, 0.58);
+  --material-edge-highlight: rgba(255, 255, 255, 0.075);
+  --material-edge-highlight-strong: rgba(255, 255, 255, 0.11);
+  --material-shadow-tail: rgba(0, 0, 0, 0.18);
   --material-shadow-soft: rgba(0, 0, 0, 0.20);
   --material-shadow-mid: rgba(0, 0, 0, 0.30);
   --material-shadow-deep: rgba(0, 0, 0, 0.42);
+  --theme-mesh-neutral: #171714;
+  --theme-mesh-opacity: 0.72;
+  --slider-track: #3a3a35;
+  --slider-thumb: #efeee7;
 }
 
 :root[data-theme="dark"] .knee-conversation-background {
