@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-CueCards is a Tauri-based desktop application that provides thoughtfully curated conversation cards for meaningful human connections. The app displays conversation games in a minimalist, card-focused interface with smooth animations mimicking physical card interactions.
+FrankCards is a Tauri-based desktop application that provides thoughtfully curated conversation cards for meaningful human connections. The app displays conversation games in a minimalist, card-focused interface with smooth animations mimicking physical card interactions.
 
 ## Core Architecture
 

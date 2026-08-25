@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { ConversationGame } from "../types/ConversationGame";
 import { useEasterEgg } from "../hooks/useEasterEgg";
 import CardPack from "./CardPack";
-import LanguageSwitcher from "./LanguageSwitcher";
 import FilterGroup from "./FilterGroup";
 
 type PlayerGroup = "solo" | "couple" | "friends" | "strangers" | "family";
@@ -23,7 +22,7 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
   const { t } = useTranslation();
   const [hoveredGame, setHoveredGame] = useState<string | null>(null);
   const [selectedGameIndex, setSelectedGameIndex] = useState(0); // For keyboard nav (focus)
-  
+
   // Filters
   const [selectedType, setSelectedType] = useState<GameType | null>(null);
   const [selectedGroup, setSelectedGroup] = useState<PlayerGroup | null>(null);
@@ -108,21 +107,16 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
 
   return (
     <div className="h-full w-full bg-white dark:bg-black flex flex-col items-center px-4 sm:px-8 py-8 sm:py-16 overflow-y-auto relative">
-      {/* Language Switcher */}
-      <div className="absolute top-4 right-4 sm:top-8 sm:right-8 z-50">
-        <LanguageSwitcher />
-      </div>
-
-        {/* Back Button */}
-        <motion.button
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.3 }}
-          className="absolute top-4 left-4 sm:top-8 sm:left-8 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-xl sm:text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200 z-50"
-          onClick={onBackToQuick}
-        >
-          ←
-        </motion.button>
+      {/* Back Button */}
+      <motion.button
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.3 }}
+        className="absolute top-4 left-4 sm:top-8 sm:left-8 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-xl sm:text-2xl text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200 z-50"
+        onClick={onBackToQuick}
+      >
+        ←
+      </motion.button>
 
       {/* Header with Easter Egg */}
       <motion.div
@@ -140,7 +134,7 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
           >
             <motion.img
               src="/card-icon.svg"
-              alt="CueCards Icon"
+              alt="FrankCards Icon"
               className="w-20 h-20 md:w-24 md:h-24 object-contain"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -163,12 +157,12 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
               />
             )}
           </motion.div>
-         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-black dark:text-white tracking-tight leading-none">
-          {t("customMode.title")}
-        </h1>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-black dark:text-white tracking-tight leading-none">
+            {t("customMode.title")}
+          </h1>
         </div>
         <p className="text-xl sm:text-2xl text-black dark:text-white font-bold mb-2">
-            {t("customMode.subtitle")}
+          {t("customMode.subtitle")}
         </p>
         <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 text-intimate font-light px-4 mb-6">
           {t("customMode.description")}
@@ -231,25 +225,25 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
         className="w-full max-w-4xl grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-12 mb-32 justify-items-center"
       >
         {filteredGames.map((game, index) => {
-           const isSelected = isGameSelected(game.testID);
-           const isHovered = hoveredGame === game.testID;
-           
-           return (
-             <CardPack
-                key={game.testID}
-                game={game}
-                index={index}
-                isSelected={isSelected}
-                isHovered={isHovered}
-                onToggle={onToggleGame}
-                onHoverStart={() => {
-                    setHoveredGame(game.testID);
-                    setSelectedGameIndex(index);
-                }}
-                onHoverEnd={() => setHoveredGame(null)}
-             />
-        );
-      })}
+          const isSelected = isGameSelected(game.testID);
+          const isHovered = hoveredGame === game.testID;
+
+          return (
+            <CardPack
+              key={game.testID}
+              game={game}
+              index={index}
+              isSelected={isSelected}
+              isHovered={isHovered}
+              onToggle={onToggleGame}
+              onHoverStart={() => {
+                setHoveredGame(game.testID);
+                setSelectedGameIndex(index);
+              }}
+              onHoverEnd={() => setHoveredGame(null)}
+            />
+          );
+        })}
       </motion.div>
 
       {/* No Results Message */}
@@ -275,32 +269,32 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
 
       {/* Floating Action Bar (Start Session) */}
       <AnimatePresence>
-      {selectedGames.length > 0 && (
+        {selectedGames.length > 0 && (
           <motion.div
-             initial={{ y: 100, opacity: 0 }}
-             animate={{ y: 0, opacity: 1 }}
-             exit={{ y: 100, opacity: 0 }}
-             className="fixed bottom-8 left-0 right-0 flex justify-center items-center z-50 pointer-events-none gap-4"
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 100, opacity: 0 }}
+            className="fixed bottom-8 left-0 right-0 flex justify-center items-center z-50 pointer-events-none gap-4"
           >
-              {/* Clear Selection Button */}
-              <button
-                onClick={onClearSelection}
-                className="pointer-events-auto shadow-2xl bg-white dark:bg-zinc-900 text-gray-500 dark:text-gray-400 h-[60px] w-[60px] rounded-full flex items-center justify-center hover:scale-110 hover:text-red-500 dark:hover:text-red-400 transition-all border-2 border-gray-200 dark:border-gray-700"
-                aria-label="Clear selection"
-              >
-                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-              </button>
+            {/* Clear Selection Button */}
+            <button
+              onClick={onClearSelection}
+              className="paper-control pointer-events-auto bg-white dark:bg-zinc-900 text-gray-500 dark:text-gray-400 h-[60px] w-[60px] rounded-full flex items-center justify-center hover:scale-110 hover:text-red-500 dark:hover:text-red-400 transition-all"
+              aria-label="Clear selection"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
 
-              <button 
-                onClick={onStartSession}
-                className="pointer-events-auto shadow-2xl bg-black dark:bg-white text-white dark:text-black font-bold text-lg px-8 py-4 rounded-full flex items-center gap-3 hover:scale-105 transition-transform border-2 border-gray-200 dark:border-gray-700"
-              >
-                  <span>Play {selectedGames.length} Pack{selectedGames.length > 1 ? 's' : ''}</span>
-              </button>
+            <button
+              onClick={onStartSession}
+              className="material-control pointer-events-auto bg-black dark:bg-white text-white dark:text-black font-bold text-lg px-8 py-4 rounded-full flex items-center gap-3 hover:scale-105 transition-transform"
+            >
+              <span>Play {selectedGames.length} Pack{selectedGames.length > 1 ? 's' : ''}</span>
+            </button>
           </motion.div>
-      )}
+        )}
       </AnimatePresence>
     </div>
   );

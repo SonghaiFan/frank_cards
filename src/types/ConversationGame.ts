@@ -1,9 +1,24 @@
+export const PLAYER_GROUPS = [
+  "solo",
+  "couple",
+  "friends",
+  "strangers",
+  "family",
+  "party",
+  "dating",
+  "partners",
+] as const;
+
+export type PlayerGroup = (typeof PLAYER_GROUPS)[number];
+export type ConversationGameType = "normal" | "edition" | "premium";
+export type QuestionType = "open" | "discussion" | "end" | "wildcard";
+
 export interface AppInfo {
   title: string;
   subtitle: string;
   language: string;
-  type: "normal" | "edition" | "premium";
-  playerGroup: ("solo" | "couple" | "friends" | "strangers" | "family")[];
+  type: ConversationGameType;
+  playerGroup: PlayerGroup[];
   version?: string;
 }
 
@@ -49,7 +64,7 @@ export interface ExportTemplate {
 }
 
 export interface Question {
-  type?: "open" | "end" | "wildcard";
+  type?: QuestionType;
   question: string;
   more?: string[] | Record<string, string>;
 }

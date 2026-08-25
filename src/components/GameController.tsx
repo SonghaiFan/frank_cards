@@ -16,18 +16,49 @@ enum GameStage {
 interface GameControllerProps {
   games: ConversationGame[];
   onExit: () => void;
-  autoStart?: boolean;
+  mode: "quick" | "custom";
+  sharedLayoutId?: string;
 }
 
-const GameController: React.FC<GameControllerProps> = ({ games, onExit, autoStart }) => {
+const prepareQuickQuestions = (game: ConversationGame) => {
+  const processedQuestions: any[] = [];
+
+  game.questions.forEach((categoryData) => {
+    const categoryQuestions = categoryData.questions.map((question, questionIndex) => ({
+      ...question,
+      category: categoryData.category,
+      categoryIndex: game.questions.findIndex((category) => category.category === categoryData.category),
+      questionIndex,
+      originGame: game.app.title,
+    }));
+
+    processedQuestions.push(...[...categoryQuestions].sort(() => Math.random() - 0.5));
+  });
+
+  const endQuestions = processedQuestions.filter((question: any) => question.type === "end");
+  const nonEndQuestions = processedQuestions.filter((question: any) => question.type !== "end");
+  return [...nonEndQuestions, ...endQuestions];
+};
+
+const GameController: React.FC<GameControllerProps> = ({ games, onExit, mode, sharedLayoutId }) => {
   console.log("GameController mounted with games:", games?.length);
-  
-  const [currentStage, setCurrentStage] = useState<GameStage>(GameStage.PLAYING);
-  const [syntheticGame, setSyntheticGame] = useState<ConversationGame | null>(null);
-  const [mixedQuestions, setMixedQuestions] = useState<any[]>([]);
+
+  const [currentStage, setCurrentStage] = useState<GameStage>(() => {
+    if (mode === "quick") return GameStage.PLAYING;
+    if (games.length === 1) return GameStage.LANDING;
+    return games.length > 1 ? GameStage.SETTINGS : GameStage.PLAYING;
+  });
+  const [syntheticGame, setSyntheticGame] = useState<ConversationGame | null>(() => (
+    games.length === 1 ? games[0] : null
+  ));
+  const [mixedQuestions, setMixedQuestions] = useState<any[]>(() => (
+    mode === "quick" && games.length === 1 ? prepareQuickQuestions(games[0]) : []
+  ));
 
   // Single Game specific state
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(() => (
+    games.length === 1 ? Object.keys(games[0].theme.categories) : []
+  ));
   const [questionPercentage, setQuestionPercentage] = useState(100);
   const [isChaosMode, setIsChaosMode] = useState(false);
 
@@ -41,33 +72,13 @@ const GameController: React.FC<GameControllerProps> = ({ games, onExit, autoStar
     // CASE 1: Single Game Selected
     if (games.length === 1) {
         const singleGame = games[0];
+        if (syntheticGame?.testID === singleGame.testID) return;
+
         setSyntheticGame(singleGame);
         setSelectedCategories(Object.keys(singleGame.theme.categories));
         
-        if (autoStart) {
-            // Immediate Start for Quick Mode (Chaos Default: False)
-            // ... (quick mode logic omitted for brevity, it uses its own simple shuffle logic) ...
-            
-            // Prepare questions (similar to generateQuestions but simple immediate)
-             const processedQuestions: any[] = [];
-            singleGame.questions.forEach(cat => {
-                const catQuestions = cat.questions.map((q, qIndex) => ({
-                    ...q,
-                    category: cat.category,
-                    categoryIndex: singleGame.questions.findIndex(c => c.category === cat.category),
-                    questionIndex: qIndex,
-                    originGame: singleGame.app.title
-                }));
-                 // Shuffle WITHIN category
-                const shuffledCatQuestions = [...catQuestions].sort(() => Math.random() - 0.5);
-                processedQuestions.push(...shuffledCatQuestions);
-            });
-
-             const endQuestions = processedQuestions.filter((q: any) => q.type === "end");
-            const nonEndQuestions = processedQuestions.filter((q: any) => q.type !== "end");
-            const finalSequence = [...nonEndQuestions, ...endQuestions];
-
-            setMixedQuestions(finalSequence);
+        if (mode === "quick") {
+            setMixedQuestions(prepareQuickQuestions(singleGame));
             setCurrentStage(GameStage.PLAYING);
 
         } else {
@@ -139,7 +150,7 @@ const GameController: React.FC<GameControllerProps> = ({ games, onExit, autoStar
         setCurrentStage(GameStage.SETTINGS);
     }
 
-  }, [games]);
+  }, [games, mode]);
 
 
   // Helper: Generate questions based on settings (Unified for Single & Multi)
@@ -255,7 +266,9 @@ const GameController: React.FC<GameControllerProps> = ({ games, onExit, autoStar
   };
 
   const handleRestart = () => {
-    if (games.length === 1) {
+    if (mode === "quick") {
+        setCurrentStage(GameStage.PLAYING);
+    } else if (games.length === 1) {
         // Return to landing for single game
         setCurrentStage(GameStage.LANDING);
     } else {
@@ -293,6 +306,7 @@ const GameController: React.FC<GameControllerProps> = ({ games, onExit, autoStar
           questions={mixedQuestions}
           onExit={onExit}
           onComplete={handleGameComplete}
+          sharedLayoutId={sharedLayoutId}
         />
       );
 

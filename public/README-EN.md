@@ -1,8 +1,8 @@
-# CueCards 🎯
+# FrankCards 🎯
 
 <div align="center">
 
-![CueCards Logo](card-icon.svg)
+![FrankCards Logo](card-icon.svg)
 
 **Thoughtfully curated conversation cards for deeper human connection**
 
@@ -18,7 +18,7 @@
 
 ## 📖 About
 
-CueCards is a cross-platform conversation card application designed to foster deeper human connections through thoughtfully curated questions. Whether for couples, friends, families, or team building, CueCards helps you start meaningful conversations.
+FrankCards is a cross-platform conversation card application designed to foster deeper human connections through thoughtfully curated questions. Whether for couples, friends, families, or team building, FrankCards helps you start meaningful conversations.
 
 ## ✨ Features
 
@@ -37,9 +37,9 @@ CueCards is a cross-platform conversation card application designed to foster de
 
 Visit the [Releases page](https://github.com/SonghaiFan/have_a_talk_by_cards/releases) to download the version for your system:
 
-- **Windows**: `CueCards_*.msi` or `CueCards_*.exe`
-- **macOS (Intel)**: `CueCards_*_x64.dmg` or `CueCards_*_x64.app.tar.gz`
-- **macOS (Apple Silicon)**: `CueCards_*_aarch64.dmg` or `CueCards_*_aarch64.app.tar.gz`
+- **Windows**: `FrankCards_*.msi` or `FrankCards_*.exe`
+- **macOS (Intel)**: `FrankCards_*_x64.dmg` or `FrankCards_*_x64.app.tar.gz`
+- **macOS (Apple Silicon)**: `FrankCards_*_aarch64.dmg` or `FrankCards_*_aarch64.app.tar.gz`
 
 ### Installation Instructions
 
@@ -56,7 +56,7 @@ Visit the [Releases page](https://github.com/SonghaiFan/have_a_talk_by_cards/rel
 1. Download the `.dmg` file
 2. Double-click to open, and drag the app to the Applications folder
 3. **First Run**: Do NOT double-click the app directly
-4. **Right-click** the CueCards app → Select **"Open"**
+4. **Right-click** the FrankCards app → Select **"Open"**
 5. Click **"Open"** in the security warning dialog
 6. You can double-click to run normally afterwards
 

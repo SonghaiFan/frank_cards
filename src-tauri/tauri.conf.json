@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "CueCards",
+  "productName": "FrankCards",
   "version": "1.0.2",
   "identifier": "com.cuecards.desktop",
   "build": {
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "CueCards - Meaningful Conversations",
+        "title": "FrankCards - Meaningful Conversations",
         "width": 1000,
         "height": 700,
         "minWidth": 800,
@@ -35,7 +35,7 @@
       "icons/icon.icns",
       "icons/icon.ico"
     ],
-    "longDescription": "CueCards is a thoughtfully curated conversation card app designed to foster deeper human connections through meaningful dialogue. Perfect for couples, friends, families, and anyone looking to spark authentic conversations.",
+    "longDescription": "FrankCards is a thoughtfully curated conversation card app designed to foster deeper human connections through meaningful dialogue. Perfect for couples, friends, families, and anyone looking to spark authentic conversations.",
     "shortDescription": "Thoughtfully curated conversation cards for deeper human connection",
     "category": "Lifestyle",
     "macOS": {

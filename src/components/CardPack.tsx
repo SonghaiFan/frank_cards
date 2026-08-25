@@ -14,16 +14,17 @@ interface CardPackProps {
   disableEntranceAnimation?: boolean;
   minimal?: boolean;
   showSelectionIndicator?: boolean;
+  sharedLayoutId?: string;
   size?: "small" | "medium" | "large";
   style?: React.CSSProperties;
   className?: string;
 }
 
 const sizeClasses = {
-  small: "w-full max-w-[280px] sm:max-w-[320px] h-[180px] sm:h-[200px]",
-  medium: "w-full max-w-[320px] sm:max-w-[400px] h-[200px] sm:h-[250px]",
+  small: "w-full max-w-[300px] sm:max-w-[320px] h-[180px] sm:h-[200px]",
+  medium: "w-[90vw] max-w-[360px] sm:max-w-[400px] h-[200px] sm:h-[250px]",
   large:
-    "w-full max-w-[340px] sm:max-w-[440px] md:max-w-[520px] h-[220px] sm:h-[280px] md:h-[340px]",
+    "w-[92vw] max-w-[380px] sm:max-w-[440px] md:max-w-[520px] h-[220px] sm:h-[280px] md:h-[340px]",
 };
 
 const CardPack: React.FC<CardPackProps> = ({
@@ -37,6 +38,7 @@ const CardPack: React.FC<CardPackProps> = ({
   disableEntranceAnimation = false,
   minimal = false,
   showSelectionIndicator = true,
+  sharedLayoutId,
   size = "medium",
   style,
   className = "cursor-pointer relative",
@@ -47,15 +49,20 @@ const CardPack: React.FC<CardPackProps> = ({
   return (
     <motion.div
       layout={!disableEntranceAnimation}
+      layoutId={sharedLayoutId}
       initial={disableEntranceAnimation ? false : { opacity: 0, y: 50 }}
       animate={disableEntranceAnimation ? undefined : { opacity: 1, y: 0 }}
       transition={{
         duration: 0.6,
         delay: index * 0.1,
         ease: "easeOut",
+        layout: { duration: 0.72, ease: [0.22, 1, 0.36, 1] },
       }}
       className={`${className} ${!style ? sizeClasses[size] : ''}`} // Apply size class ONLY if no style override to prevent conflicts, or just append it
-      style={style}
+      style={{
+        ...style,
+        borderRadius: sharedLayoutId ? "1.5rem" : style?.borderRadius,
+      }}
       onHoverStart={onHoverStart}
       onHoverEnd={onHoverEnd}
       onClick={
@@ -124,17 +131,15 @@ const CardPack: React.FC<CardPackProps> = ({
         <Card
           size={size} // Pass size
           variant="game"
-          className={`relative z-10 cursor-pointer transition-colors duration-200 ${isSelected
-              ? "border-3 !border-black dark:!border-white"
-              : minimal
-                ? "hover:border-gray-300 dark:hover:border-gray-700 border-2 border-transparent"
-                : "hover:border-gray-300 dark:hover:border-gray-700"
+          className={`relative z-10 cursor-pointer transition-shadow duration-300 ${isSelected
+              ? "paper-card-selected"
+              : ""
             } ${minimal ? 'justify-center items-center opacity-80 hover:opacity-100' : ''}`}
           style={{
             width: '100%',
             height: '100%',
             aspectRatio: style?.aspectRatio || "400/250",
-            backgroundColor: "#ffffff",
+            backgroundColor: "var(--paper-card)",
           }}
           whileHover={{
             scale: 1.02,

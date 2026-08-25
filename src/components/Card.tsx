@@ -16,10 +16,10 @@ const Card: React.FC<CardProps> = ({
   ...motionProps
 }) => {
   const sizeClasses = {
-    small: "w-full max-w-[280px] sm:max-w-[320px] h-[180px] sm:h-[200px]",
-    medium: "w-full max-w-[320px] sm:max-w-[400px] h-[200px] sm:h-[250px]",
+    small: "w-full max-w-[300px] sm:max-w-[320px] h-[180px] sm:h-[200px]",
+    medium: "w-[90vw] max-w-[360px] sm:max-w-[400px] h-[200px] sm:h-[250px]",
     large:
-      "w-full max-w-[340px] sm:max-w-[440px] md:max-w-[520px] h-[220px] sm:h-[280px] md:h-[340px]",
+      "w-[92vw] max-w-[380px] sm:max-w-[440px] md:max-w-[520px] h-[220px] sm:h-[280px] md:h-[340px]",
   };
 
   const variantClasses = {
@@ -30,7 +30,7 @@ const Card: React.FC<CardProps> = ({
   };
 
   const baseClasses =
-    "bg-white dark:bg-black shadow-2xl rounded-3xl border-2 border-gray-100 dark:border-gray-950";
+    "material-card bg-white dark:bg-black rounded-3xl";
   const sizeClass = sizeClasses[size];
   const variantClass = variantClasses[variant];
 

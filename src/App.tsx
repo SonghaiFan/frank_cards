@@ -1,27 +1,53 @@
 import { useState, useEffect } from "react";
+import { AnimatePresence, LayoutGroup, motion, MotionConfig } from "motion/react";
 import { useTranslation } from "react-i18next";
 import "./App.css";
-import { ConversationGame } from "./types/ConversationGame";
+import type { ConversationGame } from "./types/ConversationGame";
 import GameLibrary from "./components/CustomGameLibrary";
 import QuickGameLibrary from "./components/GameLibrary";
 import GameController from "./components/GameController";
 import MinimumScreenSize from "./components/MinimumScreenSize";
 import { useScreenSize } from "./hooks/useScreenSize";
+import { listAvailableTopics } from "./data/topics/catalog";
+import { toTopicLanguage } from "./types/Topic";
+import AccountHub from "./components/account/AccountHub";
 
 function App() {
   const { i18n } = useTranslation();
   const [games, setGames] = useState<ConversationGame[]>([]);
-  
+
   // Refactor state for multi-selection
   const [selectedGames, setSelectedGames] = useState<ConversationGame[]>([]);
   const [isSessionActive, setIsSessionActive] = useState(false);
-  
+
   const [loading, setLoading] = useState(true);
-  const { isMinimumSizeMet } = useScreenSize();
+  const { height: viewportHeight, isMinimumSizeMet, width: viewportWidth } = useScreenSize();
 
   useEffect(() => {
-    loadGames();
-  }, [i18n.language]); // React to language changes
+    let cancelled = false;
+    setLoading(true);
+
+    listAvailableTopics({
+      language: toTopicLanguage(i18n.language),
+      scope: "available",
+    })
+      .then((topics) => {
+        if (!cancelled) setGames(topics.map((topic) => topic.game));
+      })
+      .catch((error) => {
+        if (!cancelled) {
+          console.error("Failed to load topics:", error);
+          setGames([]);
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [i18n.language]);
 
   // Clear selections when language changes to avoid conflicting content
   useEffect(() => {
@@ -29,132 +55,56 @@ function App() {
     setIsSessionActive(false);
   }, [i18n.language]);
 
-  const loadGames = async () => {
-    setLoading(true);
-    try {
-      let gameFiles: string[] = [];
-
-      // Load games from index.json
-      try {
-        const indexResponse = await fetch("/games/index.json");
-        if (indexResponse.ok) {
-          const index = await indexResponse.json();
-          gameFiles = index.games || [];
-        }
-      } catch (indexError) {
-        console.warn("Could not load index.json, using hardcoded games");
-        gameFiles = [
-          "deep-connections.json",
-          "relationship-check.json",
-          "test-love.json",
-          "test-love-36.json",
-          "we-are-not-strangers.json",
-          "we-are-not-really-strangers.json",
-        ];
-      }
-
-      const loadedGames: ConversationGame[] = [];
-
-      // Get the language folder
-      const languageFolder = i18n.language.startsWith("zh") ? "zh" : "en";
-
-      for (const file of gameFiles) {
-        try {
-          // Determine the correct file path based on language
-          const filePath = getLanguageSpecificFilePath(file, languageFolder);
-
-          const response = await fetch(filePath);
-          if (response.ok) {
-            const game = await response.json();
-            loadedGames.push(game);
-          } else {
-            // Fallback to English version if language-specific version doesn't exist
-            const fallbackPath = `/games/en/${file}`;
-            const fallbackResponse = await fetch(fallbackPath);
-            if (fallbackResponse.ok) {
-              const game = await fallbackResponse.json();
-              loadedGames.push(game);
-            }
-          }
-        } catch (error) {
-          console.warn(`Failed to load game: ${file}`, error);
-        }
-      }
-
-      setGames(loadedGames);
-    } catch (error) {
-      console.error("Failed to load games:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Helper function to get language-specific file path
-  const getLanguageSpecificFilePath = (
-    fileName: string,
-    languageFolder: string
-  ): string => {
-    if (languageFolder === "en") {
-      return `/games/en/${fileName}`;
-    }
-
-    // For Chinese, we need to convert the base filename to include -CN suffix
-    const fileParts = fileName.split(".");
-    const extension = fileParts.pop();
-    const baseName = fileParts.join(".");
-
-    return `/games/zh/${baseName}-CN.${extension}`;
-  };
-
   // View Mode: 'customize' or 'quick'
   const [viewMode, setViewMode] = useState<"customize" | "quick">("quick");
-  
-  // Auto-start flag for Quick Mode
-  const [shouldAutoStart, setShouldAutoStart] = useState(false);
+
+  const [sessionMode, setSessionMode] = useState<"quick" | "custom">("quick");
 
   // Toggle selection for a game
   const handleToggleGame = (game: ConversationGame) => {
     console.log("Toggling game:", game.testID);
     setSelectedGames(prev => {
-        const exists = prev.some(g => g.testID === game.testID);
-        let newSelection;
-        if (exists) {
-            newSelection = prev.filter(g => g.testID !== game.testID);
-        } else {
-            newSelection = [...prev, game];
-        }
-        console.log("New selection count:", newSelection.length);
-        return newSelection;
+      const exists = prev.some(g => g.testID === game.testID);
+      let newSelection;
+      if (exists) {
+        newSelection = prev.filter(g => g.testID !== game.testID);
+      } else {
+        newSelection = [...prev, game];
+      }
+      console.log("New selection count:", newSelection.length);
+      return newSelection;
     });
   };
 
   const handleStartSession = () => {
     console.log("Starting session with games:", selectedGames.length);
     if (selectedGames.length > 0) {
-        setShouldAutoStart(false); // Default flow
-        setIsSessionActive(true);
+      setSessionMode("custom");
+      setIsSessionActive(true);
     }
   };
 
   const handleQuickStart = (game: ConversationGame) => {
-      setSelectedGames([game]);
-      setShouldAutoStart(true); // Enable auto-start for Quick Mode
-      setIsSessionActive(true);
+    setSelectedGames([game]);
+    setSessionMode("quick");
+    setIsSessionActive(true);
   };
 
   const handleGameExit = () => {
     setIsSessionActive(false);
-    setShouldAutoStart(false);
+    if (sessionMode === "quick") {
+      setSelectedGames([]);
+    }
   };
 
   // Check if screen meets minimum size requirements
   if (!isMinimumSizeMet) {
-    return <MinimumScreenSize />;
+    return <MinimumScreenSize height={viewportHeight} width={viewportWidth} />;
   }
 
   if (loading) {
     return (
-      <div className="h-screen w-screen flex flex-col justify-center items-center bg-white dark:bg-black overflow-hidden">
+      <div className="h-screen w-screen flex flex-col justify-center items-center bg-white dark:bg-black overflow-hidden material-canvas">
         <div className="w-8 h-8 border-2 border-gray-300 dark:border-gray-600 border-t-primary rounded-full animate-spin mb-6"></div>
         <p className="text-lg text-gray-600 dark:text-gray-300 font-light">
           Loading conversations...
@@ -164,36 +114,62 @@ function App() {
   }
 
   return (
-    <div className="h-screen w-screen overflow-hidden flex flex-col">
-      <div className="flex-1 w-full h-full relative">
-          {isSessionActive ? (
-            <GameController
-            key={selectedGames.map(g => g.testID).join("-")} 
-            games={selectedGames}
-            onExit={handleGameExit}
-            autoStart={shouldAutoStart}
-            />
-        ) : (
-            viewMode === "quick" ? (
-                // Import QuickGameLibrary dynamically or use existing import
-                <QuickGameLibrary 
-                    games={games}
-                    onStartGame={handleQuickStart}
-                    onSwitchToCustom={() => setViewMode("customize")}
-                />
-            ) : (
-                <GameLibrary 
-                    games={games} 
-                    selectedGames={selectedGames}
-                    onToggleGame={handleToggleGame} 
-                    onStartSession={handleStartSession}
-                    onBackToQuick={() => setViewMode("quick")}
-                    onClearSelection={() => setSelectedGames([])}
-                />
-            )
-        )}
-      </div>
-    </div>
+    <MotionConfig reducedMotion="user">
+      <LayoutGroup id="frankcards-conversation-stage">
+        <div className="h-screen w-screen overflow-hidden flex flex-col material-canvas">
+          {!isSessionActive ? <AccountHub /> : null}
+          <div className="flex-1 w-full h-full relative isolate overflow-hidden">
+            <AnimatePresence initial={false} mode="sync">
+              {isSessionActive ? (
+                <motion.div
+                  key={`session-${selectedGames.map((game) => game.testID).join("-")}`}
+                  data-scene="game"
+                  className="absolute inset-0 z-20 overflow-hidden"
+                  initial={false}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <GameController
+                    games={selectedGames}
+                    onExit={handleGameExit}
+                    mode={sessionMode}
+                    sharedLayoutId={selectedGames.length === 1 ? `active-card-${selectedGames[0].testID}` : undefined}
+                  />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key={`library-${viewMode}`}
+                  data-scene="library"
+                  className="absolute inset-0 z-10 overflow-hidden"
+                  initial={false}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 1.4, ease: "easeInOut" }}
+                >
+                  {viewMode === "quick" ? (
+                    <QuickGameLibrary
+                      games={games}
+                      onStartGame={handleQuickStart}
+                      onSwitchToCustom={() => setViewMode("customize")}
+                    />
+                  ) : (
+                    <GameLibrary
+                      games={games}
+                      selectedGames={selectedGames}
+                      onToggleGame={handleToggleGame}
+                      onStartSession={handleStartSession}
+                      onBackToQuick={() => setViewMode("quick")}
+                      onClearSelection={() => setSelectedGames([])}
+                    />
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+      </LayoutGroup>
+    </MotionConfig>
   );
 }
 

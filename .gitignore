@@ -224,3 +224,4 @@ WixTools/
 *.key
 *.pem
 apple-developer-certificate.p12
+.vercel

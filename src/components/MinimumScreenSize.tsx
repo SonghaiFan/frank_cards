@@ -1,7 +1,13 @@
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
+import { MIN_SCREEN_HEIGHT, MIN_SCREEN_WIDTH } from "../hooks/useScreenSize";
 
-const MinimumScreenSize: React.FC = () => {
+interface MinimumScreenSizeProps {
+  height: number;
+  width: number;
+}
+
+const MinimumScreenSize: React.FC<MinimumScreenSizeProps> = ({ height, width }) => {
   const { t } = useTranslation();
 
   return (
@@ -55,7 +61,7 @@ const MinimumScreenSize: React.FC = () => {
         >
           {t(
             "minimumScreen.description",
-            "CueCards requires a minimum screen size of 360×640 pixels to display properly. Please use a larger screen or rotate your device."
+            "FrankCards requires a little more room to display properly. Please enlarge the window or rotate your device."
           )}
         </motion.p>
 
@@ -87,9 +93,9 @@ const MinimumScreenSize: React.FC = () => {
           className="mt-8 text-xs text-gray-400 dark:text-gray-500"
         >
           <p>
-            Current: {window.innerWidth}×{window.innerHeight}px
+            Current: {width}×{height}px
           </p>
-          <p>Required: 360×640px minimum</p>
+          <p>Required: {MIN_SCREEN_WIDTH}×{MIN_SCREEN_HEIGHT}px minimum</p>
         </motion.div>
       </motion.div>
     </div>

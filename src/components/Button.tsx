@@ -1,5 +1,5 @@
 import React from "react";
-import { motion, HTMLMotionProps } from "framer-motion";
+import { motion, HTMLMotionProps } from "motion/react";
 
 interface ButtonProps extends Omit<HTMLMotionProps<"button">, "children"> {
   children: React.ReactNode;
@@ -18,7 +18,7 @@ const Button: React.FC<ButtonProps> = ({
   ...motionProps
 }) => {
   const baseClasses =
-    "transition-all duration-300 touch-manipulation min-h-[48px] flex items-center justify-center font-bold relative";
+    "material-control transition-all duration-300 touch-manipulation min-h-[48px] flex items-center justify-center font-bold relative";
 
   const sizeClasses = {
     default: "px-6 py-3 text-base rounded-full",
@@ -28,13 +28,9 @@ const Button: React.FC<ButtonProps> = ({
 
   const variantClasses = {
     primary:
-      "bg-black dark:bg-white text-white dark:text-black border-2 border-gray-200 dark:border-gray-700 \
-      shadow-lg hover:shadow-xl hover:scale-105 origin-center transform-gpu cursor-pointer \
-      disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none",
+      "bg-black dark:bg-white text-white dark:text-black hover:scale-105 origin-center transform-gpu cursor-pointer disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none",
     secondary:
-      "bg-transparent border-2 border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white \
-      hover:scale-105 origin-center transform-gpu cursor-pointer \
-      disabled:cursor-not-allowed",
+      "paper-control bg-white/60 dark:bg-white/5 text-gray-900 dark:text-white hover:scale-105 origin-center transform-gpu cursor-pointer disabled:cursor-not-allowed",
   };
 
   const disabledClasses =
@@ -50,7 +46,7 @@ const Button: React.FC<ButtonProps> = ({
       className={combinedClasses}
       disabled={disabled}
     >
-      <span className="text-intimate tracking-wide">{children}</span>
+      <span className="tracking-wide">{children}</span>
     </motion.button>
   );
 };

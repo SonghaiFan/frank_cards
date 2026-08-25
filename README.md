@@ -1,8 +1,8 @@
-# CueCards - 对话卡片 🎯
+# FrankCards - 对话卡片 🎯
 
 <div align="center">
 
-![CueCards Logo](public/card-icon.svg)
+![FrankCards Logo](public/card-icon.svg)
 
 **精心策划的对话卡片，促进更深层的人际连接**
 
@@ -19,7 +19,7 @@
 
 ## 📖 项目简介
 
-CueCards 是一个跨平台的对话卡片应用，旨在通过精心策划的问题来促进更深层的人际连接。无论是情侣、朋友、家人还是团队建设，CueCards 都能帮助您开启有意义的对话。
+FrankCards 是一个跨平台的对话卡片应用，旨在通过精心策划的问题来促进更深层的人际连接。无论是情侣、朋友、家人还是团队建设，FrankCards 都能帮助您开启有意义的对话。
 
 ## ✨ 主要特性
 
@@ -39,9 +39,9 @@ CueCards 是一个跨平台的对话卡片应用，旨在通过精心策划的�
 
 访问 [Releases 页面](https://github.com/SonghaiFan/have_a_talk_by_cards/releases) 下载适合您系统的版本：
 
-- **Windows**: `CueCards_*.msi` 或 `CueCards_*.exe`
-- **macOS (Intel)**: `CueCards_*_x64.dmg` 或 `CueCards_*_x64.app.tar.gz`
-- **macOS (Apple Silicon)**: `CueCards_*_aarch64.dmg` 或 `CueCards_*_aarch64.app.tar.gz`
+- **Windows**: `FrankCards_*.msi` 或 `FrankCards_*.exe`
+- **macOS (Intel)**: `FrankCards_*_x64.dmg` 或 `FrankCards_*_x64.app.tar.gz`
+- **macOS (Apple Silicon)**: `FrankCards_*_aarch64.dmg` 或 `FrankCards_*_aarch64.app.tar.gz`
 
 ### 安装说明
 
@@ -58,7 +58,7 @@ CueCards 是一个跨平台的对话卡片应用，旨在通过精心策划的�
 1. 下载 `.dmg` 文件
 2. 双击打开，将应用拖拽到 Applications 文件夹
 3. **首次运行**: 不要直接双击应用
-4. **右键点击** CueCards 应用 → 选择 **"打开"**
+4. **右键点击** FrankCards 应用 → 选择 **"打开"**
 5. 在弹出的安全警告中点击 **"打开"**
 6. 之后就可以正常双击运行了
 
@@ -150,11 +150,11 @@ GitHub Actions 会自动：
 
 ### macOS 常见问题
 
-**问题**: "无法打开 CueCards，因为它来自身份不明的开发者"
+**问题**: "无法打开 FrankCards，因为它来自身份不明的开发者"
 **解决**: 右键点击应用 → 选择"打开" → 在弹出窗口中点击"打开"
 
-**问题**: "CueCards 已损坏，无法打开"
-**解决**: 在终端中运行 `sudo xattr -rd com.apple.quarantine /Applications/CueCards.app`
+**问题**: "FrankCards 已损坏，无法打开"
+**解决**: 在终端中运行 `sudo xattr -rd com.apple.quarantine /Applications/FrankCards.app`
 
 ### Windows 常见问题
 

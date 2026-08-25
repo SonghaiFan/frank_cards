@@ -1,46 +1,51 @@
 import React from "react";
-import { motion } from "motion/react";
 import { ConversationGame } from "../types/ConversationGame";
 import Button from "./Button";
+import ContourText from "./ContourText";
 
 interface GameInfoPanelProps {
+  uiColor?: string;
   game: ConversationGame;
   onStart?: () => void;
   showStartButton?: boolean;
 }
 
 const GameInfoPanel: React.FC<GameInfoPanelProps> = ({ 
+  uiColor,
   game, 
   onStart, 
   showStartButton = true 
 }) => {
-  return (
-    <div className="text-center max-w-3xl">
-      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 dark:text-white mb-6 sm:mb-8 tracking-tight leading-tight">
-        {game.ui.startScreen.title}
-      </h1>
+  const titleLength = Array.from(game.ui.startScreen.title.trim()).length;
+  const hasLongTitle = titleLength > 18;
 
-      {game.ui.startScreen.description.map(
-        (desc: string, index: number) => (
-          <motion.p
-            key={index}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 + index * 0.1 }}
-            className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 text-intimate font-light mb-4 sm:mb-6 leading-relaxed"
+  return (
+    <div data-game-info-panel className="flex h-[40dvh] min-h-72 max-h-[21rem] w-full min-w-0 max-w-full flex-col text-center lg:ml-auto lg:h-[34rem] lg:min-h-0 lg:max-h-none lg:w-full lg:text-right xl:w-[34rem]">
+      <div data-game-info-scroll className="min-h-0 flex-1 overflow-y-auto no-scrollbar py-2">
+        <div className="flex min-h-full min-w-0 flex-col justify-center">
+          <h1
+            className={`mb-6 max-w-full whitespace-normal break-words text-3xl font-black leading-tight tracking-tight text-gray-900 transition-colors duration-700 [text-wrap:balance] sm:mb-8 sm:text-4xl md:text-5xl lg:ml-auto lg:max-w-[17rem] xl:max-w-[19rem] xl:text-5xl ${hasLongTitle ? "2xl:text-5xl" : "2xl:text-6xl"} dark:text-white`}
+            style={uiColor ? { color: uiColor } : undefined}
           >
-            {desc}
-          </motion.p>
-        )
-      )}
+            {game.ui.startScreen.title}
+          </h1>
+
+          <ContourText
+            color={uiColor}
+            paragraphs={game.ui.startScreen.description}
+            className="text-base font-light leading-relaxed text-gray-600 transition-colors duration-700 sm:text-lg md:text-xl dark:text-gray-300"
+          />
+        </div>
+
+      </div>
 
       {showStartButton && onStart && (
-        <div className="flex justify-center">
+        <div className="flex shrink-0 justify-center pt-6 lg:justify-end lg:pt-8">
           <Button
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="mt-8 sm:mt-12 font-semibold"
+            className="font-semibold"
             variant="primary"
             onClick={onStart}
           >

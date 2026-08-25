@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useSyncExternalStore } from "react";
 
 interface ScreenSize {
   width: number;
@@ -7,46 +7,31 @@ interface ScreenSize {
 }
 
 // Minimum screen size requirements
-const MIN_WIDTH = 360;
-const MIN_HEIGHT = 640;
+export const MIN_SCREEN_WIDTH = 300;
+export const MIN_SCREEN_HEIGHT = 360;
+
+const getViewportSnapshot = () => `${window.innerWidth}x${window.innerHeight}`;
+const getServerSnapshot = () => "1024x768";
+
+const subscribeToViewport = (onStoreChange: () => void) => {
+  window.addEventListener("resize", onStoreChange);
+  window.addEventListener("orientationchange", onStoreChange);
+  window.visualViewport?.addEventListener("resize", onStoreChange);
+
+  return () => {
+    window.removeEventListener("resize", onStoreChange);
+    window.removeEventListener("orientationchange", onStoreChange);
+    window.visualViewport?.removeEventListener("resize", onStoreChange);
+  };
+};
 
 export const useScreenSize = (): ScreenSize => {
-  const [screenSize, setScreenSize] = useState<ScreenSize>(() => {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    return {
-      width,
-      height,
-      isMinimumSizeMet: width >= MIN_WIDTH && height >= MIN_HEIGHT,
-    };
-  });
+  const snapshot = useSyncExternalStore(subscribeToViewport, getViewportSnapshot, getServerSnapshot);
+  const [width, height] = snapshot.split("x").map(Number);
 
-  useEffect(() => {
-    const handleResize = () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      setScreenSize({
-        width,
-        height,
-        isMinimumSizeMet: width >= MIN_WIDTH && height >= MIN_HEIGHT,
-      });
-    };
-
-    // Add event listener
-    window.addEventListener("resize", handleResize);
-
-    // Add orientation change listener for mobile devices
-    window.addEventListener("orientationchange", () => {
-      // Small delay to ensure dimensions are updated after orientation change
-      setTimeout(handleResize, 100);
-    });
-
-    // Cleanup
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("orientationchange", handleResize);
-    };
-  }, []);
-
-  return screenSize;
+  return {
+    width,
+    height,
+    isMinimumSizeMet: width >= MIN_SCREEN_WIDTH && height >= MIN_SCREEN_HEIGHT,
+  };
 };

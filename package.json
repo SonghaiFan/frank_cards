@@ -1,10 +1,10 @@
 {
-  "name": "cuecards",
+  "name": "frankcards",
   "private": true,
   "version": "1.0.2",
   "type": "module",
   "description": "Thoughtfully curated conversation cards for deeper human connection",
-  "author": "CueCards",
+  "author": "FrankCards",
   "keywords": [
     "conversation",
     "cards",
@@ -21,9 +21,11 @@
     "generate-games": "node scripts/generate-game-index.js"
   },
   "dependencies": {
+    "@chenglou/pretext": "^0.0.8",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "@supabase/supabase-js": "^2.58.0",
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-opener": "^2",
     "i18next": "^25.3.2",

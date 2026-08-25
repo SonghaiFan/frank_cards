@@ -17,6 +17,7 @@ interface QuestionCardProps {
   cardColor: string;
   textColor: string;
   onCardClick: () => void;
+  sharedLayoutId?: string;
 }
 
 const QuestionCard: React.FC<QuestionCardProps> = ({
@@ -27,6 +28,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
   cardColor,
   textColor,
   onCardClick,
+  sharedLayoutId,
 }) => {
   // Mouse movement tracking with optimized values
   const cardRef = useRef<HTMLDivElement>(null);
@@ -83,9 +85,11 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
     }),
     center: {
       x: 0,
+      y: 0,
       opacity: 1,
       scale: 1,
       rotateY: 0,
+      filter: "blur(0px)",
     },
     exit: (direction: number) => ({
       x: direction < 0 ? 300 : -300,
@@ -94,11 +98,12 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
       rotateY: direction < 0 ? 25 : -25,
     }),
   };
+  const activeSharedLayoutId = currentQuestionIndex === 0 ? sharedLayoutId : undefined;
 
   return (
     <div className="flex justify-center items-center">
       <div
-        className="relative perspective-1000"
+        className="relative perspective-1000 w-[92vw] max-w-[380px] sm:w-[440px] sm:max-w-[440px] md:w-[520px] md:max-w-[520px] h-[220px] sm:h-[280px] md:h-[340px]"
         ref={cardRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -106,7 +111,8 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={currentQuestionIndex}
-            className="relative w-[340px] sm:w-[440px] md:w-[520px] h-[220px] sm:h-[280px] md:h-[340px]"
+            data-card-transition={activeSharedLayoutId ? "shared-entry" : "question-sequence"}
+            className="relative w-full h-full"
             style={{
               transformStyle: "preserve-3d",
               rotateX,
@@ -114,10 +120,20 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
             }}
             custom={direction}
             variants={cardVariants}
-            initial="enter"
+            initial={activeSharedLayoutId ? {
+              opacity: 0,
+              y: 36,
+              scale: 0.92,
+              filter: "blur(10px)",
+            } : "enter"}
             animate="center"
             exit="exit"
-            transition={{
+            transition={activeSharedLayoutId ? {
+              opacity: { duration: 0.38, delay: 0.08 },
+              y: { duration: 0.72, delay: 0.05, ease: [0.22, 1, 0.36, 1] },
+              scale: { duration: 0.72, delay: 0.05, ease: [0.22, 1, 0.36, 1] },
+              filter: { duration: 0.5, delay: 0.05, ease: "easeOut" },
+            } : {
               x: { type: "spring", stiffness: 300, damping: 30 },
               opacity: { duration: 0.2 },
               scale: { duration: 0.2 },
@@ -130,6 +146,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
               className="relative w-full h-full"
               style={{
                 transformStyle: "preserve-3d",
+                borderRadius: "1.5rem",
               }}
               animate={{
                 rotateY: isCardFlipped ? 180 : 0,
@@ -139,7 +156,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
                 ease: [0.16, 1, 0.3, 1], // Custom bezier curve for natural feel
                 layout: { duration: 0.6 },
               }}
-              layoutId={`card-${currentQuestionIndex}`}
+              layoutId={activeSharedLayoutId || `card-${currentQuestionIndex}`}
             >
               {/* Front Side - Question */}
               <Card

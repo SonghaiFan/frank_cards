@@ -2,30 +2,16 @@ import React, { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 import { ConversationGame } from "../types/ConversationGame";
+import { useMediaQuery } from "../hooks/useMediaQuery";
+import { resolveGameSurfaceTheme } from "../utils/gameTheme";
 import QuestionCard from "./QuestionCard";
-
-// Utility function to calculate luminance and determine contrast color
-const getContrastColor = (hexColor: string): string => {
-  // Remove # if present
-  const hex = hexColor.replace("#", "");
-
-  // Convert hex to RGB
-  const r = parseInt(hex.slice(0, 2), 16);
-  const g = parseInt(hex.slice(2, 4), 16);
-  const b = parseInt(hex.slice(4, 6), 16);
-
-  // Calculate relative luminance using WCAG formula
-  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-
-  // Return white for dark backgrounds, black for light backgrounds
-  return luminance > 0.9 ? "#000000" : "#ffffff";
-};
 
 interface GamePlayProps {
   game: ConversationGame;
   questions: any[];
   onExit: () => void;
   onComplete: () => void;
+  sharedLayoutId?: string;
 }
 
 const GamePlay: React.FC<GamePlayProps> = ({
@@ -33,25 +19,13 @@ const GamePlay: React.FC<GamePlayProps> = ({
   questions,
   onExit,
   onComplete,
+  sharedLayoutId,
 }) => {
   const { t } = useTranslation();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const [direction, setDirection] = useState(0);
-  const [isDarkTheme, setIsDarkTheme] = useState(
-    window.matchMedia("(prefers-color-scheme: dark)").matches
-  );
-
-  // Listen for theme changes
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    const handleThemeChange = (e: MediaQueryListEvent) => {
-      setIsDarkTheme(e.matches);
-    };
-
-    mediaQuery.addEventListener("change", handleThemeChange);
-    return () => mediaQuery.removeEventListener("change", handleThemeChange);
-  }, []);
+  const isDarkTheme = useMediaQuery("(prefers-color-scheme: dark)");
 
   const currentQuestion = questions[currentQuestionIndex] || null;
   const currentCategory = currentQuestion
@@ -62,24 +36,16 @@ const GamePlay: React.FC<GamePlayProps> = ({
   const isWildMode = currentQuestion?.type === "wildcard";
   const categoryColor = currentCategory?.color || "#ffffff";
 
-  const themes = {
-    dark: {
-      wild: { background: "#000000", card: categoryColor }, // Midnight contrast
-      normal: { background: categoryColor, card: "#000000" }, // Dark canvas
-    },
-    light: {
-      wild: { background: "#ffffff", card: categoryColor }, // Pure focus
-      normal: { background: categoryColor, card: "#ffffff" }, // Light clarity
-    },
-  };
-
-  const mode = isWildMode ? "wild" : "normal";
-  const { background: backgroundColor, card: cardColor } =
-    themes[isDarkTheme ? "dark" : "light"][mode];
-
-  // Dynamically determine UI color based on background color contrast
-  const textColor = getContrastColor(cardColor);
-  const uiColor = getContrastColor(backgroundColor);
+  const {
+    backgroundColor,
+    cardColor,
+    cardTextColor: textColor,
+    uiColor,
+  } = resolveGameSurfaceTheme({
+    categoryColor,
+    isDarkTheme,
+    isWildcard: isWildMode,
+  });
 
   const handleNext = () => {
     setDirection(1);
@@ -144,9 +110,11 @@ const GamePlay: React.FC<GamePlayProps> = ({
   }, [currentQuestionIndex, isCardFlipped, currentQuestion, onExit]);
 
   return (
-    <div
-      className="h-full w-full flex flex-col transition-colors duration-500"
-      style={{ backgroundColor: backgroundColor }}
+    <motion.div
+      className="h-full w-full flex flex-col"
+      initial={{ backgroundColor: "rgba(255, 255, 255, 0)" }}
+      animate={{ backgroundColor }}
+      transition={{ backgroundColor: { duration: 1.6, ease: "easeInOut" } }}
     >
       {/* Dark mode darkening overlay */}
       {isDarkTheme && (
@@ -164,7 +132,12 @@ const GamePlay: React.FC<GamePlayProps> = ({
       )}
 
       {/* Header - Minimal Navigation */}
-      <header className="flex justify-between items-center p-4 sm:p-8 relative z-10">
+      <motion.header
+        initial={{ opacity: 0, y: -12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+        className="flex justify-between items-center p-4 sm:p-8 relative z-10"
+      >
         <button
           className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-xl sm:text-2xl hover:text-gray-200 transition-colors duration-200"
           style={{ color: uiColor }}
@@ -182,7 +155,7 @@ const GamePlay: React.FC<GamePlayProps> = ({
             total: questions.length,
           })}
         </div>
-      </header>
+      </motion.header>
 
       {/* Main Card - Centered & Focused */}
       <div className="flex-1 flex items-center justify-center px-4 sm:px-8 py-8 sm:py-16 relative z-10">
@@ -223,6 +196,7 @@ const GamePlay: React.FC<GamePlayProps> = ({
             cardColor={cardColor}
             textColor={textColor}
             onCardClick={handleCardClick}
+            sharedLayoutId={sharedLayoutId}
           />
 
           {/* Category Description - Subtle */}
@@ -276,9 +250,8 @@ const GamePlay: React.FC<GamePlayProps> = ({
             className="h-full rounded-full"
             style={{ backgroundColor: uiColor }}
             animate={{
-              width: `${
-                ((currentQuestionIndex + 1) / questions.length) * 100
-              }%`,
+              width: `${((currentQuestionIndex + 1) / questions.length) * 100
+                }%`,
             }}
             transition={{
               duration: 0.3,
@@ -309,7 +282,7 @@ const GamePlay: React.FC<GamePlayProps> = ({
       >
         <p>{t("navigation.keyboardHints")}</p>
       </motion.div>
-    </div>
+    </motion.div>
   );
 };
 

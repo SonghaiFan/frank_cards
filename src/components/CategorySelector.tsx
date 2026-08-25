@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 import { ConversationGame } from "../types/ConversationGame";
+import { resolveUiColor } from "../utils/gameTheme";
 
 interface CategorySelectorProps {
   game: ConversationGame;
@@ -41,7 +42,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
         {(() => {
           // Group categories by originGame
           const groupedCategories: Record<string, [string, any][]> = {};
-          
+
           Object.entries(game.theme.categories).forEach(([key, category]) => {
             const origin = category.originGame || game.app.title;
             if (!groupedCategories[origin]) {
@@ -51,7 +52,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
           });
 
           const groups = Object.entries(groupedCategories);
-          
+
           return groups.map(([origin, categories], groupIndex) => (
             <React.Fragment key={origin}>
               {/* Divider between game groups (but not before the first one) */}
@@ -62,6 +63,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
               {/* Categories for this game */}
               {categories.map(([categoryKey, category]) => {
                 const isSelected = selectedCategories.includes(categoryKey);
+                const categoryUiColor = resolveUiColor(category.color);
 
                 // Find questions for this category using the key
                 const categoryQuestions = game.questions.find(
@@ -82,12 +84,11 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
                       whileTap={{ scale: 0.9 }}
                       onClick={() => handleCategoryToggle(categoryKey)}
                       className={`
-                      relative w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full transition-all duration-300 cursor-pointer touch-manipulation
-                      ${
-                        isSelected
+                      material-category-control relative w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full transition-all duration-300 cursor-pointer touch-manipulation
+                      ${isSelected
                           ? "shadow-lg scale-110"
                           : "hover:shadow-md opacity-60 hover:opacity-100 active:scale-95"
-                      }
+                        }
                     `}
                       style={{ backgroundColor: category.color }}
                       title={`${category.name} (${questionCount} questions)`}
@@ -100,7 +101,8 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
                           className="absolute inset-0 flex items-center justify-center"
                         >
                           <svg
-                            className="w-3 h-3 sm:w-4 sm:h-4 text-white"
+                            className="w-3 h-3 sm:w-4 sm:h-4"
+                            style={{ color: categoryUiColor }}
                             fill="currentColor"
                             viewBox="0 0 20 20"
                           >
@@ -115,10 +117,10 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
                     </motion.button>
 
                     <div className="text-center max-w-[90px] space-y-0.5">
-                       <div className="text-xs sm:text-sm font-medium text-gray-900 dark:text-white leading-tight break-words">
-                          {/* Remove appended game title from name if present */}
-                          {category.name.replace(/\s*\(.*?\)$/, "")} 
-                       </div>
+                      <div className="text-xs sm:text-sm font-medium text-gray-900 dark:text-white leading-tight break-words">
+                        {/* Remove appended game title from name if present */}
+                        {category.name.replace(/\s*\(.*?\)$/, "")}
+                      </div>
                     </div>
                   </motion.div>
                 );

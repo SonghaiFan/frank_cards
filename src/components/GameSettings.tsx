@@ -106,26 +106,26 @@ const GameSettings: React.FC<GameSettingsProps> = ({
             transition={{ delay: 0.9 }}
             className="space-y-4"
           >
-             <div className="space-y-1">
-                <h2 className="text-lg sm:text-xl font-light text-gray-900 dark:text-white">
-                  {t("gameInterface.chaosMode", "Chaos Shuffle")}
-                </h2>
-                <div className="flex items-center justify-center space-x-3 pt-2">
-                   <p className="text-sm text-gray-600 dark:text-gray-300 font-light max-w-xs text-center">
-                      {t("gameInterface.chaosModeDesc", "Mix all questions together, ignoring categories.")}
-                   </p>
-                    <label className="flex items-center cursor-pointer relative">
-                      <input
-                        type="checkbox"
-                        className="sr-only"
-                        checked={isChaosMode}
-                        onChange={(e) => onChaosModeChange(e.target.checked)}
-                      />
-                      <div className={`block w-10 h-6 rounded-full transition-colors duration-300 ${isChaosMode ? 'bg-black dark:bg-white' : 'bg-gray-300 dark:bg-gray-600'}`}></div>
-                      <div className={`absolute left-1 top-1 w-4 h-4 rounded-full transition-transform duration-300 shadow-sm ${isChaosMode ? 'transform translate-x-4 bg-white dark:bg-black' : 'bg-white'}`}></div>
-                    </label>
-                </div>
-             </div>
+            <div className="space-y-1">
+              <h2 className="text-lg sm:text-xl font-light text-gray-900 dark:text-white">
+                {t("gameInterface.chaosMode", "Chaos Shuffle")}
+              </h2>
+              <div className="flex items-center justify-center space-x-3 pt-2">
+                <p className="text-sm text-gray-600 dark:text-gray-300 font-light max-w-xs text-center">
+                  {t("gameInterface.chaosModeDesc", "Mix all questions together, ignoring categories.")}
+                </p>
+                <label className="flex items-center cursor-pointer relative">
+                  <input
+                    type="checkbox"
+                    className="sr-only"
+                    checked={isChaosMode}
+                    onChange={(e) => onChaosModeChange(e.target.checked)}
+                  />
+                  <div className={`material-toggle-track block w-10 h-6 rounded-full transition-colors duration-300 ${isChaosMode ? 'bg-black dark:bg-white' : 'bg-gray-300 dark:bg-gray-600'}`}></div>
+                  <div className={`material-toggle-knob absolute left-1 top-1 w-4 h-4 rounded-full transition-transform duration-300 ${isChaosMode ? 'transform translate-x-4 bg-white dark:bg-black' : 'bg-white'}`}></div>
+                </label>
+              </div>
+            </div>
           </motion.div>
 
           {/* Action Section */}

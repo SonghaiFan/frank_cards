@@ -25,7 +25,7 @@ body {
 }
 
 /* Minimum screen size restrictions */
-@media screen and (max-width: 359px), screen and (max-height: 639px) {
+@media screen and (max-width: 299px), screen and (max-height: 359px) {
   /* Hide certain elements on very small screens */
   .hide-on-small-screen {
     display: none !important;
@@ -200,4 +200,762 @@ body {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* FrankCards paper material layer.
+   Layout and interaction stay intact; separation comes from paper tone,
+   fibre, light and shadow rather than visible borders. */
+:root {
+  --material-canvas: #f2f2ef;
+  --material-surface: #fbfbf7;
+  --paper-card: #fdfdfa;
+  --material-ink: #171715;
+  --material-muted-ink: #5d5d57;
+  --material-input: #f0f0eb;
+  --material-error: #a3302e;
+  --material-shadow-soft: rgba(46, 44, 38, 0.075);
+  --material-shadow-mid: rgba(42, 40, 34, 0.11);
+  --material-shadow-deep: rgba(35, 33, 28, 0.15);
+  --layer-account-toolbar: 80;
+  --layer-account-overlay: 200;
+}
+
+.knee-conversation-illustration {
+  color: var(--material-ink);
+  filter: drop-shadow(0 18px 22px rgb(23 23 21 / 0.08));
+  opacity: 1;
+}
+
+.knee-conversation-background {
+  filter: none;
+  opacity: 1;
+}
+
+.theme-color-blur-background {
+  background: var(--material-canvas, #fbfbf7);
+  isolation: isolate;
+}
+
+.theme-color-blur-mesh {
+  position: absolute;
+  inset: -12%;
+  opacity: 0.84;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    rgb(0 0 0 / 0.05) 0%,
+    rgb(0 0 0 / 0.12) 18%,
+    rgb(0 0 0 / 0.4) 40%,
+    rgb(0 0 0 / 0.78) 67%,
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    rgb(0 0 0 / 0.05) 0%,
+    rgb(0 0 0 / 0.12) 18%,
+    rgb(0 0 0 / 0.4) 40%,
+    rgb(0 0 0 / 0.78) 67%,
+    #000 100%
+  );
+}
+
+.theme-color-blur-field {
+  position: absolute;
+  inset: 0;
+  filter: blur(clamp(46px, 5vw, 82px)) saturate(1.04);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.theme-color-blur-field-primary {
+  background:
+    radial-gradient(ellipse 38% 44% at 12% 18%, color-mix(in srgb, var(--theme-mesh-1) 72%, white), transparent 74%),
+    radial-gradient(ellipse 42% 40% at 43% 17%, var(--theme-mesh-2), transparent 72%),
+    radial-gradient(ellipse 45% 48% at 83% 16%, var(--theme-mesh-3), transparent 73%),
+    radial-gradient(ellipse 48% 48% at 42% 78%, var(--theme-mesh-4), transparent 74%),
+    radial-gradient(ellipse 38% 46% at 86% 72%, var(--theme-mesh-5), transparent 72%);
+  transform: translate3d(-2.5%, -1.5%, 0) scale(1.08) rotate(-1deg);
+}
+
+.theme-color-blur-field-secondary {
+  background:
+    radial-gradient(ellipse 32% 36% at 27% 54%, color-mix(in srgb, var(--theme-mesh-3) 76%, white), transparent 72%),
+    radial-gradient(ellipse 33% 42% at 64% 42%, color-mix(in srgb, var(--theme-mesh-5) 86%, white), transparent 72%),
+    radial-gradient(ellipse 38% 40% at 74% 80%, color-mix(in srgb, var(--theme-mesh-4) 84%, white), transparent 74%),
+    radial-gradient(ellipse 28% 34% at 92% 40%, var(--theme-mesh-1), transparent 72%);
+  opacity: 0.72;
+  transform: translate3d(2%, 1%, 0) scale(1.12) rotate(1.4deg);
+}
+
+@keyframes theme-color-flow-primary {
+  0% {
+    transform: translate3d(-2.5%, -1.5%, 0) scale(1.08) rotate(-1deg);
+  }
+  50% {
+    transform: translate3d(1.8%, 2.2%, 0) scale(1.14) rotate(0.8deg);
+  }
+  100% {
+    transform: translate3d(3%, -1%, 0) scale(1.1) rotate(-0.25deg);
+  }
+}
+
+@keyframes theme-color-flow-secondary {
+  0% {
+    transform: translate3d(2%, 1%, 0) scale(1.12) rotate(1.4deg);
+  }
+  52% {
+    transform: translate3d(-2.4%, -1.7%, 0) scale(1.06) rotate(-0.9deg);
+  }
+  100% {
+    transform: translate3d(-0.5%, 2.5%, 0) scale(1.15) rotate(0.35deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .theme-color-blur-field-primary {
+    animation: theme-color-flow-primary 22s ease-in-out infinite alternate;
+  }
+
+  .theme-color-blur-field-secondary {
+    animation: theme-color-flow-secondary 29s ease-in-out infinite alternate;
+  }
+}
+
+@supports not (background: color-mix(in srgb, red, white)) {
+  .theme-color-blur-field-primary {
+    background:
+      radial-gradient(ellipse 42% 44% at 15% 18%, var(--theme-mesh-1), transparent 74%),
+      radial-gradient(ellipse 42% 42% at 45% 18%, var(--theme-mesh-2), transparent 72%),
+      radial-gradient(ellipse 48% 48% at 82% 18%, var(--theme-mesh-3), transparent 74%),
+      radial-gradient(ellipse 50% 50% at 42% 80%, var(--theme-mesh-4), transparent 74%),
+      radial-gradient(ellipse 40% 46% at 86% 72%, var(--theme-mesh-5), transparent 72%);
+  }
+
+  .theme-color-blur-field-secondary {
+    background:
+      radial-gradient(ellipse 34% 38% at 28% 54%, var(--theme-mesh-3), transparent 72%),
+      radial-gradient(ellipse 34% 42% at 64% 42%, var(--theme-mesh-5), transparent 72%),
+      radial-gradient(ellipse 40% 42% at 74% 80%, var(--theme-mesh-4), transparent 74%);
+  }
+}
+
+.conversation-moving-layer {
+  transform-box: fill-box;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.figure-jointed-hand,
+.figure-head-look,
+.figure-head-idle {
+  transform-box: view-box;
+  will-change: transform;
+}
+
+#female-right-hand {
+  transform-origin: 104px 326px;
+}
+
+#female-left-hand {
+  transform-origin: 246px 327px;
+}
+
+#male-left-hand {
+  transform-origin: 80px 147px;
+}
+
+#male-right-hand {
+  transform-origin: 379px 146px;
+}
+
+#female-head-look,
+#female-head {
+  transform-origin: 164px 112px;
+}
+
+#male-head-look,
+#male-head {
+  transform-origin: 228px 289px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .conversation-moving-layer,
+  .figure-head-look,
+  .figure-head-idle {
+    will-change: auto;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --material-canvas: #0d0d0c;
+    --material-surface: #161614;
+    --paper-card: #f7f7f2;
+    --material-ink: #f3f2ec;
+    --material-muted-ink: #b9b9b1;
+    --material-input: #242421;
+    --material-error: #ffaaa4;
+    --material-shadow-soft: rgba(0, 0, 0, 0.20);
+    --material-shadow-mid: rgba(0, 0, 0, 0.30);
+    --material-shadow-deep: rgba(0, 0, 0, 0.42);
+  }
+
+  .knee-conversation-background {
+    opacity: 0.92;
+  }
+}
+
+body {
+  background-color: var(--material-canvas);
+}
+
+.material-canvas {
+  background-color: var(--material-canvas);
+}
+
+.bg-white {
+  background-color: var(--material-surface);
+}
+
+.material-card {
+  isolation: isolate;
+  overflow: hidden;
+  box-shadow:
+    0 1px 1px rgba(255, 255, 255, 0.72),
+    0 3px 7px var(--material-shadow-soft),
+    0 18px 38px var(--material-shadow-mid),
+    0 38px 64px rgba(35, 33, 28, 0.045);
+}
+
+.material-card:hover {
+  box-shadow:
+    0 1px 1px rgba(255, 255, 255, 0.76),
+    0 5px 10px var(--material-shadow-soft),
+    0 24px 48px var(--material-shadow-mid),
+    0 46px 76px rgba(35, 33, 28, 0.055);
+}
+
+.material-card.paper-card-selected {
+  box-shadow:
+    0 2px 3px rgba(255, 255, 255, 0.80),
+    0 7px 14px var(--material-shadow-mid),
+    0 30px 58px var(--material-shadow-deep);
+}
+
+.material-control {
+  box-shadow:
+    0 2px 3px var(--material-shadow-soft),
+    0 8px 18px var(--material-shadow-mid);
+}
+
+.material-control:active {
+  box-shadow:
+    0 1px 2px var(--material-shadow-soft),
+    0 3px 7px var(--material-shadow-mid);
+}
+
+.paper-control {
+  box-shadow:
+    0 1px 2px var(--material-shadow-soft),
+    0 5px 12px var(--material-shadow-mid);
+}
+
+.material-category-control {
+  box-shadow:
+    0 1px 2px var(--material-shadow-soft),
+    0 6px 13px var(--material-shadow-mid);
+}
+
+.material-toggle-track {
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.15),
+    0 2px 5px var(--material-shadow-soft);
+}
+
+.material-toggle-knob {
+  box-shadow:
+    0 1px 2px var(--material-shadow-soft),
+    0 4px 9px var(--material-shadow-mid);
+}
+
+.frank-signature {
+  display: inline-block;
+  width: 2.4em;
+  height: 1em;
+  margin-right: -0.08em;
+  vertical-align: -0.14em;
+  background: currentColor;
+  -webkit-mask: url("/frank-signature.svg") center / contain no-repeat;
+  mask: url("/frank-signature.svg") center / contain no-repeat;
+}
+
+.account-toolbar {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: var(--layer-account-toolbar);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem;
+  border-radius: 999px;
+  color: var(--material-ink);
+  background: color-mix(in srgb, var(--material-surface) 88%, transparent);
+  box-shadow:
+    0 2px 4px var(--material-shadow-soft),
+    0 10px 24px var(--material-shadow-mid);
+}
+
+.account-toolbar-button,
+.account-language-button {
+  min-height: 2.6rem;
+  border: 0;
+  color: inherit;
+}
+
+.account-toolbar-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  background: transparent;
+  font-size: 0.875rem;
+  font-weight: 750;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.account-toolbar-button:hover,
+.account-language-button:hover {
+  background: color-mix(in srgb, var(--material-ink) 8%, transparent);
+}
+
+.account-toolbar-button:active,
+.account-language-button:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.account-toolbar-button:focus-visible,
+.account-language-button:focus-visible,
+.account-icon-button:focus-visible,
+.account-primary-button:focus-visible,
+.account-text-button:focus-visible,
+.account-create-button:focus-visible,
+.account-sign-out-button:focus-visible,
+.account-back-button:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--material-ink) 62%, transparent);
+  outline-offset: 3px;
+}
+
+.account-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--layer-account-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(22, 22, 20, 0.34);
+}
+
+.account-overlay-align-end {
+  justify-content: flex-end;
+  padding: 0;
+}
+
+.account-sheet {
+  position: relative;
+  width: min(100%, 31rem);
+  max-height: min(46rem, calc(100dvh - 2rem));
+  overflow: auto;
+  border: 0;
+  border-radius: 1.75rem;
+  color: var(--material-ink);
+  background: var(--paper-card);
+  box-shadow:
+    0 2px 4px rgba(255, 255, 255, 0.62) inset,
+    0 24px 56px rgba(20, 20, 18, 0.22),
+    0 48px 96px rgba(20, 20, 18, 0.14);
+}
+
+.account-topics-sheet {
+  width: min(100%, 40rem);
+  height: 100dvh;
+  max-height: none;
+  border-radius: 1.75rem 0 0 1.75rem;
+  padding: clamp(1.5rem, 4vw, 3.25rem);
+}
+
+.account-sheet-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.account-icon-button {
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  color: var(--material-ink);
+  background: color-mix(in srgb, var(--material-ink) 8%, transparent);
+  cursor: pointer;
+  transition: transform 180ms ease, background-color 180ms ease;
+}
+
+.account-icon-button:hover {
+  background: color-mix(in srgb, var(--material-ink) 13%, transparent);
+}
+
+.account-icon-button:active {
+  transform: scale(0.96);
+}
+
+.account-sheet-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  padding: clamp(2rem, 6vw, 3.25rem);
+}
+
+.account-kicker {
+  max-width: calc(100% - 3rem);
+  overflow: hidden;
+  color: var(--material-muted-ink);
+  font-size: 0.78rem;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.account-sheet h2,
+.account-topic-form h3,
+.account-topic-row h3,
+.account-topics-state h3 {
+  margin: 0;
+  color: var(--material-ink);
+}
+
+.account-sheet h2 {
+  max-width: 12ch;
+  font-size: clamp(2rem, 6vw, 3.15rem);
+  font-weight: 900;
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+}
+
+.account-sheet p {
+  margin: 0;
+  color: var(--material-muted-ink);
+  line-height: 1.55;
+}
+
+.account-field {
+  display: grid;
+  gap: 0.5rem;
+  color: var(--material-ink);
+  font-size: 0.875rem;
+  font-weight: 750;
+}
+
+.account-field input,
+.account-field textarea,
+.account-field select {
+  width: 100%;
+  min-height: 3.15rem;
+  border: 0;
+  border-radius: 0.9rem;
+  padding: 0.85rem 1rem;
+  color: var(--material-ink);
+  background: var(--material-input);
+  font: inherit;
+  font-weight: 500;
+  line-height: 1.4;
+  box-shadow: inset 0 1px 3px var(--material-shadow-soft);
+  resize: vertical;
+}
+
+.account-field input::placeholder,
+.account-field textarea::placeholder {
+  color: color-mix(in srgb, var(--material-muted-ink) 88%, transparent);
+}
+
+.account-field input:focus,
+.account-field textarea:focus,
+.account-field select:focus {
+  outline: 3px solid color-mix(in srgb, var(--material-ink) 28%, transparent);
+  outline-offset: 2px;
+}
+
+.account-code-input {
+  font-size: 1.4rem !important;
+  letter-spacing: 0.28em;
+  text-align: center;
+}
+
+.account-primary-button,
+.account-create-button {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.85rem 1.2rem;
+  color: var(--material-surface);
+  background: var(--material-ink);
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow:
+    0 2px 3px var(--material-shadow-soft),
+    0 9px 20px var(--material-shadow-mid);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.account-primary-button:hover,
+.account-create-button:hover {
+  transform: translateY(-1px);
+}
+
+.account-primary-button:active,
+.account-create-button:active {
+  transform: translateY(1px) scale(0.985);
+}
+
+.account-primary-button:disabled,
+.account-create-button:disabled {
+  opacity: 0.46;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.account-text-button,
+.account-sign-out-button,
+.account-back-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.7rem 0.9rem;
+  color: var(--material-muted-ink);
+  background: transparent;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.account-text-button:hover,
+.account-sign-out-button:hover,
+.account-back-button:hover {
+  color: var(--material-ink);
+  background: color-mix(in srgb, var(--material-ink) 7%, transparent);
+}
+
+.account-back-button {
+  align-self: flex-start;
+  margin-left: -0.8rem;
+}
+
+.account-field-error {
+  color: var(--material-error) !important;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.account-topics-header {
+  display: grid;
+  gap: 0.8rem;
+  padding-right: 3rem;
+}
+
+.account-topics-header h2 {
+  max-width: none;
+}
+
+.account-topics-content {
+  display: grid;
+  gap: 1.35rem;
+  margin-top: 2rem;
+}
+
+.account-create-button {
+  justify-self: start;
+}
+
+.account-topic-list {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.account-topic-row {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  border-radius: 1.15rem;
+  background: color-mix(in srgb, var(--material-input) 72%, transparent);
+  box-shadow:
+    0 1px 2px var(--material-shadow-soft),
+    0 7px 16px var(--material-shadow-soft);
+}
+
+.account-topic-row h3 {
+  font-size: 1.15rem;
+  font-weight: 850;
+  letter-spacing: -0.025em;
+}
+
+.account-topic-row > div > p {
+  margin-top: 0.35rem;
+  font-size: 0.9rem;
+}
+
+.account-topic-row dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin: 0;
+}
+
+.account-topic-row dl div {
+  min-width: 0;
+}
+
+.account-topic-row dt {
+  color: var(--material-muted-ink);
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.account-topic-row dd {
+  margin: 0.25rem 0 0;
+  overflow: hidden;
+  color: var(--material-ink);
+  font-size: 0.84rem;
+  font-weight: 750;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.account-topics-state {
+  display: grid;
+  place-items: start;
+  gap: 0.7rem;
+  min-height: 12rem;
+  align-content: center;
+  padding: 1rem;
+}
+
+.account-topic-skeletons {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.account-topic-skeletons span {
+  height: 7.5rem;
+  border-radius: 1.15rem;
+  background: linear-gradient(100deg, var(--material-input) 25%, color-mix(in srgb, var(--material-input) 55%, var(--material-surface)) 45%, var(--material-input) 65%);
+  background-size: 220% 100%;
+  animation: account-skeleton 1.6s ease-in-out infinite;
+}
+
+@keyframes account-skeleton {
+  to { background-position-x: -220%; }
+}
+
+.account-sign-out-button {
+  margin-top: 2rem;
+}
+
+.account-topic-form {
+  display: grid;
+  gap: 1.15rem;
+  margin-top: 2rem;
+}
+
+.account-topic-form-heading {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.account-topic-form-heading h3 {
+  font-size: 1.55rem;
+  letter-spacing: -0.035em;
+}
+
+.account-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+}
+
+.account-form-note {
+  font-size: 0.8rem;
+}
+
+.account-form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+@media (min-width: 640px) {
+  .account-toolbar {
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .account-toolbar-button span {
+    display: none;
+  }
+
+  .account-toolbar-button {
+    width: 2.6rem;
+    padding-inline: 0;
+  }
+
+  .account-topics-sheet {
+    width: 100%;
+    border-radius: 0;
+    padding: 1.25rem;
+  }
+
+  .account-form-grid,
+  .account-topic-row dl {
+    grid-template-columns: 1fr;
+  }
+
+  .account-form-actions {
+    align-items: stretch;
+    flex-direction: column-reverse;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .material-control,
+  .material-category-control,
+  .account-toolbar-button,
+  .account-language-button,
+  .account-icon-button,
+  .account-primary-button,
+  .account-create-button,
+  .account-topic-skeletons span {
+    transition: none;
+    animation: none;
+  }
 }
