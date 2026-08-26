@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightFromBracket, faPlay, faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightFromBracket, faPen, faPlay, faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../auth/AuthProvider";
 import type { MutableTopicRepository } from "../../data/topics/TopicRepository";
 import type { ConversationGame } from "../../types/ConversationGame";
-import type { TopicRecord } from "../../types/Topic";
-import CreateTopicForm from "./CreateTopicForm";
+import type { SaveTopicInput, TopicRecord } from "../../types/Topic";
+import TopicStudio from "./TopicStudio";
 
 interface MyTopicsPanelProps {
   onClose: () => void;
@@ -34,7 +34,7 @@ export default function MyTopicsPanel({ onClose, onUseTopic }: MyTopicsPanelProp
   const { signOut, user } = useAuth();
   const [topics, setTopics] = useState<TopicRecord[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isCreating, setIsCreating] = useState(false);
+  const [studioTopic, setStudioTopic] = useState<TopicRecord | "new" | null>(null);
   const [error, setError] = useState<string | null>(null);
   const userId = user?.id ?? null;
 
@@ -58,15 +58,28 @@ export default function MyTopicsPanel({ onClose, onUseTopic }: MyTopicsPanelProp
 
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Escape" && studioTopic === null) onClose();
     };
     window.addEventListener("keydown", handleEscape);
     return () => window.removeEventListener("keydown", handleEscape);
-  }, [onClose]);
+  }, [onClose, studioTopic]);
 
-  const handleCreated = (topic: TopicRecord) => {
-    setTopics((current) => [topic, ...current]);
-    setIsCreating(false);
+  const handleStudioSave = async (input: SaveTopicInput) => {
+    const repository = await loadRepository();
+    const savedTopic = studioTopic === "new"
+      ? await repository.create(input)
+      : studioTopic
+        ? await repository.update(studioTopic.id, input)
+        : null;
+
+    if (!savedTopic) return;
+    setTopics((current) => {
+      const exists = current.some((topic) => topic.id === savedTopic.id);
+      return exists
+        ? current.map((topic) => topic.id === savedTopic.id ? savedTopic : topic)
+        : [savedTopic, ...current];
+    });
+    setStudioTopic(null);
   };
 
   const handleSignOut = async () => {
@@ -96,94 +109,113 @@ export default function MyTopicsPanel({ onClose, onUseTopic }: MyTopicsPanelProp
       <motion.section
         role="dialog"
         aria-modal="true"
-        aria-labelledby="my-topics-title"
-        className="account-sheet account-topics-sheet"
+        aria-labelledby={studioTopic === null ? "my-topics-title" : undefined}
+        aria-label={studioTopic !== null ? t(studioTopic === "new" ? "account.studioCreating" : "account.studioEditing") : undefined}
+        className={`account-sheet account-topics-sheet${studioTopic !== null ? " account-topic-studio-sheet" : ""}`}
         initial={{ x: 32, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         exit={{ x: 24, opacity: 0 }}
         transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
       >
-        <button className="account-icon-button account-sheet-close" onClick={onClose} aria-label={t("account.close")}>
-          <FontAwesomeIcon icon={faXmark} />
-        </button>
-
-        <div className="account-topics-header">
-          <p className="account-kicker">{user?.email}</p>
-          <h2 id="my-topics-title">{t("account.myTopics")}</h2>
-          <p>{t("account.myTopicsBody")}</p>
-        </div>
-
         <AnimatePresence mode="wait" initial={false}>
-          {isCreating ? (
-            <motion.div key="create" initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }}>
-              <CreateTopicForm onCancel={() => setIsCreating(false)} onCreated={handleCreated} />
+          {studioTopic !== null ? (
+            <motion.div
+              key={studioTopic === "new" ? "studio-new" : `studio-${studioTopic.id}`}
+              className="account-topic-studio-container"
+              initial={{ opacity: 0, x: 16 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 16 }}
+            >
+              <TopicStudio
+                topic={studioTopic === "new" ? undefined : studioTopic}
+                onCancel={() => setStudioTopic(null)}
+                onSave={handleStudioSave}
+              />
             </motion.div>
           ) : (
-            <motion.div key="list" className="account-topics-content" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <button className="account-create-button" type="button" onClick={() => setIsCreating(true)}>
-                <FontAwesomeIcon icon={faPlus} />
-                <span>{t("account.createTopic")}</span>
+            <motion.div key="list" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <button className="account-icon-button account-sheet-close" onClick={onClose} aria-label={t("account.close")}>
+                <FontAwesomeIcon icon={faXmark} />
               </button>
 
-              {isLoading ? (
-                <div className="account-topic-skeletons" role="status" aria-live="polite" aria-label={t("account.loadingTopics")}>
-                  <span />
-                  <span />
-                  <span />
-                </div>
-              ) : error ? (
-                <div className="account-topics-state" role="alert">
-                  <p>{error}</p>
-                  <button className="account-text-button" type="button" onClick={() => void refreshTopics()}>{t("account.tryAgain")}</button>
-                </div>
-              ) : topics.length === 0 ? (
-                <div className="account-topics-state">
-                  <h3>{t("account.emptyTopicsTitle")}</h3>
-                  <p>{t("account.emptyTopicsBody")}</p>
-                </div>
-              ) : (
-                <div className="account-topic-list">
-                  {topics.map((topic) => (
-                    <article className="account-topic-row" key={topic.id}>
-                      <div>
-                        <h3>{topic.game.app.title}</h3>
-                        <p>{topic.game.app.subtitle || t("account.noSubtitle")}</p>
-                      </div>
-                      <dl>
+              <div className="account-topics-header">
+                <p className="account-kicker">{user?.email}</p>
+                <h2 id="my-topics-title">{t("account.myTopics")}</h2>
+                <p>{t("account.myTopicsBody")}</p>
+              </div>
+
+              <div className="account-topics-content">
+                <button className="account-create-button" type="button" onClick={() => setStudioTopic("new")}>
+                  <FontAwesomeIcon icon={faPlus} />
+                  <span>{t("account.createTopic")}</span>
+                </button>
+
+                {isLoading ? (
+                  <div className="account-topic-skeletons" role="status" aria-live="polite" aria-label={t("account.loadingTopics")}>
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                ) : error ? (
+                  <div className="account-topics-state" role="alert">
+                    <p>{error}</p>
+                    <button className="account-text-button" type="button" onClick={() => void refreshTopics()}>{t("account.tryAgain")}</button>
+                  </div>
+                ) : topics.length === 0 ? (
+                  <div className="account-topics-state">
+                    <h3>{t("account.emptyTopicsTitle")}</h3>
+                    <p>{t("account.emptyTopicsBody")}</p>
+                  </div>
+                ) : (
+                  <div className="account-topic-list">
+                    {topics.map((topic) => (
+                      <article className="account-topic-row" key={topic.id}>
                         <div>
-                          <dt>{t("account.statusLabel")}</dt>
-                          <dd>{t(`account.status.${topic.status}`)}</dd>
+                          <h3>{topic.game.app.title}</h3>
+                          <p>{topic.game.app.subtitle || t("account.noSubtitle")}</p>
                         </div>
-                        <div>
-                          <dt>{t("account.questionsLabel")}</dt>
-                          <dd>{countQuestions(topic)}</dd>
+                        <dl>
+                          <div>
+                            <dt>{t("account.statusLabel")}</dt>
+                            <dd>{t(`account.status.${topic.status}`)}</dd>
+                          </div>
+                          <div>
+                            <dt>{t("account.questionsLabel")}</dt>
+                            <dd>{countQuestions(topic)}</dd>
+                          </div>
+                          <div>
+                            <dt>{t("account.updatedLabel")}</dt>
+                            <dd>{topic.updatedAt ? new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium" }).format(new Date(topic.updatedAt)) : t("account.justNow")}</dd>
+                          </div>
+                        </dl>
+                        <div className="account-topic-row-actions">
+                          <button className="account-topic-edit-button" type="button" onClick={() => setStudioTopic(topic)}>
+                            <FontAwesomeIcon icon={faPen} />
+                            <span>{t("account.editTopic")}</span>
+                          </button>
+                          <button
+                            className="account-topic-use-button"
+                            type="button"
+                            onClick={() => handleUseTopic(topic)}
+                            disabled={countQuestions(topic) === 0}
+                          >
+                            <FontAwesomeIcon icon={faPlay} />
+                            <span>{t("account.useTopic")}</span>
+                          </button>
                         </div>
-                        <div>
-                          <dt>{t("account.updatedLabel")}</dt>
-                          <dd>{topic.updatedAt ? new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium" }).format(new Date(topic.updatedAt)) : t("account.justNow")}</dd>
-                        </div>
-                      </dl>
-                      <button
-                        className="account-topic-use-button"
-                        type="button"
-                        onClick={() => handleUseTopic(topic)}
-                        disabled={countQuestions(topic) === 0}
-                      >
-                        <FontAwesomeIcon icon={faPlay} />
-                        <span>{t("account.useTopic")}</span>
-                      </button>
-                    </article>
-                  ))}
-                </div>
-              )}
+                      </article>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <button className="account-sign-out-button" type="button" onClick={() => void handleSignOut()}>
+                <FontAwesomeIcon icon={faArrowRightFromBracket} />
+                <span>{t("account.signOut")}</span>
+              </button>
             </motion.div>
           )}
         </AnimatePresence>
-
-        <button className="account-sign-out-button" type="button" onClick={() => void handleSignOut()}>
-          <FontAwesomeIcon icon={faArrowRightFromBracket} />
-          <span>{t("account.signOut")}</span>
-        </button>
       </motion.section>
     </motion.div>
   );

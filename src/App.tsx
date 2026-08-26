@@ -112,68 +112,101 @@ function App() {
     return <MinimumScreenSize height={viewportHeight} width={viewportWidth} />;
   }
 
-  if (loadStatus === "loading") return <AppStatusScreen variant="loading" />;
-  if (loadStatus === "error") {
-    return <AppStatusScreen variant="error" onRetry={handleRetryTopics} />;
-  }
-  if (games.length === 0) {
-    return <AppStatusScreen variant="empty" onRetry={handleRetryTopics} />;
-  }
+  const statusVariant = loadStatus === "loading"
+    ? "loading"
+    : loadStatus === "error"
+      ? "error"
+      : games.length === 0
+        ? "empty"
+        : null;
 
   return (
     <MotionConfig reducedMotion="user">
       <LayoutGroup id="frankcards-conversation-stage">
-        <div className="h-screen w-screen overflow-hidden flex flex-col material-canvas">
-          {!isSessionActive ? <AccountHub onUseTopic={handleQuickStart} /> : null}
-          <div className="flex-1 w-full h-full relative isolate overflow-hidden">
-            <AnimatePresence initial={false} mode="sync">
-              {isSessionActive ? (
-                <motion.div
-                  key={`session-${selectedGames.map((game) => game.testID).join("-")}`}
-                  data-scene="game"
-                  className="absolute inset-0 z-20 overflow-hidden"
-                  initial={false}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  <GameController
-                    games={selectedGames}
-                    onExit={handleGameExit}
-                    mode={sessionMode}
-                    sharedLayoutId={selectedGames.length === 1 ? `active-card-${selectedGames[0].testID}` : undefined}
-                  />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key={`library-${viewMode}`}
-                  data-scene="library"
-                  className="absolute inset-0 z-10 overflow-hidden"
-                  initial={false}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 1.4, ease: "easeInOut" }}
-                >
-                  {viewMode === "quick" ? (
-                    <QuickGameLibrary
-                      games={games}
-                      onStartGame={handleQuickStart}
-                      onSwitchToCustom={() => setViewMode("customize")}
-                    />
-                  ) : (
-                    <GameLibrary
-                      games={games}
-                      selectedGames={selectedGames}
-                      onToggleGame={handleToggleGame}
-                      onStartSession={handleStartSession}
-                      onBackToQuick={() => setViewMode("quick")}
-                      onClearSelection={() => setSelectedGames([])}
-                    />
-                  )}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+        <div className="relative h-[100dvh] w-screen overflow-hidden material-canvas">
+          <AnimatePresence initial={false} mode="sync">
+            {statusVariant ? (
+              <motion.div
+                key={`app-status-${statusVariant}`}
+                data-app-scene="status"
+                className="absolute inset-0 z-30 overflow-hidden"
+                initial={{ opacity: 0, y: 10, scale: 0.995 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -16, scale: 0.985 }}
+                transition={{ duration: 0.72, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <AppStatusScreen
+                  variant={statusVariant}
+                  onRetry={statusVariant === "loading" ? undefined : handleRetryTopics}
+                />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="app-library-shell"
+                data-app-scene="library-shell"
+                className="absolute inset-0 z-10 flex flex-col overflow-hidden"
+                initial={{ opacity: 0, y: 14, scale: 1.008 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 10, scale: 0.995 }}
+                transition={{
+                  duration: 0.88,
+                  delay: 0.08,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+              >
+                {!isSessionActive ? <AccountHub onUseTopic={handleQuickStart} /> : null}
+                <div className="relative isolate h-full w-full flex-1 overflow-hidden">
+                  <AnimatePresence initial={false} mode="sync">
+                    {isSessionActive ? (
+                      <motion.div
+                        key={`session-${selectedGames.map((game) => game.testID).join("-")}`}
+                        data-scene="game"
+                        className="absolute inset-0 z-20 overflow-hidden"
+                        initial={false}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                      >
+                        <GameController
+                          games={selectedGames}
+                          onExit={handleGameExit}
+                          mode={sessionMode}
+                          sharedLayoutId={selectedGames.length === 1 ? `active-card-${selectedGames[0].testID}` : undefined}
+                        />
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key={`library-${viewMode}`}
+                        data-scene="library"
+                        className="absolute inset-0 z-10 overflow-hidden"
+                        initial={false}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 1.4, ease: "easeInOut" }}
+                      >
+                        {viewMode === "quick" ? (
+                          <QuickGameLibrary
+                            games={games}
+                            onStartGame={handleQuickStart}
+                            onSwitchToCustom={() => setViewMode("customize")}
+                          />
+                        ) : (
+                          <GameLibrary
+                            games={games}
+                            selectedGames={selectedGames}
+                            onToggleGame={handleToggleGame}
+                            onStartSession={handleStartSession}
+                            onBackToQuick={() => setViewMode("quick")}
+                            onClearSelection={() => setSelectedGames([])}
+                          />
+                        )}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </LayoutGroup>
     </MotionConfig>
