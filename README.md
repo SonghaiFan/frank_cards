@@ -1,191 +1,181 @@
-# FrankCards - 对话卡片 🎯
+# FrankCards
 
 <div align="center">
 
 ![FrankCards Logo](public/card-icon.svg)
 
-**精心策划的对话卡片，促进更深层的人际连接**
+**让值得聊的话题，真正发生。**
 
-[![Build Status](https://github.com/SonghaiFan/have_a_talk_by_cards/actions/workflows/build.yml/badge.svg)](https://github.com/SonghaiFan/have_a_talk_by_cards/actions/workflows/build.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20|%20macOS-blue.svg)](https://github.com/SonghaiFan/have_a_talk_by_cards/releases)
-[![Latest Release](https://img.shields.io/github/v/release/SonghaiFan/have_a_talk_by_cards)](https://github.com/SonghaiFan/have_a_talk_by_cards/releases/latest)
+[![Build](https://github.com/SonghaiFan/frank_cards/actions/workflows/build.yml/badge.svg)](https://github.com/SonghaiFan/frank_cards/actions/workflows/build.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-Web%20%7C%20Windows%20%7C%20macOS-blue.svg)](https://github.com/SonghaiFan/frank_cards/releases)
 
-**中文** | [English](public/README-EN.md)
+**中文** · [English](public/README-EN.md)
 
 </div>
 
----
+FrankCards 是一个卡片式对话应用。你可以直接开始一组精选话题，也可以组合多个 Topic，或在真实卡片界面中制作自己的对话包。
 
-## 📖 项目简介
+## 现在可以做什么
 
-FrankCards 是一个跨平台的对话卡片应用，旨在通过精心策划的问题来促进更深层的人际连接。无论是情侣、朋友、家人还是团队建设，FrankCards 都能帮助您开启有意义的对话。
+- **快速开始**：选择一个内置 Topic，立即进入对话。
+- **组合对话**：混合多个 Topic 和分类，创建一场更符合当下关系与场景的对话。
+- **真实卡片交互**：支持卡片切换、正反面翻转、进度提示和流畅动画。
+- **创建自己的 Topic**：登录后，在所见即所得的卡片工作台中直接编辑封面、问题正面和补充内容背面。
+- **完整卡片类型**：支持开放题、讨论题、Wildcard 和结束卡。
+- **持续编辑**：已创建的 Topic 会保存在“我的 Topics”中，可以再次打开、修改并直接使用。
+- **个性化设计**：为分类设置名称、描述与颜色，并配置语言、适用人群、开场页、结束页和导航文字。
+- **中英文与主题模式**：支持中文/英文切换、明暗主题以及响应式桌面和移动布局。
+- **可靠的界面状态**：初始化、数据加载、空内容和错误状态均有独立反馈。
 
-## ✨ 主要特性
+## 使用方式
 
-- 🎨 **简约美观界面** - 现代极简主义设计，情感亲密的用户体验
-- 🎯 **多种对话主题** - 深度连接、关系检测等多种游戏模式
-- 🌈 **主题分类** - 不同颜色主题区分不同类型的问题
-- 🌐 **双语支持** - 中英文无缝切换
-- 📱 **跨平台支持** - 支持 Windows 和 macOS (Intel & Apple Silicon)
-- 🎭 **流畅动画** - 使用 Motion 库打造丝滑的用户体验
-- 💫 **卡片交互** - 自然的卡片翻转和切换动画
-- 🔄 **进度追踪** - 实时显示对话进度
-- 🚀 **自动发布** - 基于 GitHub Actions 的自动化构建和发布
+### 使用内置 Topic
 
-## 🚀 快速开始
+1. 在首页选择一个 Topic 快速开始。
+2. 或进入自定义模式，选择多个 Topic 与分类。
+3. 开始后阅读卡片，翻到背面查看补充提示，再切换到下一张。
 
-### 下载安装
+### 创建自己的 Topic
 
-访问 [Releases 页面](https://github.com/SonghaiFan/have_a_talk_by_cards/releases) 下载适合您系统的版本：
+1. 配置 Supabase 后，使用邮箱登录 FrankCards。
+2. 打开“我的 Topics”，选择“创建 Topic”。
+3. 直接在封面或问题卡片上输入内容。
+4. 新建下一张卡片，并设置类型、分类和颜色。
+5. 翻到背面添加说明或对话提示。
+6. 保存后，可从“我的 Topics”继续编辑或立即开始使用。
 
-- **Windows**: `FrankCards_*.msi` 或 `FrankCards_*.exe`
-- **macOS (Intel)**: `FrankCards_*_x64.dmg` 或 `FrankCards_*_x64.app.tar.gz`
-- **macOS (Apple Silicon)**: `FrankCards_*_aarch64.dmg` 或 `FrankCards_*_aarch64.app.tar.gz`
+> Supabase 是可选能力。没有配置 Supabase 时，所有内置 Topic 与本地对话功能仍然可用；账号和用户 Topic 功能会停用。
 
-### 安装说明
+## 本地开发
 
-**Windows 用户:**
+### 环境要求
 
-1. 下载 `.msi` 或 `.exe` 文件
-2. 双击安装
-3. 如遇到 SmartScreen 警告，点击"更多信息" → "仍要运行"
+- Node.js 20+
+- npm
+- Rust 与 [Tauri v2 prerequisites](https://v2.tauri.app/start/prerequisites/)（仅桌面端开发需要）
+- Supabase CLI（仅本地开发账号和用户 Topic 功能需要）
 
-**macOS 用户:**
-
-⚠️ **重要提示**: 由于应用使用 ad-hoc 签名，首次运行时需要特殊步骤
-
-1. 下载 `.dmg` 文件
-2. 双击打开，将应用拖拽到 Applications 文件夹
-3. **首次运行**: 不要直接双击应用
-4. **右键点击** FrankCards 应用 → 选择 **"打开"**
-5. 在弹出的安全警告中点击 **"打开"**
-6. 之后就可以正常双击运行了
-
-> **为什么需要右键打开？**  
-> 由于成本考虑，我们没有购买 Apple Developer 账户，而是使用了 ad-hoc 签名。这是完全安全的，只是 macOS 需要用户手动确认信任。
-
-## 🎮 使用方法
-
-1. **选择游戏模式** - 在主界面选择您想要的对话主题
-2. **选择分类** - 选择问题分类并调整难度百分比
-3. **开始对话** - 点击开始按钮进入游戏
-4. **阅读问题** - 每张卡片包含一个精心设计的问题
-5. **深入交流** - 与对方分享您的想法和感受
-6. **继续下一题** - 使用导航按钮或键盘（空格/回车）切换到下一个问题
-
-## 🛠️ 开发相关
-
-### 技术栈
-
-- **前端**: React + TypeScript + Tailwind CSS
-- **动画**: Motion (React)
-- **桌面应用**: Tauri (Rust)
-- **构建工具**: Vite
-- **CI/CD**: GitHub Actions
-- **国际化**: i18next
-- **代码签名**: Ad-hoc signing (macOS)
-
-### 本地开发
+### 启动 Web 版本
 
 ```bash
-# 克隆项目
-git clone https://github.com/SonghaiFan/have_a_talk_by_cards.git
-cd have_a_talk_by_cards
+git clone https://github.com/SonghaiFan/frank_cards.git
+cd frank_cards
+npm ci
+npm run dev
+```
 
-# 安装依赖
-npm install
+开发服务器默认运行在 `http://localhost:1420`。
 
-# 开发模式
+### 启动桌面版本
+
+```bash
 npm run tauri dev
-
-# 构建应用
-npm run tauri build
-
-# 生成游戏索引
-npm run generate-games
 ```
 
-### 添加新游戏
+### 常用命令
 
-1. 在 `/public/games/` 目录下创建 JSON 文件，遵循 `ConversationGame` 接口
-2. 运行 `npm run generate-games` 更新游戏索引
-3. 游戏文件会自动添加到 `/public/games/index.json` 中
+| 命令 | 作用 |
+| --- | --- |
+| `npm run dev` | 启动 Vite 开发服务器 |
+| `npm run build` | 生成游戏索引、执行 TypeScript 编译并构建 Web 产物 |
+| `npm run preview` | 本地预览生产构建 |
+| `npm run tauri dev` | 启动 Tauri 桌面开发环境 |
+| `npm run tauri build` | 构建桌面安装包 |
+| `npm run generate-games` | 根据中英文 JSON 重新生成 Topic 索引 |
+| `npx tsc --noEmit` | 仅执行 TypeScript 类型检查 |
 
-### 发布新版本
+## Supabase 配置
 
-发布流程完全自动化，只需推送新的版本标签：
+复制环境变量示例：
 
 ```bash
-# 创建新版本标签
-git tag v1.0.2
-
-# 推送标签到远程仓库
-git push origin v1.0.2
+cp .env.example .env.local
 ```
 
-GitHub Actions 会自动：
+然后填写：
 
-- 🔨 构建 Windows 和 macOS 版本
-- 📦 生成安装包 (MSI, DMG, EXE)
-- 🏷️ 创建 GitHub Release
-- 📤 上传所有构建产物
+```dotenv
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
+```
 
-## 📝 更新日志
+前端只能使用 publishable/anon key，**不要**把 service-role key 放进任何 `VITE_` 环境变量。
 
-- **v1.0.1** - 修复 macOS 签名问题
+数据库迁移、RLS 策略、本地 Supabase 和邮箱验证码配置见 [supabase/README.md](supabase/README.md)。
 
-  - 实现 ad-hoc 签名，解决 macOS 安全警告
-  - 简化 GitHub Actions 工作流
-  - 优化构建过程，支持 Intel 和 Apple Silicon
+## Topic 数据
 
-- **v0.1.0** - 初始版本发布
-  - 基础对话卡片功能
-  - 多种游戏模式
-  - 跨平台支持（Windows、macOS）
-  - 双语支持（中英文）
-  - 极简主义、情感亲密的界面设计
+FrankCards 有两类 Topic 来源：
 
-## 🔧 故障排除
+- **内置 Topic**：存放于 `public/games/en/` 和 `public/games/zh/`，随应用发布。
+- **用户 Topic**：通过 Supabase 保存，归属于登录用户，并由数据库的 Row Level Security 保护。
 
-### macOS 常见问题
+两种来源最终都会规范化为同一个 `ConversationGame` 数据结构：
 
-**问题**: "无法打开 FrankCards，因为它来自身份不明的开发者"
-**解决**: 右键点击应用 → 选择"打开" → 在弹出窗口中点击"打开"
+```text
+ConversationGame
+├── app          标题、副标题、语言、类型、适用人群
+├── ui           开场页、上一张/下一张、结束页
+├── theme        分类名称、描述和颜色
+└── questions    分类下的卡片
+    └── question 类型、正面问题和可选背面内容
+```
 
-**问题**: "FrankCards 已损坏，无法打开"
-**解决**: 在终端中运行 `sudo xattr -rd com.apple.quarantine /Applications/FrankCards.app`
+问题类型定义为 `open | discussion | wildcard | end`。完整 TypeScript schema 位于 [`src/types/ConversationGame.ts`](src/types/ConversationGame.ts)。
 
-### Windows 常见问题
+### 添加内置 Topic
 
-**问题**: SmartScreen 阻止运行
-**解决**: 点击"更多信息" → "仍要运行"
+1. 根据语言在 `public/games/en/` 或 `public/games/zh/` 新建 JSON 文件。
+2. 保持中英文文件的基础名称一致；中文文件使用 `-CN.json` 后缀。
+3. 运行 `npm run generate-games` 更新 `public/games/index.json`。
+4. 运行 `npm run build` 验证 schema、类型和构建结果。
 
-## 🤝 贡献指南
+请勿手动维护 `public/games/index.json` 中的文件列表；生成脚本会扫描语言目录并重新创建它。
 
-欢迎贡献代码！请遵循以下步骤：
+## 项目结构
 
-1. Fork 本仓库
-2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 打开 Pull Request
+```text
+src/
+├── auth/                 登录与会话状态
+├── components/           卡片、Topic 列表和游戏界面
+│   └── account/          账号界面与所见即所得 Topic Studio
+├── data/
+│   ├── supabase/         Supabase client 与数据库类型
+│   └── topics/           内置/用户 Topic repositories 与规范化逻辑
+├── i18n/                 中英文界面文案
+└── types/                ConversationGame 与 Topic schema
+public/games/              内置 Topic JSON
+supabase/                  数据库迁移、RLS 与邮件模板
+src-tauri/                 Tauri v2 桌面外壳
+```
 
-## 📄 许可证
+## 技术栈
 
-本项目基于 MIT 许可证开源。详情请参阅 [LICENSE](LICENSE) 文件。
+- React 18 + TypeScript
+- Vite 6 + Tailwind CSS 4
+- Motion
+- i18next
+- Supabase Auth + Postgres
+- Tauri 2
 
-## 💬 联系我们
+## 发布
 
-如有问题或建议，请通过以下方式联系：
+推送 `v*` 标签会触发 GitHub Actions，为 Windows、macOS Intel 和 macOS Apple Silicon 构建桌面安装包并创建 GitHub Release。
 
-- 🐛 Bug 报告: [Issues](https://github.com/SonghaiFan/have_a_talk_by_cards/issues)
-- 💡 功能建议: [Discussions](https://github.com/SonghaiFan/have_a_talk_by_cards/discussions)
+```bash
+git tag v1.0.3
+git push origin v1.0.3
+```
 
----
+## 贡献与许可
+
+欢迎提交 Issue 或 Pull Request。开始前请阅读 [CONTRIBUTING_GUIDE.md](CONTRIBUTING_GUIDE.md)。
+
+FrankCards 使用 [MIT License](LICENSE) 发布。
 
 <div align="center">
 
-**用 ❤️ 为有意义的对话而制作**
+**Made for conversations that matter.**
 
 </div>

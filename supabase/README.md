@@ -19,14 +19,16 @@ The checked-in `database.types.ts` mirrors the first migration so the app remain
 
 Copy `.env.example` to `.env.local` and provide the project URL and publishable key. Never put a service-role key in a `VITE_` variable or in the desktop bundle.
 
-## Email code sign-in
+## Email authentication
 
-FrankCards accepts both the hosted provider's secure email link and a short email code. Push the hosted Auth configuration with:
+FrankCards uses email and password authentication. New accounts receive a signup confirmation link, the confirmation screen can resend that link, and the sign-in screen can send a password recovery link. After a recovery link returns to the app, the user is prompted to choose a new password.
+
+Push the local Auth configuration to a hosted project with:
 
 ```bash
 supabase config push
 ```
 
-The checked-in development Site URL is `http://localhost:1420`. Change it and the redirect allow-list before deploying the app to a public domain.
+The checked-in development Site URL is `http://localhost:1420`. Both signup confirmation and password recovery redirect to the app origin, so add every development and production origin to the hosted project's Auth redirect allow-list before deployment.
 
-The optional templates in `supabase/templates` print `{{ .Token }}` for both existing and new users. New Free projects cannot customize these templates while using Supabase's default email provider. Configure custom SMTP first, then add the template sections to `config.toml` before pushing them.
+Supabase's default email delivery is intended for development and may be rate-limited. Configure custom SMTP before production use. The optional templates in `supabase/templates` can be enabled after SMTP is configured.

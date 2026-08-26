@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import { AnimatePresence } from "motion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -44,10 +44,14 @@ interface AccountHubProps {
 
 export default function AccountHub({ onUseTopic }: AccountHubProps) {
   const { t } = useTranslation();
-  const { status } = useAuth();
+  const { isPasswordRecovery, status } = useAuth();
   const [openPanel, setOpenPanel] = useState<"auth" | "topics" | null>(null);
   const closePanel = useCallback(() => setOpenPanel(null), []);
-  const authenticated = status === "authenticated";
+  const authenticated = status === "authenticated" && !isPasswordRecovery;
+
+  useEffect(() => {
+    if (isPasswordRecovery) setOpenPanel("auth");
+  }, [isPasswordRecovery]);
 
   return (
     <>

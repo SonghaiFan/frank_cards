@@ -18,10 +18,14 @@ interface AuthContextValue {
   session: Session | null;
   error: string | null;
   isWorking: boolean;
+  isPasswordRecovery: boolean;
   clearError: () => void;
   signInWithPassword: (email: string, password: string) => Promise<void>;
   signUpWithPassword: (email: string, password: string) => Promise<boolean>;
-  signInWithGoogle: () => Promise<void>;
+  resendSignupConfirmation: (email: string) => Promise<void>;
+  requestPasswordReset: (email: string) => Promise<void>;
+  updatePassword: (password: string) => Promise<void>;
+  finishPasswordRecovery: () => void;
   signOut: () => Promise<void>;
 }
 
@@ -37,6 +41,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [status, setStatus] = useState<AuthStatus>(configured ? "loading" : "disabled");
   const [error, setError] = useState<string | null>(null);
   const [isWorking, setIsWorking] = useState(false);
+  const [isPasswordRecovery, setIsPasswordRecovery] = useState(false);
 
   useEffect(() => {
     if (!configured) return;
@@ -48,10 +53,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       .then(async (client) => {
         if (cancelled) return;
 
-        const { data: listener } = client.auth.onAuthStateChange((_event, nextSession) => {
+        const { data: listener } = client.auth.onAuthStateChange((event, nextSession) => {
           if (cancelled) return;
           setSession(nextSession);
           setStatus(nextSession ? "authenticated" : "anonymous");
+          if (event === "PASSWORD_RECOVERY") setIsPasswordRecovery(true);
+          if (event === "SIGNED_OUT") setIsPasswordRecovery(false);
           setError(null);
         });
         unsubscribe = () => listener.subscription.unsubscribe();
@@ -127,7 +134,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [configured]);
 
-  const signInWithGoogle = useCallback(async () => {
+  const resendSignupConfirmation = useCallback(async (email: string) => {
     if (!configured) {
       setError("Accounts have not been connected yet.");
       return;
@@ -137,19 +144,68 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setError(null);
     try {
       const client = await getSupabaseClient();
-      const { error: oauthError } = await client.auth.signInWithOAuth({
-        provider: "google",
+      const { error: resendError } = await client.auth.resend({
+        type: "signup",
+        email: email.trim(),
         options: {
-          redirectTo: window.location.origin,
+          emailRedirectTo: window.location.origin,
         },
       });
-      if (oauthError) throw oauthError;
-    } catch (oauthError) {
-      setError(readableAuthError(oauthError));
+      if (resendError) throw resendError;
+    } catch (resendError) {
+      setError(readableAuthError(resendError));
+      throw resendError;
+    } finally {
       setIsWorking(false);
-      throw oauthError;
     }
   }, [configured]);
+
+  const requestPasswordReset = useCallback(async (email: string) => {
+    if (!configured) {
+      setError("Accounts have not been connected yet.");
+      return;
+    }
+
+    setIsWorking(true);
+    setError(null);
+    try {
+      const client = await getSupabaseClient();
+      const { error: resetError } = await client.auth.resetPasswordForEmail(email.trim(), {
+        redirectTo: window.location.origin,
+      });
+      if (resetError) throw resetError;
+    } catch (resetError) {
+      setError(readableAuthError(resetError));
+      throw resetError;
+    } finally {
+      setIsWorking(false);
+    }
+  }, [configured]);
+
+  const updatePassword = useCallback(async (password: string) => {
+    if (!configured) {
+      setError("Accounts have not been connected yet.");
+      return;
+    }
+
+    setIsWorking(true);
+    setError(null);
+    try {
+      const client = await getSupabaseClient();
+      const { error: updateError } = await client.auth.updateUser({ password });
+      if (updateError) throw updateError;
+    } catch (updateError) {
+      setError(readableAuthError(updateError));
+      throw updateError;
+    } finally {
+      setIsWorking(false);
+    }
+  }, [configured]);
+
+  const finishPasswordRecovery = useCallback(() => {
+    setIsPasswordRecovery(false);
+    setError(null);
+  }, []);
 
   const signOut = useCallback(async () => {
     if (!configured) return;
@@ -162,6 +218,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (signOutError) throw signOutError;
       setSession(null);
       setStatus("anonymous");
+      setIsPasswordRecovery(false);
     } catch (signOutError) {
       setError(readableAuthError(signOutError));
       throw signOutError;
@@ -176,21 +233,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     session,
     error,
     isWorking,
+    isPasswordRecovery,
     clearError,
     signInWithPassword,
     signUpWithPassword,
-    signInWithGoogle,
+    resendSignupConfirmation,
+    requestPasswordReset,
+    updatePassword,
+    finishPasswordRecovery,
     signOut,
   }), [
     clearError,
     error,
+    finishPasswordRecovery,
     isWorking,
+    isPasswordRecovery,
+    requestPasswordReset,
+    resendSignupConfirmation,
     session,
-    signInWithGoogle,
     signInWithPassword,
     signOut,
     signUpWithPassword,
     status,
+    updatePassword,
   ]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

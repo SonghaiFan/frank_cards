@@ -1062,7 +1062,6 @@ body {
   text-align: center;
 }
 
-.account-google-button,
 .account-topic-use-button {
   display: inline-flex;
   min-height: 3rem;
@@ -1081,49 +1080,15 @@ body {
   transition: transform 180ms ease, background-color 180ms ease;
 }
 
-.account-google-button:hover,
 .account-topic-use-button:hover {
   transform: translateY(-1px);
   background: color-mix(in srgb, var(--material-input) 82%, var(--material-surface));
 }
 
-.account-google-button:disabled,
 .account-topic-use-button:disabled {
   opacity: 0.46;
   cursor: not-allowed;
   transform: none;
-}
-
-.account-google-mark {
-  display: grid;
-  width: 1.55rem;
-  height: 1.55rem;
-  place-items: center;
-  border-radius: 999px;
-  color: #1f1f1f;
-  background: #fff;
-  font-family: Arial, sans-serif;
-  font-size: 0.9rem;
-  font-weight: 800;
-  box-shadow: 0 1px 3px rgba(20, 20, 18, 0.16);
-}
-
-.account-auth-divider {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  color: var(--material-muted-ink);
-  font-size: 0.74rem;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.account-auth-divider::before,
-.account-auth-divider::after {
-  height: 1px;
-  flex: 1;
-  background: color-mix(in srgb, var(--material-ink) 12%, transparent);
-  content: "";
 }
 
 .account-confirmation {
@@ -1205,6 +1170,16 @@ body {
   background: color-mix(in srgb, var(--material-ink) 7%, transparent);
 }
 
+.account-text-button:disabled {
+  opacity: 0.46;
+  cursor: not-allowed;
+}
+
+.account-auth-links {
+  display: grid;
+  gap: 0.2rem;
+}
+
 .account-back-button {
   align-self: flex-start;
   margin-left: -0.8rem;
@@ -1214,6 +1189,12 @@ body {
   color: var(--material-error) !important;
   font-size: 0.86rem;
   font-weight: 700;
+}
+
+.account-field-success {
+  color: color-mix(in srgb, #2f7a4e 84%, var(--material-ink)) !important;
+  font-size: 0.86rem;
+  font-weight: 750;
 }
 
 .account-topics-header {
@@ -2042,7 +2023,6 @@ body {
   .account-icon-button,
   .account-primary-button,
   .account-create-button,
-  .account-google-button,
   .account-topic-use-button,
   .account-topic-skeletons span {
     transition: none;
