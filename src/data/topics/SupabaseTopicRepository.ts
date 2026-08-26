@@ -23,7 +23,6 @@ const rowToRecord = (row: TopicRow): TopicRecord => {
     },
     ui: {
       startScreen: row.start_screen,
-      navigation: row.navigation,
       endScreen: row.end_screen,
     },
     theme: { categories: row.categories },
@@ -57,7 +56,6 @@ const gameToInsert = (input: SaveTopicInput, ownerId: string): TopicInsert => {
     visibility: input.visibility ?? "private",
     status: input.status ?? "draft",
     start_screen: asJson(game.ui.startScreen),
-    navigation: asJson(game.ui.navigation),
     end_screen: asJson(game.ui.endScreen),
     categories: asJson(game.theme.categories),
     questions: asJson(game.questions),
@@ -75,7 +73,6 @@ const gameToUpdate = (input: SaveTopicInput): TopicUpdate => {
     visibility: input.visibility ?? "private",
     status: input.status ?? "draft",
     start_screen: asJson(game.ui.startScreen),
-    navigation: asJson(game.ui.navigation),
     end_screen: asJson(game.ui.endScreen),
     categories: asJson(game.theme.categories),
     questions: asJson(game.questions),

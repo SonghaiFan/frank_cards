@@ -16,10 +16,6 @@
       ],
       "startButton": "启程"
     },
-    "navigation": {
-      "nextButton": "下一题",
-      "prevButton": "上一题"
-    },
     "endScreen": {
       "title": "末日新生",
       "subtitle": "不必等到世界终结 才开启全新章节",

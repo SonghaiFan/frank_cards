@@ -24,10 +24,6 @@
       ],
       "startButton": "Start"
     },
-    "navigation": {
-      "nextButton": "Next",
-      "prevButton": "Back"
-    },
     "endScreen": {
       "title": "Are you awake right now?",
       "subtitle": "Read 1:43 AM",

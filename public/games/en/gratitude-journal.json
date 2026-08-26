@@ -17,10 +17,6 @@
       ],
       "startButton": "Begin Reflection"
     },
-    "navigation": {
-      "nextButton": "Next",
-      "prevButton": "Back"
-    },
     "endScreen": {
       "title": "Heart Full",
       "subtitle": "Carrying a sense of gratitude can transform your perspective. Keep looking for the good.",

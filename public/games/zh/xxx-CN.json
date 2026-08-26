@@ -16,10 +16,6 @@
       ],
       "startButton": "开始"
     },
-    "navigation": {
-      "nextButton": "下一个",
-      "prevButton": "上一个"
-    },
     "endScreen": {
       "title": "对话完成",
       "subtitle": "感谢你的坦诚与开放。",

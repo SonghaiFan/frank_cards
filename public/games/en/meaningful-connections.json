@@ -16,10 +16,6 @@
       ],
       "startButton": "Begin"
     },
-    "navigation": {
-      "nextButton": "Next",
-      "prevButton": "Back"
-    },
     "endScreen": {
       "title": "Well done",
       "subtitle": "Thank you for opening up and connecting",

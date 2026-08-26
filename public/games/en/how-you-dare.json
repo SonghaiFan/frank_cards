@@ -17,10 +17,6 @@
       ],
       "startButton": "Accept the Challenge"
     },
-    "navigation": {
-      "nextButton": "Next Dare",
-      "prevButton": "Pussy Out"
-    },
     "endScreen": {
       "title": "You Survived",
       "subtitle": "You've earned your bragging rights",

@@ -17,10 +17,6 @@
       ],
       "startButton": "进入多元宇宙"
     },
-    "navigation": {
-      "nextButton": "下一个脑洞",
-      "prevButton": "上一个"
-    },
     "endScreen": {
       "title": "旅程结束",
       "subtitle": "你已经探索了现实的边界。",

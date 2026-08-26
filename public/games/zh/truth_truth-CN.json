@@ -16,10 +16,6 @@
       ],
       "startButton": "开始"
     },
-    "navigation": {
-      "nextButton": "下一个问题",
-      "prevButton": "上一个问题"
-    },
     "endScreen": {
       "title": "所有问题已回答",
       "subtitle": "感谢参与，是否发现了新的一面？",

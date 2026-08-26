@@ -28,6 +28,11 @@ import {
   type TopicRecord,
 } from "../../types/Topic";
 import { resolveGameSurfaceTheme } from "../../utils/gameTheme";
+import {
+  countTextUnits,
+  limitTextUnits,
+  START_SCREEN_DESCRIPTION_LIMIT,
+} from "../../utils/textLimits";
 
 interface TopicStudioProps {
   topic?: TopicRecord;
@@ -53,8 +58,6 @@ interface StudioDraft {
   startTitle: string;
   startDescription: string;
   startButton: string;
-  nextButton: string;
-  prevButton: string;
   endTitle: string;
   endSubtitle: string;
   restartButton: string;
@@ -64,7 +67,7 @@ interface StudioDraft {
 }
 
 const COLOR_SWATCHES = ["#20201e", "#d96c4f", "#e5ad45", "#7d9b76", "#6f91bb", "#9a78ad"];
-const QUESTION_TYPES: QuestionType[] = ["open", "discussion", "wildcard", "end"];
+const EDITABLE_QUESTION_TYPES: Exclude<QuestionType, "discussion">[] = ["open", "wildcard", "end"];
 
 let localCardSequence = 0;
 const createLocalCardId = (): string => `studio-card-${Date.now()}-${localCardSequence++}`;
@@ -98,8 +101,6 @@ const createEmptyDraft = (language: TopicLanguage, t: (key: string) => string): 
     startTitle: t("account.studioUntitled"),
     startDescription: "",
     startButton: chinese ? "开始" : "Begin",
-    nextButton: chinese ? "下一个" : "Next",
-    prevButton: chinese ? "上一个" : "Previous",
     endTitle: chinese ? "聊得很好" : "A good conversation",
     endSubtitle: chinese ? "愿这段对话继续留在你们之间。" : "Keep the conversation with you.",
     restartButton: chinese ? "再聊一次" : "Talk again",
@@ -128,10 +129,11 @@ const draftFromTopic = (topic: TopicRecord): StudioDraft => ({
   appType: topic.game.app.type,
   playerGroups: [...topic.game.app.playerGroup],
   startTitle: topic.game.ui.startScreen.title,
-  startDescription: topic.game.ui.startScreen.description.join("\n"),
+  startDescription: limitTextUnits(
+    topic.game.ui.startScreen.description.join("\n"),
+    START_SCREEN_DESCRIPTION_LIMIT,
+  ),
   startButton: topic.game.ui.startScreen.startButton,
-  nextButton: topic.game.ui.navigation.nextButton,
-  prevButton: topic.game.ui.navigation.prevButton,
   endTitle: topic.game.ui.endScreen.title,
   endSubtitle: topic.game.ui.endScreen.subtitle,
   restartButton: topic.game.ui.endScreen.restartButton,
@@ -141,7 +143,7 @@ const draftFromTopic = (topic: TopicRecord): StudioDraft => ({
   cards: topic.game.questions.flatMap((group) => group.questions.map((question) => ({
     id: createLocalCardId(),
     category: group.category,
-    type: question.type ?? "open",
+    type: question.type === "discussion" ? "open" : (question.type ?? "open"),
     question: question.question,
     ...(question.more ? { more: Array.isArray(question.more) ? [...question.more] : { ...question.more } } : {}),
   }))),
@@ -155,6 +157,9 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
     topic ? draftFromTopic(topic) : createEmptyDraft(toTopicLanguage(i18n.language), t)
   ));
   const [selectedView, setSelectedView] = useState<"cover" | string>("cover");
+  const [editingCategoryKey, setEditingCategoryKey] = useState(
+    () => Object.keys(draft.categories)[0] ?? "",
+  );
   const [isFlipped, setIsFlipped] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -165,6 +170,8 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
   );
   const activeCategoryKey = activeCard?.category ?? Object.keys(draft.categories)[0];
   const activeCategory = draft.categories[activeCategoryKey];
+  const editingCategory = draft.categories[editingCategoryKey];
+  const startDescriptionCount = countTextUnits(draft.startDescription);
   const surfaceTheme = resolveGameSurfaceTheme({
     categoryColor: activeCategory?.color ?? "#20201e",
     isDarkTheme,
@@ -180,13 +187,13 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
     setError(null);
   };
 
-  const updateCategory = (update: Partial<Category>) => {
-    if (!activeCategoryKey) return;
+  const updateEditingCategory = (update: Partial<Category>) => {
+    if (!editingCategoryKey || !draft.categories[editingCategoryKey]) return;
     setDraft((current) => ({
       ...current,
       categories: {
         ...current.categories,
-        [activeCategoryKey]: { ...current.categories[activeCategoryKey], ...update },
+        [editingCategoryKey]: { ...current.categories[editingCategoryKey], ...update },
       },
     }));
   };
@@ -201,7 +208,7 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
   };
 
   const addCard = () => {
-    const category = activeCategoryKey ?? Object.keys(draft.categories)[0];
+    const category = editingCategoryKey || activeCategoryKey || Object.keys(draft.categories)[0];
     const card: StudioCard = {
       id: createLocalCardId(),
       category,
@@ -210,6 +217,7 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
     };
     setDraft((current) => ({ ...current, cards: [...current.cards, card] }));
     setSelectedView(card.id);
+    setEditingCategoryKey(category);
     setIsFlipped(false);
     setError(null);
   };
@@ -223,6 +231,7 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
       cards: current.cards.filter((card) => card.id !== activeCard.id),
     }));
     setSelectedView(nextCard.id);
+    setEditingCategoryKey(nextCard.category);
     setIsFlipped(false);
   };
 
@@ -238,10 +247,8 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
           description: "",
         },
       },
-      cards: activeCard
-        ? current.cards.map((card) => card.id === activeCard.id ? { ...card, category: key } : card)
-        : current.cards,
     }));
+    setEditingCategoryKey(key);
   };
 
   const togglePlayerGroup = (group: PlayerGroup) => {
@@ -286,10 +293,6 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
           title: draft.startTitle.trim() || draft.title.trim(),
           description: draft.startDescription.split("\n").map((line) => line.trim()).filter(Boolean),
           startButton: draft.startButton.trim(),
-        },
-        navigation: {
-          nextButton: draft.nextButton.trim(),
-          prevButton: draft.prevButton.trim(),
         },
         endScreen: {
           title: draft.endTitle.trim(),
@@ -350,45 +353,138 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
       </header>
 
       <div className="topic-studio-workspace">
-        <aside className="topic-studio-rail" aria-label={t("account.studioCards")}>
-          <button
-            className={`topic-studio-rail-item topic-studio-cover-thumb${selectedView === "cover" ? " is-active" : ""}`}
-            type="button"
-            onClick={() => { setSelectedView("cover"); setIsFlipped(false); }}
-          >
-            <span>{t("account.studioCover")}</span>
-            <strong>{draft.title || t("account.studioUntitled")}</strong>
-          </button>
-
-          {draft.cards.map((card, index) => {
-            const category = draft.categories[card.category];
-            return (
-              <button
-                key={card.id}
-                className={`topic-studio-rail-item${selectedView === card.id ? " is-active" : ""}`}
-                type="button"
-                onClick={() => { setSelectedView(card.id); setIsFlipped(false); }}
-                style={{ "--studio-card-accent": category?.color ?? "#20201e" } as React.CSSProperties}
+        <aside className="topic-studio-rail topic-studio-property-panel topic-studio-pack-panel" aria-label={t("account.studioPackDetails")}>
+          <section className="topic-studio-inspector-section">
+            <h3>{t("account.studioPackDetails")}</h3>
+            <label>
+              <span>{t("account.languageLabel")}</span>
+              <select
+                value={draft.language}
+                onChange={(event) => setDraft((current) => ({ ...current, language: event.target.value as TopicLanguage }))}
               >
-                <span>{t("account.studioCardNumber", { number: index + 1 })}</span>
-                <strong>{card.question || t("account.studioEmptyCard")}</strong>
-              </button>
-            );
-          })}
+                <option value="en">English</option>
+                <option value="zh">中文</option>
+              </select>
+            </label>
+            <label>
+              <span>{t("account.studioPackType")}</span>
+              <select
+                value={draft.appType}
+                onChange={(event) => setDraft((current) => ({ ...current, appType: event.target.value as ConversationGameType }))}
+              >
+                <option value="normal">{t("gameLibrary.type.normal")}</option>
+                <option value="edition">{t("gameLibrary.type.edition")}</option>
+                <option value="premium">{t("gameLibrary.type.premium")}</option>
+              </select>
+            </label>
+          </section>
 
-          <button className="topic-studio-add-card" type="button" onClick={addCard}>
-            <FontAwesomeIcon icon={faPlus} />
-            <span>{t("account.studioAddCard")}</span>
-          </button>
+          <section className="topic-studio-inspector-section">
+            <h3>{t("account.studioPackScreens")}</h3>
+            <div className="topic-studio-screen-list">
+              {(["cover", "opening", "ending"] as const).map((view) => (
+                <button
+                  key={view}
+                  type="button"
+                  className={selectedView === view ? "is-selected" : ""}
+                  onClick={() => { setSelectedView(view); setIsFlipped(false); }}
+                >
+                  {t(`account.studioScreen.${view}`)}
+                </button>
+              ))}
+            </div>
+            <p className="topic-studio-panel-hint">{t("account.studioScreenEditHint")}</p>
+          </section>
+
+          <section className="topic-studio-inspector-section">
+            <h3>{t("account.audienceLabel")}</h3>
+            <div className="topic-studio-chip-grid">
+              {PLAYER_GROUPS.map((group) => (
+                <button
+                  key={group}
+                  type="button"
+                  className={draft.playerGroups.includes(group) ? "is-selected" : ""}
+                  onClick={() => togglePlayerGroup(group)}
+                >
+                  {t(`account.audience.${group}`)}
+                </button>
+              ))}
+            </div>
+          </section>
+
+          <section className="topic-studio-category-manager" aria-labelledby="studio-category-heading">
+            <div className="topic-studio-rail-section-heading">
+              <h3 id="studio-category-heading">{t("account.studioCategories")}</h3>
+              <button type="button" onClick={addCategory}>
+                <FontAwesomeIcon icon={faPlus} />
+                <span>{t("account.studioNewCategoryAction")}</span>
+              </button>
+            </div>
+            <div className="topic-studio-category-list">
+              {Object.entries(draft.categories).map(([key, category]) => {
+                const cardCount = draft.cards.filter((card) => card.category === key).length;
+                return (
+                  <button
+                    key={key}
+                    type="button"
+                    className={editingCategoryKey === key ? "is-selected" : ""}
+                    onClick={() => setEditingCategoryKey(key)}
+                    aria-pressed={editingCategoryKey === key}
+                  >
+                    <span className="topic-studio-category-swatch" style={{ backgroundColor: category.color }} />
+                    <strong>{category.name || t("account.studioNewCategory")}</strong>
+                    <small>{t("account.studioCategoryCardCount", { count: cardCount })}</small>
+                  </button>
+                );
+              })}
+            </div>
+
+            {editingCategory ? (
+              <div className="topic-studio-category-editor">
+                <label>
+                  <span>{t("account.studioCategoryName")}</span>
+                  <input value={editingCategory.name} onChange={(event) => updateEditingCategory({ name: event.target.value })} />
+                </label>
+                <label>
+                  <span>{t("account.studioCategoryDescription")}</span>
+                  <textarea rows={2} value={editingCategory.description} onChange={(event) => updateEditingCategory({ description: event.target.value })} />
+                </label>
+                <div>
+                  <span className="topic-studio-category-editor-label">{t("account.studioCategoryColor")}</span>
+                  <div className="topic-studio-colors">
+                    {COLOR_SWATCHES.map((color) => (
+                      <button
+                        key={color}
+                        type="button"
+                        className={editingCategory.color.toLowerCase() === color ? "is-selected" : ""}
+                        style={{ backgroundColor: color }}
+                        onClick={() => updateEditingCategory({ color })}
+                        aria-label={color}
+                      />
+                    ))}
+                    <label className="topic-studio-custom-color" title={t("account.studioCustomColor")}>
+                      <input type="color" value={editingCategory.color} onChange={(event) => updateEditingCategory({ color: event.target.value })} />
+                      <span>+</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            ) : null}
+          </section>
+
         </aside>
 
         <main
           className="topic-studio-stage"
-          style={{ backgroundColor: selectedView === "cover" ? "var(--material-canvas)" : surfaceTheme.backgroundColor }}
+          style={{
+            backgroundColor: ["cover", "opening", "ending"].includes(selectedView)
+              ? "var(--material-canvas)"
+              : surfaceTheme.backgroundColor,
+          }}
         >
           {selectedView === "cover" ? (
             <div className="topic-studio-cover-stage">
-              <p className="topic-studio-stage-hint">{t("account.studioDirectEditHint")}</p>
+              <p className="topic-studio-stage-hint">{t("account.studioScreenDirectEditHint")}</p>
               <Card
                 size="large"
                 variant="game"
@@ -417,6 +513,82 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
                 </div>
                 <p className="topic-studio-card-count">{t("account.studioCardCount", { count: draft.cards.length })}</p>
               </Card>
+            </div>
+          ) : selectedView === "opening" ? (
+            <div className="topic-studio-screen-stage">
+              <p className="topic-studio-stage-hint">{t("account.studioScreenDirectEditHint")}</p>
+              <section className="topic-studio-screen-preview topic-studio-opening-preview" aria-label={t("account.studioOpening")}>
+                <div className="topic-studio-screen-copy">
+                  <textarea
+                    className="topic-studio-screen-title theme-text-primary"
+                    value={draft.startTitle}
+                    onChange={(event) => setDraft((current) => ({ ...current, startTitle: event.target.value }))}
+                    aria-label={t("account.studioOpeningTitle")}
+                    rows={2}
+                  />
+                  <div className="topic-studio-screen-description-field">
+                    <textarea
+                      className="topic-studio-screen-description theme-text-secondary"
+                      value={draft.startDescription}
+                      onChange={(event) => setDraft((current) => ({
+                        ...current,
+                        startDescription: limitTextUnits(
+                          event.target.value,
+                          START_SCREEN_DESCRIPTION_LIMIT,
+                        ),
+                      }))}
+                      aria-label={t("account.studioOpeningDescription")}
+                      placeholder={t("account.studioSubtitlePlaceholder")}
+                      rows={5}
+                    />
+                    <small>
+                      {t("account.studioDescriptionCount", {
+                        count: startDescriptionCount,
+                        limit: START_SCREEN_DESCRIPTION_LIMIT,
+                      })}
+                    </small>
+                  </div>
+                  <input
+                    className="topic-studio-screen-button topic-studio-screen-button-primary"
+                    value={draft.startButton}
+                    onChange={(event) => setDraft((current) => ({ ...current, startButton: event.target.value }))}
+                    aria-label={t("account.studioStartButton")}
+                  />
+                </div>
+              </section>
+            </div>
+          ) : selectedView === "ending" ? (
+            <div className="topic-studio-screen-stage">
+              <p className="topic-studio-stage-hint">{t("account.studioScreenDirectEditHint")}</p>
+              <section className="topic-studio-screen-preview topic-studio-ending-preview" aria-label={t("account.studioEnding")}>
+                <div className="topic-studio-screen-copy">
+                  <textarea
+                    className="topic-studio-screen-title theme-text-primary"
+                    value={draft.endTitle}
+                    onChange={(event) => setDraft((current) => ({ ...current, endTitle: event.target.value }))}
+                    aria-label={t("account.studioEndingTitle")}
+                    rows={2}
+                  />
+                  <textarea
+                    className="topic-studio-screen-description theme-text-secondary"
+                    value={draft.endSubtitle}
+                    onChange={(event) => setDraft((current) => ({ ...current, endSubtitle: event.target.value }))}
+                    aria-label={t("account.studioEndingDescription")}
+                    rows={3}
+                  />
+                  <div className="topic-studio-screen-actions">
+                    <input
+                      className="topic-studio-screen-button topic-studio-screen-button-primary"
+                      value={draft.restartButton}
+                      onChange={(event) => setDraft((current) => ({ ...current, restartButton: event.target.value }))}
+                      aria-label={t("account.studioRestartButton")}
+                    />
+                    <span className="topic-studio-screen-button topic-studio-screen-button-secondary">
+                      {t("common.exit")}
+                    </span>
+                  </div>
+                </div>
+              </section>
             </div>
           ) : activeCard ? (
             <div className="topic-studio-card-stage">
@@ -483,74 +655,41 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
           ) : null}
         </main>
 
-        <aside className="topic-studio-inspector">
-          {selectedView === "cover" ? (
-            <>
-              <section className="topic-studio-inspector-section">
-                <h3>{t("account.studioPackDetails")}</h3>
-                <label>
-                  <span>{t("account.languageLabel")}</span>
-                  <select
-                    value={draft.language}
-                    onChange={(event) => setDraft((current) => ({ ...current, language: event.target.value as TopicLanguage }))}
-                  >
-                    <option value="en">English</option>
-                    <option value="zh">中文</option>
-                  </select>
-                </label>
-                <label>
-                  <span>{t("account.studioPackType")}</span>
-                  <select
-                    value={draft.appType}
-                    onChange={(event) => setDraft((current) => ({ ...current, appType: event.target.value as ConversationGameType }))}
-                  >
-                    <option value="normal">{t("gameLibrary.type.normal")}</option>
-                    <option value="edition">{t("gameLibrary.type.edition")}</option>
-                    <option value="premium">{t("gameLibrary.type.premium")}</option>
-                  </select>
-                </label>
-              </section>
+        <aside className="topic-studio-inspector topic-studio-property-panel topic-studio-card-panel" aria-label={t("account.studioCards")}>
+          <div className="topic-studio-card-list">
+            <h3 className="topic-studio-rail-heading">{t("account.studioCards")}</h3>
+            {draft.cards.map((card, index) => {
+              const category = draft.categories[card.category];
+              return (
+                <button
+                  key={card.id}
+                  className={`topic-studio-rail-item${selectedView === card.id ? " is-active" : ""}`}
+                  type="button"
+                  onClick={() => {
+                    setSelectedView(card.id);
+                    setEditingCategoryKey(card.category);
+                    setIsFlipped(false);
+                  }}
+                  style={{ "--studio-card-accent": category?.color ?? "#20201e" } as React.CSSProperties}
+                >
+                  <span>{t("account.studioCardNumber", { number: index + 1 })}</span>
+                  <strong>{card.question || t("account.studioEmptyCard")}</strong>
+                </button>
+              );
+            })}
 
-              <section className="topic-studio-inspector-section">
-                <h3>{t("account.audienceLabel")}</h3>
-                <div className="topic-studio-chip-grid">
-                  {PLAYER_GROUPS.map((group) => (
-                    <button
-                      key={group}
-                      type="button"
-                      className={draft.playerGroups.includes(group) ? "is-selected" : ""}
-                      onClick={() => togglePlayerGroup(group)}
-                    >
-                      {t(`account.audience.${group}`)}
-                    </button>
-                  ))}
-                </div>
-              </section>
+            <button className="topic-studio-add-card" type="button" onClick={addCard}>
+              <FontAwesomeIcon icon={faPlus} />
+              <span>{t("account.studioAddCard")}</span>
+            </button>
+          </div>
 
-              <section className="topic-studio-inspector-section">
-                <h3>{t("account.studioOpening")}</h3>
-                <label><span>{t("account.studioOpeningTitle")}</span><input value={draft.startTitle} onChange={(event) => setDraft((current) => ({ ...current, startTitle: event.target.value }))} /></label>
-                <label><span>{t("account.studioOpeningDescription")}</span><textarea rows={4} value={draft.startDescription} placeholder={t("account.studioSubtitlePlaceholder")} onChange={(event) => setDraft((current) => ({ ...current, startDescription: event.target.value }))} /></label>
-                <label><span>{t("account.studioStartButton")}</span><input value={draft.startButton} onChange={(event) => setDraft((current) => ({ ...current, startButton: event.target.value }))} /></label>
-              </section>
-
-              <section className="topic-studio-inspector-section">
-                <h3>{t("account.studioEnding")}</h3>
-                <label><span>{t("account.studioEndingTitle")}</span><input value={draft.endTitle} onChange={(event) => setDraft((current) => ({ ...current, endTitle: event.target.value }))} /></label>
-                <label><span>{t("account.studioEndingDescription")}</span><textarea rows={3} value={draft.endSubtitle} onChange={(event) => setDraft((current) => ({ ...current, endSubtitle: event.target.value }))} /></label>
-                <label><span>{t("account.studioRestartButton")}</span><input value={draft.restartButton} onChange={(event) => setDraft((current) => ({ ...current, restartButton: event.target.value }))} /></label>
-                <div className="topic-studio-inline-fields">
-                  <label><span>{t("common.previous")}</span><input value={draft.prevButton} onChange={(event) => setDraft((current) => ({ ...current, prevButton: event.target.value }))} /></label>
-                  <label><span>{t("common.next")}</span><input value={draft.nextButton} onChange={(event) => setDraft((current) => ({ ...current, nextButton: event.target.value }))} /></label>
-                </div>
-              </section>
-            </>
-          ) : activeCard && activeCategory ? (
+          {activeCard && activeCategory ? (
             <>
               <section className="topic-studio-inspector-section">
                 <h3>{t("account.studioCardType")}</h3>
                 <div className="topic-studio-type-grid">
-                  {QUESTION_TYPES.map((type) => (
+                  {EDITABLE_QUESTION_TYPES.map((type) => (
                     <button
                       key={type}
                       type="button"
@@ -561,44 +700,33 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
                     </button>
                   ))}
                 </div>
+                <p className="topic-studio-type-description">
+                  {t(`account.questionTypeDescription.${activeCard.type}`)}
+                </p>
               </section>
 
               <section className="topic-studio-inspector-section">
-                <div className="topic-studio-section-heading">
-                  <h3>{t("account.studioCategory")}</h3>
-                  <button type="button" onClick={addCategory}><FontAwesomeIcon icon={faPlus} /> {t("account.studioAddCategory")}</button>
-                </div>
+                <h3>{t("account.studioCardCategory")}</h3>
                 <label>
-                  <span>{t("account.studioCategory")}</span>
-                  <select value={activeCard.category} onChange={(event) => updateActiveCard({ category: event.target.value })}>
+                  <span>{t("account.studioCardCategoryHint")}</span>
+                  <select
+                    value={activeCard.category}
+                    onChange={(event) => {
+                      updateActiveCard({ category: event.target.value });
+                      setEditingCategoryKey(event.target.value);
+                    }}
+                  >
                     {Object.entries(draft.categories).map(([key, category]) => <option key={key} value={key}>{category.name}</option>)}
                   </select>
                 </label>
-                <label><span>{t("account.studioCategoryName")}</span><input value={activeCategory.name} onChange={(event) => updateCategory({ name: event.target.value })} /></label>
-                <label><span>{t("account.studioCategoryDescription")}</span><textarea rows={3} value={activeCategory.description} onChange={(event) => updateCategory({ description: event.target.value })} /></label>
-              </section>
-
-              <section className="topic-studio-inspector-section">
-                <h3>{t("account.studioColor")}</h3>
-                <div className="topic-studio-colors">
-                  {COLOR_SWATCHES.map((color) => (
-                    <button
-                      key={color}
-                      type="button"
-                      className={activeCategory.color.toLowerCase() === color ? "is-selected" : ""}
-                      style={{ backgroundColor: color }}
-                      onClick={() => updateCategory({ color })}
-                      aria-label={color}
-                    />
-                  ))}
-                  <label className="topic-studio-custom-color" title={t("account.studioCustomColor")}>
-                    <input type="color" value={activeCategory.color} onChange={(event) => updateCategory({ color: event.target.value })} />
-                    <span>+</span>
-                  </label>
-                </div>
               </section>
             </>
-          ) : null}
+          ) : (
+            <section className="topic-studio-inspector-section topic-studio-cover-inspector-hint">
+              <h3>{t("account.studioCardSettings")}</h3>
+              <p className="topic-studio-type-description">{t("account.studioSelectCardHint")}</p>
+            </section>
+          )}
         </aside>
       </div>
     </div>

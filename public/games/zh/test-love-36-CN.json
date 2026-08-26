@@ -17,10 +17,6 @@
       ],
       "startButton": "开始实验"
     },
-    "navigation": {
-      "nextButton": "下一题",
-      "prevButton": "上一题"
-    },
     "endScreen": {
       "title": "实验完成",
       "subtitle": "恭喜你完成了亲密关系实验",

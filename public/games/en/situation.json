@@ -17,10 +17,6 @@
       ],
       "startButton": "Open the undefined"
     },
-    "navigation": {
-      "nextButton": "Next Topic",
-      "prevButton": "Back"
-    },
     "endScreen": {
       "title": "Clarity Found",
       "subtitle": "Whatever we are, thank you for being real",

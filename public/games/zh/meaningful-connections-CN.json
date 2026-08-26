@@ -16,10 +16,6 @@
       ],
       "startButton": "开始"
     },
-    "navigation": {
-      "nextButton": "下一步",
-      "prevButton": "返回"
-    },
     "endScreen": {
       "title": "做得好",
       "subtitle": "感谢你的敞开心扉和连接",

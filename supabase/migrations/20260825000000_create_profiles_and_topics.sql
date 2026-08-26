@@ -22,7 +22,6 @@ create table public.topics (
   visibility public.topic_visibility not null default 'private',
   status public.topic_status not null default 'draft',
   start_screen jsonb not null,
-  navigation jsonb not null,
   end_screen jsonb not null,
   categories jsonb not null,
   questions jsonb not null,
@@ -44,7 +43,6 @@ create table public.topics (
     ]::text[]
   ),
   constraint topics_start_screen_object check (jsonb_typeof(start_screen) = 'object'),
-  constraint topics_navigation_object check (jsonb_typeof(navigation) = 'object'),
   constraint topics_end_screen_object check (jsonb_typeof(end_screen) = 'object'),
   constraint topics_categories_object check (jsonb_typeof(categories) = 'object'),
   constraint topics_questions_array check (jsonb_typeof(questions) = 'array'),
@@ -201,7 +199,6 @@ grant update (
   visibility,
   status,
   start_screen,
-  navigation,
   end_screen,
   categories,
   questions

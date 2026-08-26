@@ -17,10 +17,6 @@
       ],
       "startButton": "Open the Box"
     },
-    "navigation": {
-      "nextButton": "Next Topic",
-      "prevButton": "Back"
-    },
     "endScreen": {
       "title": "Discovery Complete",
       "subtitle": "Communication is the best aftercare",

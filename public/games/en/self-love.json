@@ -16,10 +16,6 @@
       ],
       "startButton": "Begin"
     },
-    "navigation": {
-      "nextButton": "Next Question",
-      "prevButton": "Previous Question"
-    },
     "endScreen": {
       "title": "You are the best",
       "subtitle": "Reminder: Self love takes practice.",

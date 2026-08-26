@@ -16,10 +16,6 @@
       ],
       "startButton": "开启对话"
     },
-    "navigation": {
-      "nextButton": "下一个问题",
-      "prevButton": "上一个问题"
-    },
     "endScreen": {
       "title": "下次见面预告",
       "subtitle": "让心与心的距离再近一些",

@@ -16,10 +16,6 @@
       ],
       "startButton": "Start"
     },
-    "navigation": {
-      "nextButton": "Next",
-      "prevButton": "Back"
-    },
     "endScreen": {
       "title": "A New Beginning",
       "subtitle": "Don't wait until the end to start a brand new beginning.",

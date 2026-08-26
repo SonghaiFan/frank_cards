@@ -16,10 +16,6 @@
       ],
       "startButton": "Start"
     },
-    "navigation": {
-      "nextButton": "Next Question",
-      "prevButton": "Previous Question"
-    },
     "endScreen": {
       "title": "For Your Next Call",
       "subtitle": "Reminder: Distance doesn't mean being disconnected.",

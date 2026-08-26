@@ -17,10 +17,6 @@
       ],
       "startButton": "深化链接"
     },
-    "navigation": {
-      "nextButton": "下一张卡片",
-      "prevButton": "返回"
-    },
     "endScreen": {
       "title": "旅程完成",
       "subtitle": "你们分享的不止是言语",

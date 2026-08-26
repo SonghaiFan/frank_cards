@@ -20,10 +20,6 @@
       ],
       "startButton": "Begin"
     },
-    "navigation": {
-      "nextButton": "Next",
-      "prevButton": "Back"
-    },
     "endScreen": {
       "title": "You Did It!",
       "subtitle": "You took time to remember your strengths. Carry this confidence with you—you're more capable than you think.",

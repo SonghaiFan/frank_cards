@@ -17,10 +17,6 @@
       ],
       "startButton": "Begin Audit"
     },
-    "navigation": {
-      "nextButton": "Next Question",
-      "prevButton": "Previous"
-    },
     "endScreen": {
       "title": "audit complete",
       "subtitle": "Take a deep breath. Acknowledge the courage it took to be here.",

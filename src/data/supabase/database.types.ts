@@ -42,7 +42,6 @@ export interface Database {
           visibility: TopicVisibility;
           status: TopicStatus;
           start_screen: Json;
-          navigation: Json;
           end_screen: Json;
           categories: Json;
           questions: Json;
@@ -62,7 +61,6 @@ export interface Database {
           visibility?: TopicVisibility;
           status?: TopicStatus;
           start_screen: Json;
-          navigation: Json;
           end_screen: Json;
           categories: Json;
           questions: Json;
@@ -80,7 +78,6 @@ export interface Database {
           visibility?: TopicVisibility;
           status?: TopicStatus;
           start_screen?: Json;
-          navigation?: Json;
           end_screen?: Json;
           categories?: Json;
           questions?: Json;

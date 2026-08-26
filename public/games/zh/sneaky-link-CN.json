@@ -23,10 +23,6 @@
       ],
       "startButton": "开始游戏"
     },
-    "navigation": {
-      "nextButton": "下一题",
-      "prevButton": "上一题"
-    },
     "endScreen": {
       "title": "你现在醒着么？",
       "subtitle": "消息已读 凌晨1:43",

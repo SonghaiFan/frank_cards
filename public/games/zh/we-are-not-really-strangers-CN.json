@@ -17,10 +17,6 @@
       ],
       "startButton": "开始联结"
     },
-    "navigation": {
-      "nextButton": "下一张卡",
-      "prevButton": "上一张卡"
-    },
     "endScreen": {
       "title": "联结完成",
       "subtitle": "你们不再是陌生人了",

@@ -16,10 +16,6 @@
       ],
       "startButton": "Start"
     },
-    "navigation": {
-      "nextButton": "Next Question",
-      "prevButton": "Previous Question"
-    },
     "endScreen": {
       "title": "All Questions Answered",
       "subtitle": "Thanks for playing. Did you learn something new?",

@@ -17,10 +17,6 @@
       ],
       "startButton": "Begin Connection"
     },
-    "navigation": {
-      "nextButton": "Next Card",
-      "prevButton": "Previous Card"
-    },
     "endScreen": {
       "title": "Connection Complete",
       "subtitle": "You are no longer strangers",

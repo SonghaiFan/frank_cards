@@ -17,10 +17,6 @@
       ],
       "startButton": "Start the Conversation"
     },
-    "navigation": {
-      "nextButton": "Next Question",
-      "prevButton": "Back"
-    },
     "endScreen": {
       "title": "Connection Made",
       "subtitle": "Thank you for sharing this time together",

@@ -16,10 +16,6 @@
       ],
       "startButton": "开始对话"
     },
-    "navigation": {
-      "nextButton": "下一个问题",
-      "prevButton": "上一个问题"
-    },
     "endScreen": {
       "title": "下次通话预告",
       "subtitle": "山海相隔，心意相通",

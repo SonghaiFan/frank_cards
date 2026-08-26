@@ -17,10 +17,6 @@
       ],
       "startButton": "Let's Get Weird"
     },
-    "navigation": {
-      "nextButton": "Next Laugh",
-      "prevButton": "Previous"
-    },
     "endScreen": {
       "title": "Chaos Managed",
       "subtitle": "Hope you still have friends after this.",

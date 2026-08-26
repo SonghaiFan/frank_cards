@@ -16,10 +16,6 @@
       ],
       "startButton": "开始练习"
     },
-    "navigation": {
-      "nextButton": "下一个问题",
-      "prevButton": "上一个问题"
-    },
     "endScreen": {
       "title": "你是最棒的",
       "subtitle": "自我关爱需要持续练习",

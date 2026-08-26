@@ -17,10 +17,6 @@
       ],
       "startButton": "开启未定义关系"
     },
-    "navigation": {
-      "nextButton": "下一个话题",
-      "prevButton": "返回"
-    },
     "endScreen": {
       "title": "获得清晰",
       "subtitle": "无论我们处于什么状态，感谢你的真实",

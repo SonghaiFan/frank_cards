@@ -17,10 +17,6 @@
       ],
       "startButton": "开启探索"
     },
-    "navigation": {
-      "nextButton": "下一个话题",
-      "prevButton": "返回"
-    },
     "endScreen": {
       "title": "探索完成",
       "subtitle": "充分的沟通是最好的事后关怀",

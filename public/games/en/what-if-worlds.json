@@ -17,10 +17,6 @@
       ],
       "startButton": "Enter the Multiverse"
     },
-    "navigation": {
-      "nextButton": "Next Scenario",
-      "prevButton": "Previous"
-    },
     "endScreen": {
       "title": "Journey Complete",
       "subtitle": "You've explored the boundaries of reality.",

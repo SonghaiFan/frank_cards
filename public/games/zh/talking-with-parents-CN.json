@@ -17,10 +17,6 @@
       ],
       "startButton": "开始对话"
     },
-    "navigation": {
-      "nextButton": "下一个问题",
-      "prevButton": "返回"
-    },
     "endScreen": {
       "title": "建立了新的连接",
       "subtitle": "感谢你们共度的这段时光",

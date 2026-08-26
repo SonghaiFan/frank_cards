@@ -17,10 +17,6 @@
       ],
       "startButton": "开始搞怪"
     },
-    "navigation": {
-      "nextButton": "下一个",
-      "prevButton": "上一个"
-    },
     "endScreen": {
       "title": "混乱结束",
       "subtitle": "希望玩完这把你们还是朋友。",

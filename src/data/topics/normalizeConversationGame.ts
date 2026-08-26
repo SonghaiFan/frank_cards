@@ -4,13 +4,13 @@ import {
   type ConversationGame,
   type ConversationGameType,
   type EndScreen,
-  type Navigation,
   type PlayerGroup,
   type Question,
   type QuestionCategory,
   type QuestionType,
   type StartScreen,
 } from "../../types/ConversationGame";
+import { limitTextUnits, START_SCREEN_DESCRIPTION_LIMIT } from "../../utils/textLimits";
 
 const GAME_TYPES = new Set<ConversationGameType>(["normal", "edition", "premium"]);
 const QUESTION_TYPES = new Set<QuestionType>(["open", "discussion", "end", "wildcard"]);
@@ -41,26 +41,24 @@ const normalizePlayerGroup = (value: unknown, path: string): PlayerGroup => {
 
 const normalizeStartScreen = (value: unknown): StartScreen => {
   if (!isRecord(value)) throw new Error("ui.startScreen must be an object");
+  const description = Array.isArray(value.description)
+    ? value.description.flatMap((item, index) => {
+        if (typeof item !== "string") {
+          throw new Error(`ui.startScreen.description[${index}] must be a string`);
+        }
+        const paragraph = item.trim();
+        return paragraph ? [paragraph] : [];
+      })
+    : [];
+  const limitedDescription = limitTextUnits(
+    description.join("\n"),
+    START_SCREEN_DESCRIPTION_LIMIT,
+  ).split("\n").map((paragraph) => paragraph.trim()).filter(Boolean);
+
   return {
     title: requiredString(value.title, "ui.startScreen.title"),
-    description: Array.isArray(value.description)
-      ? value.description.flatMap((item, index) => {
-          if (typeof item !== "string") {
-            throw new Error(`ui.startScreen.description[${index}] must be a string`);
-          }
-          const description = item.trim();
-          return description ? [description] : [];
-        })
-      : [],
+    description: limitedDescription,
     startButton: requiredString(value.startButton, "ui.startScreen.startButton"),
-  };
-};
-
-const normalizeNavigation = (value: unknown): Navigation => {
-  if (!isRecord(value)) throw new Error("ui.navigation must be an object");
-  return {
-    nextButton: requiredString(value.nextButton, "ui.navigation.nextButton"),
-    prevButton: requiredString(value.prevButton, "ui.navigation.prevButton"),
   };
 };
 
@@ -164,7 +162,6 @@ export function normalizeConversationGame(value: unknown): ConversationGame {
     },
     ui: {
       startScreen: normalizeStartScreen(value.ui.startScreen),
-      navigation: normalizeNavigation(value.ui.navigation),
       endScreen: normalizeEndScreen(value.ui.endScreen),
     },
     theme: { categories },

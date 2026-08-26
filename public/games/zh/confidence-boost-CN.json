@@ -20,10 +20,6 @@
       ],
       "startButton": "开始"
     },
-    "navigation": {
-      "nextButton": "下一个",
-      "prevButton": "上一个"
-    },
     "endScreen": {
       "title": "你做到了！",
       "subtitle": "你花时间回忆了自己的力量。请带着这份自信前行——你比自己想象的更有能力。",

@@ -16,10 +16,6 @@
       ],
       "startButton": "Start Connecting"
     },
-    "navigation": {
-      "nextButton": "Next Question",
-      "prevButton": "Previous Question"
-    },
     "endScreen": {
       "title": "For the next time you see each other",
       "subtitle": "Keep connecting",

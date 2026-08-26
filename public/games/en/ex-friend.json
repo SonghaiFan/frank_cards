@@ -11,22 +11,11 @@
     "startScreen": {
       "title": "Ex-Friend",
       "description": [
-        "Friendship make-ups are soooo awkward and intimidating. It feels impossible to break the ice and have a meaningful conversation that leaves both sides feeling heard. Till now.",
-        "Take turns asking and answering each question. For this specific pack, we recommend that both players answer each card. Optional: have tissues and wine ready.",
-        "You may decide to mend the friendship or go your separate ways. Regardless of the outcome, you'll know you did your part.",
-        "",
-        "Things to remember while playing:",
-        "1. Avoid viewing conflict as something you can win. No one wins unless the conflict is resolved on both sides.",
-        "2. Avoid using the phrases \"you always\" or \"you never.\"",
-        "3. While playing, actively look for points of agreement rather than points of division.",
-        "4. When someone shares how you've hurt their feelings, believe them. It doesn't mean you're a bad person. View it as an opportunity to grow.",
-        "5. Friendships don't need to last forever to be successful. It's okay to grow in different directions. It's okay to love each other from a distance."
+        "Repairing a friendship can feel awkward and intimidating. This pack creates space to break the ice and help both people feel heard.",
+        "Take turns answering each card. Listen to understand, avoid absolutes such as \"always\" and \"never,\" and look for common ground instead of trying to win.",
+        "You may repair the friendship or choose separate paths. Whatever the outcome, respect each other's feelings and the courage it took to have this conversation."
       ],
       "startButton": "Begin"
-    },
-    "navigation": {
-      "nextButton": "Next Question",
-      "prevButton": "Previous Question"
     },
     "endScreen": {
       "title": "Will you be my friend again?",

@@ -17,10 +17,6 @@
       ],
       "startButton": "Deepen the Connection"
     },
-    "navigation": {
-      "nextButton": "Next Card",
-      "prevButton": "Back"
-    },
     "endScreen": {
       "title": "Journey Complete",
       "subtitle": "You've shared more than just words",

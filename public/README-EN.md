@@ -24,7 +24,7 @@ FrankCards is a card-based conversation app. Start with a curated topic, combine
 - **Create your own topics:** after signing in, edit the cover, question front, and supporting back content in a WYSIWYG card studio.
 - **Choose the right card type:** open question, discussion, wildcard, and ending cards are supported.
 - **Keep editing:** saved topics remain in My Topics, where they can be reopened, changed, and used at any time.
-- **Shape the whole pack:** configure category names, descriptions, colors, language, player groups, opening screen, ending screen, and navigation copy.
+- **Shape the whole pack:** configure category names, descriptions, colors, language, player groups, opening screen, and ending screen.
 - **Use it in your language and theme:** Chinese and English, light and dark themes, and responsive desktop/mobile layouts are included.
 - **Understand every state:** startup, loading, empty, and error states have dedicated feedback.
 
@@ -116,7 +116,7 @@ Both sources are normalized into the same `ConversationGame` structure:
 ```text
 ConversationGame
 ├── app          title, subtitle, language, pack type, player groups
-├── ui           opening screen, navigation, ending screen
+├── ui           opening screen and ending screen
 ├── theme        category names, descriptions, and colors
 └── questions    cards grouped by category
     └── question type, front question, and optional back content

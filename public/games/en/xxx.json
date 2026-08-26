@@ -16,10 +16,6 @@
       ],
       "startButton": "Begin"
     },
-    "navigation": {
-      "nextButton": "Next",
-      "prevButton": "Back"
-    },
     "endScreen": {
       "title": "Conversation Complete",
       "subtitle": "Thank you for your honesty and openness.",

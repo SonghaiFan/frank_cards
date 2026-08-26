@@ -20,10 +20,6 @@
       ],
       "startButton": "开始审视"
     },
-    "navigation": {
-      "nextButton": "下一题",
-      "prevButton": "上一题"
-    },
     "endScreen": {
       "title": "审视完成",
       "subtitle": "深呼吸。感谢彼此直面真相的勇气。",

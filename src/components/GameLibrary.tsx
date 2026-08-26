@@ -8,8 +8,6 @@ import GameIntroPanel from "./GameIntroPanel";
 import KneeConversationIllustration from "./KneeConversationIllustration";
 import { useEasterEgg } from "../hooks/useEasterEgg";
 import { LIBRARY_DESKTOP_QUERY, useMediaQuery } from "../hooks/useMediaQuery";
-import { useAppTheme } from "../hooks/useAppTheme";
-import { resolveGameSurfaceTheme } from "../utils/gameTheme";
 
 
 interface QuickGameLibraryProps {
@@ -303,7 +301,6 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
   const [viewportHeight, setViewportHeight] = useState(window.innerHeight);
   const isDesktopLayout = useMediaQuery(LIBRARY_DESKTOP_QUERY);
   const isWideDesktop = useMediaQuery("(min-width: 80rem)");
-  const isDarkTheme = useAppTheme() === "dark";
 
   useEffect(() => {
     const handleResize = () => {
@@ -324,7 +321,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
   const introGame = useMemo<ConversationGame>(() => ({
     testID: "intro-card",
     app: { title: t("quickMode.title"), subtitle: t("quickMode.cta"), language: "", type: "normal", playerGroup: [] },
-    ui: { startScreen: { title: "", description: [], startButton: "" }, navigation: { nextButton: "", prevButton: "" }, endScreen: { title: "", subtitle: "", restartButton: "" } },
+    ui: { startScreen: { title: "", description: [], startButton: "" }, endScreen: { title: "", subtitle: "", restartButton: "" } },
     theme: { categories: {} },
     questions: [],
   }), [t]);
@@ -332,7 +329,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
   const endGame = useMemo<ConversationGame>(() => ({
     testID: "end-card",
     app: { title: t("quickMode.cta2"), subtitle: "", language: "", type: "normal", playerGroup: [] },
-    ui: { startScreen: { title: "", description: [], startButton: "" }, navigation: { nextButton: "", prevButton: "" }, endScreen: { title: "", subtitle: "", restartButton: "" } },
+    ui: { startScreen: { title: "", description: [], startButton: "" }, endScreen: { title: "", subtitle: "", restartButton: "" } },
     theme: { categories: {} },
     questions: [],
   }), [t]);
@@ -390,10 +387,10 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
     ? focusedThemeColors
     : [femaleThemeColor || "#9ca283", maleThemeColor || "#9ab1cc"];
   const themeMeshPalette = createThemeMeshPalette(backgroundThemeColors);
-  const panelTheme = resolveGameSurfaceTheme({
-    categoryColor: backgroundThemeColors[backgroundThemeColors.length - 1],
-  });
-  const panelUiColor = isDarkTheme ? "var(--material-ink)" : panelTheme.uiColor;
+  // The library backdrop is a translucent mesh blended into the theme canvas,
+  // not a solid category color. Its readable foreground should therefore follow
+  // the final light/dark canvas token instead of any individual palette entry.
+  const panelUiColor = "var(--material-ink)";
 
   const handleStartGame = useCallback((game: ConversationGame) => {
     if (isLaunching || game.testID === "intro-card" || game.testID === "end-card") return;

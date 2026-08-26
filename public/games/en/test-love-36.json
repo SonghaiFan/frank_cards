@@ -17,10 +17,6 @@
       ],
       "startButton": "Start Experiment"
     },
-    "navigation": {
-      "nextButton": "Next Question",
-      "prevButton": "Previous Question"
-    },
     "endScreen": {
       "title": "Experiment Completed",
       "subtitle": "Congratulations on completing the intimate relationship experiment",

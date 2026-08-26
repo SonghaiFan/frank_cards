@@ -28,11 +28,6 @@ export interface StartScreen {
   startButton: string;
 }
 
-export interface Navigation {
-  nextButton: string;
-  prevButton: string;
-}
-
 export interface EndScreen {
   title: string;
   subtitle: string;
@@ -41,7 +36,6 @@ export interface EndScreen {
 
 export interface UIConfig {
   startScreen: StartScreen;
-  navigation: Navigation;
   endScreen: EndScreen;
 }
 
