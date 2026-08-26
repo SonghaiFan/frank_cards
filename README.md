@@ -2,61 +2,81 @@
 
 <div align="center">
 
-![FrankCards Logo](public/card-icon.svg)
+<img src="public/card-icon.svg" width="96" alt="FrankCards" />
 
-**让值得聊的话题，真正发生。**
+### 把难开口的话，变成可以一起翻开的卡片。
 
-[![Build](https://github.com/SonghaiFan/frank_cards/actions/workflows/build.yml/badge.svg)](https://github.com/SonghaiFan/frank_cards/actions/workflows/build.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/Platform-Web%20%7C%20Windows%20%7C%20macOS-blue.svg)](https://github.com/SonghaiFan/frank_cards/releases)
+为伴侣、朋友、家人，以及刚刚认识的人准备的对话卡牌。
 
-**中文** · [English](public/README-EN.md)
+[下载 FrankCards v2.0.0](https://github.com/SonghaiFan/frank_cards/releases/tag/v2.0.0) · [查看全部版本](https://github.com/SonghaiFan/frank_cards/releases) · **中文** / [English](public/README-EN.md)
 
 </div>
 
-FrankCards 是一个卡片式对话应用。你可以直接开始一组精选话题，也可以组合多个 Topic，或在真实卡片界面中制作自己的对话包。
+![FrankCards 首页：从不同的对话包中选择此刻想聊的话题](docs/images/readme/home.jpg)
 
-## 现在可以做什么
+很多时候，我们不是没有话想说，只是不知道该从哪里开始。
 
-- **快速开始**：选择一个内置 Topic，立即进入对话。
-- **组合对话**：混合多个 Topic 和分类，创建一场更符合当下关系与场景的对话。
-- **真实卡片交互**：支持卡片切换、正反面翻转、进度提示和流畅动画。
-- **创建自己的 Topic**：登录后，在所见即所得的卡片工作台中直接编辑封面、问题正面和补充内容背面。
-- **完整卡片类型**：支持开放题、讨论题、Wildcard 和结束卡。
-- **持续编辑**：已创建的 Topic 会保存在“我的 Topics”中，可以再次打开、修改并直接使用。
-- **个性化设计**：为分类设置名称、描述与颜色，并配置语言、适用人群、开场页、结束页和导航文字。
-- **中英文与主题模式**：支持中文/英文切换、明暗主题以及响应式桌面和移动布局。
-- **可靠的界面状态**：初始化、数据加载、空内容和错误状态均有独立反馈。
+FrankCards 把精心设计的问题放进一场有节奏的卡牌体验里。选一个适合此刻的对话包，把屏幕放在两个人中间，然后从第一张卡开始。没有标准答案，也没有输赢；真正重要的是接下来发生的对话。
 
-## 使用方式
+## 它有什么不同 / What makes it different
 
-### 使用内置 Topic
+|  |  |
+| --- | --- |
+| **不是问题清单，而是一场完整对话**<br>每个对话包都有自己的开场、分类、卡牌节奏与结束方式，让聊天自然地从轻松走向深入。 | **不是只能照着一副牌玩**<br>可以按关系、场景和当下的心情筛选内容，也可以把多个对话包自由组合成这一晚独有的一组牌。 |
+| **不是填写表单来“配置内容”**<br>创建自己的话题时，直接在真实的封面和卡片上修改文字、背面提示、分类和颜色，看到的就是最终会使用的样子。 | **不是测验，也不替你分析关系**<br>FrankCards 不打分、不下结论。它只是给出一个足够好的问题，把注意力还给坐在你面前的人。 |
 
-1. 在首页选择一个 Topic 快速开始。
-2. 或进入自定义模式，选择多个 Topic 与分类。
-3. 开始后阅读卡片，翻到背面查看补充提示，再切换到下一张。
+## 为不同的关系，留一点真正聊天的空间
 
-### 创建自己的 Topic
+- 刚认识时，跳过重复的寒暄，找到彼此真正好奇的地方。
+- 和伴侣定期聊聊最近的感受、期待与没有说出口的小事。
+- 在朋友聚会里，从轻松好笑的问题慢慢走向更真实的分享。
+- 和家人谈谈成长、记忆与那些平时很少被问起的经历。
+- 一个人使用，把问题当作自我整理和书写的起点。
 
-1. 配置 Supabase 后，使用邮箱登录 FrankCards。
-2. 打开“我的 Topics”，选择“创建 Topic”。
-3. 直接在封面或问题卡片上输入内容。
-4. 新建下一张卡片，并设置类型、分类和颜色。
-5. 翻到背面添加说明或对话提示。
-6. 保存后，可从“我的 Topics”继续编辑或立即开始使用。
+## 选择适合此刻的对话
 
-> Supabase 是可选能力。没有配置 Supabase 时，所有内置 Topic 与本地对话功能仍然可用；账号和用户 Topic 功能会停用。
+内置对话包覆盖关系签到、个人故事、异地恋、朋友、家庭、自我关爱、脑洞问题等不同方向。想随手开始，可以直接选一副；想让对话更贴近在场的人，也可以按类型和适合人群自由组合。
 
-## 本地开发
+![FrankCards 自定义模式：筛选并组合不同的对话包](docs/images/readme/custom-mode.jpg)
 
-### 环境要求
+## 卡片只负责提问，空间留给你们
 
-- Node.js 20+
-- npm
-- Rust 与 [Tauri v2 prerequisites](https://v2.tauri.app/start/prerequisites/)（仅桌面端开发需要）
-- Supabase CLI（仅本地开发账号和用户 Topic 功能需要）
+一次只出现一个问题。卡片的颜色、分类、正反面和进度帮助对话保持节奏，但不会抢走注意力。你们可以停留、翻面、继续下一张，也可以在某一个问题上聊很久。
 
-### 启动 Web 版本
+<table>
+  <tr>
+    <td width="50%"><img src="docs/images/readme/conversation.jpg" alt="FrankCards 对话卡片界面" /></td>
+    <td width="50%"><img src="docs/images/readme/topic-studio.jpg" alt="FrankCards 所见即所得话题编辑器" /></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>让问题安静地待在中间，而不是塞满整个界面。</sub></td>
+    <td align="center"><sub>直接在真实卡片上创作自己的对话包。</sub></td>
+  </tr>
+</table>
+
+## 也可以写下你自己的问题
+
+有些对话只属于某段关系、某次旅行或某一个晚上。登录后，你可以创建自己的对话包，编辑封面、开始与结束界面，为问题添加背面提示，并用分类和颜色整理节奏。保存后仍然可以继续修改，或直接拿来使用。
+
+内置对话包无需登录即可使用；用户创建的话题会保存在自己的账号中。
+
+## 下载
+
+当前版本提供：
+
+- macOS — Apple Silicon 与 Intel
+- Windows — `.exe` 与 `.msi`
+
+前往 [FrankCards v2.0.0 Release](https://github.com/SonghaiFan/frank_cards/releases/tag/v2.0.0) 下载适合你的版本。
+
+> macOS 版本目前尚未进行 Apple notarization，首次打开时系统可能显示安全提醒。
+
+<details>
+<summary><strong>想运行代码或参与开发？</strong></summary>
+
+### 本地运行
+
+需要 Node.js 20+ 与 npm：
 
 ```bash
 git clone https://github.com/SonghaiFan/frank_cards.git
@@ -65,114 +85,17 @@ npm ci
 npm run dev
 ```
 
-开发服务器默认运行在 `http://localhost:1420`。
-
-### 启动桌面版本
+桌面端使用 Tauri 2；安装 Rust 与 Tauri prerequisites 后运行：
 
 ```bash
 npm run tauri dev
 ```
 
-### 常用命令
+用户账号和自定义话题由 Supabase 提供。相关环境变量、数据库迁移和邮件配置见 [Supabase 说明](supabase/README.md)。项目使用 React、TypeScript、Vite、Supabase 与 Tauri，并以 [MIT License](LICENSE) 开源。
 
-| 命令 | 作用 |
-| --- | --- |
-| `npm run dev` | 启动 Vite 开发服务器 |
-| `npm run build` | 生成游戏索引、执行 TypeScript 编译并构建 Web 产物 |
-| `npm run preview` | 本地预览生产构建 |
-| `npm run tauri dev` | 启动 Tauri 桌面开发环境 |
-| `npm run tauri build` | 构建桌面安装包 |
-| `npm run generate-games` | 根据中英文 JSON 重新生成 Topic 索引 |
-| `npx tsc --noEmit` | 仅执行 TypeScript 类型检查 |
+欢迎提交 Issue 或 Pull Request；参与前可以阅读 [贡献指南](CONTRIBUTING_GUIDE.md)。
 
-## Supabase 配置
-
-复制环境变量示例：
-
-```bash
-cp .env.example .env.local
-```
-
-然后填写：
-
-```dotenv
-VITE_SUPABASE_URL=https://your-project.supabase.co
-VITE_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
-```
-
-前端只能使用 publishable/anon key，**不要**把 service-role key 放进任何 `VITE_` 环境变量。
-
-数据库迁移、RLS 策略、本地 Supabase 和邮箱验证码配置见 [supabase/README.md](supabase/README.md)。
-
-## Topic 数据
-
-FrankCards 有两类 Topic 来源：
-
-- **内置 Topic**：存放于 `public/games/en/` 和 `public/games/zh/`，随应用发布。
-- **用户 Topic**：通过 Supabase 保存，归属于登录用户，并由数据库的 Row Level Security 保护。
-
-两种来源最终都会规范化为同一个 `ConversationGame` 数据结构：
-
-```text
-ConversationGame
-├── app          标题、副标题、语言、类型、适用人群
-├── ui           开场页、上一张/下一张、结束页
-├── theme        分类名称、描述和颜色
-└── questions    分类下的卡片
-    └── question 类型、正面问题和可选背面内容
-```
-
-问题类型定义为 `open | discussion | wildcard | end`。完整 TypeScript schema 位于 [`src/types/ConversationGame.ts`](src/types/ConversationGame.ts)。
-
-### 添加内置 Topic
-
-1. 根据语言在 `public/games/en/` 或 `public/games/zh/` 新建 JSON 文件。
-2. 保持中英文文件的基础名称一致；中文文件使用 `-CN.json` 后缀。
-3. 运行 `npm run generate-games` 更新 `public/games/index.json`。
-4. 运行 `npm run build` 验证 schema、类型和构建结果。
-
-请勿手动维护 `public/games/index.json` 中的文件列表；生成脚本会扫描语言目录并重新创建它。
-
-## 项目结构
-
-```text
-src/
-├── auth/                 登录与会话状态
-├── components/           卡片、Topic 列表和游戏界面
-│   └── account/          账号界面与所见即所得 Topic Studio
-├── data/
-│   ├── supabase/         Supabase client 与数据库类型
-│   └── topics/           内置/用户 Topic repositories 与规范化逻辑
-├── i18n/                 中英文界面文案
-└── types/                ConversationGame 与 Topic schema
-public/games/              内置 Topic JSON
-supabase/                  数据库迁移、RLS 与邮件模板
-src-tauri/                 Tauri v2 桌面外壳
-```
-
-## 技术栈
-
-- React 18 + TypeScript
-- Vite 6 + Tailwind CSS 4
-- Motion
-- i18next
-- Supabase Auth + Postgres
-- Tauri 2
-
-## 发布
-
-推送 `v*` 标签会触发 GitHub Actions，为 Windows、macOS Intel 和 macOS Apple Silicon 构建桌面安装包并创建 GitHub Release。
-
-```bash
-git tag v1.0.3
-git push origin v1.0.3
-```
-
-## 贡献与许可
-
-欢迎提交 Issue 或 Pull Request。开始前请阅读 [CONTRIBUTING_GUIDE.md](CONTRIBUTING_GUIDE.md)。
-
-FrankCards 使用 [MIT License](LICENSE) 发布。
+</details>
 
 <div align="center">
 
