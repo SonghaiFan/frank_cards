@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { lazy, Suspense, useMemo, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
@@ -6,8 +6,9 @@ import {
   faPlus,
   faRotate,
   faTrash,
+  faWandMagicSparkles,
 } from "@fortawesome/free-solid-svg-icons";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 import Card from "../Card";
 import CardEnergyIcon from "../CardEnergyIcon";
@@ -35,6 +36,9 @@ import {
   limitTextUnits,
   START_SCREEN_DESCRIPTION_LIMIT,
 } from "../../utils/textLimits";
+import type { GeneratedConversationDraft } from "../../ai/openAiCompatible";
+
+const AiCardGeneratorDialog = lazy(() => import("./AiCardGeneratorDialog"));
 
 interface TopicStudioProps {
   topic?: TopicRecord;
@@ -168,6 +172,7 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
   );
   const [isFlipped, setIsFlipped] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [isAiDialogOpen, setIsAiDialogOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const activeCard = useMemo(
@@ -343,6 +348,44 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
     }
   };
 
+  const applyGeneratedDraft = (generated: GeneratedConversationDraft) => {
+    const nextCards: StudioCard[] = generated.cards.map((card) => ({
+      id: createLocalCardId(),
+      category: card.category,
+      type: card.type,
+      energy: card.energy,
+      question: card.question,
+      ...(card.more ? { more: card.more } : {}),
+    }));
+    const nextCategories = Object.fromEntries(generated.categories.map((category) => [
+      category.key,
+      {
+        name: category.name,
+        description: category.description,
+        color: category.color,
+      },
+    ]));
+
+    setDraft((current) => ({
+      ...current,
+      title: generated.title,
+      subtitle: generated.subtitle,
+      startTitle: generated.startTitle,
+      startDescription: limitTextUnits(generated.startDescription, START_SCREEN_DESCRIPTION_LIMIT),
+      startButton: generated.startButton,
+      endTitle: generated.endTitle,
+      endSubtitle: generated.endSubtitle,
+      restartButton: generated.restartButton,
+      categories: nextCategories,
+      cards: nextCards,
+    }));
+    setSelectedView(nextCards[0]?.id ?? "cover");
+    setEditingCategoryKey(generated.categories[0]?.key ?? "");
+    setIsFlipped(false);
+    setError(null);
+    setIsAiDialogOpen(false);
+  };
+
   return (
     <div className="topic-studio">
       <header className="topic-studio-header">
@@ -354,10 +397,16 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
           <h2>{draft.title || t("account.studioUntitled")}</h2>
         </div>
         {error ? <p className="topic-studio-error" role="alert">{error}</p> : null}
-        <button className="topic-studio-save" type="button" onClick={() => void save()} disabled={isSaving} aria-label={isSaving ? t("account.studioSaving") : t("account.studioSave")}>
-          <FontAwesomeIcon icon={faFloppyDisk} />
-          <span>{isSaving ? t("account.studioSaving") : t("account.studioSave")}</span>
-        </button>
+        <div className="topic-studio-header-actions">
+          <button className="topic-studio-ai-button" type="button" onClick={() => setIsAiDialogOpen(true)}>
+            <FontAwesomeIcon icon={faWandMagicSparkles} />
+            <span>{t("account.aiOpen")}</span>
+          </button>
+          <button className="topic-studio-save" type="button" onClick={() => void save()} disabled={isSaving} aria-label={isSaving ? t("account.studioSaving") : t("account.studioSave")}>
+            <FontAwesomeIcon icon={faFloppyDisk} />
+            <span>{isSaving ? t("account.studioSaving") : t("account.studioSave")}</span>
+          </button>
+        </div>
       </header>
 
       <div className="topic-studio-workspace">
@@ -768,6 +817,21 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
           )}
         </aside>
       </div>
+
+      <AnimatePresence>
+        {isAiDialogOpen ? (
+          <Suspense fallback={null}>
+            <AiCardGeneratorDialog
+              initialCardCount={draft.cards.length}
+              initialTopic={draft.subtitle || (topic ? draft.title : "")}
+              language={draft.language}
+              playerGroups={draft.playerGroups}
+              onApply={applyGeneratedDraft}
+              onClose={() => setIsAiDialogOpen(false)}
+            />
+          </Suspense>
+        ) : null}
+      </AnimatePresence>
     </div>
   );
 }
