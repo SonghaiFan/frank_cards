@@ -2,6 +2,7 @@ import React from "react";
 import { motion, type MotionValue } from "motion/react";
 
 interface FemaleFigureProps {
+  animateCoffeeSurface?: boolean;
   clothingColor?: string;
   headRotate: MotionValue<number>;
   headX: MotionValue<number>;
@@ -16,6 +17,7 @@ const handLoop = {
 };
 
 const FemaleFigure: React.FC<FemaleFigureProps> = ({
+  animateCoffeeSurface = false,
   clothingColor,
   headRotate,
   headX,
@@ -68,6 +70,7 @@ const FemaleFigure: React.FC<FemaleFigureProps> = ({
         <g
           id="female-coffee-foam"
           data-part="coffee-foam"
+          className={animateCoffeeSurface ? "loading-coffee-surface" : undefined}
         >
           <path d="M154 368 C162 367 166 364 169 358 C174 348 181 343 189 346 C198 350 201 361 199 375 C197 390 187 399 172 400 C157 400 145 394 142 384 C139 376 145 369 154 368Z" fill="#391914" />
 

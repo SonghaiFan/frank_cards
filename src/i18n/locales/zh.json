@@ -23,6 +23,8 @@
     "toolbarLabel": "主题、语言与账号",
     "switchToDark": "切换到深色模式",
     "switchToLight": "切换到浅色模式",
+    "switchToLanguage": "切换到{{language}}",
+    "switchingLanguage": "正在切换语言",
     "close": "关闭",
     "signIn": "登录",
     "guestMode": "游客模式",

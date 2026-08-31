@@ -1,4 +1,6 @@
 import { useTranslation } from "react-i18next";
+import type { CSSProperties } from "react";
+import LoadingConversationIllustration from "./LoadingConversationIllustration";
 
 type AppStatusVariant = "loading" | "error" | "empty";
 
@@ -30,31 +32,54 @@ export default function AppStatusScreen({ variant, onRetry }: AppStatusScreenPro
       aria-live={isError ? "assertive" : "polite"}
       aria-busy={isLoading}
     >
-      <div className="app-status-content">
-        {isLoading ? (
-          <div className="app-loading-mark" aria-hidden="true">
-            <span className="app-loading-halo" />
-            <img src="/card-icon.svg" alt="" />
+      {isLoading ? (
+        <>
+          <div
+            className="theme-color-blur-background app-loading-background"
+            aria-hidden="true"
+            style={{
+              "--theme-mesh-1": "#9ca283",
+              "--theme-mesh-2": "#d6ddd7",
+              "--theme-mesh-3": "#c2c9b4",
+              "--theme-mesh-4": "#d9d7ca",
+              "--theme-mesh-5": "#aeb59f",
+            } as CSSProperties}
+          >
+            <div className="theme-color-blur-mesh">
+              <div className="theme-color-blur-field theme-color-blur-field-primary" />
+              <div className="theme-color-blur-field theme-color-blur-field-secondary" />
+            </div>
           </div>
-        ) : (
+          <LoadingConversationIllustration />
+        </>
+      ) : null}
+
+      <div className={`app-status-content${isLoading ? " app-status-content-loading" : ""}`}>
+        {!isLoading ? (
           <div className="app-status-symbol" aria-hidden="true">
             {variant === "error" ? "!" : "···"}
           </div>
-        )}
-
-        <div className="app-status-copy">
-          <p className="app-status-kicker">FrankCards</p>
-          <h1>{title}</h1>
-          <p>{body}</p>
-        </div>
+        ) : null}
 
         {isLoading ? (
-          <div className="app-loading-dots" aria-hidden="true">
-            <span />
-            <span />
-            <span />
+          <div className="app-loading-brand">
+            <h1 aria-label="FrankCards">
+              <span className="sr-only">Frank</span>
+              <span aria-hidden="true" className="frank-signature" />
+              <span>Cards</span>
+            </h1>
+            <p>{body}</p>
+            <span className="sr-only">{title}</span>
           </div>
-        ) : onRetry ? (
+        ) : (
+          <div className="app-status-copy">
+            <p className="app-status-kicker">FrankCards</p>
+            <h1>{title}</h1>
+            <p>{body}</p>
+          </div>
+        )}
+
+        {!isLoading && onRetry ? (
           <button className="app-status-retry" type="button" onClick={onRetry}>
             {t("gameLibrary.tryAgain")}
           </button>

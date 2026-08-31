@@ -41,11 +41,13 @@ function PanelLoadingFallback({ alignEnd, onClose }: PanelLoadingFallbackProps) 
 
 interface AccountHubProps {
   authDialogRequest: { id: number; mode: "signIn" | "signUp" };
+  isLanguageSwitching: boolean;
+  onChangeLanguage: (language: "en" | "zh") => Promise<void>;
   onTopicsChanged: () => void;
   onUseTopic: (game: ConversationGame) => void;
 }
 
-export default function AccountHub({ authDialogRequest, onTopicsChanged, onUseTopic }: AccountHubProps) {
+export default function AccountHub({ authDialogRequest, isLanguageSwitching, onChangeLanguage, onTopicsChanged, onUseTopic }: AccountHubProps) {
   const { t } = useTranslation();
   const { isAdmin, isPasswordRecovery, profile, status } = useAuth();
   const [openPanel, setOpenPanel] = useState<"admin" | "auth" | "topics" | null>(null);
@@ -66,7 +68,11 @@ export default function AccountHub({ authDialogRequest, onTopicsChanged, onUseTo
   return (
     <>
       <nav className="account-toolbar" aria-label={t("account.toolbarLabel")}>
-        <LanguageSwitcher className="account-language-button" />
+        <LanguageSwitcher
+          className="account-language-button"
+          isSwitching={isLanguageSwitching}
+          onChangeLanguage={onChangeLanguage}
+        />
         <ThemeToggle />
         {status === "loading" ? (
           <div className="account-toolbar-button account-toolbar-loading" role="status" aria-label={t("account.loadingAccount")}>

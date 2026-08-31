@@ -17,6 +17,19 @@ import { PackLikesProvider } from "./social/PackLikesProvider";
 
 type TopicLoadStatus = "loading" | "ready" | "error";
 type AuthEntryMode = "signIn" | "signUp";
+type AppLanguage = "en" | "zh";
+
+const loadTopicsForLanguage = async (language: AppLanguage) => {
+  const topicLanguage = toTopicLanguage(language);
+  const [builtInTopics, communityTopics] = await Promise.all([
+    listBuiltInTopics({ language: topicLanguage }),
+    listCommunityTopics({ language: topicLanguage }),
+  ]);
+  return {
+    communityGames: communityTopics.map((topic) => topic.game),
+    games: builtInTopics.map((topic) => topic.game),
+  };
+};
 
 function App() {
   const { i18n } = useTranslation();
@@ -30,23 +43,19 @@ function App() {
 
   const [loadStatus, setLoadStatus] = useState<TopicLoadStatus>("loading");
   const [loadAttempt, setLoadAttempt] = useState(0);
+  const [isLanguageSwitching, setIsLanguageSwitching] = useState(false);
   const { height: viewportHeight, isMinimumSizeMet, width: viewportWidth } = useScreenSize();
 
   useEffect(() => {
     let cancelled = false;
-    setLoadStatus("loading");
-    setGames([]);
-    setCommunityGames([]);
+    const language: AppLanguage = i18n.resolvedLanguage?.startsWith("zh") ? "zh" : "en";
+    if (games.length === 0) setLoadStatus("loading");
 
-    const language = toTopicLanguage(i18n.language);
-    Promise.all([
-      listBuiltInTopics({ language }),
-      listCommunityTopics({ language }),
-    ])
-      .then(([builtInTopics, communityTopics]) => {
+    loadTopicsForLanguage(language)
+      .then((topics) => {
         if (!cancelled) {
-          setGames(builtInTopics.map((topic) => topic.game));
-          setCommunityGames(communityTopics.map((topic) => topic.game));
+          setGames(topics.games);
+          setCommunityGames(topics.communityGames);
           setLoadStatus("ready");
         }
       })
@@ -60,13 +69,27 @@ function App() {
     return () => {
       cancelled = true;
     };
-  }, [i18n.language, loadAttempt]);
+  }, [loadAttempt]);
 
-  // Clear selections when language changes to avoid conflicting content
-  useEffect(() => {
-    setSelectedGames([]);
-    setIsSessionActive(false);
-  }, [i18n.language]);
+  const handleChangeLanguage = useCallback(async (language: AppLanguage) => {
+    const currentLanguage: AppLanguage = i18n.resolvedLanguage?.startsWith("zh") ? "zh" : "en";
+    if (language === currentLanguage || isLanguageSwitching) return;
+
+    setIsLanguageSwitching(true);
+    try {
+      const topics = await loadTopicsForLanguage(language);
+      await i18n.changeLanguage(language);
+      setGames(topics.games);
+      setCommunityGames(topics.communityGames);
+      setSelectedGames([]);
+      setIsSessionActive(false);
+      setLoadStatus("ready");
+    } catch (error) {
+      console.error("Failed to switch language:", error);
+    } finally {
+      setIsLanguageSwitching(false);
+    }
+  }, [i18n, isLanguageSwitching]);
 
   // View Mode: 'customize' or 'quick'
   const [viewMode, setViewMode] = useState<"customize" | "quick">("quick");
@@ -170,7 +193,7 @@ function App() {
                 key={`app-status-${statusVariant}`}
                 data-app-scene="status"
                 className="absolute inset-0 z-30 overflow-hidden"
-                initial={{ opacity: 0, y: 10, scale: 0.995 }}
+                initial={statusVariant === "loading" ? false : { opacity: 0, y: 10, scale: 0.995 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -16, scale: 0.985 }}
                 transition={{ duration: 0.72, ease: [0.16, 1, 0.3, 1] }}
@@ -197,6 +220,8 @@ function App() {
                 {!isSessionActive ? (
                   <AccountHub
                     authDialogRequest={authDialogRequest}
+                    isLanguageSwitching={isLanguageSwitching}
+                    onChangeLanguage={handleChangeLanguage}
                     onTopicsChanged={handleTopicsChanged}
                     onUseTopic={handleQuickStart}
                   />

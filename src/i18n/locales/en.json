@@ -23,6 +23,8 @@
     "toolbarLabel": "Theme, language and account",
     "switchToDark": "Switch to dark mode",
     "switchToLight": "Switch to light mode",
+    "switchToLanguage": "Switch to {{language}}",
+    "switchingLanguage": "Switching language",
     "close": "Close",
     "signIn": "Sign in",
     "guestMode": "Guest mode",
