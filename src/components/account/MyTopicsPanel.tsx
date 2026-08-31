@@ -8,6 +8,7 @@ import type { MutableTopicRepository } from "../../data/topics/TopicRepository";
 import type { ConversationGame } from "../../types/ConversationGame";
 import type { SaveTopicInput, TopicRecord } from "../../types/Topic";
 import TopicStudio from "./TopicStudio";
+import ProfileEditor from "./ProfileEditor";
 
 interface MyTopicsPanelProps {
   onClose: () => void;
@@ -167,6 +168,8 @@ export default function MyTopicsPanel({ onClose, onTopicsChanged, onUseTopic }: 
                 <h2 id="my-topics-title">{t("account.myTopics")}</h2>
                 <p>{t("account.myTopicsBody")}</p>
               </div>
+
+              <ProfileEditor />
 
               <div className="account-topics-content">
                 <button className="account-create-button" type="button" onClick={() => setStudioTopic("new")}>

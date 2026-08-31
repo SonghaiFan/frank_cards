@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { motion } from "motion/react";
+import { useAuth } from "../auth/AuthProvider";
 
 
 interface GameIntroPanelProps {
@@ -15,6 +16,8 @@ const GameIntroPanel: React.FC<GameIntroPanelProps> = ({
   handleClick
 }) => {
   const { t } = useTranslation();
+  const { status } = useAuth();
+  const authenticated = status === "authenticated";
 
   return (
     <div className="relative flex h-auto w-full min-w-0 max-w-full flex-col justify-center text-center lg:ml-auto lg:h-[34rem] lg:w-full lg:text-right xl:w-[34rem]">
@@ -39,9 +42,13 @@ const GameIntroPanel: React.FC<GameIntroPanelProps> = ({
         <button
           className="material-control theme-primary-control px-8 py-3 rounded-full font-bold hover:scale-105 transition-transform"
           onClick={onSwitchToCustom}
+          disabled={status === "loading"}
         >
-          {t("quickMode.switchToCustom")}
+          {t(authenticated ? "quickMode.switchToCustom" : "account.signIn")}
         </button>
+        <p className="custom-mode-unlock-hint" style={{ color: uiColor }}>
+          {t(authenticated ? "quickMode.customModeHint" : "account.customModeUnlockHint")}
+        </p>
       </div>
     </div>
   );

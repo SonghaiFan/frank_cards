@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faCheck, faEnvelope, faLock, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faCheck, faEnvelope, faHeart, faLayerGroup, faLock, faPenNib, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../auth/AuthProvider";
 
@@ -198,7 +198,7 @@ export default function AuthDialog({ onClose }: AuthDialogProps) {
         role="dialog"
         aria-modal="true"
         aria-labelledby="account-auth-title"
-        className="account-sheet"
+        className="account-sheet account-auth-sheet"
         initial={{ opacity: 0, y: 20, scale: 0.985 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 12, scale: 0.99 }}
@@ -207,6 +207,19 @@ export default function AuthDialog({ onClose }: AuthDialogProps) {
         <button className="account-icon-button account-sheet-close" onClick={() => void closeDialog()} aria-label={t("account.close")}>
           <FontAwesomeIcon icon={faXmark} />
         </button>
+
+        <aside className="account-auth-benefits" aria-label={t("account.unlockTitle")}>
+          <p className="account-kicker">FrankCards</p>
+          <h3>{t("account.unlockTitle")}</h3>
+          <p>{t("account.unlockBody")}</p>
+          <ul>
+            <li><FontAwesomeIcon icon={faLayerGroup} /><span>{t("account.unlockCommunity")}</span></li>
+            <li><FontAwesomeIcon icon={faPenNib} /><span>{t("account.unlockContribute")}</span></li>
+            <li><FontAwesomeIcon icon={faHeart} /><span>{t("account.unlockLikes")}</span></li>
+          </ul>
+        </aside>
+
+        <div className="account-auth-flow">
 
         {status === "disabled" ? (
           <div className="account-sheet-copy">
@@ -441,6 +454,7 @@ export default function AuthDialog({ onClose }: AuthDialogProps) {
             )}
           </AnimatePresence>
         )}
+        </div>
       </motion.section>
     </motion.div>
   );

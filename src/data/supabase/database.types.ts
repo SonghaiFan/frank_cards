@@ -33,6 +33,24 @@ export interface Database {
         };
         Relationships: [];
       };
+      pack_likes: {
+        Row: {
+          user_id: string;
+          pack_id: string;
+          created_at: string;
+        };
+        Insert: {
+          user_id: string;
+          pack_id: string;
+          created_at?: string;
+        };
+        Update: {
+          user_id?: string;
+          pack_id?: string;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
       topics: {
         Row: {
           id: string;
@@ -113,6 +131,16 @@ export interface Database {
         };
         Returns: TopicRow;
       };
+      get_pack_like_summary: {
+        Args: {
+          requested_pack_ids: string[];
+        };
+        Returns: Array<{
+          pack_id: string;
+          like_count: number;
+          liked_by_user: boolean;
+        }>;
+      };
     };
     Enums: {
       topic_app_type: TopicAppType;
@@ -129,3 +157,4 @@ export interface Database {
 export type TopicRow = Database["public"]["Tables"]["topics"]["Row"];
 export type TopicInsert = Database["public"]["Tables"]["topics"]["Insert"];
 export type TopicUpdate = Database["public"]["Tables"]["topics"]["Update"];
+export type ProfileRow = Database["public"]["Tables"]["profiles"]["Row"];

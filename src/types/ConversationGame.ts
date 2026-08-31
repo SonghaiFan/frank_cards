@@ -72,6 +72,10 @@ export interface QuestionCategory {
 
 export interface ConversationGame {
   testID: string;
+  creator?: {
+    displayName: string | null;
+    avatarUrl: string | null;
+  };
   app: AppInfo;
   ui: UIConfig;
   theme: ThemeConfig;

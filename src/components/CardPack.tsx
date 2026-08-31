@@ -2,6 +2,7 @@ import React from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ConversationGame } from "../types/ConversationGame";
 import Card from "./Card";
+import PackLikeButton from "./PackLikeButton";
 
 interface CardPackProps {
   game: ConversationGame;
@@ -169,6 +170,8 @@ const CardPack: React.FC<CardPackProps> = ({
             </div>
           )}
 
+          {!minimal ? <PackLikeButton packId={game.testID} /> : null}
+
           {/* Game Title */}
           <h2 className="theme-text-primary text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-center leading-tight px-2">
             {game.app.title}
@@ -178,6 +181,19 @@ const CardPack: React.FC<CardPackProps> = ({
           <p className="theme-text-secondary text-xs sm:text-sm font-medium text-center leading-relaxed px-2">
             {game.app.subtitle}
           </p>
+
+          {game.creator ? (
+            <div className="pack-creator">
+              <span className="pack-creator-avatar" aria-hidden="true">
+                {game.creator.avatarUrl ? (
+                  <img src={game.creator.avatarUrl} alt="" />
+                ) : (
+                  (game.creator.displayName || "F").charAt(0).toUpperCase()
+                )}
+              </span>
+              <span>{game.creator.displayName || "FrankCards Community"}</span>
+            </div>
+          ) : null}
 
           {/* Category Dots */}
           <div className="flex justify-center gap-1.5 sm:gap-2 mt-3 sm:mt-4">

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, LayoutGroup, motion, MotionConfig } from "motion/react";
 import { useTranslation } from "react-i18next";
 import "./App.css";
@@ -12,11 +12,14 @@ import { clearAvailableTopicsCache, listBuiltInTopics, listCommunityTopics } fro
 import { toTopicLanguage } from "./types/Topic";
 import AccountHub from "./components/account/AccountHub";
 import AppStatusScreen from "./components/AppStatusScreen";
+import { useAuth } from "./auth/AuthProvider";
+import { PackLikesProvider } from "./social/PackLikesProvider";
 
 type TopicLoadStatus = "loading" | "ready" | "error";
 
 function App() {
   const { i18n } = useTranslation();
+  const { status: authStatus } = useAuth();
   const [games, setGames] = useState<ConversationGame[]>([]);
   const [communityGames, setCommunityGames] = useState<ConversationGame[]>([]);
 
@@ -68,6 +71,30 @@ function App() {
   const [viewMode, setViewMode] = useState<"customize" | "quick">("quick");
 
   const [sessionMode, setSessionMode] = useState<"quick" | "custom">("quick");
+  const [authDialogRequest, setAuthDialogRequest] = useState(0);
+  const [pendingCustomUnlock, setPendingCustomUnlock] = useState(false);
+  const packIds = useMemo(() => (
+    [...games, ...communityGames].map((game) => game.testID)
+  ), [communityGames, games]);
+
+  const requestAuthentication = useCallback(() => {
+    setAuthDialogRequest((request) => request + 1);
+  }, []);
+
+  const handleSwitchToCustom = useCallback(() => {
+    if (authStatus === "authenticated") {
+      setViewMode("customize");
+      return;
+    }
+    setPendingCustomUnlock(true);
+    requestAuthentication();
+  }, [authStatus, requestAuthentication]);
+
+  useEffect(() => {
+    if (authStatus !== "authenticated" || !pendingCustomUnlock) return;
+    setPendingCustomUnlock(false);
+    setViewMode("customize");
+  }, [authStatus, pendingCustomUnlock]);
 
   // Toggle selection for a game
   const handleToggleGame = (game: ConversationGame) => {
@@ -129,7 +156,8 @@ function App() {
         : null;
 
   return (
-    <MotionConfig reducedMotion="user">
+    <PackLikesProvider packIds={packIds} onRequireAuth={requestAuthentication}>
+      <MotionConfig reducedMotion="user">
       <LayoutGroup id="frankcards-conversation-stage">
         <div className="relative h-[100dvh] w-screen overflow-hidden material-canvas">
           <AnimatePresence initial={false} mode="sync">
@@ -163,7 +191,11 @@ function App() {
                 }}
               >
                 {!isSessionActive ? (
-                  <AccountHub onTopicsChanged={handleTopicsChanged} onUseTopic={handleQuickStart} />
+                  <AccountHub
+                    authDialogRequest={authDialogRequest}
+                    onTopicsChanged={handleTopicsChanged}
+                    onUseTopic={handleQuickStart}
+                  />
                 ) : null}
                 <div className="relative isolate h-full w-full flex-1 overflow-hidden">
                   <AnimatePresence initial={false} mode="sync">
@@ -198,7 +230,7 @@ function App() {
                           <QuickGameLibrary
                             games={games}
                             onStartGame={handleQuickStart}
-                            onSwitchToCustom={() => setViewMode("customize")}
+                            onSwitchToCustom={handleSwitchToCustom}
                           />
                         ) : (
                           <GameLibrary
@@ -220,7 +252,8 @@ function App() {
           </AnimatePresence>
         </div>
       </LayoutGroup>
-    </MotionConfig>
+      </MotionConfig>
+    </PackLikesProvider>
   );
 }
 

@@ -10,7 +10,12 @@ import { TopicRepositoryError } from "./TopicRepository";
 
 const asJson = (value: unknown): Json => value as Json;
 
-const rowToRecord = (row: TopicRow): TopicRecord => {
+interface TopicCreator {
+  display_name: string | null;
+  avatar_url: string | null;
+}
+
+const rowToRecord = (row: TopicRow, creator?: TopicCreator): TopicRecord => {
   const game = normalizeConversationGame({
     testID: row.id,
     app: {
@@ -28,6 +33,13 @@ const rowToRecord = (row: TopicRow): TopicRecord => {
     theme: { categories: row.categories },
     questions: row.questions,
   });
+
+  if (creator) {
+    game.creator = {
+      displayName: creator.display_name,
+      avatarUrl: creator.avatar_url,
+    };
+  }
 
   return {
     id: row.id,
@@ -115,7 +127,19 @@ export class SupabaseTopicRepository implements MutableTopicRepository {
 
       const { data, error } = await query;
       if (error) throw error;
-      return data.map(rowToRecord);
+
+      if (options.scope === "mine" || options.scope === "review" || data.length === 0) {
+        return data.map((row) => rowToRecord(row));
+      }
+
+      const ownerIds = Array.from(new Set(data.map((row) => row.owner_id)));
+      const { data: creators, error: creatorsError } = await client
+        .from("profiles")
+        .select("id, display_name, avatar_url")
+        .in("id", ownerIds);
+      if (creatorsError) throw creatorsError;
+      const creatorsById = new Map(creators.map((creator) => [creator.id, creator]));
+      return data.map((row) => rowToRecord(row, creatorsById.get(row.owner_id)));
     } catch (error) {
       if (error instanceof TopicRepositoryError) throw error;
       throw new TopicRepositoryError("Could not load user topics.", error);

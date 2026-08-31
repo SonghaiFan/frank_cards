@@ -845,6 +845,15 @@ body {
   cursor: wait;
 }
 
+.account-toolbar-avatar {
+  width: 1.55rem;
+  height: 1.55rem;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  object-fit: cover;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--material-ink) 16%, transparent);
+}
+
 .account-toolbar-spinner {
   display: block;
   width: 0.9rem;
@@ -882,6 +891,13 @@ body {
   outline-offset: 3px;
 }
 
+.account-profile-save:focus-visible,
+.account-avatar-upload:focus-within,
+.pack-like-button:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--material-ink) 62%, transparent);
+  outline-offset: 3px;
+}
+
 .account-overlay {
   position: fixed;
   inset: 0;
@@ -911,6 +927,69 @@ body {
     0 2px 4px var(--material-edge-highlight-strong) inset,
     0 24px 56px rgba(20, 20, 18, 0.22),
     0 48px 96px rgba(20, 20, 18, 0.14);
+}
+
+.account-auth-sheet {
+  display: grid;
+  width: min(100%, 58rem);
+  grid-template-columns: minmax(18rem, 0.9fr) minmax(24rem, 1.1fr);
+  overflow: hidden;
+}
+
+.account-auth-benefits {
+  display: flex;
+  min-height: 35rem;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 1.15rem;
+  padding: clamp(2rem, 5vw, 3.25rem);
+  color: var(--material-surface);
+  background:
+    radial-gradient(circle at 18% 16%, color-mix(in srgb, #e1654d 72%, transparent) 0 6%, transparent 7%),
+    radial-gradient(circle at 82% 28%, color-mix(in srgb, #e8ab37 72%, transparent) 0 9%, transparent 10%),
+    var(--material-ink);
+}
+
+.account-auth-benefits .account-kicker,
+.account-auth-benefits p {
+  color: color-mix(in srgb, var(--material-surface) 72%, transparent);
+}
+
+.account-auth-benefits h3 {
+  max-width: 9ch;
+  margin: 0;
+  font-size: clamp(2.3rem, 4vw, 3.8rem);
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  line-height: 0.94;
+}
+
+.account-auth-benefits ul {
+  display: grid;
+  gap: 0.85rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.account-auth-benefits li {
+  display: grid;
+  grid-template-columns: 1.4rem 1fr;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.92rem;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+.account-auth-flow {
+  min-width: 0;
+  overflow: auto;
+}
+
+.account-auth-flow .account-sheet-copy {
+  min-height: 35rem;
+  justify-content: center;
 }
 
 .account-panel-loading {
@@ -1214,6 +1293,117 @@ body {
 
 .account-topics-header h2 {
   max-width: none;
+}
+
+.account-profile-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  border-radius: 1.2rem;
+  background: color-mix(in srgb, var(--material-input) 72%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--material-surface) 65%, transparent);
+}
+
+.account-profile-avatar-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.account-profile-avatar {
+  display: grid;
+  width: 5.25rem;
+  height: 5.25rem;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 999px;
+  color: var(--material-surface);
+  background: var(--material-ink);
+  font-size: 2rem;
+  font-weight: 900;
+  box-shadow: 0 8px 20px var(--material-shadow-mid);
+}
+
+.account-profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.account-avatar-upload {
+  position: relative;
+  display: inline-flex;
+  min-height: 2.2rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border-radius: 999px;
+  padding: 0.5rem 0.7rem;
+  color: var(--material-ink);
+  background: var(--paper-card);
+  font-size: 0.75rem;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 3px 10px var(--material-shadow-soft);
+}
+
+.account-avatar-upload input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.account-profile-form {
+  display: grid;
+  min-width: 0;
+  gap: 0.85rem;
+}
+
+.account-profile-form h3 {
+  margin: 0;
+  color: var(--material-ink);
+  font-size: 1.15rem;
+  font-weight: 850;
+  letter-spacing: -0.025em;
+}
+
+.account-profile-form > div > p {
+  margin-top: 0.25rem;
+  font-size: 0.82rem;
+}
+
+.account-profile-save {
+  display: inline-flex;
+  min-height: 2.55rem;
+  align-items: center;
+  justify-content: center;
+  justify-self: start;
+  gap: 0.45rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.65rem 1rem;
+  color: var(--material-surface);
+  background: var(--material-ink);
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.account-profile-save:active {
+  transform: translateY(1px) scale(0.985);
+}
+
+.account-profile-save:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
 }
 
 .account-topics-content {
@@ -1538,6 +1728,106 @@ body {
   color: var(--material-surface);
   background: var(--material-ink);
   box-shadow: 0 4px 12px var(--material-shadow-soft);
+}
+
+.custom-mode-unlock-hint {
+  max-width: 34ch;
+  margin: 0;
+  opacity: 0.72;
+  font-size: 0.82rem;
+  font-weight: 650;
+  line-height: 1.45;
+  text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .custom-mode-unlock-hint {
+    text-align: right;
+  }
+}
+
+.pack-like-button {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 30;
+  display: inline-flex;
+  min-width: 2.75rem;
+  min-height: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.38rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.45rem 0.7rem;
+  color: var(--material-muted-ink);
+  background: color-mix(in srgb, var(--material-surface) 84%, transparent);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 850;
+  cursor: pointer;
+  box-shadow: 0 4px 12px var(--material-shadow-soft);
+  transition: transform 180ms ease, color 180ms ease, background-color 180ms ease;
+}
+
+.pack-like-button:hover {
+  transform: translateY(-1px);
+  color: var(--material-ink);
+}
+
+.pack-like-button:active {
+  transform: translateY(1px) scale(0.96);
+}
+
+.pack-like-button.is-liked {
+  color: #b52f43;
+  background: color-mix(in srgb, #f3d7dc 88%, var(--material-surface));
+}
+
+.pack-like-button.has-error {
+  box-shadow: 0 0 0 2px var(--material-error);
+}
+
+.pack-like-button:disabled {
+  cursor: wait;
+  opacity: 0.58;
+}
+
+.pack-creator {
+  display: inline-flex;
+  max-width: calc(100% - 2rem);
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.75rem;
+  color: var(--material-muted-ink);
+  font-size: 0.72rem;
+  font-weight: 750;
+}
+
+.pack-creator > span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pack-creator-avatar {
+  display: grid;
+  width: 1.35rem;
+  height: 1.35rem;
+  flex: 0 0 auto;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 999px;
+  color: var(--material-surface);
+  background: var(--material-ink);
+  font-size: 0.62rem;
+  font-weight: 900;
+}
+
+.pack-creator-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .account-topic-studio-sheet {
@@ -2507,6 +2797,30 @@ body {
 }
 
 @media (max-width: 639px) {
+  .account-auth-sheet {
+    display: block;
+    width: min(100%, 31rem);
+  }
+
+  .account-auth-benefits {
+    min-height: auto;
+    padding: 2rem 2rem 1.5rem;
+  }
+
+  .account-auth-benefits h3 {
+    max-width: 12ch;
+    font-size: 2.25rem;
+  }
+
+  .account-auth-benefits > p:not(.account-kicker),
+  .account-auth-benefits ul {
+    display: none;
+  }
+
+  .account-auth-flow .account-sheet-copy {
+    min-height: auto;
+  }
+
   .topic-studio-header {
     grid-template-columns: auto minmax(0, 1fr) auto;
     gap: 0.65rem;
@@ -2589,6 +2903,15 @@ body {
   .account-topic-row dl {
     grid-template-columns: 1fr;
   }
+
+  .account-profile-card {
+    grid-template-columns: 1fr;
+  }
+
+  .account-profile-avatar-wrap {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2604,6 +2927,9 @@ body {
   .admin-review-actions button,
   .admin-review-reason button,
   .custom-library-collections button,
+  .account-profile-save,
+  .account-avatar-upload,
+  .pack-like-button,
   .account-topic-skeletons span {
     transition: none;
     animation: none;

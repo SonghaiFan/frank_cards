@@ -9,8 +9,10 @@ import {
 } from "react";
 import type { Session, User } from "@supabase/supabase-js";
 import { getSupabaseClient, isSupabaseConfigured } from "../data/supabase/client";
+import type { ProfileRow } from "../data/supabase/database.types";
 
 export type AuthStatus = "disabled" | "loading" | "anonymous" | "authenticated";
+export type UserProfile = Pick<ProfileRow, "id" | "display_name" | "avatar_url" | "created_at" | "updated_at">;
 
 interface AuthContextValue {
   status: AuthStatus;
@@ -20,13 +22,20 @@ interface AuthContextValue {
   isWorking: boolean;
   isPasswordRecovery: boolean;
   isAdmin: boolean;
+  profile: UserProfile | null;
+  profileError: string | null;
+  isProfileLoading: boolean;
+  isProfileWorking: boolean;
   clearError: () => void;
+  clearProfileError: () => void;
   signInWithPassword: (email: string, password: string) => Promise<void>;
   signUpWithPassword: (email: string, password: string) => Promise<boolean>;
   resendSignupConfirmation: (email: string) => Promise<void>;
   requestPasswordReset: (email: string) => Promise<void>;
   updatePassword: (password: string) => Promise<void>;
   finishPasswordRecovery: () => void;
+  updateProfile: (displayName: string) => Promise<void>;
+  uploadAvatar: (file: File) => Promise<void>;
   signOut: () => Promise<void>;
 }
 
@@ -44,6 +53,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isWorking, setIsWorking] = useState(false);
   const [isPasswordRecovery, setIsPasswordRecovery] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [profileError, setProfileError] = useState<string | null>(null);
+  const [isProfileLoading, setIsProfileLoading] = useState(false);
+  const [isProfileWorking, setIsProfileWorking] = useState(false);
 
   useEffect(() => {
     if (!configured) return;
@@ -107,7 +120,55 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, [configured, session?.user.id]);
 
+  useEffect(() => {
+    const userId = session?.user.id;
+    if (!configured || !userId) {
+      setProfile(null);
+      setProfileError(null);
+      setIsProfileLoading(false);
+      return;
+    }
+
+    let cancelled = false;
+    setIsProfileLoading(true);
+    setProfileError(null);
+
+    getSupabaseClient()
+      .then(async (client) => {
+        const { data, error: profileLoadError } = await client
+          .from("profiles")
+          .select("id, display_name, avatar_url, created_at, updated_at")
+          .eq("id", userId)
+          .maybeSingle();
+        if (profileLoadError) throw profileLoadError;
+
+        if (data) return data;
+
+        const { data: createdProfile, error: profileCreateError } = await client
+          .from("profiles")
+          .insert({ id: userId })
+          .select("id, display_name, avatar_url, created_at, updated_at")
+          .single();
+        if (profileCreateError) throw profileCreateError;
+        return createdProfile;
+      })
+      .then((nextProfile) => {
+        if (!cancelled) setProfile(nextProfile);
+      })
+      .catch((profileLoadError) => {
+        if (!cancelled) setProfileError(readableAuthError(profileLoadError));
+      })
+      .finally(() => {
+        if (!cancelled) setIsProfileLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [configured, session?.user.id]);
+
   const clearError = useCallback(() => setError(null), []);
+  const clearProfileError = useCallback(() => setProfileError(null), []);
 
   const signInWithPassword = useCallback(async (email: string, password: string) => {
     if (!configured) {
@@ -232,6 +293,65 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setError(null);
   }, []);
 
+  const updateProfile = useCallback(async (displayName: string) => {
+    const userId = session?.user.id;
+    const normalizedName = displayName.trim();
+    if (!configured || !userId || !normalizedName) return;
+
+    setIsProfileWorking(true);
+    setProfileError(null);
+    try {
+      const client = await getSupabaseClient();
+      const { data, error: profileUpdateError } = await client
+        .from("profiles")
+        .update({ display_name: normalizedName.slice(0, 80) })
+        .eq("id", userId)
+        .select("id, display_name, avatar_url, created_at, updated_at")
+        .single();
+      if (profileUpdateError) throw profileUpdateError;
+      setProfile(data);
+    } catch (profileUpdateError) {
+      setProfileError(readableAuthError(profileUpdateError));
+      throw profileUpdateError;
+    } finally {
+      setIsProfileWorking(false);
+    }
+  }, [configured, session?.user.id]);
+
+  const uploadAvatar = useCallback(async (file: File) => {
+    const userId = session?.user.id;
+    if (!configured || !userId) return;
+    if (!file.type.startsWith("image/")) throw new Error("Choose an image file.");
+    if (file.size > 2 * 1024 * 1024) throw new Error("Avatar images must be 2 MB or smaller.");
+
+    setIsProfileWorking(true);
+    setProfileError(null);
+    try {
+      const client = await getSupabaseClient();
+      const avatarPath = `${userId}/avatar`;
+      const { error: uploadError } = await client.storage
+        .from("avatars")
+        .upload(avatarPath, file, { contentType: file.type, upsert: true });
+      if (uploadError) throw uploadError;
+
+      const { data: publicAvatar } = client.storage.from("avatars").getPublicUrl(avatarPath);
+      const avatarUrl = `${publicAvatar.publicUrl}?v=${Date.now()}`;
+      const { data, error: profileUpdateError } = await client
+        .from("profiles")
+        .update({ avatar_url: avatarUrl })
+        .eq("id", userId)
+        .select("id, display_name, avatar_url, created_at, updated_at")
+        .single();
+      if (profileUpdateError) throw profileUpdateError;
+      setProfile(data);
+    } catch (avatarError) {
+      setProfileError(readableAuthError(avatarError));
+      throw avatarError;
+    } finally {
+      setIsProfileWorking(false);
+    }
+  }, [configured, session?.user.id]);
+
   const signOut = useCallback(async () => {
     if (!configured) return;
 
@@ -244,6 +364,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setSession(null);
       setStatus("anonymous");
       setIsPasswordRecovery(false);
+      setProfile(null);
     } catch (signOutError) {
       setError(readableAuthError(signOutError));
       throw signOutError;
@@ -260,28 +381,42 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     isWorking,
     isPasswordRecovery,
     isAdmin,
+    profile,
+    profileError,
+    isProfileLoading,
+    isProfileWorking,
     clearError,
+    clearProfileError,
     signInWithPassword,
     signUpWithPassword,
     resendSignupConfirmation,
     requestPasswordReset,
     updatePassword,
     finishPasswordRecovery,
+    updateProfile,
+    uploadAvatar,
     signOut,
   }), [
     clearError,
+    clearProfileError,
     error,
     finishPasswordRecovery,
     isAdmin,
+    isProfileLoading,
+    isProfileWorking,
     isWorking,
     isPasswordRecovery,
     requestPasswordReset,
     resendSignupConfirmation,
     session,
+    profile,
+    profileError,
     signInWithPassword,
     signOut,
     signUpWithPassword,
     status,
+    updateProfile,
+    uploadAvatar,
     updatePassword,
   ]);
 

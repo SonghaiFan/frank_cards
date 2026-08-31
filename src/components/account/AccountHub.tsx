@@ -40,13 +40,14 @@ function PanelLoadingFallback({ alignEnd, onClose }: PanelLoadingFallbackProps) 
 }
 
 interface AccountHubProps {
+  authDialogRequest: number;
   onTopicsChanged: () => void;
   onUseTopic: (game: ConversationGame) => void;
 }
 
-export default function AccountHub({ onTopicsChanged, onUseTopic }: AccountHubProps) {
+export default function AccountHub({ authDialogRequest, onTopicsChanged, onUseTopic }: AccountHubProps) {
   const { t } = useTranslation();
-  const { isAdmin, isPasswordRecovery, status } = useAuth();
+  const { isAdmin, isPasswordRecovery, profile, status } = useAuth();
   const [openPanel, setOpenPanel] = useState<"admin" | "auth" | "topics" | null>(null);
   const closePanel = useCallback(() => setOpenPanel(null), []);
   const authenticated = status === "authenticated" && !isPasswordRecovery;
@@ -54,6 +55,10 @@ export default function AccountHub({ onTopicsChanged, onUseTopic }: AccountHubPr
   useEffect(() => {
     if (isPasswordRecovery) setOpenPanel("auth");
   }, [isPasswordRecovery]);
+
+  useEffect(() => {
+    if (authDialogRequest > 0 && status !== "authenticated") setOpenPanel("auth");
+  }, [authDialogRequest, status]);
 
   return (
     <>
@@ -86,8 +91,12 @@ export default function AccountHub({ onTopicsChanged, onUseTopic }: AccountHubPr
               aria-haspopup="dialog"
               aria-label={authenticated ? t("account.myTopics") : t("account.signIn")}
             >
-              <FontAwesomeIcon icon={faUser} />
-              <span>{authenticated ? t("account.myTopics") : t("account.signIn")}</span>
+              {authenticated && profile?.avatar_url ? (
+                <img className="account-toolbar-avatar" src={profile.avatar_url} alt="" />
+              ) : (
+                <FontAwesomeIcon icon={faUser} />
+              )}
+              <span>{authenticated ? profile?.display_name || t("account.myTopics") : t("account.signIn")}</span>
             </button>
           </>
         )}
