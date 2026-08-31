@@ -9,6 +9,16 @@
     "save": "保存",
     "start": "开始"
   },
+  "cardEnergy": {
+    "bouba": {
+      "label": "展开",
+      "description": "通过好奇、细节和故事，让对话自然打开。"
+    },
+    "kiki": {
+      "label": "刺入",
+      "description": "点出张力或矛盾，穿过那些排练过的答案。"
+    }
+  },
   "account": {
     "toolbarLabel": "主题、语言与账号",
     "switchToDark": "切换到深色模式",
@@ -18,7 +28,7 @@
     "signInTitle": "把你的话题留在身边",
     "signInBody": "登录后可以创建、使用并保存你自己的对话话题。",
     "createAccountTitle": "创建 FrankCards 账号",
-    "createAccountBody": "你的草稿默认保持私密，只有你主动发布后才会公开。",
+    "createAccountBody": "先创建私密草稿，完成后可以提交 Community 审核。",
     "emailLabel": "邮箱",
     "emailPlaceholder": "you@example.com",
     "passwordLabel": "密码",
@@ -30,6 +40,7 @@
     "needAccount": "第一次来？创建账号",
     "confirmEmailTitle": "验证你的邮箱",
     "confirmEmailBody": "验证链接已经发送到 {{email}}。打开邮件完成验证后，再回来登录。",
+    "emailDeliveryHint": "还没看到？请检查垃圾邮件或 Spam，并搜索“FrankCards”或 hello@frankcards.songhai.one。",
     "backToSignIn": "返回登录",
     "resendConfirmation": "重新发送验证邮件",
     "resendingConfirmation": "正在重新发送",
@@ -56,7 +67,7 @@
     "notConnectedBody": "内置话题可以正常使用。连接 Supabase 后，就能开启登录和个人话题。",
     "keepExploring": "继续看看",
     "myTopics": "我的话题",
-    "myTopicsBody": "你的私密草稿和已发布话题都会放在这里。",
+    "myTopicsBody": "在这里创建私密草稿、提交审核，并管理你的 Community 卡包。",
     "createTopic": "创建话题",
     "createTopicTitle": "开始一个新话题",
     "createTopicBody": "先写下名字和一个真正想问的问题，以后再慢慢补充。",
@@ -65,7 +76,7 @@
     "firstQuestionLabel": "第一个问题",
     "audienceLabel": "适合人群",
     "languageLabel": "语言",
-    "draftNote": "新话题默认为私密草稿，除非你主动发布。",
+    "draftNote": "新话题默认为私密草稿，提交 Community 审核后才可能公开。",
     "cancel": "取消",
     "createDraft": "创建草稿",
     "creating": "正在创建",
@@ -84,6 +95,12 @@
     "justNow": "刚刚",
     "useTopic": "使用这个话题",
     "editTopic": "编辑",
+    "submitForReview": "提交审核",
+    "withdrawReview": "撤回审核",
+    "unpublish": "从 Community 下架",
+    "workflowWorking": "正在更新",
+    "workflowError": "暂时无法更新 Community 状态。",
+    "rejectionReason": "审核意见：{{reason}}",
     "studioCreating": "新建对话包",
     "studioEditing": "编辑对话包",
     "studioSave": "保存对话包",
@@ -136,6 +153,7 @@
       "ending": "结束"
     },
     "studioPackType": "对话包类型",
+    "studioCardEnergy": "对话能量",
     "studioOpening": "开始界面",
     "studioOpeningTitle": "开始标题",
     "studioOpeningDescription": "开始介绍",
@@ -158,7 +176,9 @@
     "signOut": "退出登录",
     "status": {
       "draft": "草稿",
+      "pending_review": "等待审核",
       "published": "已发布",
+      "rejected": "需要修改",
       "archived": "已归档"
     },
     "audience": {
@@ -171,6 +191,23 @@
       "dating": "约会",
       "partners": "伴侣"
     }
+  },
+  "admin": {
+    "toolbar": "审核",
+    "reviewTitle": "Community 审核",
+    "reviewBody": "先预览用户提交的卡包，再决定是否向所有人开放。",
+    "reviewLoading": "正在载入审核队列",
+    "reviewLoadError": "暂时无法载入审核队列。",
+    "reviewActionError": "暂时无法保存审核结果。",
+    "reviewEmptyTitle": "暂时没有待审核内容",
+    "reviewEmptyBody": "新的提交会出现在这里。",
+    "reviewMeta": "{{count}} 张卡片 · {{language}}",
+    "preview": "预览",
+    "approve": "批准上架",
+    "reject": "要求修改",
+    "rejectionReason": "需要修改什么？",
+    "rejectionReasonPlaceholder": "给创作者一个具体、有用的原因。",
+    "confirmReject": "发送审核意见"
   },
   "navigation": {
     "keyboardHints": "←→ 导航 • ↑↓ 翻转卡片查看更多 • Esc 退出"
@@ -190,6 +227,7 @@
     "allGroups": "全部群组",
     "filterByType": "按类型筛选",
     "filterByGroup": "按群组筛选",
+    "packProgress": "对话包第 {{current}} / {{total}} 个",
     "premiumUnlocked": "✨ 高级内容已解锁！",
     "type": {
       "normal": "常规",
@@ -257,6 +295,10 @@
   "customMode": {
     "title": "想聊点不一样的",
     "subtitle": "自定义模式",
-    "description": "选择多个对话包，通过组合创造独特的对话体验。"
+    "description": "选择多个对话包，通过组合创造独特的对话体验。",
+    "collectionLabel": "对话包来源",
+    "official": "官方",
+    "community": "Community",
+    "communityEmpty": "暂时还没有通过审核的 Community 卡包。"
   }
 }

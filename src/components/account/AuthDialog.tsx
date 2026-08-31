@@ -228,6 +228,7 @@ export default function AuthDialog({ onClose }: AuthDialogProps) {
                 <span className="account-confirmation-icon" aria-hidden="true"><FontAwesomeIcon icon={faEnvelope} /></span>
                 <h2 id="account-auth-title">{t("account.confirmEmailTitle")}</h2>
                 <p>{t("account.confirmEmailBody", { email })}</p>
+                <p className="account-delivery-hint">{t("account.emailDeliveryHint")}</p>
                 {renderMessage()}
                 <button
                   className="account-primary-button"
@@ -256,6 +257,7 @@ export default function AuthDialog({ onClose }: AuthDialogProps) {
                 <span className="account-confirmation-icon" aria-hidden="true"><FontAwesomeIcon icon={faEnvelope} /></span>
                 <h2 id="account-auth-title">{t("account.resetEmailTitle")}</h2>
                 <p>{t("account.resetEmailBody", { email })}</p>
+                <p className="account-delivery-hint">{t("account.emailDeliveryHint")}</p>
                 <button className="account-primary-button" type="button" onClick={() => switchMode("signIn")}>
                   {t("account.backToSignIn")}
                 </button>

@@ -2,23 +2,25 @@
   "testID": "long-distance",
   "app": {
     "title": "异地恋",
-    "subtitle": "15个让爱零距离的深度提问",
+    "subtitle": "15个让彼此保持靠近的问题",
     "language": "chinese",
     "type": "edition",
-    "playerGroup": ["couple"]
+    "playerGroup": [
+      "couple"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "异地恋",
       "description": [
-        "15个让物理距离不再成为心距离的对话指南",
-        "为你们的下一次通话量身定制"
+        "可以在通话中回答，也可以分几天慢慢聊。",
+        "分享生活细节，不要只交换重大近况。"
       ],
       "startButton": "开始对话"
     },
     "endScreen": {
       "title": "下次通话预告",
-      "subtitle": "山海相隔，心意相通",
+      "subtitle": "当好奇停止，距离才真正变成缺席。",
       "restartButton": "重新开始"
     }
   },
@@ -37,63 +39,78 @@
       "questions": [
         {
           "type": "open",
-          "question": "最近有什么让你上头的新爱好？"
+          "question": "最近有什么让你上头的新爱好？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你方圆三公里内最治愈的角落是哪里？"
+          "question": "你方圆三公里内最治愈的角落是哪里？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "这周有什么让你忍不住吐槽的事？"
+          "question": "这周有什么让你忍不住吐槽的事？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "最近和谁产生了新的羁绊？"
+          "question": "最近和谁产生了新的羁绊？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你最近怎么度过你的早晨？"
+          "question": "你最近怎么度过你的早晨？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "最近哪件事让你笑出声？为什么？"
+          "question": "最近哪件事让你笑出声？为什么？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "最近有什么好消息？无论大小"
+          "question": "最近有什么好消息？无论大小",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你最近发呆时都在幻想什么？"
+          "question": "你最近发呆时都在幻想什么？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "最近在挑战什么新事物？"
+          "question": "最近在挑战什么新事物？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你的摆烂专属食谱是什么？"
+          "question": "你的摆烂专属食谱是什么？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "分享相册里最放飞自我的那张照片"
+          "question": "分享相册里最放飞自我的那张照片",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你最近对什么改观了？为什么？"
+          "question": "你最近对什么改观了？为什么？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "约定本周一起看的电影，并设置观影讨论时间"
+          "question": "约定本周一起看的电影，并设置观影讨论时间",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "什么小物件会让你突然想起我？"
+          "question": "什么小物件会让你突然想起我？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "最想一起做的事？现在我们可以怎么实现？"
+          "question": "最想一起做的事？现在我们可以怎么实现？",
+          "energy": "kiki"
         }
       ]
     }

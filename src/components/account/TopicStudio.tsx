@@ -10,6 +10,7 @@ import {
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 import Card from "../Card";
+import CardEnergyIcon from "../CardEnergyIcon";
 import { useAppTheme } from "../../hooks/useAppTheme";
 import {
   PLAYER_GROUPS,
@@ -18,6 +19,7 @@ import {
   type ConversationGameType,
   type PlayerGroup,
   type Question,
+  type QuestionEnergy,
   type QuestionType,
 } from "../../types/ConversationGame";
 import {
@@ -44,6 +46,7 @@ interface StudioCard {
   id: string;
   category: string;
   type: QuestionType;
+  energy: QuestionEnergy;
   question: string;
   more?: Question["more"];
 }
@@ -68,6 +71,7 @@ interface StudioDraft {
 
 const COLOR_SWATCHES = ["#20201e", "#d96c4f", "#e5ad45", "#7d9b76", "#6f91bb", "#9a78ad"];
 const EDITABLE_QUESTION_TYPES: Exclude<QuestionType, "discussion">[] = ["open", "wildcard", "end"];
+const CARD_ENERGIES: QuestionEnergy[] = ["bouba", "kiki"];
 
 let localCardSequence = 0;
 const createLocalCardId = (): string => `studio-card-${Date.now()}-${localCardSequence++}`;
@@ -115,6 +119,7 @@ const createEmptyDraft = (language: TopicLanguage, t: (key: string) => string): 
       id: createLocalCardId(),
       category: "conversation",
       type: "open",
+      energy: "bouba",
       question: "",
     }],
     version: "1",
@@ -144,6 +149,7 @@ const draftFromTopic = (topic: TopicRecord): StudioDraft => ({
     id: createLocalCardId(),
     category: group.category,
     type: question.type === "discussion" ? "open" : (question.type ?? "open"),
+    energy: question.energy ?? "bouba",
     question: question.question,
     ...(question.more ? { more: Array.isArray(question.more) ? [...question.more] : { ...question.more } } : {}),
   }))),
@@ -213,6 +219,7 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
       id: createLocalCardId(),
       category,
       type: "open",
+      energy: "bouba",
       question: "",
     };
     setDraft((current) => ({ ...current, cards: [...current.cards, card] }));
@@ -272,6 +279,7 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
         category,
         questions: categoryCards.map((card): Question => ({
           type: card.type,
+          energy: card.energy,
           question: card.question.trim(),
           ...(card.more ? { more: card.more } : {}),
         })),
@@ -325,8 +333,8 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
       await onSave({
         game: buildGame(),
         language: draft.language,
-        status: topic?.status ?? "draft",
-        visibility: topic?.visibility ?? "private",
+        status: "draft",
+        visibility: "private",
       });
     } catch (saveError) {
       setError(saveError instanceof Error ? saveError.message : t("account.studioSaveError"));
@@ -595,6 +603,7 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
               <div className="topic-studio-card-meta" style={{ color: surfaceTheme.uiColor }}>
                 <span>{activeCategory?.name}</span>
                 <span>{t(`account.questionType.${activeCard.type}`)}</span>
+                <span>{t(`cardEnergy.${activeCard.energy}.label`)}</span>
               </div>
 
               <div className="topic-studio-card-perspective">
@@ -610,6 +619,11 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
                     style={{ backgroundColor: surfaceTheme.cardColor }}
                     aria-hidden={isFlipped}
                   >
+                    <CardEnergyIcon
+                      className="topic-studio-card-energy-icon"
+                      energy={activeCard.energy}
+                      style={{ color: surfaceTheme.cardTextColor }}
+                    />
                     <textarea
                       value={activeCard.question}
                       onChange={(event) => updateActiveCard({ question: event.target.value })}
@@ -628,6 +642,11 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
                     style={{ backgroundColor: surfaceTheme.cardColor }}
                     aria-hidden={!isFlipped}
                   >
+                    <CardEnergyIcon
+                      className="topic-studio-card-energy-icon"
+                      energy={activeCard.energy}
+                      style={{ color: surfaceTheme.cardTextColor }}
+                    />
                     <textarea
                       value={moreToText(activeCard.more)}
                       onChange={(event) => updateActiveCard({ more: textToMore(event.target.value) })}
@@ -702,6 +721,26 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
                 </div>
                 <p className="topic-studio-type-description">
                   {t(`account.questionTypeDescription.${activeCard.type}`)}
+                </p>
+              </section>
+
+              <section className="topic-studio-inspector-section">
+                <h3>{t("account.studioCardEnergy")}</h3>
+                <div className="topic-studio-type-grid">
+                  {CARD_ENERGIES.map((energy) => (
+                    <button
+                      key={energy}
+                      type="button"
+                      className={activeCard.energy === energy ? "is-selected" : ""}
+                      onClick={() => updateActiveCard({ energy })}
+                    >
+                      <CardEnergyIcon decorative energy={energy} />
+                      <span>{t(`cardEnergy.${energy}.label`)}</span>
+                    </button>
+                  ))}
+                </div>
+                <p className="topic-studio-type-description">
+                  {t(`cardEnergy.${activeCard.energy}.description`)}
                 </p>
               </section>
 

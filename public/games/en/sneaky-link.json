@@ -1,32 +1,27 @@
 {
   "testID": "sneaky-link",
   "app": {
-    "title": "Sneaky Link 💦💦💦",
-    "subtitle": "A questions game for you and your sneaky link.",
+    "title": "Sneaky Link",
+    "subtitle": "15 questions about desire and a casual connection",
     "language": "english",
     "type": "premium",
-    "playerGroup": ["couple", "friends"]
+    "playerGroup": [
+      "couple",
+      "friends"
+    ]
   },
   "ui": {
     "startScreen": {
-      "title": "Sneaky Link 💦💦💦",
+      "title": "Sneaky Link",
       "description": [
-        "What is a Sneaky Link?",
-        "When you and another person are fucking up but don't want anyone to know about it.",
-        "You wanna be my Sneaky Link or sum?",
-        "",
-        "Instructions:",
-        "This is a questions game to play with your sneaky link. There are only 2 rules:",
-        "1. Be honest.",
-        "2. The person who sent the last 'u up?' text goes first.",
-        "",
-        "Warning: This may be the most you've ever talked to them."
+        "Take turns and be direct about what you want.",
+        "Nothing shared here creates permission or obligation later."
       ],
       "startButton": "Start"
     },
     "endScreen": {
       "title": "Are you awake right now?",
-      "subtitle": "Read 1:43 AM",
+      "subtitle": "Keep the desire. Lose the part that depends on pretending not to care.",
       "restartButton": "Send 'u up?'"
     }
   },
@@ -55,11 +50,13 @@
       "questions": [
         {
           "type": "open",
-          "question": "What did you think I would be like in bed? What am I actually like?"
+          "question": "What did you expect our chemistry to feel like, and what surprised you?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What would you assume about me based off of my social media?"
+          "question": "What does my online version get wrong about me?",
+          "energy": "kiki"
         }
       ]
     },
@@ -68,47 +65,58 @@
       "questions": [
         {
           "type": "open",
-          "question": "What's my name in your contacts?"
+          "question": "What name do you use for me in your phone, and what does it hide or reveal?",
+          "energy": "bouba"
         },
         {
           "type": "wildcard",
-          "question": "WILDCARD: If we had to try something new tonight, what would it be? Bonus: Do it."
+          "question": "Name one new thing you would genuinely like to discuss trying. Discussion is the whole dare.",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What's the best text you could receive from me?"
+          "question": "What message from me would make you want to clear your evening?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What is the latest time you would respond to a 'u up?' text from me?"
+          "question": "When does a late-night message feel exciting, and when does it feel careless?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "My place or your place?"
+          "question": "What makes a place feel safe enough for desire, yours or mine?",
+          "energy": "bouba"
         },
         {
           "type": "wildcard",
-          "question": "WILDCARD: What's your favorite part of my body? Prove it."
+          "question": "Name one part of me you are drawn to. Ask before turning the answer into touch.",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "When do you think about me most?"
+          "question": "When do I enter your mind without being invited?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What's something about you that might surprise me?"
+          "question": "What part of your desire do you usually make smaller when talking about it?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What am I good at? (Describe in detail)"
+          "question": "What do I do well that is not only physical?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What is your current go-to late night snack?"
+          "question": "What is your honest post-midnight comfort food?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "When I show up, what outfit do you like to see me in?"
+          "question": "What do you like seeing me wear, and what story does it create for you?",
+          "energy": "kiki"
         }
       ]
     },
@@ -117,11 +125,13 @@
       "questions": [
         {
           "type": "wildcard",
-          "question": "WILDCARD: Come up with a secret code word/phrase to text each other."
+          "question": "Invent a code phrase that means: I want you, and I still want a clear yes.",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Why do you keep coming back?"
+          "question": "Why do you return, beyond convenience and chemistry?",
+          "energy": "kiki"
         }
       ]
     }

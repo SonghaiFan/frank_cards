@@ -2,24 +2,26 @@
   "testID": "how-you-dare",
   "app": {
     "title": "你敢吗",
-    "subtitle": "终极通配符大挑战",
+    "subtitle": "15个适合朋友一起玩的挑战",
     "language": "chinese",
     "type": "premium",
-    "playerGroup": ["friends", "strangers"]
+    "playerGroup": [
+      "friends",
+      "strangers"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "你敢吗",
       "description": [
-        "欢迎来到舒适区的边缘。",
-        "每一张卡片都是一个挑战。",
-        "只有勇敢者才能继续前进。"
+        "轮流抽取挑战。",
+        "未经同意，不发帖、不触碰、不发消息，也不把其他人卷进来。"
       ],
       "startButton": "接受挑战"
     },
     "endScreen": {
       "title": "你存活了下来",
-      "subtitle": "你赢得了吹牛的资本",
+      "subtitle": "你是主动让自己显得荒唐的。这其实是一种很体面的能力。",
       "restartButton": "再次挑战"
     }
   },
@@ -53,19 +55,23 @@
       "questions": [
         {
           "type": "wildcard",
-          "question": "用肢体动作即兴表演30秒“一块刚炸好的鸡”。"
+          "question": "即兴表演30秒：一块炸鸡突然发现自己拥有自由意志。",
+          "energy": "bouba"
         },
         {
           "type": "wildcard",
-          "question": "摆出一个极高冷的时尚造型并保持到下一轮。"
+          "question": "摆出一个严肃到荒唐的时尚造型，保持到下一轮。",
+          "energy": "bouba"
         },
         {
           "type": "wildcard",
-          "question": "尝试用舌头舔到自己的手肘，在此期间要一直盯着左边人的眼睛。"
+          "question": "盯着左边人的眼睛，同时尝试完成一件无害但几乎不可能的小事。",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "做5个俯卧撑，每做一个都要大喊一声“我是冠军”。"
+          "question": "做五次慢动作夺冠庆祝。每做一次，由大家决定你赢的是什么项目。",
+          "energy": "bouba"
         }
       ]
     },
@@ -74,19 +80,23 @@
       "questions": [
         {
           "type": "wildcard",
-          "question": "打开窗户大喊一声“我发现了一个超级稀有的皮卡丘”。"
+          "question": "把房间里一件普通物品，当作突发新闻认真播报。",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "给联系人列表中倒数第5个人发一条消息：“我知道你对那个三明治做了什么。”"
+          "question": "写一条关于三明治的可疑消息，大声念出来，但不要真的发送。",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "在接下来的5分钟里，只能通过歌剧般的歌声来对话。"
+          "question": "接下来两轮，只能用歌剧腔说话。",
+          "energy": "bouba"
         },
         {
           "type": "wildcard",
-          "question": "让大家从你的相册里选一张照片，发在你的社交网络/朋友圈里，且不能有任何解释。"
+          "question": "让大家从你的相册里选一张你愿意只在现场展示的照片。",
+          "energy": "kiki"
         }
       ]
     },
@@ -95,19 +105,23 @@
       "questions": [
         {
           "type": "wildcard",
-          "question": "闻一下每个人的手，并从“最香”到“最值得怀疑”进行排名。"
+          "question": "根据每个人在这局里的表现，给所有人颁一个荒唐奖项。",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "看着右边人的眼睛，告诉他们如果他们是一种水果，会是什么，并给出极其详细的解释。"
+          "question": "告诉右边的人，哪种水果最像对方的气质，再像律师一样为答案辩护。",
+          "energy": "bouba"
         },
         {
           "type": "wildcard",
-          "question": "在某人耳边轻轻地低语你最喜欢的迪士尼电影标题。"
+          "question": "把你最不好意思承认的安慰电影，当成机密一样轻声说出来。",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "和离你最近的一个没生命的物体进行眼神对视。如果你眨眼了，就必须向它道歉。"
+          "question": "故意输给一个物体的凝视，然后认真向它道歉。",
+          "energy": "bouba"
         }
       ]
     },
@@ -116,15 +130,18 @@
       "questions": [
         {
           "type": "wildcard",
-          "question": "和在座的一位同伴互换一件衣服，直到游戏结束。"
+          "question": "和一位愿意参与的人交换一件可取下的配饰，保留到下一轮。",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "每个人喝一口水含在嘴里，你必须想尽办法让他们忍俊不禁噴出来。"
+          "question": "不碰任何人，也不使用他人的私人信息，把大家逗笑。",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "在这个房间里找到一个最奇怪的东西，像个绝望的电视直销主持人一样把它推销给在场所有人。"
+          "question": "推销房间里最奇怪的物品，表现得像今晚的房租全靠它。",
+          "energy": "bouba"
         }
       ]
     }

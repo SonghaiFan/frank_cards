@@ -2,24 +2,28 @@
   "testID": "gratitude-journal",
   "app": {
     "title": "Gratitude Journal",
-    "subtitle": "Shift your focus to the positive",
+    "subtitle": "10 questions about what supported you today",
     "language": "english",
     "type": "normal",
-    "playerGroup": ["solo", "friends", "family", "couples"]
+    "playerGroup": [
+      "solo",
+      "friends",
+      "family",
+      "couples"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "Gratitude Journal",
       "description": [
-        "Practicing gratitude has been shown to improve mental health and strengthen relationships.",
-        "Take a moment to appreciate the good in your life.",
-        "Share these with someone, or reflect on them yourself."
+        "Answer alone or share with someone else.",
+        "Notice the good without pretending the difficult parts were good too."
       ],
       "startButton": "Begin Reflection"
     },
     "endScreen": {
       "title": "Heart Full",
-      "subtitle": "Carrying a sense of gratitude can transform your perspective. Keep looking for the good.",
+      "subtitle": "Keep one thing you noticed. You do not have to turn the whole day into a lesson.",
       "restartButton": "Reflect Again"
     }
   },
@@ -38,43 +42,53 @@
       "questions": [
         {
           "type": "open",
-          "question": "What is a small thing that happened today that made you smile?"
+          "question": "What small moment made today slightly easier to inhabit?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Who is someone you are grateful to have in your life, and why?"
+          "question": "Who made room for you recently, and what did they make possible?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What is a challenge you've overcome that you are now thankful for?"
+          "question": "Which difficulty taught you something without needing to become a blessing?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What is a possession you own that makes your life easier or more enjoyable?"
+          "question": "What ordinary object quietly supports your life every day?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Describe a favorite memory that always brings you joy."
+          "question": "Which memory can still change the temperature of a bad day?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What is something about your body or health that you appreciate?"
+          "question": "What did your body carry you through today, even imperfectly?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What is a skill or talent you have that you are grateful for?"
+          "question": "Which ability do you rely on so often that you forget it is a strength?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What is something in nature that you find beautiful?"
+          "question": "What did you notice outside that asked nothing from you?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What is a lesson you learned recently that you value?"
+          "question": "What recent lesson cost enough that you do not want to waste it?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What is something you are looking forward to in the near future?"
+          "question": "What are you looking forward to that does not need to be impressive?",
+          "energy": "bouba"
         }
       ]
     }

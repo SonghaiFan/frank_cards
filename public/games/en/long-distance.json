@@ -2,23 +2,25 @@
   "testID": "long-distance",
   "app": {
     "title": "Long Distance",
-    "subtitle": "15 questions to keep you close, even when you're apart.",
+    "subtitle": "15 questions to keep you close while apart",
     "language": "english",
     "type": "normal",
-    "playerGroup": ["couple"]
+    "playerGroup": [
+      "couple"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "Long Distance",
       "description": [
-        "15 questions to keep you close, even when you're apart.",
-        "A minimalist, emotionally intimate set of prompts for your next call."
+        "Use these on a call or answer them throughout the week.",
+        "Share small details, not only major updates."
       ],
       "startButton": "Start"
     },
     "endScreen": {
       "title": "For Your Next Call",
-      "subtitle": "Reminder: Distance doesn't mean being disconnected.",
+      "subtitle": "Distance becomes absence when curiosity stops.",
       "restartButton": "Restart"
     }
   },
@@ -37,63 +39,78 @@
       "questions": [
         {
           "type": "open",
-          "question": "What are you newly obsessed with?"
+          "question": "What are you newly obsessed with?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Describe your favorite spots in your neighborhood."
+          "question": "Describe your favorite spots in your neighborhood.",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What pissed you off this week?"
+          "question": "What pissed you off this week?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Who have you grown closer to lately?"
+          "question": "Who have you grown closer to lately?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "How do you spend your mornings?"
+          "question": "How do you spend your mornings?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What made you laugh last? Why?"
+          "question": "What made you laugh last? Why?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Share some good news (big or small)."
+          "question": "Share some good news (big or small).",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What have you been daydreaming about?"
+          "question": "What have you been daydreaming about?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "How have you been challenging yourself lately?"
+          "question": "How have you been challenging yourself lately?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What do you eat when you're too tired to actually make anything?"
+          "question": "What do you eat when you're too tired to actually make anything?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Send a screenshot of the most unhinged part of your camera roll."
+          "question": "Send a screenshot of the most unhinged part of your camera roll.",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What have you changed your mind about? Why?"
+          "question": "What have you changed your mind about? Why?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Pick a movie you can both watch this week. Set a date to talk about it."
+          "question": "Pick a movie you can both watch this week. Set a date to talk about it.",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What little thing reminds you of me?"
+          "question": "What little thing reminds you of me?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What do you wish we could do together? What can we do instead?"
+          "question": "What do you wish we could do together? What can we do instead?",
+          "energy": "kiki"
         }
       ]
     }

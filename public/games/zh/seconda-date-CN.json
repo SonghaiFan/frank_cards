@@ -2,23 +2,26 @@
   "testID": "second-date",
   "app": {
     "title": "第二次约会",
-    "subtitle": "15个超越初印象的深度对话",
+    "subtitle": "15个走过第一印象的问题",
     "language": "chinese",
     "type": "edition",
-    "playerGroup": ["couple", "friends"]
+    "playerGroup": [
+      "couple",
+      "friends"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "第二次约会",
       "description": [
-        "已经聊过初次见面的寒暄",
-        "这15个问题带你走进彼此内心深处"
+        "轮流回答。",
+        "诚实就好，不必让每个答案都显得有趣。"
       ],
       "startButton": "开启对话"
     },
     "endScreen": {
       "title": "下次见面预告",
-      "subtitle": "让心与心的距离再近一些",
+      "subtitle": "如果还有下一次约会，就从这里变得更真实的地方继续。",
       "restartButton": "重新开始"
     }
   },
@@ -37,63 +40,78 @@
       "questions": [
         {
           "type": "open",
-          "question": "你维系最久的一段友谊是多久？"
+          "question": "你维系最久的一段友谊是多久？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "最想在哪里生活半年？为什么？"
+          "question": "最想在哪里生活半年？为什么？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "为这次约会做了哪些准备？"
+          "question": "为这次约会做了哪些准备？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "最近哪部电影让你看哭了？"
+          "question": "最近哪部电影让你看哭了？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "心情不好时怎么自我调节？"
+          "question": "心情不好时怎么自我调节？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "对你来说很重要的小事是什么？"
+          "question": "对你来说很重要的小事是什么？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你对现在的生活状态满意吗？"
+          "question": "你对现在的生活状态满意吗？",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "特别环节：请交换彼此的高中照片"
+          "question": "请交换彼此的高中照片",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你属于哪种类型的消息回复者？"
+          "question": "你属于哪种类型的消息回复者？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "周日最喜欢怎么过？"
+          "question": "周日最喜欢怎么过？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "上次心碎时怎么走出来的？"
+          "question": "上次心碎时怎么走出来的？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你更倾向深思熟虑还是随性而为？"
+          "question": "你更倾向深思熟虑还是随性而为？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "最近改变过什么固有认知？"
+          "question": "最近改变过什么固有认知？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "父母不知道的你的一面是？"
+          "question": "父母不知道的你的一面是？",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "特别环节：请同时回答是否期待第三次约会"
+          "question": "请同时回答是否期待第三次约会",
+          "energy": "kiki"
         }
       ]
     }

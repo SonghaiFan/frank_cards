@@ -8,7 +8,7 @@
 
 为伴侣、朋友、家人，以及刚刚认识的人准备的对话卡牌。
 
-[下载 FrankCards v2.0.0](https://github.com/SonghaiFan/frank_cards/releases/tag/v2.0.0) · [查看全部版本](https://github.com/SonghaiFan/frank_cards/releases) · **中文** / [English](public/README-EN.md)
+[在线使用](https://frank-cards.vercel.app/) · [下载 FrankCards v2.1.0](https://github.com/SonghaiFan/frank_cards/releases/tag/v2.1.0) · [查看全部版本](https://github.com/SonghaiFan/frank_cards/releases) · **中文** / [English](public/README-EN.md)
 
 </div>
 
@@ -17,6 +17,12 @@
 很多时候，我们不是没有话想说，只是不知道该从哪里开始。
 
 FrankCards 把精心设计的问题放进一场有节奏的卡牌体验里。选一个适合此刻的对话包，把屏幕放在两个人中间，然后从第一张卡开始。没有标准答案，也没有输赢；真正重要的是接下来发生的对话。
+
+## v2.1.0：温柔，也可以锋利
+
+这一版重新写了全部 22 组中英文内置卡包，让它们共享一套更直接、更诚实的 FrankCards 语气。每张问题卡现在带有两种对话能量：圆润的 **Bouba** 让人慢慢打开，尖锐的 **Kiki** 则负责戳破客套和假装。真正有意义的对话不应该只有安全、正确、无关痛痒的问题。
+
+自定义模式也加入了 **Official / Community** 两个空间。你可以创作、反复编辑自己的卡包；准备好后提交审核，通过的作品只会出现在自定义模式的 Community 中。管理员审核确保公开内容适合上架，同时保留创作者自己的声音。
 
 ## 它有什么不同 / What makes it different
 
@@ -58,7 +64,9 @@ FrankCards 把精心设计的问题放进一场有节奏的卡牌体验里。选
 
 有些对话只属于某段关系、某次旅行或某一个晚上。登录后，你可以创建自己的对话包，编辑封面、开始与结束界面，为问题添加背面提示，并用分类和颜色整理节奏。保存后仍然可以继续修改，或直接拿来使用。
 
-内置对话包无需登录即可使用；用户创建的话题会保存在自己的账号中。
+新卡包默认只属于你。想分享给其他人时，可以提交给管理员审核；通过后，它只会出现在自定义模式的 **Community** 中，不会混入 FrankCards 官方卡包。已发布卡包仍可编辑，修改后会重新进入审核。
+
+内置对话包无需登录即可使用；用户创建的话题会保存在自己的账号中。v2.1.0 也补全了邮箱验证、忘记密码与更清楚的垃圾邮件提示，并优化了移动端悬浮进度点与切换动画。
 
 ## 下载
 
@@ -67,7 +75,7 @@ FrankCards 把精心设计的问题放进一场有节奏的卡牌体验里。选
 - macOS — Apple Silicon 与 Intel
 - Windows — `.exe` 与 `.msi`
 
-前往 [FrankCards v2.0.0 Release](https://github.com/SonghaiFan/frank_cards/releases/tag/v2.0.0) 下载适合你的版本。
+前往 [FrankCards v2.1.0 Release](https://github.com/SonghaiFan/frank_cards/releases/tag/v2.1.0) 下载适合你的版本。
 
 > macOS 版本目前尚未进行 Apple notarization，首次打开时系统可能显示安全提醒。
 

@@ -11,6 +11,7 @@ type GameType = "normal" | "edition" | "premium";
 
 interface GameLibraryProps {
   games: ConversationGame[];
+  communityGames: ConversationGame[];
   selectedGames: ConversationGame[];
   onToggleGame: (game: ConversationGame) => void;
   onClearSelection: () => void;
@@ -18,7 +19,7 @@ interface GameLibraryProps {
   onBackToQuick: () => void;
 }
 
-const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggleGame, onStartSession, onBackToQuick, onClearSelection }) => {
+const GameLibrary: React.FC<GameLibraryProps> = ({ games, communityGames, selectedGames, onToggleGame, onStartSession, onBackToQuick, onClearSelection }) => {
   const { t } = useTranslation();
   const [hoveredGame, setHoveredGame] = useState<string | null>(null);
   const [selectedGameIndex, setSelectedGameIndex] = useState(0); // For keyboard nav (focus)
@@ -27,6 +28,8 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
   const [selectedType, setSelectedType] = useState<GameType | null>(null);
   const [selectedGroup, setSelectedGroup] = useState<PlayerGroup | null>(null);
   const [showUnlockMessage, setShowUnlockMessage] = useState(false);
+  const [collection, setCollection] = useState<"official" | "community">("official");
+  const visibleGames = collection === "community" ? communityGames : games;
 
   // Easter egg hook for premium unlock
   const { handleClick, isUnlocked, clickProgress } = useEasterEgg({
@@ -49,7 +52,7 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
   ];
 
   // Filter games based on selected type and group, considering unlock status
-  const filteredGames = games.filter((game) => {
+  const filteredGames = visibleGames.filter((game) => {
     const typeMatch = !selectedType || game.app.type === selectedType;
     const groupMatch =
       !selectedGroup || game.app.playerGroup.includes(selectedGroup);
@@ -60,11 +63,13 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
   // Reset selected index when filters change
   useEffect(() => {
     setSelectedGameIndex(0);
-  }, [selectedType, selectedGroup]);
+  }, [collection, selectedType, selectedGroup]);
 
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (filteredGames.length === 0) return;
+
       switch (event.key) {
         case "ArrowLeft":
         case "ArrowUp":
@@ -183,6 +188,27 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
         </AnimatePresence>
       </motion.div>
 
+      <div className="custom-library-collections" role="tablist" aria-label={t("customMode.collectionLabel")}>
+        <button
+          aria-selected={collection === "official"}
+          className={collection === "official" ? "is-active" : ""}
+          onClick={() => setCollection("official")}
+          role="tab"
+          type="button"
+        >
+          {t("customMode.official")}
+        </button>
+        <button
+          aria-selected={collection === "community"}
+          className={collection === "community" ? "is-active" : ""}
+          onClick={() => setCollection("community")}
+          role="tab"
+          type="button"
+        >
+          {t("customMode.community")}
+        </button>
+      </div>
+
       {/* Filters Section */}
       <motion.div
 
@@ -253,7 +279,7 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, selectedGames, onToggl
           animate={{ opacity: 1 }}
           className="theme-text-tertiary text-center py-12"
         >
-          <p>{t("gameLibrary.noResults")}</p>
+          <p>{t(collection === "community" && !selectedType && !selectedGroup ? "customMode.communityEmpty" : "gameLibrary.noResults")}</p>
         </motion.div>
       )}
 

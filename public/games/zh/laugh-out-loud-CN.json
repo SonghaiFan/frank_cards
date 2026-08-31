@@ -2,24 +2,26 @@
   "testID": "laugh-out-loud",
   "app": {
     "title": "笑破肚皮",
-    "subtitle": "集合了尴尬、搞笑与脑洞的终极合集",
+    "subtitle": "24个搞笑问题和挑战",
     "language": "chinese",
     "type": "normal",
-    "playerGroup": ["friends", "party"]
+    "playerGroup": [
+      "friends",
+      "party"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "笑破肚皮",
       "description": [
-        "准备好迎接社死瞬间、馊主意和拙劣的演技吧。",
-        "这个合集包含了我们最搞笑的三个主题。",
-        "切记：认真你就输了！"
+        "轮流回答或完成卡片。",
+        "一起笑，不拿某一个人当笑料。"
       ],
       "startButton": "开始搞怪"
     },
     "endScreen": {
       "title": "混乱结束",
-      "subtitle": "希望玩完这把你们还是朋友。",
+      "subtitle": "最好的笑话，不会让任何人变小。",
       "restartButton": "再来亿把"
     }
   },
@@ -48,35 +50,43 @@
       "questions": [
         {
           "type": "open",
-          "question": "分享一个你以为没人看见，但其实被看光了的尴尬瞬间。"
+          "question": "分享一个你以为没人看见，但其实被看光了的尴尬瞬间。",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你最近一次假装自己在打电话是为了躲避谁？"
+          "question": "你最近一次假装自己在打电话是为了躲避谁？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "翻开你的淘宝/京东/外卖搜索记录，读出最近三个搜索词。"
+          "question": "翻开你的淘宝/京东/外卖搜索记录，读出最近三个搜索词。",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你有没有在朋友圈发过仅某人可见（或不可见）的“心机”动态？内容是什么？"
+          "question": "你有没有在朋友圈发过仅某人可见（或不可见）的“心机”动态？内容是什么？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "描述一次你把天聊死的经历，越尴尬越好。"
+          "question": "描述一次你把天聊死的经历，越尴尬越好。",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你上一次哭是因为什么？如果是为了这就太丢人了。"
+          "question": "你上一次哭是因为什么？如果是为了这就太丢人了。",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "如果你必须向在场的一位异性借钱，你会怎么开口？"
+          "question": "如果你必须向在场的一位异性借钱，你会怎么开口？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "说出一件你小时候深信不疑，长大后发现完全是扯淡的事。"
+          "question": "说出一件你小时候深信不疑，长大后发现完全是扯淡的事。",
+          "energy": "kiki"
         }
       ]
     },
@@ -85,35 +95,43 @@
       "questions": [
         {
           "type": "open",
-          "question": "如果现在必须给前任发一条微信，你会发什么能让他/她秒回？"
+          "question": "如果现在必须给前任发一条微信，你会发什么能让他/她秒回？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "给坐在你对面的人想一个最难听的绰号，并解释为什么适合他。"
+          "question": "给坐在你对面的人想一个最难听的绰号，并解释为什么适合他。",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "如果警察现在冲进来，你觉得在座的谁最像通缉犯？为什么？"
+          "question": "如果警察现在冲进来，你觉得在座的谁最像通缉犯？为什么？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "用一部电影的名字形容你的感情生活（或者缺乏感情生活）。"
+          "question": "用一部电影的名字形容你的感情生活（或者缺乏感情生活）。",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "教大家一个如何在第一次约会就吓跑对方的绝招。"
+          "question": "教大家一个如何在第一次约会就吓跑对方的绝招。",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "如果你要写一本关于自己的自传，书名起得越烂越好。"
+          "question": "如果你要写一本关于自己的自传，书名起得越烂越好。",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "想一个理由，让你现在立刻马上离开这个聚会，越离谱越好。"
+          "question": "想一个理由，让你现在立刻马上离开这个聚会，越离谱越好。",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "给你的老板（或老师）发一条信息，内容必须包含“我爱你”三个字，你会怎么圆回来？"
+          "question": "给你的老板（或老师）发一条信息，内容必须包含“我爱你”三个字，你会怎么圆回来？",
+          "energy": "kiki"
         }
       ]
     },
@@ -122,35 +140,43 @@
       "questions": [
         {
           "type": "wildcard",
-          "question": "模仿在座的一位朋友喝醉酒的样子。"
+          "question": "模仿在座的一位朋友喝醉酒的样子。",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "用便秘时的表情和声音唱一首《生日快乐》歌。"
+          "question": "用便秘时的表情和声音唱一首《生日快乐》歌。",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "假装你是一个推销员，试图把手中的空气以1000块的价格卖给左边的人。"
+          "question": "假装你是一个推销员，试图把手中的空气以1000块的价格卖给左边的人。",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "用方言（或者你不擅长的语言）深情朗诵一段歌词。"
+          "question": "用方言（或者你不擅长的语言）深情朗诵一段歌词。",
+          "energy": "bouba"
         },
         {
           "type": "wildcard",
-          "question": "表演一段：当你发现自己中了五百万，但彩票被洗衣机洗烂了。"
+          "question": "表演一段：当你发现自己中了五百万，但彩票被洗衣机洗烂了。",
+          "energy": "bouba"
         },
         {
           "type": "wildcard",
-          "question": "选一个人，深情地看着他/她，说一句最肉麻的土味情话，不许笑。"
+          "question": "选一个人，深情地看着他/她，说一句最肉麻的土味情话，不许笑。",
+          "energy": "bouba"
         },
         {
           "type": "wildcard",
-          "question": "模仿一种动物求偶的舞姿，让大家猜是什么动物。"
+          "question": "模仿一种动物求偶的舞姿，让大家猜是什么动物。",
+          "energy": "bouba"
         },
         {
           "type": "wildcard",
-          "question": "假装你在直播带货，推销的产品是“穿过的袜子”。"
+          "question": "假装你在直播带货，推销的产品是“穿过的袜子”。",
+          "energy": "bouba"
         }
       ]
     }

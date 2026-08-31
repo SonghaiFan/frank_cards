@@ -9,6 +9,9 @@ export interface ReadableTopicRepository {
 export interface MutableTopicRepository extends ReadableTopicRepository {
   create(input: SaveTopicInput): Promise<TopicRecord>;
   update(id: string, input: SaveTopicInput): Promise<TopicRecord>;
+  submitForReview(id: string): Promise<TopicRecord>;
+  withdrawFromCommunity(id: string): Promise<TopicRecord>;
+  review(id: string, decision: "approve" | "reject", reason?: string): Promise<TopicRecord>;
   delete(id: string): Promise<void>;
 }
 

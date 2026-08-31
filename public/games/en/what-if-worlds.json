@@ -2,24 +2,27 @@
   "testID": "what-if-worlds",
   "app": {
     "title": "What If Worlds",
-    "subtitle": "Explore the wild limits of your imagination",
+    "subtitle": "24 hypothetical questions and strange choices",
     "language": "english",
     "type": "normal",
-    "playerGroup": ["friends", "party", "family"]
+    "playerGroup": [
+      "friends",
+      "party",
+      "family"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "What If Worlds",
       "description": [
-        "A game of hypothetical questions and bizarre scenarios.",
-        "There are no right or wrong answers, only creative ones.",
-        "Unleash your imagination and let the discussions begin!"
+        "Take each imaginary situation seriously.",
+        "Choose an answer and explain why."
       ],
       "startButton": "Enter the Multiverse"
     },
     "endScreen": {
       "title": "Journey Complete",
-      "subtitle": "You've explored the boundaries of reality.",
+      "subtitle": "Return to reality with at least one newly suspicious preference.",
       "restartButton": "Play Again"
     }
   },
@@ -48,35 +51,43 @@
       "questions": [
         {
           "type": "open",
-          "question": "If you could download one skill into your brain instantly (Matrix style), what would it be?"
+          "question": "If you could download one skill into your brain instantly (Matrix style), what would it be?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "If you could stop time for 24 hours just once, what would you do?"
+          "question": "If you could stop time for 24 hours just once, what would you do?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Would you rather be able to speak every language fluently or play every musical instrument perfectly?"
+          "question": "Would you rather be able to speak every language fluently or play every musical instrument perfectly?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "If you could have a HUD (Heads-Up Display) in real life, what 3 stats would you want it to show?"
+          "question": "If you could have a HUD (Heads-Up Display) in real life, what 3 stats would you want it to show?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "If you could un-invent one thing in existence, what would it be?"
+          "question": "If you could un-invent one thing in existence, what would it be?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "If you could view your life’s statistics after you die, what one stat would you care about most?"
+          "question": "If you could view your life’s statistics after you die, what one stat would you care about most?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "If you could teleport anywhere but your clothes didn't go with you, would you still use it?"
+          "question": "If you could teleport anywhere but your clothes didn't go with you, would you still use it?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "If you could talk to animals, which species would be the most annoying to converse with?"
+          "question": "If you could talk to animals, which species would be the most annoying to converse with?",
+          "energy": "bouba"
         }
       ]
     },
@@ -85,35 +96,43 @@
       "questions": [
         {
           "type": "open",
-          "question": "If you were the first person to step onto Mars, what would your first words be?"
+          "question": "If you were the first person to step onto Mars, what would your first words be?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "If a zombie apocalypse started right now, what is the first object in this room you'd grab as a weapon?"
+          "question": "If a zombie apocalypse started right now, what is the first object in this room you'd grab as a weapon?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "If you were trapped in a video game for a month, which game would you choose to ensure your survival?"
+          "question": "If you were trapped in a video game for a month, which game would you choose to ensure your survival?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "If you had to live in a TV show universe for the rest of your life, which one would it be?"
+          "question": "If you had to live in a TV show universe for the rest of your life, which one would it be?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "If aliens landed and asked to speak to humanity's leader, who would you send (politicians excluded)?"
+          "question": "If aliens landed and asked to speak to humanity's leader, who would you send (politicians excluded)?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "If you could have dinner with any three fictional characters, who would they be?"
+          "question": "If you could have dinner with any three fictional characters, who would they be?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "If you started a cult, what would it be about and what would your followers wear?"
+          "question": "If you started a cult, what would it be about and what would your followers wear?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "If you were a ghost, who would you haunt and how would you mildly inconvenience them?"
+          "question": "If you were a ghost, who would you haunt and how would you mildly inconvenience them?",
+          "energy": "kiki"
         }
       ]
     },
@@ -122,35 +141,43 @@
       "questions": [
         {
           "type": "open",
-          "question": "Would you rather always say everything on your mind or never be able to speak again?"
+          "question": "Would you rather always say everything on your mind or never be able to speak again?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Would you rather know *how* you die or *when* you die?"
+          "question": "Would you rather know *how* you die or *when* you die?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Would you rather live in a world without music or a world without movies?"
+          "question": "Would you rather live in a world without music or a world without movies?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Would you rather be famous for something terrible or unknown for something amazing?"
+          "question": "Would you rather be famous for something terrible or unknown for something amazing?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Would you rather always have to enter rooms backwards or always have to somersault out of them?"
+          "question": "Would you rather always have to enter rooms backwards or always have to somersault out of them?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Would you rather have fingers as long as legs or legs as long as fingers?"
+          "question": "Would you rather have fingers as long as legs or legs as long as fingers?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Would you rather fight 100 duck-sized horses or 1 horse-sized duck?"
+          "question": "Would you rather fight 100 duck-sized horses or 1 horse-sized duck?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Would you rather have a rewind button for your life or a pause button?"
+          "question": "Would you rather have a rewind button for your life or a pause button?",
+          "energy": "bouba"
         }
       ]
     }

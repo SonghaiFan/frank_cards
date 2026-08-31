@@ -9,6 +9,16 @@
     "save": "Save",
     "start": "Start"
   },
+  "cardEnergy": {
+    "bouba": {
+      "label": "Open",
+      "description": "Expands the conversation through curiosity, detail, and story."
+    },
+    "kiki": {
+      "label": "Pierce",
+      "description": "Cuts through rehearsed answers by naming a tension or contradiction."
+    }
+  },
   "account": {
     "toolbarLabel": "Theme, language and account",
     "switchToDark": "Switch to dark mode",
@@ -18,7 +28,7 @@
     "signInTitle": "Keep your topics close",
     "signInBody": "Sign in to create, use, and keep your own conversation topics.",
     "createAccountTitle": "Create your FrankCards account",
-    "createAccountBody": "Your drafts stay private until you choose to publish them.",
+    "createAccountBody": "Create private drafts, then submit finished packs for Community review.",
     "emailLabel": "Email",
     "emailPlaceholder": "you@example.com",
     "passwordLabel": "Password",
@@ -30,6 +40,7 @@
     "needAccount": "New here? Create an account",
     "confirmEmailTitle": "Confirm your email",
     "confirmEmailBody": "We sent a confirmation link to {{email}}. Open it, then return here to sign in.",
+    "emailDeliveryHint": "Nothing yet? Check Spam or Junk, then search for “FrankCards” or hello@frankcards.songhai.one.",
     "backToSignIn": "Back to sign in",
     "resendConfirmation": "Resend confirmation email",
     "resendingConfirmation": "Resending email",
@@ -56,7 +67,7 @@
     "notConnectedBody": "FrankCards is ready for built-in topics. Connect Supabase to turn on sign-in and personal topics.",
     "keepExploring": "Keep exploring",
     "myTopics": "My Topics",
-    "myTopicsBody": "Private drafts and the topics you choose to publish live here.",
+    "myTopicsBody": "Create privately, submit for review, and manage your Community packs here.",
     "createTopic": "Create topic",
     "createTopicTitle": "Start a new topic",
     "createTopicBody": "Give it a name and one real question. You can build it out later.",
@@ -65,7 +76,7 @@
     "firstQuestionLabel": "First question",
     "audienceLabel": "Best for",
     "languageLabel": "Language",
-    "draftNote": "New topics stay private and unpublished until you decide otherwise.",
+    "draftNote": "New topics stay private until you submit them for Community review.",
     "cancel": "Cancel",
     "createDraft": "Create draft",
     "creating": "Creating draft",
@@ -84,6 +95,12 @@
     "justNow": "Just now",
     "useTopic": "Use this topic",
     "editTopic": "Edit",
+    "submitForReview": "Submit for review",
+    "withdrawReview": "Withdraw submission",
+    "unpublish": "Remove from Community",
+    "workflowWorking": "Updating",
+    "workflowError": "The Community status could not be updated.",
+    "rejectionReason": "Review note: {{reason}}",
     "studioCreating": "New conversation pack",
     "studioEditing": "Editing conversation pack",
     "studioSave": "Save pack",
@@ -136,6 +153,7 @@
       "ending": "Ending"
     },
     "studioPackType": "Pack type",
+    "studioCardEnergy": "Conversation energy",
     "studioOpening": "Opening screen",
     "studioOpeningTitle": "Opening title",
     "studioOpeningDescription": "Opening description",
@@ -158,7 +176,9 @@
     "signOut": "Sign out",
     "status": {
       "draft": "Draft",
+      "pending_review": "Awaiting review",
       "published": "Published",
+      "rejected": "Changes requested",
       "archived": "Archived"
     },
     "audience": {
@@ -171,6 +191,23 @@
       "dating": "Dating",
       "partners": "Partners"
     }
+  },
+  "admin": {
+    "toolbar": "Review",
+    "reviewTitle": "Community review",
+    "reviewBody": "Preview submitted packs before making them available to everyone.",
+    "reviewLoading": "Loading review queue",
+    "reviewLoadError": "The review queue could not be loaded.",
+    "reviewActionError": "The review decision could not be saved.",
+    "reviewEmptyTitle": "Nothing is waiting",
+    "reviewEmptyBody": "New submissions will appear here.",
+    "reviewMeta": "{{count}} cards · {{language}}",
+    "preview": "Preview",
+    "approve": "Approve",
+    "reject": "Request changes",
+    "rejectionReason": "What needs to change?",
+    "rejectionReasonPlaceholder": "Give the creator a specific, useful reason.",
+    "confirmReject": "Send review note"
   },
   "navigation": {
     "keyboardHints": "←→ Navigate • ↑↓ Flip the card to see more • Esc Exit"
@@ -190,6 +227,7 @@
     "allGroups": "All Groups",
     "filterByType": "Filter by Type",
     "filterByGroup": "Filter by Group",
+    "packProgress": "Conversation pack {{current}} of {{total}}",
     "premiumUnlocked": "✨ Premium content unlocked!",
     "type": {
       "normal": "Regular",
@@ -256,6 +294,10 @@
   "customMode": {
     "title": "Want to chat something different?",
     "subtitle": "Custom Mode",
-    "description": "Select multiple packs to combine them into a unique conversation experience."
+    "description": "Select multiple packs to combine them into a unique conversation experience.",
+    "collectionLabel": "Conversation pack source",
+    "official": "Official",
+    "community": "Community",
+    "communityEmpty": "No approved Community packs are available yet."
   }
 }

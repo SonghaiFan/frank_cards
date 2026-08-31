@@ -2,23 +2,25 @@
   "testID": "relationship-check",
   "app": {
     "title": "Relationship Check-In",
-    "subtitle": "Strengthen your bond through honest conversation",
+    "subtitle": "12 questions for an honest relationship check-in",
     "language": "english",
     "type": "normal",
-    "playerGroup": ["couple"]
+    "playerGroup": [
+      "couple"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "Relationship Check-In",
       "description": [
-        "Questions designed to deepen understanding between partners.",
-        "Take turns or discuss together—whatever feels right."
+        "Take turns or discuss each question together.",
+        "Reflect what you heard before explaining what you meant."
       ],
       "startButton": "Begin"
     },
     "endScreen": {
       "title": "Well done",
-      "subtitle": "Thank you for connecting with intention",
+      "subtitle": "Keep one answer in motion after the cards are gone.",
       "restartButton": "Restart"
     }
   },
@@ -51,16 +53,19 @@
       "category": "communication",
       "questions": [
         {
-          "type": "discussion",
-          "question": "WHAT'S ONE THING I DO THAT MAKES YOU FEEL TRULY HEARD?"
+          "type": "open",
+          "question": "What do I do that makes it easier for you to finish an honest sentence?",
+          "energy": "bouba"
         },
         {
-          "type": "discussion",
-          "question": "IS THERE SOMETHING YOU'VE BEEN WANTING TO TELL ME?"
+          "type": "open",
+          "question": "What have you been editing out when you talk to me?",
+          "energy": "kiki"
         },
         {
-          "type": "discussion",
-          "question": "WHEN WE DISAGREE, WHAT HELPS YOU FEEL LIKE WE'RE ON THE SAME TEAM?"
+          "type": "open",
+          "question": "When we disagree, what helps you remember that the problem is not the person?",
+          "energy": "kiki"
         }
       ]
     },
@@ -68,16 +73,19 @@
       "category": "intimacy",
       "questions": [
         {
-          "type": "discussion",
-          "question": "HOW DO YOU MOST FEEL LOVED BY ME?"
+          "type": "open",
+          "question": "When do you feel my love without having to interpret it?",
+          "energy": "bouba"
         },
         {
-          "type": "discussion",
-          "question": "WHAT SMALL GESTURE ALWAYS BRIGHTENS YOUR DAY?"
+          "type": "open",
+          "question": "Which small gesture from me still lands every time?",
+          "energy": "bouba"
         },
         {
-          "type": "discussion",
-          "question": "HOW CAN WE CREATE MORE TIME FOR JUST US?"
+          "type": "open",
+          "question": "What keeps taking the time we say we want for us?",
+          "energy": "kiki"
         }
       ]
     },
@@ -85,16 +93,19 @@
       "category": "future",
       "questions": [
         {
-          "type": "discussion",
-          "question": "WHAT'S SOMETHING NEW YOU'D LIKE US TO TRY TOGETHER?"
+          "type": "open",
+          "question": "What new experience would make us feel more awake together?",
+          "energy": "bouba"
         },
         {
-          "type": "discussion",
-          "question": "DESCRIBE OUR PERFECT WEEKEND GETAWAY."
+          "type": "open",
+          "question": "Plan a weekend that would restore us, not just photograph well.",
+          "energy": "bouba"
         },
         {
-          "type": "discussion",
-          "question": "WHAT GOAL OR DREAM CAN I SUPPORT YOU WITH?"
+          "type": "open",
+          "question": "Which dream of yours needs support rather than advice?",
+          "energy": "bouba"
         }
       ]
     },
@@ -102,16 +113,19 @@
       "category": "appreciation",
       "questions": [
         {
-          "type": "discussion",
-          "question": "WHAT HAVE I DONE RECENTLY THAT YOU'RE GRATEFUL FOR?"
+          "type": "open",
+          "question": "What have I done recently that made partnership feel real?",
+          "energy": "bouba"
         },
         {
-          "type": "discussion",
-          "question": "WHAT QUALITY DO YOU MOST ADMIRE ABOUT ME?"
+          "type": "open",
+          "question": "Which quality in me do you trust most when things are difficult?",
+          "energy": "bouba"
         },
         {
-          "type": "discussion",
-          "question": "WHAT'S YOUR FAVORITE MEMORY OF US FROM THIS PAST MONTH?"
+          "type": "open",
+          "question": "Which moment from the last month do you want us to remember?",
+          "energy": "bouba"
         }
       ]
     }

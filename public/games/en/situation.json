@@ -2,24 +2,26 @@
   "testID": "deep-connections",
   "app": {
     "title": "Situationship",
-    "subtitle": "Navigating the undefined with clarity and intention",
+    "subtitle": "16 questions for an undefined relationship",
     "language": "english",
     "type": "edition",
-    "playerGroup": ["partners", "dating"]
+    "playerGroup": [
+      "partners",
+      "dating"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "Situationship",
       "description": [
-        "A safe space to discuss the undefined.",
-        "No pressure to label, just space to understand.",
-        "Be honest about the vibe, the boundaries, and the undefined."
+        "Answer what is true about the relationship now.",
+        "A label is optional. Honesty and boundaries are not."
       ],
       "startButton": "Open the undefined"
     },
     "endScreen": {
       "title": "Clarity Found",
-      "subtitle": "Whatever we are, thank you for being real",
+      "subtitle": "Whatever this is, let it require less pretending after tonight.",
       "restartButton": "Restart"
     }
   },
@@ -51,39 +53,102 @@
     {
       "category": "vibe",
       "questions": [
-        { "type": "open", "question": "Do you ever purposefully wait to reply to my messages just to seem less interested than you actually are?" },
-        { "type": "open", "question": "What is a part of yourself you suppress around me to keep things 'light'?" },
-        { "type": "open", "question": "Do you feel relieved or anxious when we spend time together?" },
-        { "type": "wildcard", "question": "WILDCARD: Unlock your phone and show me your last 3 used emojis. Explain who they were sent to." }
+        {
+          "type": "open",
+          "question": "When do you delay replying because seeming less interested feels safer than being clear?",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "What part of yourself do you edit to keep this connection easy?",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "After we spend time together, do you usually feel steadier, more anxious, or both?",
+          "energy": "bouba"
+        },
+        {
+          "type": "wildcard",
+          "question": "Choose three recent emojis you are comfortable showing. What do they reveal about your week?",
+          "energy": "bouba"
+        }
       ]
     },
     {
       "category": "undefined",
       "questions": [
-        { "type": "open", "question": "Do you assume I am seeing other people? Do you want to know the specific answer?" },
-        { "type": "open", "question": "If I posted a romantic story with someone else tonight, would you feel you had the *right* to be upset?" },
-        { "type": "open", "question": "Have you described me to your friends as 'just a friend' to protect yourself from questions?" },
-        { "type": "wildcard", "question": "WILDCARD: Describe your 'Plan B' person without mentioning their name." }
+        {
+          "type": "open",
+          "question": "What assumption are you making about whether I am seeing other people?",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "If jealousy appeared, what agreement would it expose as missing?",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "How do you describe me when friends ask, and what do you leave out?",
+          "energy": "kiki"
+        },
+        {
+          "type": "wildcard",
+          "question": "Describe the option you keep available in case this never becomes more.",
+          "energy": "kiki"
+        }
       ]
     },
     {
       "category": "expectations",
       "questions": [
-        { "type": "open", "question": "Who holds the power in our dynamic right now—the one who cares less, or the one who asks for less?" },
-        { "type": "open", "question": "If one of us catches real feelings, is this arrangement automatically over?" },
-        { "type": "open", "question": "Are we avoiding the 'what are we' conversation because we don't know, or because we know the answer will end this?" },
-        { "type": "wildcard", "question": "WILDCARD: Staring Contest. Maintains eye contact for 30 seconds. The first to look away cares less." }
+        {
+          "type": "open",
+          "question": "Who has more power here: the person who cares less, or the person who is less honest about caring?",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "If one of us wanted more, what are you afraid would have to change?",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "Are we avoiding a label because it is too early, or because ambiguity benefits someone?",
+          "energy": "kiki"
+        },
+        {
+          "type": "wildcard",
+          "question": "Hold eye contact for 20 seconds. Then each name what made it difficult or easy.",
+          "energy": "kiki"
+        }
       ]
     },
     {
       "category": "reality",
       "questions": [
-        { "type": "open", "question": "Be honest: Am I a placeholder for the relationship you actually want, or am I the destination?" },
-        { "type": "open", "question": "When this ends, what single sentence will you use to explain why it didn't work to your friends?" },
-        { "type": "open", "question": "If you met your 'dream person' tomorrow, would you drop me immediately?" },
-        { "type": "wildcard", "question": "WILDCARD: Ask me the one question you've been too afraid to ask because it might 'ruin' this." }
+        {
+          "type": "open",
+          "question": "Am I part of the relationship you want, or a way to postpone looking for it?",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "If this ended, what explanation would be true but difficult to tell your friends?",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "If someone seemingly perfect arrived tomorrow, what would that reveal about your commitment here?",
+          "energy": "kiki"
+        },
+        {
+          "type": "wildcard",
+          "question": "Ask the question you keep calling too dramatic.",
+          "energy": "kiki"
+        }
       ]
     }
   ]
 }
-

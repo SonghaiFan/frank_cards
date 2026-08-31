@@ -2,24 +2,26 @@
   "testID": "laugh-out-loud",
   "app": {
     "title": "Laugh Out Loud",
-    "subtitle": "A collection of hilarious, awkward, and creative questions",
+    "subtitle": "24 funny questions and dares",
     "language": "english",
     "type": "normal",
-    "playerGroup": ["friends", "party"]
+    "playerGroup": [
+      "friends",
+      "party"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "Laugh Out Loud",
       "description": [
-        "Prepare for embarrassment, terrible ideas, and bad acting.",
-        "This collection combines our funniest themes into one.",
-        "Don't take anything too seriously!"
+        "Take turns answering or performing the card.",
+        "Laugh with each other, not at one person."
       ],
       "startButton": "Let's Get Weird"
     },
     "endScreen": {
       "title": "Chaos Managed",
-      "subtitle": "Hope you still have friends after this.",
+      "subtitle": "The best joke left nobody smaller.",
       "restartButton": "One More Time"
     }
   },
@@ -48,35 +50,43 @@
       "questions": [
         {
           "type": "open",
-          "question": "What is the weirdest thing you have ever Googled?"
+          "question": "What is the weirdest thing you have ever Googled?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What is a fashion choice from your past that you deeply regret?"
+          "question": "What is a fashion choice from your past that you deeply regret?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Have you ever waved at someone who wasn't waving at you? What did you do next?"
+          "question": "Have you ever waved at someone who wasn't waving at you? What did you do next?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What's the most embarrassing thing you've done in front of a crush?"
+          "question": "What's the most embarrassing thing you've done in front of a crush?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What is a song you love but are embarrassed to admit?"
+          "question": "What is a song you love but are embarrassed to admit?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Have you ever sent a text to the person you were talking about? What happened?"
+          "question": "Have you ever sent a text to the person you were talking about? What happened?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What is the dumbest way you’ve injured yourself?"
+          "question": "What is the dumbest way you’ve injured yourself?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "If we looked through your camera roll right now, what is the weirdest photo we’d find?"
+          "question": "If we looked through your camera roll right now, what is the weirdest photo we’d find?",
+          "energy": "kiki"
         }
       ]
     },
@@ -85,35 +95,43 @@
       "questions": [
         {
           "type": "open",
-          "question": "What is the worst possible thing to say at a funeral?"
+          "question": "What is the worst possible thing to say at a funeral?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Give me terrible advice on how to break up with someone."
+          "question": "Give me terrible advice on how to break up with someone.",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What is the worst pickup line that might actually work on you?"
+          "question": "What is the worst pickup line that might actually work on you?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "How would you explain the internet to a medieval peasant using only bad analogies?"
+          "question": "How would you explain the internet to a medieval peasant using only bad analogies?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What is a terrible name for a new pet dog?"
+          "question": "What is a terrible name for a new pet dog?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "If you had to ruin a first date in five words or less, what would you say?"
+          "question": "If you had to ruin a first date in five words or less, what would you say?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What is the wrong way to quit a job?"
+          "question": "What is the wrong way to quit a job?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Invent a useless superhero power and explain why it's great."
+          "question": "Invent a useless superhero power and explain why it's great.",
+          "energy": "kiki"
         }
       ]
     },
@@ -122,35 +140,43 @@
       "questions": [
         {
           "type": "wildcard",
-          "question": "Read the last text you sent in the voice of an evil villain."
+          "question": "Read the last text you sent in the voice of an evil villain.",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "Do your best impression of a celebrity of the group's choice."
+          "question": "Do your best impression of a celebrity of the group's choice.",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "Act out your morning routine without saying a word."
+          "question": "Act out your morning routine without saying a word.",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "Speak with a fake accent for the next 30 seconds."
+          "question": "Speak with a fake accent for the next 30 seconds.",
+          "energy": "bouba"
         },
         {
           "type": "wildcard",
-          "question": "Dramatically reenact how you would react if you won the lottery right now."
+          "question": "Dramatically reenact how you would react if you won the lottery right now.",
+          "energy": "bouba"
         },
         {
           "type": "wildcard",
-          "question": "Make a sound like a farm animal. The group rates your accuracy."
+          "question": "Make a sound like a farm animal. The group rates your accuracy.",
+          "energy": "bouba"
         },
         {
           "type": "wildcard",
-          "question": "Propose marriage to the person on your left using only object names."
+          "question": "Propose marriage to the person on your left using only object names.",
+          "energy": "bouba"
         },
         {
           "type": "wildcard",
-          "question": "Pretend you are an alien trying to fit in at a human party."
+          "question": "Pretend you are an alien trying to fit in at a human party.",
+          "energy": "bouba"
         }
       ]
     }

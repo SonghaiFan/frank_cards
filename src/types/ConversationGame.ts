@@ -12,6 +12,7 @@ export const PLAYER_GROUPS = [
 export type PlayerGroup = (typeof PLAYER_GROUPS)[number];
 export type ConversationGameType = "normal" | "edition" | "premium";
 export type QuestionType = "open" | "discussion" | "end" | "wildcard";
+export type QuestionEnergy = "bouba" | "kiki";
 
 export interface AppInfo {
   title: string;
@@ -59,6 +60,7 @@ export interface ExportTemplate {
 
 export interface Question {
   type?: QuestionType;
+  energy?: QuestionEnergy;
   question: string;
   more?: string[] | Record<string, string>;
 }

@@ -2,23 +2,26 @@
   "testID": "second-date",
   "app": {
     "title": "Second Date",
-    "subtitle": "15 questions to deepen your connection beyond first impressions",
+    "subtitle": "15 questions to go beyond first impressions",
     "language": "english",
     "type": "edition",
-    "playerGroup": ["couple", "friends"]
+    "playerGroup": [
+      "couple",
+      "friends"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "Second Date",
       "description": [
-        "You've made it past all the first date small talk.",
-        "Dig a little deeper with these 15 questions"
+        "Take turns answering.",
+        "Be honest. You do not need to make every answer impressive."
       ],
       "startButton": "Start Connecting"
     },
     "endScreen": {
       "title": "For the next time you see each other",
-      "subtitle": "Keep connecting",
+      "subtitle": "If there is a next date, let it begin with what became more real here.",
       "restartButton": "Keep Connecting"
     }
   },
@@ -37,63 +40,78 @@
       "questions": [
         {
           "type": "open",
-          "question": "Who's your longest friendship?"
+          "question": "Who's your longest friendship?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Name a place where you'd want to live for 6 months. Why?"
+          "question": "Name a place where you'd want to live for 6 months. Why?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "How did you get ready for our date?"
+          "question": "How did you get ready for our date?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What's the last movie that made you cry?"
+          "question": "What's the last movie that made you cry?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "How do you deal with a bad day?"
+          "question": "How do you deal with a bad day?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What's something small that's a big deal to you?"
+          "question": "What's something small that's a big deal to you?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Do you feel satisfied with where you're at in life? Explain."
+          "question": "Do you feel satisfied with where you're at in life? Explain.",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "WILDCARD: Both players, show a photo of yourself in high school."
+          "question": "Both players, show a photo of yourself in high school.",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What kind of texter are you?"
+          "question": "What kind of texter are you?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "How do you like to spend your Sundays?"
+          "question": "How do you like to spend your Sundays?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What got you through your last heartbreak?"
+          "question": "What got you through your last heartbreak?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Are you more often intentional or impulsive? Explain."
+          "question": "Are you more often intentional or impulsive? Explain.",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "When's the last time you changed your mind about something?"
+          "question": "When's the last time you changed your mind about something?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What's something your parents don't know about you?"
+          "question": "What's something your parents don't know about you?",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "WILDCARD: Both players answer, will there be a third date?"
+          "question": "Both players answer, will there be a third date?",
+          "energy": "kiki"
         }
       ]
     }

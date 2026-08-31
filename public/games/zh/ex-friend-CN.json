@@ -2,24 +2,26 @@
   "testID": "ex-friend",
   "app": {
     "title": "前好友",
-    "subtitle": "用关怀与诚意梳理友谊的结束",
+    "subtitle": "16个关于一段已结束友情的问题",
     "language": "chinese",
     "type": "edition",
-    "playerGroup": ["friends", "couple"]
+    "playerGroup": [
+      "friends",
+      "couple"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "前好友",
       "description": [
-        "重修友谊可能尴尬又艰难，这组卡片帮助你们打破沉默，让双方都被听见。",
-        "轮流提问和回答，先理解而不是争输赢，避免“你总是”或“你从不”，主动寻找共识。",
-        "你们可以选择修复关系，也可以体面告别。无论结果如何，都请尊重彼此的真实感受。"
+        "轮流说说发生了什么，以及它改变了什么。",
+        "目标是理解，不是强迫原谅或重归于好。"
       ],
       "startButton": "开始"
     },
     "endScreen": {
       "title": "我们还能回到过去吗？",
-      "subtitle": "是或否",
+      "subtitle": "看看诚实改变了什么，即使答案仍然是告别。",
       "restartButton": "否"
     }
   },
@@ -38,67 +40,83 @@
       "questions": [
         {
           "type": "open",
-          "question": "请双方从对方的角度描述当时的情况"
+          "question": "请双方从对方的角度描述当时的情况",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "我在这件事中的责任是______"
+          "question": "我在这件事中的责任是______",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "请用三分钟完整陈述你的观点，期间不被打断（双方轮流）"
+          "question": "请用三分钟完整陈述你的观点，期间不被打断（双方轮流）",
+          "energy": "bouba"
         },
         {
           "type": "wildcard",
-          "question": "请写下你最常使用的心理防御机制及其影响，并互相分享"
+          "question": "请写下你最常使用的心理防御机制及其影响，并互相分享",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "最让你受伤的是什么？"
+          "question": "最让你受伤的是什么？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你希望当时用怎样的不同方式处理？"
+          "question": "你希望当时用怎样的不同方式处理？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你曾对我有过不公平的期待吗？"
+          "question": "你曾对我有过不公平的期待吗？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你何时感到我们最疏远？"
+          "question": "你何时感到我们最疏远？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "请补充：我正在努力______"
+          "question": "请补充：我正在努力______",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "提醒：每个人的真相都有不同面貌"
+          "question": "提醒：每个人的真相都有不同面貌",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "是否有我未曾察觉的、你正在经历的困境？"
+          "question": "是否有我未曾察觉的、你正在经历的困境？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "当______时，我们的友谊已不再如初"
+          "question": "当______时，我们的友谊已不再如初",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你最想念我的时刻是？"
+          "question": "你最想念我的时刻是？",
+          "energy": "bouba"
         },
         {
           "type": "wildcard",
-          "question": "特别行动：请为某件事道歉（无论大小）"
+          "question": "请为某件事道歉（无论大小）",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你最近有哪些生活新动态？"
+          "question": "你最近有哪些生活新动态？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "我们的友谊中有什么是独一无二的？"
+          "question": "我们的友谊中有什么是独一无二的？",
+          "energy": "bouba"
         }
       ]
     }

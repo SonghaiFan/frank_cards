@@ -7,6 +7,7 @@ import {
   type PlayerGroup,
   type Question,
   type QuestionCategory,
+  type QuestionEnergy,
   type QuestionType,
   type StartScreen,
 } from "../../types/ConversationGame";
@@ -14,6 +15,7 @@ import { limitTextUnits, START_SCREEN_DESCRIPTION_LIMIT } from "../../utils/text
 
 const GAME_TYPES = new Set<ConversationGameType>(["normal", "edition", "premium"]);
 const QUESTION_TYPES = new Set<QuestionType>(["open", "discussion", "end", "wildcard"]);
+const QUESTION_ENERGIES = new Set<QuestionEnergy>(["bouba", "kiki"]);
 const PLAYER_GROUP_SET = new Set<string>(PLAYER_GROUPS);
 
 const isRecord = (value: unknown): value is Record<string, unknown> => (
@@ -89,6 +91,11 @@ const normalizeQuestion = (value: unknown, path: string): Question => {
     throw new Error(`${path}.type is unsupported`);
   }
 
+  const rawEnergy = value.energy;
+  if (rawEnergy !== undefined && (typeof rawEnergy !== "string" || !QUESTION_ENERGIES.has(rawEnergy as QuestionEnergy))) {
+    throw new Error(`${path}.energy is unsupported`);
+  }
+
   const more = value.more;
   const normalizedMore = Array.isArray(more)
     ? more.map((item, index) => requiredString(item, `${path}.more[${index}]`))
@@ -98,6 +105,7 @@ const normalizeQuestion = (value: unknown, path: string): Question => {
 
   return {
     ...(rawType ? { type: rawType as QuestionType } : {}),
+    ...(rawEnergy ? { energy: rawEnergy as QuestionEnergy } : {}),
     question: requiredString(value.question, `${path}.question`),
     ...(normalizedMore ? { more: normalizedMore } : {}),
   };

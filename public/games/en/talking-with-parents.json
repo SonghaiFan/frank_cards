@@ -2,24 +2,25 @@
   "testID": "talking-with-parents",
   "app": {
     "title": "Talking with Parents",
-    "subtitle": "Bridge the gap with meaningful questions",
+    "subtitle": "15 questions to know your parents better",
     "language": "english",
     "type": "normal",
-    "playerGroup": ["family"]
+    "playerGroup": [
+      "family"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "Talking with Parents",
       "description": [
-        "A space for generations to meet.",
-        "Take turns asking and listening.",
-        "There are no wrong answers, only new discoveries."
+        "Take turns asking and answering.",
+        "Different memories do not need to become the same memory."
       ],
       "startButton": "Start the Conversation"
     },
     "endScreen": {
       "title": "Connection Made",
-      "subtitle": "Thank you for sharing this time together",
+      "subtitle": "Remember one story you had never heard before.",
       "restartButton": "Talk Again"
     }
   },
@@ -53,19 +54,23 @@
       "questions": [
         {
           "type": "open",
-          "question": "What is your favorite memory of me from when I was very small?"
+          "question": "What is your favorite memory of me from when I was very small?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What was the most rebellious thing you did when you were my age?"
+          "question": "What was the most rebellious thing you did when you were my age?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Which of your own parents' traits do you see most in yourself?"
+          "question": "Which of your own parents' traits do you see most in yourself?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What did you want to be 'when you grew up' when you were ten years old?"
+          "question": "What did you want to be 'when you grew up' when you were ten years old?",
+          "energy": "bouba"
         }
       ]
     },
@@ -74,19 +79,23 @@
       "questions": [
         {
           "type": "open",
-          "question": "What's the hardest lesson life has taught you so far?"
+          "question": "What's the hardest lesson life has taught you so far?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "If you could go back and tell your 20-year-old self one thing, what would it be?"
+          "question": "If you could go back and tell your 20-year-old self one thing, what would it be?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What is one thing you're proudest of, that most people don't know about?"
+          "question": "What is one thing you're proudest of, that most people don't know about?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What does 'success' mean to you now versus what it meant in your 20s?"
+          "question": "What does 'success' mean to you now versus what it meant in your 20s?",
+          "energy": "bouba"
         }
       ]
     },
@@ -95,19 +104,23 @@
       "questions": [
         {
           "type": "open",
-          "question": "Is there a question you've always wanted to ask me but never did?"
+          "question": "Is there a question you've always wanted to ask me but never did?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What's the biggest difference between how you were raised and how you raised me?"
+          "question": "What's the biggest difference between how you were raised and how you raised me?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "When do you feel most appreciated by me?"
+          "question": "When do you feel most appreciated by me?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What's a fear you had as a parent that you never told me about?"
+          "question": "What's a fear you had as a parent that you never told me about?",
+          "energy": "kiki"
         }
       ]
     },
@@ -116,15 +129,18 @@
       "questions": [
         {
           "type": "open",
-          "question": "What is one dream you still have for your life?"
+          "question": "What is one dream you still have for your life?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What's one thing you hope will never change about our relationship?"
+          "question": "What's one thing you hope will never change about our relationship?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "If we could go on an adventure anywhere together, where would it be?"
+          "question": "If we could go on an adventure anywhere together, where would it be?",
+          "energy": "bouba"
         }
       ]
     }

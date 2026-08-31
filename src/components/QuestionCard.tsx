@@ -7,6 +7,7 @@ import {
   useTransform,
 } from "motion/react";
 import Card from "./Card";
+import CardEnergyIcon from "./CardEnergyIcon";
 
 interface QuestionCardProps {
   currentQuestionIndex: number;
@@ -162,6 +163,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
               <Card
                 size="large"
                 variant="question"
+                aria-hidden={isCardFlipped}
                 className={`absolute inset-0 text-center shadow-2xl ${
                   currentQuestion?.more ? "cursor-pointer" : "cursor-default"
                 }`}
@@ -172,6 +174,13 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
                 }}
                 onClick={currentQuestion?.more ? onCardClick : undefined}
               >
+                {currentQuestion?.energy ? (
+                  <CardEnergyIcon
+                    className="pointer-events-none absolute right-6 top-6 text-lg opacity-75 sm:right-8 sm:top-8 sm:text-xl"
+                    energy={currentQuestion.energy}
+                    style={{ color: textColor }}
+                  />
+                ) : null}
                 <div className="text-center h-full flex flex-col justify-center">
                   <h2
                     className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight font-sans tracking-tight px-2"
@@ -197,6 +206,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
               <Card
                 size="large"
                 variant="question"
+                aria-hidden={!isCardFlipped}
                 className="absolute inset-0 shadow-2xl cursor-pointer"
                 style={{
                   backfaceVisibility: "hidden",
@@ -206,6 +216,13 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
                 }}
                 onClick={onCardClick}
               >
+                {currentQuestion?.energy ? (
+                  <CardEnergyIcon
+                    className="pointer-events-none absolute right-6 top-6 text-lg opacity-75 sm:right-8 sm:top-8 sm:text-xl"
+                    energy={currentQuestion.energy}
+                    style={{ color: textColor }}
+                  />
+                ) : null}
                 <div className="text-center h-full flex flex-col justify-center">
                   {currentQuestion?.more && (
                     <div className="space-y-3 text-left">

@@ -2,24 +2,26 @@
   "testID": "relationship-audit",
   "app": {
     "title": "Relationship Audit",
-    "subtitle": "Structural Dialogue: Not just chatting, but scrutinizing the connection.",
+    "subtitle": "21 questions about needs, conflict, and the future",
     "language": "english",
     "type": "premium",
-    "playerGroup": ["couple", "friends"]
+    "playerGroup": [
+      "couple",
+      "friends"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "Relationship Audit",
       "description": [
-        "This is not a casual conversation.",
-        "It is a structural dialogue designed to surface needs, misunderstandings, and responsibilities.",
-        "Both parties must be willing to be honest, vulnerable, and accountable."
+        "Take turns. Talk about specific behavior, not personality labels.",
+        "Listen to the full answer before responding."
       ],
       "startButton": "Begin Audit"
     },
     "endScreen": {
       "title": "audit complete",
-      "subtitle": "Take a deep breath. Acknowledge the courage it took to be here.",
+      "subtitle": "Choose one pattern to interrupt. Insight without a change is only a description.",
       "restartButton": "Re-evaluate"
     }
   },
@@ -48,31 +50,38 @@
       "questions": [
         {
           "type": "open",
-          "question": "What do you need from me that you’re not getting?"
+          "question": "What are you hoping I will notice without you having to ask?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "In what specific way do you feel I take you for granted?"
+          "question": "Where has something you do for us become so reliable that I barely see it?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What is one thing I could do this week that would make you feel truly supported?"
+          "question": "What action this week would make support feel tangible?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "How do I fail to meet your expectations in our relationship?"
+          "question": "Which expectation between us has never actually been agreed on?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What is a need of yours that you feel uncomfortable expressing to me?"
+          "question": "What need do you soften so much that I can no longer hear it?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Where in our relationship do you feel you are doing more of the heavy lifting?"
+          "question": "Where does effort feel uneven, and what specific moments make it feel that way?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "If you could change one way I communicate with you, what would it be?"
+          "question": "What communication habit of mine makes a difficult subject harder?",
+          "energy": "bouba"
         }
       ]
     },
@@ -81,31 +90,38 @@
       "questions": [
         {
           "type": "open",
-          "question": "When do you feel most misunderstood by me?"
+          "question": "When have I misunderstood you and then defended my interpretation?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What is a past hurt between us that you haven't fully let go of?"
+          "question": "Which old hurt is still organizing a current reaction?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "When I apologize, what is missing for you to feel it's sincere?"
+          "question": "What change would make one of my apologies more credible?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What is the most painful thing I have ever said to you?"
+          "question": "Which sentence from me still echoes longer than I probably realize?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "In what situations do you feel I am not on your team?"
+          "question": "When do you feel you have to face a problem alone, even when I am present?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What is a recurring conflict we have that you feel is unresolved?"
+          "question": "Which conflict repeats because we solve the event but not the pattern?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "When do you feel judged by me?"
+          "question": "What do I do that makes you feel evaluated rather than known?",
+          "energy": "kiki"
         }
       ]
     },
@@ -114,31 +130,38 @@
       "questions": [
         {
           "type": "open",
-          "question": "What are you afraid to ask me?"
+          "question": "Which question are you afraid could change us once it is answered?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What is something you are pretending not to know about our relationship?"
+          "question": "What do we both know but keep treating as temporary?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "If we were to end our relationship today, what would be the reason?"
+          "question": "If this relationship ended, which repeated pattern would be most likely to cause it?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What part of yourself do you feel you have to hide from me?"
+          "question": "Which version of you feels least welcome around me?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What hesitation do you have about our future together?"
+          "question": "What about our future feels alive, and what feels quietly wrong?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What is a secret you’ve kept from me to protect my feelings?"
+          "question": "Which truth do you withhold because you are already managing my reaction?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What is the hardest truth you have had to accept about me?"
+          "question": "What have you stopped hoping I would understand without being told?",
+          "energy": "kiki"
         }
       ]
     }

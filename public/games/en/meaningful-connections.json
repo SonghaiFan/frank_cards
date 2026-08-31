@@ -2,23 +2,26 @@
   "testID": "meaningful-connections",
   "app": {
     "title": "Meaningful Connections",
-    "subtitle": "Questions that help us really know each other",
+    "subtitle": "10 questions to move beyond small talk",
     "language": "english",
     "type": "normal",
-    "playerGroup": ["strangers", "friends"]
+    "playerGroup": [
+      "strangers",
+      "friends"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "Meaningful Connections",
       "description": [
-        "Thoughtful questions to bridge the gap between strangers and friends.",
-        "Share openly. Listen deeply. Connect authentically."
+        "Take turns and answer with a real example.",
+        "Ask a follow-up when something makes you curious."
       ],
       "startButton": "Begin"
     },
     "endScreen": {
       "title": "Well done",
-      "subtitle": "Thank you for opening up and connecting",
+      "subtitle": "A better conversation usually leaves one good question unfinished.",
       "restartButton": "Restart"
     }
   },
@@ -52,15 +55,18 @@
       "questions": [
         {
           "type": "open",
-          "question": "WHAT'S YOUR FAVORITE AGE YOU'VE BEEN SO FAR?"
+          "question": "Which age felt most like you, and what made it yours?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "WHICH CHILDHOOD TRADITIONS STILL MATTER TO YOU TODAY?"
+          "question": "Which childhood ritual still has a claim on you?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "WHAT MEAL MAKES YOU FEEL LIKE YOU'RE 'HOME'?"
+          "question": "What meal tastes less like food and more like being known?",
+          "energy": "bouba"
         }
       ]
     },
@@ -69,15 +75,18 @@
       "questions": [
         {
           "type": "open",
-          "question": "WHAT DO YOUR EXES HAVE IN COMMON?"
+          "question": "What pattern did more than one ex notice before you did?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "WHAT DO ALL YOUR GOOD FRIENDS SHARE?"
+          "question": "What do your closest friends understand about you without an explanation?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "WHAT DO FRIENDS USUALLY COME TO YOU FOR ADVICE ABOUT?"
+          "question": "What advice do people ask from you that you struggle to follow yourself?",
+          "energy": "kiki"
         }
       ]
     },
@@ -86,11 +95,13 @@
       "questions": [
         {
           "type": "open",
-          "question": "WHAT DO YOU USUALLY DO WHEN YOU GO TO THE BEACH?"
+          "question": "Where do you go when you have time but no plan?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "WHAT DO YOU WATCH WHEN YOU CAN'T SLEEP?"
+          "question": "What do you reach for when sleep refuses to arrive?",
+          "energy": "bouba"
         }
       ]
     },
@@ -99,11 +110,13 @@
       "questions": [
         {
           "type": "open",
-          "question": "WHAT THREE QUALITIES DO YOU ADMIRE MOST IN A PERSON?"
+          "question": "Which quality makes you trust someone faster?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "WHAT'S SOMETHING YOU'VE ALWAYS BELIEVED WITHOUT QUESTION?"
+          "question": "What belief have you inherited but never properly examined?",
+          "energy": "kiki"
         }
       ]
     }

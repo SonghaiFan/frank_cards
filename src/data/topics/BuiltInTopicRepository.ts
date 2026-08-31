@@ -107,6 +107,9 @@ export class BuiltInTopicRepository implements ReadableTopicRepository {
           createdAt: null,
           updatedAt: null,
           publishedAt: null,
+          reviewedAt: null,
+          reviewedBy: null,
+          rejectionReason: null,
           game,
         };
       } catch (error) {

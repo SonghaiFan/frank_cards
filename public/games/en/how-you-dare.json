@@ -2,24 +2,26 @@
   "testID": "how-you-dare",
   "app": {
     "title": "How You Dare",
-    "subtitle": "The ultimate wild card challenge",
+    "subtitle": "15 playful dares for a group",
     "language": "english",
     "type": "premium",
-    "playerGroup": ["friends", "strangers"]
+    "playerGroup": [
+      "friends",
+      "strangers"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "How You Dare",
       "description": [
-        "Welcome to the edge of comfort.",
-        "Every card is a dare.",
-        "Only the brave should proceed."
+        "Take turns drawing a dare.",
+        "Do not post, touch, message, or involve anyone without permission."
       ],
       "startButton": "Accept the Challenge"
     },
     "endScreen": {
       "title": "You Survived",
-      "subtitle": "You've earned your bragging rights",
+      "subtitle": "You looked ridiculous on purpose. That is a respectable skill.",
       "restartButton": "Dare Again"
     }
   },
@@ -53,19 +55,23 @@
       "questions": [
         {
           "type": "wildcard",
-          "question": "Do your best 30-second interpretive dance of a piece of fried chicken."
+          "question": "Perform a 30-second dance as a piece of fried chicken discovering free will.",
+          "energy": "bouba"
         },
         {
           "type": "wildcard",
-          "question": "Strike and hold a high-fashion pose until your next turn."
+          "question": "Hold an impossibly serious fashion pose until your next turn.",
+          "energy": "bouba"
         },
         {
           "type": "wildcard",
-          "question": "Try to lick your elbow while maintaining eye contact with the person to your left."
+          "question": "Maintain eye contact with the person on your left while attempting one harmless impossible task.",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "Do 5 pushups while yelling 'I AM THE CHAMPION' after each one."
+          "question": "Do five slow-motion victory celebrations. The group names the sport after each one.",
+          "energy": "bouba"
         }
       ]
     },
@@ -74,19 +80,23 @@
       "questions": [
         {
           "type": "wildcard",
-          "question": "Open your window and scream 'I FOUND A RARE POKEMON' at the top of your lungs."
+          "question": "Deliver breaking news about an ordinary object in this room.",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "Text your 5th most recent contact: 'I know what you did with the sandwich.'"
+          "question": "Draft a suspicious text about a sandwich. Read it aloud, but do not send it.",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "Speak only in an operatic singing voice for the next 5 minutes."
+          "question": "Speak in an operatic voice for the next two rounds.",
+          "energy": "bouba"
         },
         {
           "type": "wildcard",
-          "question": "Let the group post any photo from your gallery to your Instagram/WeChat story with no context."
+          "question": "Let the group choose one photo from your camera roll that you are comfortable showing only in this room.",
+          "energy": "kiki"
         }
       ]
     },
@@ -95,19 +105,23 @@
       "questions": [
         {
           "type": "wildcard",
-          "question": "Smell everyone's hands and rank them from 'Most Flowery' to 'Most Concerning'."
+          "question": "Give everyone an absurd award based on what they have done during this game.",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "Look at the person to your right and tell them what fruit they would be, with an uncomfortably detailed explanation."
+          "question": "Tell the person on your right which fruit matches their energy, then defend your answer like a lawyer.",
+          "energy": "bouba"
         },
         {
           "type": "wildcard",
-          "question": "Gently whisper your favorite Disney movie title into someone's ear."
+          "question": "Whisper the title of your most embarrassing comfort movie as if it were classified information.",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "Staring contest with the nearest inanimate object. If you blink, you must apologize to it."
+          "question": "Lose a staring contest with an object, then give it a sincere apology.",
+          "energy": "bouba"
         }
       ]
     },
@@ -116,15 +130,18 @@
       "questions": [
         {
           "type": "wildcard",
-          "question": "Swap a piece of clothing with someone else in the group for the rest of the game."
+          "question": "Trade one removable accessory with a willing player until the next round.",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "Everyone take a sip of water, and you have to make them bark or laugh until they spit it out."
+          "question": "Make the group laugh without touching anyone or using their personal information.",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "Find the weirdest thing in this room and try to sell it to the group like a desperate infomercial host."
+          "question": "Sell the strangest object in the room as if your rent depends on it.",
+          "energy": "bouba"
         }
       ]
     }

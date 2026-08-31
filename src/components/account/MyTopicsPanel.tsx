@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightFromBracket, faPen, faPlay, faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightFromBracket, faGlobe, faPen, faPlay, faPlus, faRotateLeft, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../auth/AuthProvider";
 import type { MutableTopicRepository } from "../../data/topics/TopicRepository";
@@ -11,6 +11,7 @@ import TopicStudio from "./TopicStudio";
 
 interface MyTopicsPanelProps {
   onClose: () => void;
+  onTopicsChanged: () => void;
   onUseTopic: (game: ConversationGame) => void;
 }
 
@@ -29,13 +30,14 @@ const countQuestions = (topic: TopicRecord): number => topic.game.questions.redu
   0,
 );
 
-export default function MyTopicsPanel({ onClose, onUseTopic }: MyTopicsPanelProps) {
+export default function MyTopicsPanel({ onClose, onTopicsChanged, onUseTopic }: MyTopicsPanelProps) {
   const { i18n, t } = useTranslation();
   const { signOut, user } = useAuth();
   const [topics, setTopics] = useState<TopicRecord[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [studioTopic, setStudioTopic] = useState<TopicRecord | "new" | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [workingTopicId, setWorkingTopicId] = useState<string | null>(null);
   const userId = user?.id ?? null;
 
   const refreshTopics = useCallback(async () => {
@@ -80,6 +82,28 @@ export default function MyTopicsPanel({ onClose, onUseTopic }: MyTopicsPanelProp
         : [savedTopic, ...current];
     });
     setStudioTopic(null);
+    onTopicsChanged();
+  };
+
+  const replaceTopic = (nextTopic: TopicRecord) => {
+    setTopics((current) => current.map((topic) => topic.id === nextTopic.id ? nextTopic : topic));
+  };
+
+  const handleWorkflowAction = async (topic: TopicRecord) => {
+    setWorkingTopicId(topic.id);
+    setError(null);
+    try {
+      const repository = await loadRepository();
+      const nextTopic = topic.status === "draft" || topic.status === "rejected"
+        ? await repository.submitForReview(topic.id)
+        : await repository.withdrawFromCommunity(topic.id);
+      replaceTopic(nextTopic);
+      onTopicsChanged();
+    } catch (workflowError) {
+      setError(workflowError instanceof Error ? workflowError.message : t("account.workflowError"));
+    } finally {
+      setWorkingTopicId(null);
+    }
   };
 
   const handleSignOut = async () => {
@@ -202,7 +226,29 @@ export default function MyTopicsPanel({ onClose, onUseTopic }: MyTopicsPanelProp
                             <FontAwesomeIcon icon={faPlay} />
                             <span>{t("account.useTopic")}</span>
                           </button>
+                          <button
+                            className="account-topic-community-button"
+                            type="button"
+                            onClick={() => void handleWorkflowAction(topic)}
+                            disabled={workingTopicId === topic.id || countQuestions(topic) === 0}
+                          >
+                            <FontAwesomeIcon icon={topic.status === "draft" || topic.status === "rejected" ? faGlobe : faRotateLeft} />
+                            <span>{t(
+                              workingTopicId === topic.id
+                                ? "account.workflowWorking"
+                                : topic.status === "draft" || topic.status === "rejected"
+                                  ? "account.submitForReview"
+                                  : topic.status === "pending_review"
+                                    ? "account.withdrawReview"
+                                    : "account.unpublish",
+                            )}</span>
+                          </button>
                         </div>
+                        {topic.rejectionReason ? (
+                          <p className="account-topic-rejection" role="note">
+                            {t("account.rejectionReason", { reason: topic.rejectionReason })}
+                          </p>
+                        ) : null}
                       </article>
                     ))}
                   </div>

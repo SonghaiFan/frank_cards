@@ -2,24 +2,28 @@
   "testID": "gratitude-journal",
   "app": {
     "title": "感恩日记",
-    "subtitle": "将注意力转向生活中的美好",
+    "subtitle": "10个关于今天是什么托住了你的问题",
     "language": "chinese",
     "type": "normal",
-    "playerGroup": ["solo", "friends", "family", "couples"]
+    "playerGroup": [
+      "solo",
+      "friends",
+      "family",
+      "couples"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "感恩日记",
       "description": [
-        "练习感恩已被证明能改善心理健康并加强人际关系。",
-        "花点时间去欣赏你生活中的美好事物。",
-        "与他人分享，或独自反思。"
+        "可以独自回答，也可以和别人分享。",
+        "看见好的部分，不必把困难也说成好事。"
       ],
       "startButton": "开始反思"
     },
     "endScreen": {
       "title": "心怀感激",
-      "subtitle": "怀着感恩的心可以改变你的视角。继续寻找生活中的美好吧。",
+      "subtitle": "记住一件刚刚看见的事就够了，不必把整天都变成人生道理。",
       "restartButton": "再次反思"
     }
   },
@@ -38,43 +42,53 @@
       "questions": [
         {
           "type": "open",
-          "question": "今天发生的哪件小事让你微笑了？"
+          "question": "今天哪个小瞬间，让这一天稍微好过了一点？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你很感激谁出现在你的生命中，为什么？"
+          "question": "最近谁为你留出了空间？这让什么事情变得可能？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你克服了哪个挑战，现在对此心存感激？"
+          "question": "哪段困难教会了你东西，却不必被美化成一份礼物？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你拥有的哪件物品让你的生活更轻松或更愉快？"
+          "question": "哪件普通物品每天都在安静地支撑你的生活？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "描述一个总是带给你快乐的美好回忆。"
+          "question": "哪段记忆，至今仍能改变一个坏日子的温度？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "关于你的身体或健康，你感激什么？"
+          "question": "今天你的身体带你撑过了什么，即使它做得并不完美？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你拥有的哪项技能或才华让你心存感激？"
+          "question": "哪种能力被你用得太自然，以至于忘了它也是一种力量？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "大自然中的什么让你觉得很美？"
+          "question": "今天在外面看见了什么，它没有向你索取任何东西？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你最近学到的哪个教训让你觉得很有价值？"
+          "question": "最近哪堂课代价不小，所以你不想白白浪费？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你对不久的将来有什么期待？"
+          "question": "你在期待什么？它不需要显得很了不起。",
+          "energy": "bouba"
         }
       ]
     }

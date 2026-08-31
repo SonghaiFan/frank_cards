@@ -53,14 +53,32 @@ jobs:
       - name: Install frontend dependencies
         run: npm ci
 
+      - name: Verify account configuration
+        shell: bash
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
+        run: node -e "if (!process.env.VITE_SUPABASE_URL || !process.env.VITE_SUPABASE_PUBLISHABLE_KEY) { throw new Error('Missing VITE_SUPABASE_URL or VITE_SUPABASE_PUBLISHABLE_KEY GitHub Actions secret') }"
+
       - name: Build the app
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
         with:
           tagName: v__VERSION__
           releaseName: "FrankCards v__VERSION__"
-          releaseBody: "See the assets to download this version and install."
+          releaseBody: |
+            FrankCards v2.1.0 brings a more direct voice to every built-in pack.
+
+            - Rewritten English and Chinese questions across all 22 packs
+            - Bouba and Kiki card energies for gentle and sharper conversations
+            - Separate Official and moderated Community collections in Custom Mode
+            - Editable creator packs with submission and admin review
+            - Improved email verification, password recovery, and mobile navigation
+
+            Download the installer for your Mac or Windows PC from the assets below.
           releaseDraft: false
           prerelease: false
           args: ${{ matrix.args }}

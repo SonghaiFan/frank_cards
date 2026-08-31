@@ -2,23 +2,27 @@
   "testID": "truth-truth",
   "app": {
     "title": "真心话",
-    "subtitle": "15个直击灵魂的派对提问｜没有大冒险，只有真心话",
+    "subtitle": "15个适合朋友一起玩的诚实问题",
     "language": "chinese",
     "type": "normal",
-    "playerGroup": ["friends", "couple", "strangers"]
+    "playerGroup": [
+      "friends",
+      "couple",
+      "strangers"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "真心话",
       "description": [
-        "15个直击灵魂的派对提问",
-        "没有大冒险，只有真心话。轮流作答。认真倾听。坦诚分享。"
+        "没有大冒险。轮流回答卡片上的问题。",
+        "诚实回答，或者直接跳过。"
       ],
       "startButton": "开始"
     },
     "endScreen": {
       "title": "所有问题已回答",
-      "subtitle": "感谢参与，是否发现了新的一面？",
+      "subtitle": "记住那个改变了你对现场某个人看法的答案。",
       "restartButton": "再来一次"
     }
   },
@@ -37,63 +41,78 @@
       "questions": [
         {
           "type": "open",
-          "question": "如果没有任何后果，你现在最想发什么信息？"
+          "question": "如果没有任何后果，你现在最想发什么信息？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "约会时什么情况会让你立刻走人？"
+          "question": "约会时什么情况会让你立刻走人？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "在场谁最能守住秘密？谁最不可信？"
+          "question": "在场谁最能守住秘密？谁最不可信？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "宁愿出轨还是被出轨？为什么？"
+          "question": "宁愿出轨还是被出轨？为什么？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你为吸引注意做过最尴尬的事是什么？"
+          "question": "你为吸引注意做过最尴尬的事是什么？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你对现代约会文化有什么犀利看法？"
+          "question": "你对现代约会文化有什么犀利看法？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你有哪些俗气却戒不掉的小爱好？"
+          "question": "你有哪些俗气却戒不掉的小爱好？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "在场谁会最早离场？谁会玩到天亮？"
+          "question": "在场谁会最早离场？谁会玩到天亮？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你觉得自己有哪些危险特质？"
+          "question": "你觉得自己有哪些危险特质？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "最想和在场谁交换人生？"
+          "question": "最想和在场谁交换人生？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你觉得自己哪方面比在场所有人都强？"
+          "question": "你觉得自己哪方面比在场所有人都强？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "想知道伴侣全部情史还是一无所知？为什么？"
+          "question": "想知道伴侣全部情史还是一无所知？为什么？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "在场谁最爱故意挑事？"
+          "question": "在场谁最爱故意挑事？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你庆幸自己改掉了什么习惯？"
+          "question": "你庆幸自己改掉了什么习惯？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "在场谁最可能一起离开？"
+          "question": "在场谁最可能一起离开？",
+          "energy": "kiki"
         }
       ]
     }

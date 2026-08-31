@@ -58,6 +58,49 @@ const panelVariants = {
   }),
 };
 
+interface MobilePackProgressProps {
+  activeIndex: number;
+  games: ConversationGame[];
+  label: string;
+  uiColor: string;
+}
+
+const MobilePackProgress = memo(function MobilePackProgress({
+  activeIndex,
+  games,
+  label,
+  uiColor,
+}: MobilePackProgressProps) {
+  return (
+    <div
+      aria-label={label}
+      aria-valuemax={games.length}
+      aria-valuemin={1}
+      aria-valuenow={activeIndex + 1}
+      className="pointer-events-none absolute left-3 top-1/2 z-40 -translate-y-1/2"
+      data-mobile-pack-progress
+      role="progressbar"
+      style={{ color: uiColor }}
+    >
+      <div aria-hidden="true" className="flex flex-col items-center gap-1">
+        {games.map((game, index) => {
+          const isActive = index === activeIndex;
+
+          return (
+            <span key={game.testID} className="flex h-2 w-2 items-center justify-center">
+              <span
+                className={`h-1 w-1 transform-gpu rounded-full bg-current transition-[transform,opacity] duration-200 motion-reduce:transition-none ${
+                  isActive ? "scale-[2] opacity-100" : "scale-100 opacity-30"
+                }`}
+              />
+            </span>
+          );
+        })}
+      </div>
+    </div>
+  );
+});
+
 interface ThemeColorBlurLayerProps {
   isActive: boolean;
   palette: string[];
@@ -380,6 +423,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
   }, [allItems, ITEM_HEIGHT]);
 
   const focusedGame = allItems.find((g) => g.testID === focusedGameId) || allItems[0];
+  const focusedPackIndex = filteredGames.findIndex((game) => game.testID === focusedGameId);
   const focusedThemeColors = Object.values(focusedGame.theme.categories).map((category) => category.color);
   const femaleThemeColor = focusedThemeColors[0];
   const maleThemeColor = focusedThemeColors[1] || createCompanionColor(femaleThemeColor);
@@ -445,6 +489,18 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
             palette={themeMeshPalette}
             reducedMotion={reducedMotion}
           />
+
+          {isMobile && !isLaunching && focusedPackIndex >= 0 ? (
+            <MobilePackProgress
+              activeIndex={focusedPackIndex}
+              games={filteredGames}
+              label={t("gameLibrary.packProgress", {
+                current: focusedPackIndex + 1,
+                total: filteredGames.length,
+              })}
+              uiColor={panelUiColor}
+            />
+          ) : null}
 
           <div className="relative w-full h-full max-w-[1400px]">
 

@@ -2,23 +2,29 @@
   "testID": "end-of-day",
   "app": {
     "title": "末日之约",
-    "subtitle": "如果世界只剩90天，你会如何度过？",
+    "subtitle": "15个关于世界改变之后的问题",
     "language": "chinese",
     "type": "edition",
-    "playerGroup": ["solo", "couple", "friends", "strangers", "family"]
+    "playerGroup": [
+      "solo",
+      "couple",
+      "friends",
+      "strangers",
+      "family"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "末日之约",
       "description": [
-        "已知的文明将在90天后湮灭",
-        "让答案自然浮现 突破思维定式"
+        "想象世界会在90天后结束。",
+        "轮流回答你会开始、停止、保留和放下什么。"
       ],
       "startButton": "启程"
     },
     "endScreen": {
       "title": "末日新生",
-      "subtitle": "不必等到世界终结 才开启全新章节",
+      "subtitle": "不必真的等到终点，才停止推迟开始。",
       "restartButton": "再次挑战"
     }
   },
@@ -37,63 +43,78 @@
       "questions": [
         {
           "type": "open",
-          "question": "此刻起你会开始做什么？"
+          "question": "此刻起你会开始做什么？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你会戒掉什么习惯？"
+          "question": "你会戒掉什么习惯？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "第一个想去的地方是哪里？\n为什么？"
+          "question": "第一个想去的地方是哪里？\n为什么？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "末日降临，\n谁是你的同舟共济者？"
+          "question": "末日降临，\n谁是你的同舟共济者？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你会推举谁担任生存领袖？\n为什么？"
+          "question": "你会推举谁担任生存领袖？\n为什么？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "若有一个求生背包，\n你会装入什么？"
+          "question": "若有一个求生背包，\n你会装入什么？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "末日会改变你的亲密关系吗？\n请具体说明。"
+          "question": "末日会改变你的亲密关系吗？\n请具体说明。",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你会如何挥霍最后的积蓄？"
+          "question": "你会如何挥霍最后的积蓄？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "哪些焦虑你决定不再理会？"
+          "question": "哪些焦虑你决定不再理会？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "如果允许无限量拥有某物，\n你会选择什么？"
+          "question": "如果允许无限量拥有某物，\n你会选择什么？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你会给地球新主人留下怎样的时光胶囊？"
+          "question": "你会给地球新主人留下怎样的时光胶囊？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "一直羞于尝试的事，\n现在会去体验吗？"
+          "question": "一直羞于尝试的事，\n现在会去体验吗？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "描绘你理想的末日狂欢盛宴"
+          "question": "描绘你理想的末日狂欢盛宴",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "若有机会向全人类广播，\n你会传递什么讯息？"
+          "question": "若有机会向全人类广播，\n你会传递什么讯息？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "如果外星人只救你和另一个人，\n你会带谁？为什么？"
+          "question": "如果外星人只救你和另一个人，\n你会带谁？为什么？",
+          "energy": "bouba"
         }
       ]
     }

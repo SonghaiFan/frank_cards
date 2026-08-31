@@ -1,25 +1,27 @@
 {
   "testID": "deep-connections",
   "app": {
-    "title": "Situationship",
-    "subtitle": "在未定义关系中寻找清晰与真实",
+    "title": "暧昧关系",
+    "subtitle": "16个关于未定义关系的问题",
     "language": "chinese",
     "type": "edition",
-    "playerGroup": ["partners", "dating"]
+    "playerGroup": [
+      "partners",
+      "dating"
+    ]
   },
   "ui": {
     "startScreen": {
-      "title": "Situationship",
+      "title": "暧昧关系",
       "description": [
-        "探讨“未定义关系”的安全空间。",
-        "暂不考虑标签，只为相互理解。",
-        "坦诚面对气场、边界与那些不可言说。 "
+        "回答这段关系此刻真实的状态。",
+        "可以暂时没有名称，但不能没有诚实和边界。"
       ],
       "startButton": "开启未定义关系"
     },
     "endScreen": {
       "title": "获得清晰",
-      "subtitle": "无论我们处于什么状态，感谢你的真实",
+      "subtitle": "无论这是什么，今晚之后都让它少一点假装。",
       "restartButton": "重新开始"
     }
   },
@@ -51,39 +53,102 @@
     {
       "category": "vibe",
       "questions": [
-        { "type": "open", "question": "你有没有故意晚回我的消息，只是为了让自己看起来没那么在意？" },
-        { "type": "open", "question": "为了保持这种“轻松”的氛围，你在我面前压抑了哪一部分真实的自己？" },
-        { "type": "open", "question": "当我们在一起时，你更多感到的是如释重负还是焦虑不安？" },
-        { "type": "wildcard", "question": "特别环节：解锁你的手机，让我看你最近使用的3个表情。解释一下是发给谁的。" }
+        {
+          "type": "open",
+          "question": "什么时候，你会故意晚回，因为显得没那么在意比说清楚更安全？",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "为了让这段关系保持轻松，你删掉了自己的哪一部分？",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "每次见完面，你通常更安定、更焦虑，还是两种都有？",
+          "energy": "bouba"
+        },
+        {
+          "type": "wildcard",
+          "question": "选三个你愿意展示的最近常用表情。它们暴露了你这周的什么？",
+          "energy": "bouba"
+        }
       ]
     },
     {
       "category": "undefined",
       "questions": [
-        { "type": "open", "question": "你是否默认我在见其他人？你想知道具体的答案吗？" },
-        { "type": "open", "question": "如果我今晚发了和别人的暧昧动态，你觉得你有“权利”生气吗？" },
-        { "type": "open", "question": "为了避免被追问，你是不是跟朋友介绍我时只说我是“普通朋友”？" },
-        { "type": "wildcard", "question": "特别环节：描述一下你的“备胎” (Plan B)，但不要提名字。" }
+        {
+          "type": "open",
+          "question": "关于我是否还在见别人，你正在默认什么？",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "如果嫉妒出现，它会暴露我们缺少了哪项约定？",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "朋友问起我时，你怎样介绍，又会省略什么？",
+          "energy": "kiki"
+        },
+        {
+          "type": "wildcard",
+          "question": "描述那个你一直保留着的选项，以防我们永远不会更进一步。",
+          "energy": "kiki"
+        }
       ]
     },
     {
       "category": "expectations",
       "questions": [
-        { "type": "open", "question": "现在谁掌握着这段关系的主动权？是那个更不在乎的人，还是那个索取更少的人？" },
-        { "type": "open", "question": "如果我们中的一人动了真感情，这段关系是否就自动结束了？" },
-        { "type": "open", "question": "我们回避“我们是什么”这个话题，是因为我们不知道，还是因为我们知道答案会终结这一切？" },
-        { "type": "wildcard", "question": "特别环节：对视挑战。保持眼神接触30秒。先移开视线的人，是那个更不在乎的人。" }
+        {
+          "type": "open",
+          "question": "这里谁更有权力？是在意更少的人，还是更不诚实地承认在意的人？",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "如果其中一人想要更多，你害怕什么必须随之改变？",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "我们不定义关系，是因为还太早，还是因为模糊对某个人更有利？",
+          "energy": "kiki"
+        },
+        {
+          "type": "wildcard",
+          "question": "对视20秒。然后分别说说，什么让它变得困难或轻松。",
+          "energy": "kiki"
+        }
       ]
     },
     {
       "category": "reality",
       "questions": [
-        { "type": "open", "question": "诚实地说：我是你理想关系的“占位符”，还是你的目的地？" },
-        { "type": "open", "question": "当这段关系结束时，你会用哪一句话向朋友解释为什么我们没成？" },
-        { "type": "open", "question": "如果你明天遇到了你的“理想型”，你会立刻放弃我吗？" },
-        { "type": "wildcard", "question": "特别环节：问我那个你一直不敢问的问题，因为你怕它会“毁了”这一切。" }
+        {
+          "type": "open",
+          "question": "我是你真正想要的关系的一部分，还是你推迟寻找它的方式？",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "如果结束了，哪个真实原因会让你很难对朋友说出口？",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "如果明天出现一个看似完美的人，这会暴露你对这里的投入到了哪里？",
+          "energy": "kiki"
+        },
+        {
+          "type": "wildcard",
+          "question": "问出那个你一直说“太夸张了”的问题。",
+          "energy": "kiki"
+        }
       ]
     }
   ]
 }
-

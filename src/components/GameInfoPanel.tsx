@@ -42,9 +42,6 @@ const GameInfoPanel: React.FC<GameInfoPanelProps> = ({
       {showStartButton && onStart && (
         <div className="flex shrink-0 justify-center pt-6 lg:justify-end lg:pt-8">
           <Button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
             className="font-semibold"
             variant="primary"
             onClick={onStart}

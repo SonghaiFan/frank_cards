@@ -40,6 +40,9 @@ const rowToRecord = (row: TopicRow): TopicRecord => {
     createdAt: row.created_at,
     updatedAt: row.updated_at,
     publishedAt: row.published_at,
+    reviewedAt: row.reviewed_at,
+    reviewedBy: row.reviewed_by,
+    rejectionReason: row.rejection_reason,
     game,
   };
 };
@@ -95,16 +98,20 @@ export class SupabaseTopicRepository implements MutableTopicRepository {
       const client = await getSupabaseClient();
       let query = client
         .from("topics")
-        .select("*")
-        .order("updated_at", { ascending: false });
+        .select("*");
 
       if (options.language) query = query.eq("language", options.language);
       if (options.scope === "mine") {
         const user = await requireUser(client);
         query = query.eq("owner_id", user.id);
+      } else if (options.scope === "review") {
+        await requireUser(client);
+        query = query.eq("status", "pending_review");
       } else {
         query = query.eq("visibility", "public").eq("status", "published");
       }
+
+      query = query.order("updated_at", { ascending: options.scope === "review" });
 
       const { data, error } = await query;
       if (error) throw error;
@@ -162,6 +169,62 @@ export class SupabaseTopicRepository implements MutableTopicRepository {
     } catch (error) {
       if (error instanceof TopicRepositoryError) throw error;
       throw new TopicRepositoryError("Could not update the topic.", error);
+    }
+  }
+
+  async submitForReview(id: string): Promise<TopicRecord> {
+    try {
+      const client = await getSupabaseClient();
+      await requireUser(client);
+      const { data, error } = await client
+        .from("topics")
+        .update({
+          status: "pending_review",
+          visibility: "private",
+        })
+        .eq("id", id)
+        .select("*")
+        .single();
+      if (error) throw error;
+      return rowToRecord(data);
+    } catch (error) {
+      if (error instanceof TopicRepositoryError) throw error;
+      throw new TopicRepositoryError("Could not submit the topic for review.", error);
+    }
+  }
+
+  async withdrawFromCommunity(id: string): Promise<TopicRecord> {
+    try {
+      const client = await getSupabaseClient();
+      await requireUser(client);
+      const { data, error } = await client
+        .from("topics")
+        .update({ status: "draft", visibility: "private" })
+        .eq("id", id)
+        .select("*")
+        .single();
+      if (error) throw error;
+      return rowToRecord(data);
+    } catch (error) {
+      if (error instanceof TopicRepositoryError) throw error;
+      throw new TopicRepositoryError("Could not withdraw the topic.", error);
+    }
+  }
+
+  async review(id: string, decision: "approve" | "reject", reason?: string): Promise<TopicRecord> {
+    try {
+      const client = await getSupabaseClient();
+      await requireUser(client);
+      const { data, error } = await client.rpc("review_topic", {
+        topic_id: id,
+        decision,
+        reason: reason?.trim() || null,
+      });
+      if (error) throw error;
+      return rowToRecord(data);
+    } catch (error) {
+      if (error instanceof TopicRepositoryError) throw error;
+      throw new TopicRepositoryError("Could not review the topic.", error);
     }
   }
 

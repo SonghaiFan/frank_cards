@@ -1,502 +1,365 @@
 {
   "testID": "strangers",
   "app": {
-    "title": "We Are Not Really Strangers",
-    "subtitle": "A card game about connection and vulnerability",
+    "title": "Beyond First Impressions",
+    "subtitle": "36 questions to move beyond small talk",
     "language": "english",
     "type": "premium",
-    "playerGroup": ["strangers"]
+    "playerGroup": [
+      "strangers",
+      "friends",
+      "dating"
+    ]
   },
   "ui": {
     "startScreen": {
-      "title": "We Are Not Really Strangers",
+      "title": "Beyond First Impressions",
       "description": [
-        "A transformative card game that creates authentic connections through meaningful conversations.",
-        "From lighthearted moments to deep vulnerability - prepare to see each other in new ways.",
-        "Best played with someone you want to know better or reconnect with."
+        "Take turns answering each question.",
+        "Either person can pass without explaining."
       ],
-      "startButton": "Begin Connection"
+      "startButton": "Look Again"
     },
     "endScreen": {
-      "title": "Connection Complete",
-      "subtitle": "You are no longer strangers",
-      "restartButton": "Connect Again"
+      "title": "You Look Different Now",
+      "subtitle": "Keep what became more real between you.",
+      "restartButton": "Look Again"
     }
   },
   "theme": {
     "categories": {
-      "Getting to Know You": {
-        "name": "Getting to Know You",
-        "color": "#FFCDD2",
-        "description": "First impressions and surface discoveries"
+      "notice": {
+        "name": "What We Notice",
+        "color": "#E8A48F",
+        "description": "First impressions, small signals, and the selves we present"
       },
-      "Deeper Connections": {
-        "name": "Deeper Connections",
-        "color": "#EF9A9A",
-        "description": "Personal stories and meaningful insights"
+      "underneath": {
+        "name": "What Sits Underneath",
+        "color": "#D96C4F",
+        "description": "Stories, choices, and contradictions beneath the surface"
       },
-      "Vulnerable Moments": {
-        "name": "Vulnerable Moments",
-        "color": "#C62828",
-        "description": "Raw honesty and emotional intimacy"
+      "between": {
+        "name": "What Is Here Between Us",
+        "color": "#8F3434",
+        "description": "What this conversation is revealing about both of you"
       }
     }
   },
   "questions": [
     {
-      "category": "Getting to Know You",
+      "category": "notice",
       "questions": [
         {
           "type": "open",
-          "question": "How are you really?"
-        },
-        {
-          "type": "open",
-          "question": "What's your father's name? And tell me one thing about him."
-        },
-        {
-          "type": "open",
-          "question": "What's your mother's name? And the most beautiful thing about her?"
-        },
-        {
-          "type": "open",
-          "question": "What was your first impression of me?"
-        },
-        {
-          "type": "open",
-          "question": "Do you think I was popular in school? Explain."
-        },
-        {
-          "type": "open",
-          "question": "What do you think my defining characteristic is?"
-        },
-        {
-          "type": "open",
-          "question": "How would you describe me to a stranger?"
-        },
-        {
-          "type": "open",
-          "question": "What's your favorite compliment to receive?"
-        },
-        {
-          "type": "open",
-          "question": "What does my Instagram tell you about me?"
-        },
-        {
-          "type": "open",
-          "question": "Based on what you've learned about me, does my social media portray me accurately?"
-        },
-        {
-          "type": "open",
-          "question": "What title would you give this chapter in your life?"
-        },
-        {
-          "type": "open",
-          "question": "What's something you enjoy that you never get tired of?"
-        },
-        {
-          "type": "wildcard",
-          "question": "WILDCARD: Take a selfie together.",
+          "energy": "bouba",
+          "question": "What part of your day would you be happy for someone to ask about?",
           "more": [
-            "Capture this moment",
-            "Be natural and genuine",
-            "Keep it as a memory"
+            "What made that part matter today?",
+            "What would you leave out in a casual answer?"
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "bouba",
+          "question": "What small detail helps you feel welcome somewhere new?",
+          "more": [
+            "When did someone last notice that detail for you?"
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "bouba",
+          "question": "What do people tend to read correctly about you when they first meet you?",
+          "more": [
+            "How do you think you communicate it without words?"
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "kiki",
+          "question": "What do people confidently get wrong about you?",
+          "more": [
+            "What do you do that helps create that misunderstanding?",
+            "Do you ever benefit from it?"
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "kiki",
+          "question": "What do you make look easy that actually costs you effort?",
+          "more": [
+            "Why is it important that other people do not see the effort?"
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "bouba",
+          "question": "When you meet someone new, which version of you arrives first?",
+          "more": [
+            "Which version takes longer to appear?"
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "kiki",
+          "question": "Which compliment do you trust, and which one makes you suspicious?",
+          "more": [
+            "What does your suspicion protect you from?"
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "kiki",
+          "question": "What are you curious about but usually too polite to ask?",
+          "more": [
+            "Ask it now if it feels fair.",
+            "The other person may answer, reshape it, or pass."
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "bouba",
+          "question": "What ordinary thing do you care about more than most people?",
+          "more": [
+            "Tell the story of how it became important to you."
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "bouba",
+          "question": "What kind of silence feels comfortable to you?",
+          "more": [
+            "Who taught you that silence could be safe?"
           ]
         },
         {
           "type": "wildcard",
-          "question": "WILDCARD: Press shuffle on your music library. Explain the first song that comes up!",
+          "energy": "bouba",
+          "question": "Choose an object you can see. Tell the story that makes it more than an object.",
           "more": [
-            "Hit shuffle right now",
-            "Explain why this song matters",
-            "Share the story behind it"
+            "Do not choose the most impressive object.",
+            "Let the other person ask one follow-up question."
           ]
         },
         {
           "type": "wildcard",
-          "question": "WILDCARD: Show the first photo in your camera roll. Explain.",
+          "energy": "kiki",
+          "question": "Finish this sentence without making it charming: You might not guess that I...",
           "more": [
-            "No skipping or choosing",
-            "Show the very first photo",
-            "Tell the story behind it"
-          ]
-        },
-        {
-          "type": "wildcard",
-          "question": "WILDCARD: Think of something you dislike that most people don't. On the count of 3 say it out loud.",
-          "more": [
-            "Count together: 1, 2, 3",
-            "Say it simultaneously",
-            "Discuss your unpopular opinions"
-          ]
-        },
-        {
-          "type": "wildcard",
-          "question": "WILDCARD: Both players share something you're most grateful for in this current moment.",
-          "more": [
-            "Think about right now",
-            "What fills you with gratitude?",
-            "Share at the same time"
+            "Pause before you soften the ending.",
+            "The other person only says: Tell me more."
           ]
         }
       ]
     },
     {
-      "category": "Deeper Connections",
+      "category": "underneath",
       "questions": [
         {
           "type": "open",
-          "question": "What lesson took you the longest to unlearn?"
-        },
-        {
-          "type": "open",
-          "question": "If you could have it your way: who would you be with? Where would you be? And what would you be doing?"
-        },
-        {
-          "type": "open",
-          "question": "Why do you think we met?"
-        },
-        {
-          "type": "open",
-          "question": "Are you missing anyone right now? Do you think they are missing you too?"
-        },
-        {
-          "type": "open",
-          "question": "How would you describe the feeling of being in love in one word?"
-        },
-        {
-          "type": "open",
-          "question": "What have the past few weeks taught you?"
-        },
-        {
-          "type": "open",
-          "question": "Have you changed your mind about anything recently?"
-        },
-        {
-          "type": "open",
-          "question": "What about me is hardest for you to understand?"
-        },
-        {
-          "type": "open",
-          "question": "What do you admire most about me?"
-        },
-        {
-          "type": "open",
-          "question": "What are you feeling a lot of lately?"
-        },
-        {
-          "type": "open",
-          "question": "What's the most unexplainable thing that's ever happened to you?"
-        },
-        {
-          "type": "open",
-          "question": "What was the biggest turning point in your dating life?"
-        },
-        {
-          "type": "open",
-          "question": "What would your younger self not believe about your life today?"
-        },
-        {
-          "type": "open",
-          "question": "What's your favorite adjective with which to be described and why?"
-        },
-        {
-          "type": "open",
-          "question": "When was the last time you cried?"
-        },
-        {
-          "type": "open",
-          "question": "What's the hardest part about dating you?"
-        },
-        {
-          "type": "open",
-          "question": "Think of someone you admire. What made you think about them specifically?"
-        },
-        {
-          "type": "open",
-          "question": "What do you think our most important similarities are?"
-        },
-        {
-          "type": "open",
-          "question": "What parts of yourself do you see in me?"
-        },
-        {
-          "type": "open",
-          "question": "How does one earn your vulnerability?"
-        },
-        {
-          "type": "open",
-          "question": "What memory instantly makes you smile?"
-        },
-        {
-          "type": "open",
-          "question": "What do you think about most often?"
-        },
-        {
-          "type": "open",
-          "question": "When do you feel most alive?"
-        },
-        {
-          "type": "open",
-          "question": "What kinds of people do you enjoy most being around?"
-        },
-        {
-          "type": "open",
-          "question": "If you came with a warning label, what would the label say?"
-        },
-        {
-          "type": "open",
-          "question": "Has a stranger ever changed your life?"
-        },
-        {
-          "type": "open",
-          "question": "How would you describe your relationship with yourself in one word?"
-        },
-        {
-          "type": "open",
-          "question": "What has been your earliest recollection of happiness?"
-        },
-        {
-          "type": "wildcard",
-          "question": "WILDCARD: Who's been on your mind lately? Send them a text letting them know you're thinking of them. Both players.",
+          "energy": "bouba",
+          "question": "What is a kindness you still remember in unreasonable detail?",
           "more": [
-            "Take out your phones right now",
-            "Send the message together",
-            "Share what you wrote"
+            "Which detail stayed with you?",
+            "What did it let you believe for a moment?"
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "bouba",
+          "question": "Tell me about a recent moment that changed your mind.",
+          "more": [
+            "What made you willing to be changed?"
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "bouba",
+          "question": "Which younger version of you deserves more credit?",
+          "more": [
+            "What were they carrying that nobody could see?"
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "bouba",
+          "question": "What belief have you outgrown without fully replacing?",
+          "more": [
+            "What still feels useful about the old belief?"
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "kiki",
+          "question": "What rule do you still follow even though you no longer believe in it?",
+          "more": [
+            "Who benefits when you keep following it?",
+            "What would breaking it cost you?"
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "kiki",
+          "question": "What dream have you edited down until it sounds reasonable?",
+          "more": [
+            "What did the less reasonable version ask of you?"
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "kiki",
+          "question": "What truth do you know but keep living as if you do not?",
+          "more": [
+            "What convenience does not knowing protect?"
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "kiki",
+          "question": "What do you complain about while protecting the thing that causes it?",
+          "more": [
+            "What are you unwilling to lose?",
+            "Name the trade you are making."
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "bouba",
+          "question": "When did you say yes before you felt ready and become glad you did?",
+          "more": [
+            "What helped you move before certainty arrived?"
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "bouba",
+          "question": "Who shaped you without ever knowing how much they did?",
+          "more": [
+            "What did you quietly borrow from them?"
           ]
         },
         {
           "type": "wildcard",
-          "question": "WILDCARD: Call someone you admire. Let them know why you appreciate them.",
+          "energy": "bouba",
+          "question": "Choose a photo that is not impressive. Tell the story outside its frame.",
           "more": [
-            "Make the call right now",
-            "Be specific about what you admire",
-            "Share the conversation afterward"
+            "What happened five minutes before it?",
+            "What could the photo never show?"
           ]
         },
         {
           "type": "wildcard",
-          "question": "WILDCARD: Sing your favorite song lyrics you can think of off the top of your head. Both players.",
+          "energy": "kiki",
+          "question": "Name one strength that sometimes becomes a hiding place.",
           "more": [
-            "Don't think too hard about it",
-            "Just start singing",
-            "Enjoy the moment of silliness"
-          ]
-        },
-        {
-          "type": "wildcard",
-          "question": "WILDCARD: Draw your current feelings then compare.",
-          "more": [
-            "Use any materials available",
-            "Don't overthink the art",
-            "Explain your drawings to each other"
-          ]
-        },
-        {
-          "type": "wildcard",
-          "question": "WILDCARD: How can I add 1% more happiness in your life?",
-          "more": [
-            "Think of small, specific actions",
-            "Be practical and realistic",
-            "Commit to trying it"
+            "Give a recent example.",
+            "Let the other person reflect what they heard before responding."
           ]
         }
       ]
     },
     {
-      "category": "Vulnerable Moments",
+      "category": "between",
       "questions": [
         {
           "type": "open",
-          "question": "What insecurity of yours holds you back the most?"
-        },
-        {
-          "type": "open",
-          "question": "What's the most pain you've ever been in that wasn't physical?"
-        },
-        {
-          "type": "open",
-          "question": "Are any of your insecurities hurting someone else by accident?"
-        },
-        {
-          "type": "open",
-          "question": "Dear people who raised me, thank you for ________"
-        },
-        {
-          "type": "open",
-          "question": "What's been keeping you sane lately?"
-        },
-        {
-          "type": "open",
-          "question": "How can I be there for you during this chapter?"
-        },
-        {
-          "type": "open",
-          "question": "What have I tolerated from people in the past that I no longer have space for?"
-        },
-        {
-          "type": "open",
-          "question": "What do you need right now but aren't communicating?"
-        },
-        {
-          "type": "open",
-          "question": "What's the hardest truth you had to face this past year?"
-        },
-        {
-          "type": "open",
-          "question": "What's a feeling you're uncomfortable sharing with me?"
-        },
-        {
-          "type": "open",
-          "question": "What are you currently working through that others can't see?"
-        },
-        {
-          "type": "open",
-          "question": "What is your heart telling you?"
-        },
-        {
-          "type": "open",
-          "question": "What is your most toxic trait you can admit to?"
-        },
-        {
-          "type": "open",
-          "question": "What are you overthinking right now?"
-        },
-        {
-          "type": "open",
-          "question": "What did your last relationship teach you about yourself?"
-        },
-        {
-          "type": "open",
-          "question": "What belief about yourself no longer serves you?"
-        },
-        {
-          "type": "open",
-          "question": "What is the last thing you lied to your mom about?"
-        },
-        {
-          "type": "open",
-          "question": "What are you still trying to prove to yourself?"
-        },
-        {
-          "type": "open",
-          "question": "What's the biggest mistake you've made?"
-        },
-        {
-          "type": "open",
-          "question": "What's a phrase that you say that you wish you would stop saying?"
-        },
-        {
-          "type": "open",
-          "question": "What do you think is one thing I could do that would drastically improve my life?"
-        },
-        {
-          "type": "open",
-          "question": "What do I need to hear right now?"
-        },
-        {
-          "type": "open",
-          "question": "What do you think I fear the most?"
-        },
-        {
-          "type": "open",
-          "question": "What question were you most afraid to answer?"
-        },
-        {
-          "type": "open",
-          "question": "What has this conversation taught you about yourself?"
-        },
-        {
-          "type": "open",
-          "question": "What do you think I should know about myself that perhaps I'm unaware of?"
-        },
-        {
-          "type": "open",
-          "question": "What would make you feel closer to me?"
-        },
-        {
-          "type": "open",
-          "question": "In one word, describe how you feel right now."
-        },
-        {
-          "type": "open",
-          "question": "What's the most attractive quality about me that isn't physical?"
-        },
-        {
-          "type": "open",
-          "question": "What about you feels hardest to love?"
-        },
-        {
-          "type": "open",
-          "question": "Is there anything you're ashamed of from your past?"
-        },
-        {
-          "type": "open",
-          "question": "What's something you believe to be true that no one else around you believes is true?"
-        },
-        {
-          "type": "open",
-          "question": "What are you proudest of yourself for saying 'no' to recently?"
-        },
-        {
-          "type": "open",
-          "question": "What's one thing that should be taught, but isn't?"
-        },
-        {
-          "type": "open",
-          "question": "If you died today, what regrets would you have about your life?"
-        },
-        {
-          "type": "open",
-          "question": "How has your type in crushes changed over time?"
-        },
-        {
-          "type": "open",
-          "question": "What is something that you hate being called? (a name, a nickname, an insult, etc)"
-        },
-        {
-          "type": "wildcard",
-          "question": "WILDCARD: Admit something.",
+          "energy": "bouba",
+          "question": "Which answer has changed your picture of me so far?",
           "more": [
-            "This is a moment for raw honesty",
-            "Share something you haven't told anyone",
-            "Be brave and vulnerable"
+            "What were you assuming before that answer?"
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "bouba",
+          "question": "When in this conversation did you feel most listened to?",
+          "more": [
+            "What did the other person do that made it feel different?"
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "kiki",
+          "question": "What assumption about me are you now willing to revise?",
+          "more": [
+            "Say the original assumption plainly.",
+            "Give me room to correct both versions."
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "kiki",
+          "question": "What are you saying more carefully because it is me sitting here?",
+          "more": [
+            "What would the less careful version sound like?"
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "kiki",
+          "question": "What feels easier to tell a stranger than someone close to you?",
+          "more": [
+            "What becomes risky when the listener matters?"
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "kiki",
+          "question": "Where do you think I might be performing confidence?",
+          "more": [
+            "Offer it as a guess, not a diagnosis.",
+            "Let me keep, change, or reject your reading."
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "bouba",
+          "question": "What would you genuinely like me to ask next?",
+          "more": [
+            "Why does that question matter now?"
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "kiki",
+          "question": "What would make this conversation more honest than it has been?",
+          "more": [
+            "Ask for one concrete change from both of you."
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "bouba",
+          "question": "What part of you feels a little safer after talking here?",
+          "more": [
+            "What helped create that safety?"
+          ]
+        },
+        {
+          "type": "open",
+          "energy": "bouba",
+          "question": "What should we deliberately leave unopened today?",
+          "more": [
+            "A boundary can be part of an honest conversation.",
+            "No explanation is required."
           ]
         },
         {
           "type": "wildcard",
-          "question": "WILDCARD: Look into each other's eyes for 30 seconds. What did you notice?",
+          "energy": "bouba",
+          "question": "Each name one moment when the other person seemed most alive.",
           "more": [
-            "Set a timer for 30 seconds",
-            "No talking during the staring",
-            "Share what you observed afterward"
+            "Describe what you noticed.",
+            "Do not turn it into advice."
           ]
         },
         {
-          "type": "wildcard",
-          "question": "WILDCARD: Write a message to each other and give it to each other. Open it once you have left.",
+          "type": "end",
+          "energy": "bouba",
+          "question": "Name one thing you now understand differently about the person in front of you.",
           "more": [
-            "Write something meaningful",
-            "Fold the papers and exchange",
-            "Promise to read later"
-          ]
-        },
-        {
-          "type": "wildcard",
-          "question": "WILDCARD: Staring contest. First person to blink must reveal a personal problem and ask the other for advice.",
-          "more": [
-            "Start the staring contest now",
-            "Winner gives advice to the loser",
-            "Be supportive and helpful"
-          ]
-        },
-        {
-          "type": "wildcard",
-          "question": "WILDCARD: Tell the other person to close their eyes and to keep them closed. (wait 15 seconds and hug them)",
-          "more": [
-            "One person closes their eyes",
-            "Wait exactly 15 seconds",
-            "Give a meaningful hug"
+            "Say what changed, not only what you learned.",
+            "Thank each other for one honest moment."
           ]
         }
       ]

@@ -8,7 +8,7 @@ import QuickGameLibrary from "./components/GameLibrary";
 import GameController from "./components/GameController";
 import MinimumScreenSize from "./components/MinimumScreenSize";
 import { useScreenSize } from "./hooks/useScreenSize";
-import { clearAvailableTopicsCache, listAvailableTopics } from "./data/topics/catalog";
+import { clearAvailableTopicsCache, listBuiltInTopics, listCommunityTopics } from "./data/topics/catalog";
 import { toTopicLanguage } from "./types/Topic";
 import AccountHub from "./components/account/AccountHub";
 import AppStatusScreen from "./components/AppStatusScreen";
@@ -18,6 +18,7 @@ type TopicLoadStatus = "loading" | "ready" | "error";
 function App() {
   const { i18n } = useTranslation();
   const [games, setGames] = useState<ConversationGame[]>([]);
+  const [communityGames, setCommunityGames] = useState<ConversationGame[]>([]);
 
   // Refactor state for multi-selection
   const [selectedGames, setSelectedGames] = useState<ConversationGame[]>([]);
@@ -31,14 +32,17 @@ function App() {
     let cancelled = false;
     setLoadStatus("loading");
     setGames([]);
+    setCommunityGames([]);
 
-    listAvailableTopics({
-      language: toTopicLanguage(i18n.language),
-      scope: "available",
-    })
-      .then((topics) => {
+    const language = toTopicLanguage(i18n.language);
+    Promise.all([
+      listBuiltInTopics({ language }),
+      listCommunityTopics({ language }),
+    ])
+      .then(([builtInTopics, communityTopics]) => {
         if (!cancelled) {
-          setGames(topics.map((topic) => topic.game));
+          setGames(builtInTopics.map((topic) => topic.game));
+          setCommunityGames(communityTopics.map((topic) => topic.game));
           setLoadStatus("ready");
         }
       })
@@ -107,6 +111,10 @@ function App() {
     setLoadAttempt((attempt) => attempt + 1);
   };
 
+  const handleTopicsChanged = () => {
+    setLoadAttempt((attempt) => attempt + 1);
+  };
+
   // Check if screen meets minimum size requirements
   if (!isMinimumSizeMet) {
     return <MinimumScreenSize height={viewportHeight} width={viewportWidth} />;
@@ -154,7 +162,9 @@ function App() {
                   ease: [0.16, 1, 0.3, 1],
                 }}
               >
-                {!isSessionActive ? <AccountHub onUseTopic={handleQuickStart} /> : null}
+                {!isSessionActive ? (
+                  <AccountHub onTopicsChanged={handleTopicsChanged} onUseTopic={handleQuickStart} />
+                ) : null}
                 <div className="relative isolate h-full w-full flex-1 overflow-hidden">
                   <AnimatePresence initial={false} mode="sync">
                     {isSessionActive ? (
@@ -193,6 +203,7 @@ function App() {
                         ) : (
                           <GameLibrary
                             games={games}
+                            communityGames={communityGames}
                             selectedGames={selectedGames}
                             onToggleGame={handleToggleGame}
                             onStartSession={handleStartSession}

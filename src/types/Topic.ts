@@ -2,7 +2,7 @@ import type { ConversationGame } from "./ConversationGame";
 
 export const TOPIC_LANGUAGES = ["en", "zh"] as const;
 export const TOPIC_VISIBILITIES = ["private", "public"] as const;
-export const TOPIC_STATUSES = ["draft", "published", "archived"] as const;
+export const TOPIC_STATUSES = ["draft", "pending_review", "published", "rejected", "archived"] as const;
 
 export type TopicLanguage = (typeof TOPIC_LANGUAGES)[number];
 export type TopicVisibility = (typeof TOPIC_VISIBILITIES)[number];
@@ -20,12 +20,15 @@ export interface TopicRecord {
   createdAt: string | null;
   updatedAt: string | null;
   publishedAt: string | null;
+  reviewedAt: string | null;
+  reviewedBy: string | null;
+  rejectionReason: string | null;
   game: ConversationGame;
 }
 
 export interface TopicListOptions {
   language?: TopicLanguage;
-  scope?: "available" | "mine";
+  scope?: "available" | "mine" | "review";
 }
 
 export interface SaveTopicInput {

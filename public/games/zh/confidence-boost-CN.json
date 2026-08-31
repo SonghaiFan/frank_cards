@@ -5,24 +5,22 @@
     "subtitle": "10个问题，提醒你自己的力量",
     "language": "chinese",
     "type": "normal",
-    "playerGroup": ["solo"]
+    "playerGroup": [
+      "solo"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "自信提升",
       "description": [
-        "什么时候适合问自己这10个问题？",
-        "a. 约会或面试前",
-        "b. 第一天上学前",
-        "c. 被人伤害后",
-        "d. 任何觉得“我不行”的日子",
-        "e. 以上全部"
+        "需要重新看见自己时，就回答这些问题。",
+        "用你真正做过、改变过或熬过的事情回答。"
       ],
       "startButton": "开始"
     },
     "endScreen": {
       "title": "你做到了！",
-      "subtitle": "你花时间回忆了自己的力量。请带着这份自信前行——你比自己想象的更有能力。",
+      "subtitle": "当你说得出自信从哪里来，它就更值得相信。",
       "restartButton": "再来一次"
     }
   },
@@ -41,43 +39,53 @@
       "questions": [
         {
           "type": "open",
-          "question": "描述一次意外顺利的经历。"
+          "question": "最近哪件难事，你处理得比从前的自己更好？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "有什么事你曾经很不自信，但现在已经释怀了？"
+          "question": "哪一种不自信，已经没有以前那么能支配你？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你童年时的自己，会对你现在生活的哪一部分感到惊叹？"
+          "question": "你现在的生活里，哪部分最会让小时候的自己意外？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "谁激励了你？你在哪些方面像他们？"
+          "question": "你在自己的行为里，看见了谁的勇气？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "描述一次你说“不要”，而你很庆幸自己这么做的情景。"
+          "question": "哪一次说“不”，保护了某件重要的东西？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "描述一次你说“好”，而你很庆幸自己这么做的情景。"
+          "question": "哪一次说“好”，需要的勇气比别人看见的更多？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "有什么你为自己感到骄傲但还没庆祝过的事？"
+          "question": "你把哪项成就说得很小，只因为认真庆祝会让你不好意思？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你上一次为自己或他人发声是什么时候？那让你感觉如何？"
+          "question": "上一次还没完全准备好就开口，是什么时候？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你曾经许下并坚持完成的承诺是什么？"
+          "question": "你一直安静地守住了对自己的哪个承诺？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "想一想相信你的人。他们会说你的优点是什么？"
+          "question": "真正了解你的人，会毫不犹豫地说出你的哪种力量？",
+          "energy": "bouba"
         }
       ]
     }

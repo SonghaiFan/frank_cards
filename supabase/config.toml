@@ -20,3 +20,15 @@ secure_password_change = false
 max_frequency = "60s"
 otp_length = 8
 otp_expiry = 3600
+
+[auth.email.template.confirmation]
+subject = "Confirm your FrankCards account"
+content_path = "./supabase/templates/confirmation.html"
+
+[auth.email.template.recovery]
+subject = "Reset your FrankCards password"
+content_path = "./supabase/templates/recovery.html"
+
+[auth.email.template.magic_link]
+subject = "Your FrankCards sign-in link"
+content_path = "./supabase/templates/magic_link.html"

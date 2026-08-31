@@ -2,23 +2,25 @@
   "testID": "self-love",
   "app": {
     "title": "Self Love",
-    "subtitle": "15 questions to build your self-love practice. Play as often as needed.",
+    "subtitle": "15 questions about how you treat yourself",
     "language": "english",
     "type": "normal",
-    "playerGroup": ["solo"]
+    "playerGroup": [
+      "solo"
+    ]
   },
   "ui": {
     "startScreen": {
-      "title": "Self Love Starter Pack",
+      "title": "Self Love",
       "description": [
-        "15 questions to build your self-love practice.",
-        "Play as often as needed."
+        "Answer slowly and use specific examples.",
+        "Return whenever you need to check whether you are still on your own side."
       ],
       "startButton": "Begin"
     },
     "endScreen": {
       "title": "You are the best",
-      "subtitle": "Reminder: Self love takes practice.",
+      "subtitle": "Pick one way to stand on your own side this week.",
       "restartButton": "Keep Going"
     }
   },
@@ -37,63 +39,78 @@
       "questions": [
         {
           "type": "open",
-          "question": "What gave you a sense of achievement recently?"
+          "question": "What gave you a sense of achievement recently?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What do you no longer need?"
+          "question": "What do you no longer need?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What's one thing you healed from, and how?"
+          "question": "What's one thing you healed from, and how?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What is difficult to forgive yourself for?"
+          "question": "What is difficult to forgive yourself for?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What have you grown to love about yourself?"
+          "question": "What have you grown to love about yourself?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What do you have great taste in?"
+          "question": "What do you have great taste in?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Where are you giving too much?"
+          "question": "Where are you giving too much?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "How do you measure your own success?"
+          "question": "How do you measure your own success?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What do you need more than you'd like to admit?"
+          "question": "What do you need more than you'd like to admit?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "How do you set boundaries?"
+          "question": "How do you set boundaries?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What are you trying to unlearn about love?"
+          "question": "What are you trying to unlearn about love?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What help could you ask for, even if it's difficult?"
+          "question": "What help could you ask for, even if it's difficult?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What pattern do you want to break, even if you don't know how yet?"
+          "question": "What pattern do you want to break, even if you don't know how yet?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What do you no longer want to wait for?"
+          "question": "What do you no longer want to wait for?",
+          "energy": "kiki"
         },
         {
           "type": "end",
-          "question": "Who are you in the process of becoming?"
+          "question": "Who are you in the process of becoming?",
+          "energy": "bouba"
         }
       ]
     }

@@ -1,25 +1,28 @@
 {
   "testID": "love-36",
   "app": {
-    "title": "Arthur Aron's 36 Questions",
-    "subtitle": "An Intimate Relationship Experiment Based on Arthur Aron’s Psychological Research",
+    "title": "36 Questions",
+    "subtitle": "36 questions for a closer conversation",
     "language": "english",
     "type": "normal",
-    "playerGroup": ["couple", "friends", "strangers"]
+    "playerGroup": [
+      "couple",
+      "friends",
+      "strangers"
+    ]
   },
   "ui": {
     "startScreen": {
-      "title": "Arthur Aron's 36 Questions",
+      "title": "36 Questions",
       "description": [
-        "This is a famous experiment based on the research of psychologist Arthur Aron.",
-        "Through 36 progressively deeper personalized questions, it promotes intimacy between two people.",
-        "It is recommended to do this with a partner or friend, taking turns answering each question."
+        "The questions gradually become more personal.",
+        "Take turns, answer with specific examples, and pass when needed."
       ],
       "startButton": "Start Experiment"
     },
     "endScreen": {
       "title": "Experiment Completed",
-      "subtitle": "Congratulations on completing the intimate relationship experiment",
+      "subtitle": "Closeness is not a result screen. Notice what you now want to ask next.",
       "restartButton": "Restart"
     }
   },
@@ -48,56 +51,68 @@
       "questions": [
         {
           "type": "open",
-          "question": "If you could choose anyone in the world, who would you invite to dinner?",
+          "question": "Who shaped your idea of a good life, and what would you ask them over dinner?",
           "more": [
             "Think about historical figures, celebrities, or people you admire",
             "Share the reason why you chose this person",
             "Describe the topics you want to discuss with them"
-          ]
+          ],
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Do you want to become famous? In what way do you want to become famous?"
+          "question": "If strangers knew your name, what would you want it to be for?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Do you rehearse what you are going to say before making a phone call? Why?"
+          "question": "Which conversations make you rehearse, and what are you trying to control?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What does a \"perfect\" day look like to you?"
+          "question": "Describe a genuinely good day, including the ordinary parts.",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "When was the last time you sang by yourself, and did you sing for others?"
+          "question": "When do you sing, hum, or make noise without caring how it sounds?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "If you could live to 90 years old and maintain either the mind or the body of a 30-year-old, which would you choose to keep, the mind or the body?"
+          "question": "As you age, which would you fight harder to protect: your body's freedom or your mind's clarity?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Have you ever secretly had a premonition about how you would die?"
+          "question": "How does knowing your life is finite change the way you spend an ordinary week?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Name three features that you and your partner look alike in."
+          "question": "Name three ways the two of you are more alike than you expected.",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What in life are you most grateful for?"
+          "question": "What are you grateful for that you rarely remember to name?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "If you could change one thing about the way you were raised, what would it be?"
+          "question": "Which rule from your upbringing are you still trying to unlearn?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Spend four minutes telling your partner your life story in as much detail as possible."
+          "question": "Tell your life story through five moments that changed its direction.",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "If you could wake up tomorrow with a certain talent or ability, what would you want that ability to be?"
+          "question": "What ability would change your daily life more than it would impress anyone?",
+          "energy": "bouba"
         }
       ]
     },
@@ -106,51 +121,63 @@
       "questions": [
         {
           "type": "open",
-          "question": "If there were a crystal ball that could tell you the truth about yourself, life, the future, or anything else, would you want to know?"
+          "question": "What truth about your future would you choose not to know?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Is there something you have always dreamed of doing but haven't done? Why haven't you done it?"
+          "question": "Which dream have you kept alive mostly by postponing it?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What is your greatest achievement in life?"
+          "question": "What achievement cost you more than people could see?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What do you value most in a friendship?"
+          "question": "What behavior makes a friendship feel safe enough to last?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What is your most precious memory?"
+          "question": "Which memory do you return to when you need proof that life can feel good?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What is your worst memory?"
+          "question": "Which memory still has more influence over you than you want it to?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "If you knew you would suddenly die within a year, would you change your current lifestyle? Why?"
+          "question": "If you had one year left, what would stop receiving your time immediately?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What does friendship mean to you?"
+          "question": "Complete this sentence: Friendship is something you do when...",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What role do love and emotions play in your life?"
+          "question": "Which emotion gets the most room in your life, and which gets the least?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Take turns with your partner to say one good quality you see in the other person, five each."
+          "question": "Take turns naming three specific things you appreciate about how the other person moves through the world.",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Are the relationships among your family members close and warm, and do you feel your childhood was happier than others'?"
+          "question": "What did your family make easy to express, and what did it make difficult?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What is your relationship with your mother like?"
+          "question": "Which caregiver taught you the most about closeness, for better or worse?",
+          "energy": "kiki"
         }
       ]
     },
@@ -159,51 +186,63 @@
       "questions": [
         {
           "type": "open",
-          "question": "Each person uses 'we' to make three sentences, including real situations, for example, 'The two of us are in the room, feeling...'"
+          "question": "Make three true sentences beginning with: Right now, we...",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Complete this sentence: \"I want to be with someone, to share...\""
+          "question": "Complete this sentence: I want someone I can share...",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "If you want to become close friends with the other person, please tell them if there is anything important they need to know."
+          "question": "If we became close, what would I need to understand about you sooner rather than later?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Tell the other person what you like about him or her. Be very honest and say things you wouldn't say to a casual acquaintance."
+          "question": "Name something you like about the other person that only became visible through attention.",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Share those awkward moments in life with the other person."
+          "question": "Share an awkward moment that became funny only after enough time passed.",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "When was the last time you cried in front of others? And when did you last cry by yourself?"
+          "question": "When did you last cry with someone present, and when did you hide it?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Tell the other person which quality of his or hers you have come to like."
+          "question": "Which quality in the other person surprised you as this conversation unfolded?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What do you think is something so serious that it cannot be joked about, if there is any."
+          "question": "What subject should never become a joke at someone else's expense?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "If you were to die tonight and had no chance to contact anyone, would you regret not having said certain things to others before? Why haven't you said those things to them until now?"
+          "question": "What important sentence are you still postponing, and who needs to hear it?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Suppose everything you own is in your house. Now the house is on fire. After rescuing your family and pets, you have one last chance to safely rush in and take out one final item. What would you take and why?"
+          "question": "If you could rescue one object from your home after everyone was safe, what would it carry for you?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Which member of your family’s passing would make you the saddest, and why?"
+          "question": "Which family story or ritual do you most want to keep alive?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Describe a personal problem of yours and ask the other person how they would solve it if they encountered the same issue. Also, ask the other person to honestly tell you how they think you feel about this problem."
+          "question": "Share one real problem. Ask the other person to reflect what they hear before offering any solution.",
+          "energy": "kiki"
         }
       ]
     }

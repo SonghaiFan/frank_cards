@@ -1,25 +1,28 @@
 {
   "testID": "love-36",
   "app": {
-    "title": "阿瑟·亚伦的36个问题",
-    "subtitle": "基于阿瑟·亚伦心理学研究的亲密关系实验",
+    "title": "36个问题",
+    "subtitle": "36个帮助彼此靠近的问题",
     "language": "chinese",
     "type": "normal",
-    "playerGroup": ["couple", "friends", "strangers"]
+    "playerGroup": [
+      "couple",
+      "friends",
+      "strangers"
+    ]
   },
   "ui": {
     "startScreen": {
-      "title": "阿瑟·亚伦的36个问题",
+      "title": "36个问题",
       "description": [
-        "这是基于心理学家阿瑟·亚伦(Arthur Aron)研究的著名实验。",
-        "通过36个逐步深入的个人化问题，促进两个人之间的亲密关系。",
-        "建议与伴侣或朋友一起进行，轮流回答每个问题。"
+        "问题会逐渐变得更私人。",
+        "轮流回答，使用具体例子，需要时可以跳过。"
       ],
       "startButton": "开始实验"
     },
     "endScreen": {
       "title": "实验完成",
-      "subtitle": "恭喜你完成了亲密关系实验",
+      "subtitle": "靠近不是一个通关页面。看看你现在还想继续问什么。",
       "restartButton": "重新开始"
     }
   },
@@ -48,56 +51,68 @@
       "questions": [
         {
           "type": "open",
-          "question": "如果可以在世界上所有人中任意选择，你想邀请谁共进晚餐？",
+          "question": "谁塑造了你对“好生活”的想象？如果一起吃饭，你最想问对方什么？",
           "more": [
             "想想历史人物、名人或你崇拜的人",
             "分享你选择这个人的原因",
             "描述你想和他们聊什么话题"
-          ]
+          ],
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你想成名吗？想以什么方式成名？"
+          "question": "如果陌生人都知道你的名字，你希望是因为什么？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "打电话之前你会先排练一下要说什么吗，为什么？"
+          "question": "哪种对话会让你提前排练？你想控制的是什么？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "对你来说，\"完美\"的一天是什么样的？"
+          "question": "描述真正不错的一天，包括那些很普通的部分。",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你上次自己唱起歌来是在什么时候，给别人唱呢？"
+          "question": "什么时候，你会唱歌、哼曲或发出声音，而不在乎是否好听？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "如果你能活到90岁，同时可以一直保持30岁时的心智或身体，你会选择保持哪一种呢，心智还是身体？"
+          "question": "随着年龄增长，你会更努力守住身体的自由，还是头脑的清醒？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你是否曾经秘密地预感到自己会以怎样的方式死去？"
+          "question": "知道生命有限，会怎样改变你度过普通一周的方式？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "说出三件你和你的伴侣看上去相同的特征。"
+          "question": "说出你们三点比想象中更相似的地方。",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "人生中的什么东西最令你感激？"
+          "question": "你在感激什么，却很少想起来要说出口？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "如果你能改变被抚养成人过程中的一件事，会是哪一件？"
+          "question": "成长过程中学到的哪条规则，是你至今仍在努力摆脱的？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "花四分钟时间，尽可能详细告诉伴侣你的人生经历。"
+          "question": "用五个改变方向的时刻，讲完你到目前为止的人生故事。",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "如果你明天一觉醒来就能拥有某种才能或能力，你希望那会是什么能力呢？"
+          "question": "哪种能力会真正改变你的日常，而不只是让别人觉得厉害？",
+          "energy": "bouba"
         }
       ]
     },
@@ -106,51 +121,63 @@
       "questions": [
         {
           "type": "open",
-          "question": "如果有一个水晶球可以告诉你关于自己、人生，未来乃至任何事情的真相，你会想知道吗？"
+          "question": "关于未来的哪项真相，你宁愿永远不知道？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "有没有什么事是你一直梦想去做而没有去做的，为什么没有做？"
+          "question": "哪个梦想主要靠一再推迟，才一直没有真正死去？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你人生中最大的成就是什么？"
+          "question": "哪项成就付出的代价，比别人看见的更多？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "在一段友谊之中你最珍视的是什么？"
+          "question": "什么行为会让一段友情安全到足以长久？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你最宝贵的记忆是什么？"
+          "question": "需要证明生活可以很美好时，你会回到哪段记忆？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你最糟糕的记忆是什么？"
+          "question": "哪段记忆对你的影响，至今仍比你希望的更大？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "假如你知道自己在一年内就会突然死去，你会改变现在的生活方式吗？为什么？"
+          "question": "如果生命只剩一年，什么事情会立刻失去占用你时间的资格？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "友谊对于你来说意味着什么？"
+          "question": "完成这句话：友情是当……时，你仍会去做的事。",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "爱与情感在你生活中扮演着什么样的角色？"
+          "question": "哪种情绪在你的生活里占据最多空间？哪种最少？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "和你的伴侣轮流说出心目中对方的一个好品质，每人说五条。"
+          "question": "轮流说出三件具体的事，表达你欣赏对方怎样生活和对待世界。",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你的家人之间关系是否亲密而温暖，你觉得自己的童年比其他人更快乐吗？"
+          "question": "你的家庭让什么情绪很容易表达，又让什么很难？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你和母亲之间的关系是怎样的？"
+          "question": "哪位照顾者最深地教会了你什么是亲近，无论那影响是好是坏？",
+          "energy": "kiki"
         }
       ]
     },
@@ -159,51 +186,63 @@
       "questions": [
         {
           "type": "open",
-          "question": "每人用\"我们\"造三个句子，并含有实际情况，比如\"我们俩在屋子里，感觉……\""
+          "question": "说三个真实的句子，每句都从“此刻，我们……”开始。",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "补完这个句子：\"我希望和某人在一起，分享……\""
+          "question": "完成这句话：我想要一个可以和我分享……的人。",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "如果你想和对方成为亲近的朋友，请告诉对方有什么重要的事情是他或她需要知道的。"
+          "question": "如果我们变得亲近，有什么是我最好尽早理解的？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "告诉对方你喜欢他或她身上的什么东西，要非常诚实，说些你不会对萍水之交说的东西。"
+          "question": "说出你喜欢对方的一点，它只有在认真观察之后才会出现。",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "和对方分享生命中那些尴尬的时刻。"
+          "question": "分享一个尴尬时刻，它过了很久之后才终于变得好笑。",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你上次在别人面前哭是什么时候？自己哭呢？"
+          "question": "上一次有人在场时哭是什么时候？上一次藏起来哭呢？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "告诉对方，你已经喜欢上了他或她身上的什么品质。"
+          "question": "随着这场对话展开，对方的哪种品质让你感到意外？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你觉得什么东西是严肃到不能开玩笑的，假如有的话。"
+          "question": "什么话题绝不能靠牺牲别人来变成笑话？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "如果你今晚就将死去，而且没有机会同任何人联络，你会因为之前没有对别人说什么话而感到遗憾，你为什么到现在都没有对他们说这些话呢？"
+          "question": "哪句重要的话，你还在拖着不说？谁需要听见它？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "假设你拥有的全部东西都在你的房子里，现在房子着了火，救出家人和宠物之后，你还有机会安全地冲进去最后一次，取出最后一件东西，你会拿什么，为什么？"
+          "question": "如果所有人都安全后，你只能从家里救出一件物品，它承载着什么？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你的家人中，谁去世了会令你最难过，为什么？"
+          "question": "哪个家庭故事或仪式，是你最想继续留下来的？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "说出一件你的个人问题，问对方如果遇到此事要如何解决。另外，也要让对方如实告诉你，在他或她眼中，你对于这个问题的感受是怎样的。"
+          "question": "说出一个真实问题。请对方先复述听见了什么，再提出解决办法。",
+          "energy": "kiki"
         }
       ]
     }

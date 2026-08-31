@@ -2,7 +2,7 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 
 export type TopicAppType = "normal" | "edition" | "premium";
 export type TopicLanguage = "en" | "zh";
-export type TopicStatus = "draft" | "published" | "archived";
+export type TopicStatus = "draft" | "pending_review" | "published" | "rejected" | "archived";
 export type TopicVisibility = "private" | "public";
 
 export interface Database {
@@ -15,6 +15,7 @@ export interface Database {
           avatar_url: string | null;
           created_at: string;
           updated_at: string;
+          is_admin: boolean;
         };
         Insert: {
           id: string;
@@ -22,11 +23,13 @@ export interface Database {
           avatar_url?: string | null;
           created_at?: string;
           updated_at?: string;
+          is_admin?: boolean;
         };
         Update: {
           display_name?: string | null;
           avatar_url?: string | null;
           updated_at?: string;
+          is_admin?: boolean;
         };
         Relationships: [];
       };
@@ -49,6 +52,9 @@ export interface Database {
           created_at: string;
           updated_at: string;
           published_at: string | null;
+          reviewed_at: string | null;
+          reviewed_by: string | null;
+          rejection_reason: string | null;
         };
         Insert: {
           id?: string;
@@ -68,6 +74,9 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
           published_at?: string | null;
+          reviewed_at?: string | null;
+          reviewed_by?: string | null;
+          rejection_reason?: string | null;
         };
         Update: {
           title?: string;
@@ -81,6 +90,9 @@ export interface Database {
           end_screen?: Json;
           categories?: Json;
           questions?: Json;
+          reviewed_at?: string | null;
+          reviewed_by?: string | null;
+          rejection_reason?: string | null;
         };
         Relationships: [];
       };
@@ -89,7 +101,18 @@ export interface Database {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      is_current_user_topic_admin: {
+        Args: Record<PropertyKey, never>;
+        Returns: boolean;
+      };
+      review_topic: {
+        Args: {
+          topic_id: string;
+          decision: string;
+          reason?: string | null;
+        };
+        Returns: TopicRow;
+      };
     };
     Enums: {
       topic_app_type: TopicAppType;

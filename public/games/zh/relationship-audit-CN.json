@@ -2,7 +2,7 @@
   "testID": "relationship-audit",
   "app": {
     "title": "关系深度审视",
-    "subtitle": "那些我们不敢触碰的真相",
+    "subtitle": "21个关于需求、冲突与未来的问题",
     "language": "chinese",
     "type": "premium",
     "playerGroup": [
@@ -14,15 +14,14 @@
     "startScreen": {
       "title": "关系深度审视",
       "description": [
-        "直面关系中的痛点与盲区",
-        "这不是轻松的闲聊",
-        "这是为了不仅想要维持，更想要进化的伴侣"
+        "轮流回答。谈具体行为，不给对方贴人格标签。",
+        "听完完整答案，再作回应。"
       ],
       "startButton": "开始审视"
     },
     "endScreen": {
       "title": "审视完成",
-      "subtitle": "深呼吸。感谢彼此直面真相的勇气。",
+      "subtitle": "选一个要打断的模式。没有改变的洞察，只是一段描述。",
       "restartButton": "重新评估"
     }
   },
@@ -51,31 +50,38 @@
       "questions": [
         {
           "type": "open",
-          "question": "你需要我给你什么，而你目前没有得到的？"
+          "question": "你在等我主动看见什么，却一直不想亲口提出？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "在哪些具体方面，你觉得我把你的付出视作理所当然？"
+          "question": "你为我们做的哪件事太稳定，以至于我几乎已经看不见？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "有什么事是我这周可以为你做的，能让你感到真正的被支持？"
+          "question": "这周我做什么，能让支持变成具体的行动？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "我在哪些方面未能满足你对这段关系的期待？"
+          "question": "我们之间的哪项期待，其实从来没有真正达成过共识？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你有什么需求是让你觉得难以向我启齿的？"
+          "question": "你把哪个需求说得太轻，以至于我已经听不见？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "在关系的哪些方面，你觉得你在承担更多？"
+          "question": "哪里让你觉得付出不平衡？哪些具体时刻让你有这种感觉？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "如果你能改变我与你沟通的一种方式，那会是什么？"
+          "question": "我的哪种沟通习惯，会让一个困难话题变得更难？",
+          "energy": "bouba"
         }
       ]
     },
@@ -84,31 +90,38 @@
       "questions": [
         {
           "type": "open",
-          "question": "你在什么时候感到最不被我理解？"
+          "question": "哪一次我误解了你，随后还一直为自己的理解辩护？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "我们之间有哪个过去的伤害是你还没有完全释怀的？"
+          "question": "哪道旧伤，仍在安排你现在的反应？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "当我道歉时，你觉得缺了什么让你感觉不到诚意？"
+          "question": "我的道歉需要带来什么变化，才会变得可信？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "我对你说过最伤人的话是什么？"
+          "question": "我说过的哪句话，回响的时间可能比我意识到的更久？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "在什么情况下，你觉得我没有和你站在一边？"
+          "question": "即使我在场，什么时候你仍觉得必须独自面对问题？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "我们之间有什么反复出现的冲突是你觉得至今未解决的？"
+          "question": "哪场冲突一再发生，因为我们只处理了事件，没有处理模式？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你在什么时候感到被我评判？"
+          "question": "我做什么时，会让你觉得自己在被评估，而不是被了解？",
+          "energy": "kiki"
         }
       ]
     },
@@ -117,31 +130,38 @@
       "questions": [
         {
           "type": "open",
-          "question": "你害怕问我什么问题？"
+          "question": "你害怕哪个问题一旦得到答案，我们就会发生变化？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "关于我们的关系，你在假装不知道什么？"
+          "question": "有什么是我们都知道，却一直当作暂时现象处理的？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "如果我们今天结束这段关系，原因会是什么？"
+          "question": "如果这段关系最终结束，最可能是哪个反复出现的模式造成的？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你觉得自己必须向我隐藏哪一部分的自己？"
+          "question": "哪个版本的你，在我身边最不受欢迎？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "对于我们的未来，你有什么犹豫？"
+          "question": "我们的未来里，什么让你感到有生命力，什么又隐约不对？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "为了保护我的感受，你对我隐瞒了什么秘密？"
+          "question": "你正在隐瞒哪句真话，因为你已经提前在照顾我的反应？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "关于我，你不得不接受的最艰难的真相是什么？"
+          "question": "你已经不再期待我能不经提醒就理解什么？",
+          "energy": "kiki"
         }
       ]
     }

@@ -2,23 +2,26 @@
   "testID": "meaningful-connections",
   "app": {
     "title": "有意义的连接",
-    "subtitle": "帮助我们真正了解彼此的问题",
+    "subtitle": "10个走过寒暄的问题",
     "language": "chinese",
     "type": "normal",
-    "playerGroup": ["strangers", "friends"]
+    "playerGroup": [
+      "strangers",
+      "friends"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "有意义的连接",
       "description": [
-        "深思熟虑的问题，架起陌生人与朋友之间的桥梁。",
-        "坦诚分享。用心倾听。真诚连接。"
+        "轮流回答，并说一个真实例子。",
+        "听到让你好奇的细节，就继续问一句。"
       ],
       "startButton": "开始"
     },
     "endScreen": {
       "title": "做得好",
-      "subtitle": "感谢你的敞开心扉和连接",
+      "subtitle": "一场好的对话，通常会留下一道值得继续的问题。",
       "restartButton": "重新开始"
     }
   },
@@ -52,15 +55,18 @@
       "questions": [
         {
           "type": "open",
-          "question": "到目前为止，你最喜欢的年龄是多少？"
+          "question": "哪个年龄的你最像真正的你？为什么？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "哪些童年传统对你今天仍然重要？"
+          "question": "哪种童年仪式，直到现在还对你有影响？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "哪顿饭让你感觉像在‘家’一样？"
+          "question": "哪顿饭吃起来不只是食物，更像被人了解？",
+          "energy": "bouba"
         }
       ]
     },
@@ -69,15 +75,18 @@
       "questions": [
         {
           "type": "open",
-          "question": "你的前任们有什么共同点？"
+          "question": "不止一位前任比你更早看见了你的哪个模式？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你所有的好朋友有什么共同点？"
+          "question": "最亲近的朋友，不需要解释就能理解你的什么？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "朋友们通常会来找你咨询什么问题？"
+          "question": "别人常向你请教什么，而你自己其实也很难做到？",
+          "energy": "kiki"
         }
       ]
     },
@@ -86,11 +95,13 @@
       "questions": [
         {
           "type": "open",
-          "question": "你通常去海滩时会做什么？"
+          "question": "有时间却没有计划时，你通常会去哪里？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你失眠时会看什么？"
+          "question": "睡意迟迟不来时，你会伸手去找什么？",
+          "energy": "bouba"
         }
       ]
     },
@@ -99,11 +110,13 @@
       "questions": [
         {
           "type": "open",
-          "question": "你最欣赏一个人哪三个品质？"
+          "question": "一个人具备什么特质，会让你更快信任对方？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你一直坚信不疑的事情是什么？"
+          "question": "你继承了哪个信念，却从来没有认真审视过？",
+          "energy": "kiki"
         }
       ]
     }

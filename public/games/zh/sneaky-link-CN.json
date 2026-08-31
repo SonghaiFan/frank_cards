@@ -1,31 +1,27 @@
 {
   "testID": "sneaky-link",
   "app": {
-    "title": "Sneaky Link 💦💦💦",
-    "subtitle": "18岁以下禁止",
+    "title": "秘密约会",
+    "subtitle": "15个关于欲望和轻关系的问题",
     "language": "chinese",
     "type": "premium",
-    "playerGroup": ["couple", "friends"]
+    "playerGroup": [
+      "couple",
+      "friends"
+    ]
   },
   "ui": {
     "startScreen": {
-      "title": "Sneaky Link 💦💦💦",
+      "title": "秘密约会",
       "description": [
-        "什么是Sneaky Link？",
-        "当你和另一个人搞在一起，却不想让别人知道的时候",
-        "你是不是只满足于成为我的Sneaky Link？",
-        "",
-        "游戏规则：",
-        "1. 绝对诚实原则",
-        "2. 最后发'睡了吗？'的人先开始",
-        "",
-        "警告： 这可能是你跟TA们说得最多的一次"
+        "轮流回答，直接说出自己想要什么。",
+        "这里分享的内容，不会自动变成之后的许可或义务。"
       ],
       "startButton": "开始游戏"
     },
     "endScreen": {
       "title": "你现在醒着么？",
-      "subtitle": "消息已读 凌晨1:43",
+      "subtitle": "保留欲望，放下那部分必须靠假装不在意才能成立的东西。",
       "restartButton": "发送'你起了？'"
     }
   },
@@ -54,11 +50,13 @@
       "questions": [
         {
           "type": "open",
-          "question": "在你想象中，我在床上是什么样？实际体验如何？"
+          "question": "你原本以为我们的化学反应会是什么样，实际又有什么意外？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "从社交动态来看，你觉得我有哪些不为人知的癖好？"
+          "question": "网络上的我，最容易让人误会什么？",
+          "energy": "kiki"
         }
       ]
     },
@@ -67,47 +65,58 @@
       "questions": [
         {
           "type": "open",
-          "question": "我在你通讯录里的备注名是？"
+          "question": "你在手机里怎样备注我？它藏住了什么，又暴露了什么？",
+          "energy": "bouba"
         },
         {
           "type": "wildcard",
-          "question": "特别行动：今晚必须尝试新花样，你的提议是？立即执行有加分哦"
+          "question": "说一件你真心想讨论的新尝试。今天的挑战只到讨论为止。",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "最想收到我发什么撩人信息？"
+          "question": "收到我的什么消息，会让你想把晚上的时间空出来？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "凌晨几点还会回复我的'睡了吗'？"
+          "question": "深夜消息什么时候让你兴奋，什么时候又显得敷衍？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "去你那里还是来我这里？"
+          "question": "什么会让一个地方安全到足以容纳你或我的欲望？",
+          "energy": "bouba"
         },
         {
           "type": "wildcard",
-          "question": "特别行动：最喜欢我身体的哪个部位？证明给我看"
+          "question": "说出你被我吸引的一个部位。把答案变成触碰之前，先问。",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "什么时刻会突然想起我？"
+          "question": "什么时候，我会未经邀请地出现在你脑子里？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你有什么让我意想不到的小癖好？"
+          "question": "谈到欲望时，你通常会把自己的哪部分说小一点？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "详细描述我最让你欲罢不能的特质"
+          "question": "除了身体之外，我还有什么做得很好？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "事后最想吃什么夜宵？"
+          "question": "你真正的深夜安慰食物是什么？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "最期待我穿什么来找你？"
+          "question": "你喜欢看我穿什么？那会在你脑子里形成怎样的故事？",
+          "energy": "kiki"
         }
       ]
     },
@@ -116,11 +125,13 @@
       "questions": [
         {
           "type": "wildcard",
-          "question": "特别行动：为我们的秘密约会想个暗号"
+          "question": "发明一句暗号，意思是：我想要你，但我仍然要听见明确的同意。",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "为什么一次次深夜赴约？"
+          "question": "除了方便和化学反应，你为什么一次次回来？",
+          "energy": "kiki"
         }
       ]
     }

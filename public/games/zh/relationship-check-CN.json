@@ -1,24 +1,26 @@
 {
   "testID": "relationship-check",
   "app": {
-    "title": "关系签到",
-    "subtitle": "通过诚实的对话加强你们的纽带",
+    "title": "关系近况",
+    "subtitle": "12个认真了解关系近况的问题",
     "language": "chinese",
     "type": "normal",
-    "playerGroup": ["couple"]
+    "playerGroup": [
+      "couple"
+    ]
   },
   "ui": {
     "startScreen": {
-      "title": "关系签到",
+      "title": "关系近况",
       "description": [
-        "旨在加深伴侣之间理解的问题。",
-        "轮流回答或一起讨论——随心所欲。"
+        "轮流回答，或一起讨论每个问题。",
+        "解释自己的本意之前，先复述你听见了什么。"
       ],
       "startButton": "开始"
     },
     "endScreen": {
       "title": "做得好",
-      "subtitle": "感谢你们用心连接",
+      "subtitle": "卡牌结束后，让其中一个答案继续发生作用。",
       "restartButton": "重新开始"
     }
   },
@@ -52,15 +54,18 @@
       "questions": [
         {
           "type": "open",
-          "question": "我做的哪一件事让你感到真正被倾听？"
+          "question": "我做什么，会让你更容易把一句真话完整说完？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你有没有什么一直想告诉我的事情？"
+          "question": "和我说话时，你最近总在删掉哪部分？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "当我们意见不合时，什么能让你感觉我们是一队的？"
+          "question": "意见不合时，什么能帮你记住，问题不是眼前这个人？",
+          "energy": "kiki"
         }
       ]
     },
@@ -69,15 +74,18 @@
       "questions": [
         {
           "type": "open",
-          "question": "你觉得我怎样做最能让你感受到爱？"
+          "question": "什么时候，你不需要猜也能感受到我的爱？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "什么小举动总能让你的一天变得更美好？"
+          "question": "我的哪个小动作，到现在仍然每次都有效？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "我们如何才能为我们自己创造更多时间？"
+          "question": "是什么一直拿走了我们口口声声想留给彼此的时间？",
+          "energy": "kiki"
         }
       ]
     },
@@ -86,15 +94,18 @@
       "questions": [
         {
           "type": "open",
-          "question": "你希望我们一起尝试什么新鲜事物？"
+          "question": "什么新体验，会让我们重新对彼此感到有活力？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "描述我们完美的周末度假。"
+          "question": "计划一个真正能让我们恢复，而不只是拍照好看的周末。",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "我可以支持你实现什么目标或梦想？"
+          "question": "你的哪个梦想需要支持，而不是建议？",
+          "energy": "bouba"
         }
       ]
     },
@@ -103,15 +114,18 @@
       "questions": [
         {
           "type": "open",
-          "question": "我最近做了什么让你感激的事？"
+          "question": "我最近做了什么，让“我们是队友”这件事变得真实？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你最欣赏我什么品质？"
+          "question": "困难出现时，你最信任我的哪种品质？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "过去一个月里，你最喜欢我们之间的什么回忆？"
+          "question": "过去一个月的哪个瞬间，你希望我们以后还记得？",
+          "energy": "bouba"
         }
       ]
     }

@@ -2,27 +2,25 @@
   "testID": "confidence-boost",
   "app": {
     "title": "Confidence Boost",
-    "subtitle": "10 Questions to Remind You of Your Strengths",
+    "subtitle": "10 questions to remind you of your strengths",
     "language": "english",
     "type": "normal",
-    "playerGroup": ["solo"]
+    "playerGroup": [
+      "solo"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "Confidence Boost",
       "description": [
-        "When should you ask yourself these 10 questions?",
-        "a. before a date or job interview",
-        "b. before your first day of school",
-        "c. after someone hurt your feelings",
-        "d. any day that you feel like \"I can't\"",
-        "e. all of the above"
+        "Use these questions whenever you need perspective.",
+        "Answer with something you actually did, changed, or survived."
       ],
       "startButton": "Begin"
     },
     "endScreen": {
       "title": "You Did It!",
-      "subtitle": "You took time to remember your strengths. Carry this confidence with you—you're more capable than you think.",
+      "subtitle": "Confidence is easier to trust when you can point to where it came from.",
       "restartButton": "Do It Again"
     }
   },
@@ -41,43 +39,53 @@
       "questions": [
         {
           "type": "open",
-          "question": "Describe a time when something unexpectedly worked out for you."
+          "question": "What is one difficult thing you handled better than the old version of you would have?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What's something that you used to feel insecure about, but don't anymore?"
+          "question": "Which insecurity has lost some of its authority over you?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What about your life would your childhood self be in awe of?"
+          "question": "What part of your current life would surprise your younger self most?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Who inspires you? In what ways are you like them?"
+          "question": "Whose courage do you recognize in your own behavior?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Describe a situation where you said \"no,\" and you're really glad that you did."
+          "question": "When did saying no protect something important?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Describe a situation where you said \"yes,\" and you're really glad that you did."
+          "question": "When did saying yes require more courage than people could see?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What's something you're proud of yourself for but haven't celebrated?"
+          "question": "What achievement have you minimized because celebrating it might feel embarrassing?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "When was the last time you spoke up for yourself or someone else? How did it make you feel?"
+          "question": "When did you last speak before you felt fully ready?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What's a promise you've made to yourself and kept?"
+          "question": "Which promise to yourself have you quietly kept?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Think of someone who believes in you. What would they say your strengths are?"
+          "question": "What strength would someone who knows you well name without hesitation?",
+          "energy": "bouba"
         }
       ]
     }

@@ -2,23 +2,27 @@
   "testID": "xxx",
   "app": {
     "title": "XXX",
-    "subtitle": "关于性与欲望的亲密、坦诚提问",
+    "subtitle": "15个关于性与欲望的问题",
     "language": "chinese",
     "type": "premium",
-    "playerGroup": ["couple", "friends", "strangers"]
+    "playerGroup": [
+      "couple",
+      "friends",
+      "strangers"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "XXX",
       "description": [
-        "18+的游戏，适合坦诚交流性、欲望与脆弱。",
-        "轮流作答。认真倾听。真诚分享。"
+        "轮流回答，只回答自己愿意回答的部分。",
+        "欲望、不确定、拒绝和改变主意，都是有效答案。"
       ],
       "startButton": "开始"
     },
     "endScreen": {
       "title": "对话完成",
-      "subtitle": "感谢你的坦诚与开放。",
+      "subtitle": "保留诚实。这里分享的任何事，都不会制造之后的义务。",
       "restartButton": "重新开始"
     }
   },
@@ -37,63 +41,78 @@
       "questions": [
         {
           "type": "open",
-          "question": "你最想了解别人性生活的什么？"
+          "question": "人们谈论性时，你希望哪件事能被说得更诚实？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "上一次让你感到被点燃是什么时候？"
+          "question": "上一次在任何身体接触之前，是什么先唤起了你的欲望？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "我希望我不需要开口就能得到______"
+          "question": "完成这句话：我希望自己不用开口，就能得到……",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你曾因渴望什么或不渴望什么而感到愧疚吗？"
+          "question": "你曾经评判过自己的哪种欲望，或没有欲望？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "想一想你希望在床上做得不同的一件事。为什么？"
+          "question": "如果诚实更容易，你会怎样改写过去的一次性经历？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "上一次让你性趣全无的是什么？"
+          "question": "什么会让你失去欲望，却又曾经想过要忍耐？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你尝试过什么但并不喜欢？为什么？"
+          "question": "你尝试过什么，只因为你以为自己应该喜欢？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "回想你经历过最美好的性爱，最让你印象深刻的是什么？"
+          "question": "回想一次真正满足的性爱。除了技巧，是什么让它感觉很好？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "除了愉悦，你还会因为什么而发生性行为？"
+          "question": "除了愉悦，你还让性替你满足过什么需要？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "羞耻在你的性生活中扮演了什么角色？"
+          "question": "在你的性生活里，羞耻还在替你做哪些决定？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你最近喜欢上了什么？"
+          "question": "你学会了按照自己的方式享受什么？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "如果可以重温床上的某个瞬间，你会选择哪一个？"
+          "question": "哪一个亲密瞬间值得重温，是为了感受，而不是表现？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你对自己来说是怎样的性伴侣？"
+          "question": "作为自己的性伴侣，你怎样对待自己？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "如果在床上没有任何后果，你会提出什么请求？"
+          "question": "如果被拒绝不等于被否定，你会提出什么请求？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你现在最渴望的是什么？"
+          "question": "你真正渴望的是什么，而性本身无法提供？",
+          "energy": "bouba"
         }
       ]
     }

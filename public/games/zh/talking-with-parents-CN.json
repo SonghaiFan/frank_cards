@@ -2,24 +2,25 @@
   "testID": "talking-with-parents",
   "app": {
     "title": "与父母的对话",
-    "subtitle": "用真诚的问题跨越代沟",
+    "subtitle": "15个更了解父母的问题",
     "language": "chinese",
     "type": "normal",
-    "playerGroup": ["family"]
+    "playerGroup": [
+      "family"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "与父母的对话",
       "description": [
-        "一个跨越代际的交流空间。",
-        "轮流提问，用心倾听。",
-        "这里没有标准答案，只有全新的发现。"
+        "轮流提问和回答。",
+        "彼此不同的记忆，不需要被纠正成同一个版本。"
       ],
       "startButton": "开始对话"
     },
     "endScreen": {
       "title": "建立了新的连接",
-      "subtitle": "感谢你们共度的这段时光",
+      "subtitle": "记住一个今天以前从未听过的故事。",
       "restartButton": "再次开启"
     }
   },
@@ -53,19 +54,23 @@
       "questions": [
         {
           "type": "open",
-          "question": "在我很小的时候，你对我印象最深的一个瞬间是什么？"
+          "question": "在我很小的时候，你对我印象最深的一个瞬间是什么？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "在你像我这么大的时候，你做过最叛逆的事情是什么？"
+          "question": "在你像我这么大的时候，你做过最叛逆的事情是什么？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "在你自己身上，你觉得哪一点最像你的父母？"
+          "question": "在你自己身上，你觉得哪一点最像你的父母？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "当你十岁的时候，你梦想长大了做什么？"
+          "question": "当你十岁的时候，你梦想长大了做什么？",
+          "energy": "bouba"
         }
       ]
     },
@@ -74,19 +79,23 @@
       "questions": [
         {
           "type": "open",
-          "question": "生活教给你最沉重的一个教训是什么？"
+          "question": "生活教给你最沉重的一个教训是什么？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "如果你能回到20岁，对当年的自己说一句话，你会说什么？"
+          "question": "如果你能回到20岁，对当年的自己说一句话，你会说什么？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "有一件你非常自豪但大多数人都不知道的事情吗？"
+          "question": "有一件你非常自豪但大多数人都不知道的事情吗？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你现在对“成功”的理解，和20岁时有什么不同？"
+          "question": "你现在对“成功”的理解，和20岁时有什么不同？",
+          "energy": "bouba"
         }
       ]
     },
@@ -95,19 +104,23 @@
       "questions": [
         {
           "type": "open",
-          "question": "有没有一个问题你一直想问我，但从未开口？"
+          "question": "有没有一个问题你一直想问我，但从未开口？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你被抚养长大的方式，和你抚养我的方式，最大的区别是什么？"
+          "question": "你被抚养长大的方式，和你抚养我的方式，最大的区别是什么？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "在什么时候，你会最强烈地感受到我对你的感激？"
+          "question": "在什么时候，你会最强烈地感受到我对你的感激？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "作为一个父母，你曾有过哪些从未告诉过我的恐惧？"
+          "question": "作为一个父母，你曾有过哪些从未告诉过我的恐惧？",
+          "energy": "kiki"
         }
       ]
     },
@@ -116,15 +129,18 @@
       "questions": [
         {
           "type": "open",
-          "question": "你现在还有一个未完成的人生梦想吗？"
+          "question": "你现在还有一个未完成的人生梦想吗？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "在我们的关系中，你希望哪一点永远都不要改变？"
+          "question": "在我们的关系中，你希望哪一点永远都不要改变？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "如果我们能一起去任何地方冒险，你最想去哪里？"
+          "question": "如果我们能一起去任何地方冒险，你最想去哪里？",
+          "energy": "bouba"
         }
       ]
     }

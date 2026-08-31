@@ -2,23 +2,29 @@
   "testID": "end-of-day",
   "app": {
     "title": "End of the World",
-    "subtitle": "Imagine the world is ending in 90 days. What would you do?",
+    "subtitle": "15 questions about what you would do if everything changed",
     "language": "english",
     "type": "edition",
-    "playerGroup": ["solo", "couple", "friends", "strangers", "family"]
+    "playerGroup": [
+      "solo",
+      "couple",
+      "friends",
+      "strangers",
+      "family"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "End of the World",
       "description": [
-        "The world as you know it ends in 90 days. What if anything was possible?",
-        "Let your answers surprise you. Think beyond the obvious."
+        "Imagine the world ending in 90 days.",
+        "Take turns answering what you would start, stop, keep, and leave behind."
       ],
       "startButton": "Start"
     },
     "endScreen": {
       "title": "A New Beginning",
-      "subtitle": "Don't wait until the end to start a brand new beginning.",
+      "subtitle": "You do not need an ending to stop postponing the beginning.",
       "restartButton": "Play Again"
     }
   },
@@ -37,63 +43,78 @@
       "questions": [
         {
           "type": "open",
-          "question": "What would you start doing?"
+          "question": "What would you start doing?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What would you stop doing?"
+          "question": "What would you stop doing?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Where would you go first? Why?"
+          "question": "Where would you go first? Why?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Who is in your tribe?"
+          "question": "Who is in your tribe?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Who would you nominate to lead your tribe? Why them?"
+          "question": "Who would you nominate to lead your tribe? Why them?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "You have a survival backpack. What are you filling it with?"
+          "question": "You have a survival backpack. What are you filling it with?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Would your sex life change? Explain."
+          "question": "Would your sex life change? Explain.",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What's the craziest thing you'd spend your savings on?"
+          "question": "What's the craziest thing you'd spend your savings on?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What would you stop worrying about?"
+          "question": "What would you stop worrying about?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "If you could have an infinite supply of one thing, what would it be?"
+          "question": "If you could have an infinite supply of one thing, what would it be?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What would you leave in a time capsule for the next inhabitants of Earth?"
+          "question": "What would you leave in a time capsule for the next inhabitants of Earth?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What's one thing you'd finally try that you've always been too embarrassed to do?"
+          "question": "What's one thing you'd finally try that you've always been too embarrassed to do?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Describe your ideal 'end of the world' party in detail."
+          "question": "Describe your ideal 'end of the world' party in detail.",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "If you could broadcast one message to the entire world, what would it be?"
+          "question": "If you could broadcast one message to the entire world, what would it be?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "If aliens offered to save you and one person, who would you bring and why?"
+          "question": "If aliens offered to save you and one person, who would you bring and why?",
+          "energy": "bouba"
         }
       ]
     }

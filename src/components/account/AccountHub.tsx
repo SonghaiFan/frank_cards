@@ -1,7 +1,7 @@
 import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import { AnimatePresence } from "motion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faShieldHalved, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../auth/AuthProvider";
 import type { ConversationGame } from "../../types/ConversationGame";
@@ -10,6 +10,7 @@ import ThemeToggle from "../ThemeToggle";
 
 const AuthDialog = lazy(() => import("./AuthDialog"));
 const MyTopicsPanel = lazy(() => import("./MyTopicsPanel"));
+const AdminReviewPanel = lazy(() => import("./AdminReviewPanel"));
 
 interface PanelLoadingFallbackProps {
   alignEnd: boolean;
@@ -39,13 +40,14 @@ function PanelLoadingFallback({ alignEnd, onClose }: PanelLoadingFallbackProps) 
 }
 
 interface AccountHubProps {
+  onTopicsChanged: () => void;
   onUseTopic: (game: ConversationGame) => void;
 }
 
-export default function AccountHub({ onUseTopic }: AccountHubProps) {
+export default function AccountHub({ onTopicsChanged, onUseTopic }: AccountHubProps) {
   const { t } = useTranslation();
-  const { isPasswordRecovery, status } = useAuth();
-  const [openPanel, setOpenPanel] = useState<"auth" | "topics" | null>(null);
+  const { isAdmin, isPasswordRecovery, status } = useAuth();
+  const [openPanel, setOpenPanel] = useState<"admin" | "auth" | "topics" | null>(null);
   const closePanel = useCallback(() => setOpenPanel(null), []);
   const authenticated = status === "authenticated" && !isPasswordRecovery;
 
@@ -64,23 +66,38 @@ export default function AccountHub({ onUseTopic }: AccountHubProps) {
             <span>{t("account.loadingAccount")}</span>
           </div>
         ) : (
-          <button
-            type="button"
-            className="account-toolbar-button"
-            onClick={() => setOpenPanel(authenticated ? "topics" : "auth")}
-            aria-haspopup="dialog"
-            aria-label={authenticated ? t("account.myTopics") : t("account.signIn")}
-          >
-            <FontAwesomeIcon icon={faUser} />
-            <span>{authenticated ? t("account.myTopics") : t("account.signIn")}</span>
-          </button>
+          <>
+            {authenticated && isAdmin ? (
+              <button
+                type="button"
+                className="account-toolbar-button"
+                onClick={() => setOpenPanel("admin")}
+                aria-haspopup="dialog"
+                aria-label={t("admin.reviewTitle")}
+              >
+                <FontAwesomeIcon icon={faShieldHalved} />
+                <span>{t("admin.toolbar")}</span>
+              </button>
+            ) : null}
+            <button
+              type="button"
+              className="account-toolbar-button"
+              onClick={() => setOpenPanel(authenticated ? "topics" : "auth")}
+              aria-haspopup="dialog"
+              aria-label={authenticated ? t("account.myTopics") : t("account.signIn")}
+            >
+              <FontAwesomeIcon icon={faUser} />
+              <span>{authenticated ? t("account.myTopics") : t("account.signIn")}</span>
+            </button>
+          </>
         )}
       </nav>
 
-      <Suspense fallback={<PanelLoadingFallback alignEnd={openPanel === "topics"} onClose={closePanel} />}>
+      <Suspense fallback={<PanelLoadingFallback alignEnd={openPanel === "topics" || openPanel === "admin"} onClose={closePanel} />}>
         <AnimatePresence>
           {openPanel === "auth" ? <AuthDialog key="auth" onClose={closePanel} /> : null}
-          {openPanel === "topics" ? <MyTopicsPanel key="topics" onClose={closePanel} onUseTopic={onUseTopic} /> : null}
+          {openPanel === "topics" ? <MyTopicsPanel key="topics" onClose={closePanel} onTopicsChanged={onTopicsChanged} onUseTopic={onUseTopic} /> : null}
+          {openPanel === "admin" ? <AdminReviewPanel key="admin" onClose={closePanel} onTopicsChanged={onTopicsChanged} onUseTopic={onUseTopic} /> : null}
         </AnimatePresence>
       </Suspense>
     </>

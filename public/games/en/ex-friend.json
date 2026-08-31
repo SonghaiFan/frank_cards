@@ -2,24 +2,26 @@
   "testID": "ex-friend",
   "app": {
     "title": "Ex-Friend",
-    "subtitle": "A guided conversation to process friendship breakups with care and intention.",
+    "subtitle": "16 questions about a friendship that ended",
     "language": "english",
     "type": "edition",
-    "playerGroup": ["friends", "couple"]
+    "playerGroup": [
+      "friends",
+      "couple"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "Ex-Friend",
       "description": [
-        "Repairing a friendship can feel awkward and intimidating. This pack creates space to break the ice and help both people feel heard.",
-        "Take turns answering each card. Listen to understand, avoid absolutes such as \"always\" and \"never,\" and look for common ground instead of trying to win.",
-        "You may repair the friendship or choose separate paths. Whatever the outcome, respect each other's feelings and the courage it took to have this conversation."
+        "Take turns explaining what happened and what it changed.",
+        "The goal is understanding, not forced forgiveness or reunion."
       ],
       "startButton": "Begin"
     },
     "endScreen": {
       "title": "Will you be my friend again?",
-      "subtitle": "YES or NO",
+      "subtitle": "Decide what honesty changed, even if the answer is still goodbye.",
       "restartButton": "NO"
     }
   },
@@ -38,67 +40,83 @@
       "questions": [
         {
           "type": "open",
-          "question": "BOTH PLAYERS EXPLAIN THE SITUATION FROM THE OTHER PERSON'S POV TO THE BEST OF YOUR ABILITY."
+          "question": "Both players explain the situation from the other person's pov to the best of your ability.",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "MY PART IN THIS WAS ______"
+          "question": "My part in this was ______",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "TAKE 3 MINUTES TO EXPLAIN YOUR POINT OF VIEW WITH NO INTERRUPTIONS. BOTH PLAYERS."
+          "question": "Take 3 minutes to explain your point of view with no interruptions. both players.",
+          "energy": "bouba"
         },
         {
           "type": "wildcard",
-          "question": "WILDCARD: BOTH PLAYERS WRITE DOWN YOUR MOST COMMON DEFENSE MECHANISM AND HOW IT HOLDS YOU BACK THE MOST. READ OUT LOUD."
+          "question": "Both players write down your most common defense mechanism and how it holds you back the most. read out loud.",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "WHAT HURT YOU THE MOST?"
+          "question": "What hurt you the most?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "WHAT IS ONE THING YOU WISH YOU COULD HAVE DONE DIFFERENTLY?"
+          "question": "What is one thing you wish you could have done differently?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "DID YOU SET ANY UNFAIR EXPECTATIONS ON ME?"
+          "question": "Did you set any unfair expectations on me?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "WHEN DID YOU FEEL MOST DISTANT FROM ME?"
+          "question": "When did you feel most distant from me?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "FINISH THE SENTENCE: SOMETHING I'M WORKING ON IS ______"
+          "question": "Finish the sentence: something i'm working on is ______",
+          "energy": "kiki"
         },
         {
           "type": "wildcard",
-          "question": "WILDCARD: REMINDER EVERYONE'S TRUTH LOOKS DIFFERENT."
+          "question": "Reminder everyone's truth looks different.",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "WAS THERE ANYTHING YOU WERE GOING THROUGH THAT I DIDN'T SEE?"
+          "question": "Was there anything you were going through that i didn't see?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "IT WAS VERY CLEAR OUR FRIENDSHIP WASN'T THE SAME WHEN"
+          "question": "It was very clear our friendship wasn't the same when",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "WHEN DO YOU MISS ME MOST?"
+          "question": "When do you miss me most?",
+          "energy": "bouba"
         },
         {
           "type": "wildcard",
-          "question": "WILDCARD: APOLOGIZE FOR SOMETHING (BIG OR SMALL)."
+          "question": "Apologize for something (big or small).",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "WHAT'S A LIFE UPDATE THAT I'VE MISSED?"
+          "question": "What's a life update that i've missed?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "WHAT'S SOMETHING ABOUT OUR FRIENDSHIP THAT YOU DON'T GET FROM ANYONE ELSE?"
+          "question": "What's something about our friendship that you don't get from anyone else?",
+          "energy": "bouba"
         }
       ]
     }

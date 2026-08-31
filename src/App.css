@@ -1095,6 +1095,15 @@ body {
   align-items: flex-start;
 }
 
+.account-delivery-hint {
+  padding-top: 0.95rem;
+  border-top: 1px solid color-mix(in srgb, var(--material-ink) 12%, transparent);
+  color: var(--material-ink) !important;
+  font-size: 0.84rem;
+  font-weight: 700;
+  line-height: 1.55 !important;
+}
+
 .account-confirmation-icon {
   display: grid;
   width: 3.5rem;
@@ -1119,7 +1128,7 @@ body {
   padding: 0.85rem 1.2rem;
   color: var(--material-surface);
   background: var(--material-ink);
-  font-size: 0.95rem;
+  font-size: 1.25rem;
   font-weight: 800;
   line-height: 1;
   white-space: nowrap;
@@ -1344,6 +1353,191 @@ body {
 .account-topic-edit-button:focus-visible {
   outline: 3px solid color-mix(in srgb, var(--material-ink) 62%, transparent);
   outline-offset: 3px;
+}
+
+.account-topic-community-button {
+  display: inline-flex;
+  min-height: 2.65rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.75rem 1rem;
+  color: var(--material-surface);
+  background: var(--material-ink);
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.account-topic-community-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.account-topic-community-button:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+
+.account-topic-community-button:focus-visible,
+.admin-review-actions button:focus-visible,
+.admin-review-reason button:focus-visible,
+.custom-library-collections button:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--material-ink) 62%, transparent);
+  outline-offset: 3px;
+}
+
+.account-topic-rejection {
+  padding: 0.85rem 1rem;
+  border-radius: 0.85rem;
+  color: color-mix(in srgb, var(--material-error) 76%, var(--material-ink)) !important;
+  background: color-mix(in srgb, var(--material-error) 10%, transparent);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.admin-review-sheet {
+  width: min(100%, 46rem);
+}
+
+.admin-review-list {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.admin-review-row {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+  border-radius: 1.15rem;
+  background: color-mix(in srgb, var(--material-input) 72%, transparent);
+  box-shadow: 0 1px 2px var(--material-shadow-soft), 0 7px 16px var(--material-shadow-soft);
+}
+
+.admin-review-copy {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.admin-review-copy h3 {
+  margin: 0;
+  color: var(--material-ink);
+  font-size: 1.15rem;
+  font-weight: 850;
+  letter-spacing: -0.025em;
+}
+
+.admin-review-copy p {
+  font-size: 0.9rem;
+}
+
+.admin-review-copy span {
+  color: var(--material-muted-ink);
+  font-size: 0.75rem;
+  font-weight: 750;
+}
+
+.admin-review-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.admin-review-actions button,
+.admin-review-reason button {
+  display: inline-flex;
+  min-height: 2.55rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.7rem 0.95rem;
+  color: var(--material-ink);
+  background: var(--material-input);
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.admin-review-actions .admin-review-approve {
+  color: var(--material-surface);
+  background: var(--material-ink);
+}
+
+.admin-review-actions .admin-review-reject {
+  color: color-mix(in srgb, var(--material-error) 80%, var(--material-ink));
+}
+
+.admin-review-actions button:disabled,
+.admin-review-reason button:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+
+.admin-review-reason {
+  display: grid;
+  gap: 0.65rem;
+  padding-top: 0.25rem;
+}
+
+.admin-review-reason label {
+  color: var(--material-ink);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.admin-review-reason textarea {
+  width: 100%;
+  min-height: 6.5rem;
+  border: 0;
+  border-radius: 0.9rem;
+  padding: 0.85rem 1rem;
+  color: var(--material-ink);
+  background: var(--paper-card);
+  font: inherit;
+  line-height: 1.45;
+  resize: vertical;
+  box-shadow: inset 0 1px 3px var(--material-shadow-soft);
+}
+
+.admin-review-reason button {
+  justify-self: start;
+  color: var(--material-surface);
+  background: var(--material-ink);
+}
+
+.custom-library-collections {
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 0.25rem;
+  margin: -1.5rem 0 2rem;
+  padding: 0.28rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--material-ink) 8%, transparent);
+}
+
+.custom-library-collections button {
+  min-height: 2.7rem;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.65rem 1.15rem;
+  color: var(--material-muted-ink);
+  background: transparent;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.custom-library-collections button.is-active {
+  color: var(--material-surface);
+  background: var(--material-ink);
+  box-shadow: 0 4px 12px var(--material-shadow-soft);
 }
 
 .account-topic-studio-sheet {
@@ -1972,6 +2166,38 @@ body {
   backface-visibility: hidden;
 }
 
+.topic-studio-card-energy-icon {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  font-size: 0.95rem;
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.card-energy-shape {
+  display: block;
+  width: 1em;
+  height: 1em;
+  background: currentColor;
+  -webkit-mask-image: url("/card-energy-shapes.png");
+  mask-image: url("/card-energy-shapes.png");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 200% 100%;
+  mask-size: 200% 100%;
+}
+
+.card-energy-shape--kiki {
+  -webkit-mask-position: 0 50%;
+  mask-position: 0 50%;
+}
+
+.card-energy-shape--bouba {
+  -webkit-mask-position: 100% 50%;
+  mask-position: 100% 50%;
+}
+
 .topic-studio-card-back {
   transform: rotateY(180deg);
 }
@@ -2127,6 +2353,12 @@ body {
   font-size: 0.68rem;
   font-weight: 800;
   cursor: pointer;
+}
+
+.topic-studio-type-grid button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .topic-studio-chip-grid button.is-selected,
@@ -2368,6 +2600,10 @@ body {
   .account-primary-button,
   .account-create-button,
   .account-topic-use-button,
+  .account-topic-community-button,
+  .admin-review-actions button,
+  .admin-review-reason button,
+  .custom-library-collections button,
   .account-topic-skeletons span {
     transition: none;
     animation: none;

@@ -2,23 +2,27 @@
   "testID": "truth-truth",
   "app": {
     "title": "Truth or Truth?",
-    "subtitle": "15 juicy questions for everyone at the party. No dares, just the truth.",
+    "subtitle": "15 honest questions for a group",
     "language": "english",
     "type": "normal",
-    "playerGroup": ["friends", "couple", "strangers"]
+    "playerGroup": [
+      "friends",
+      "couple",
+      "strangers"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "Truth or Truth?",
       "description": [
-        "15 juicy questions for everyone at the party.",
-        "No dares, just the truth. Take turns answering. Listen closely. Share honestly."
+        "No dares. Take turns answering the question on the card.",
+        "Answer honestly or pass directly."
       ],
       "startButton": "Start"
     },
     "endScreen": {
       "title": "All Questions Answered",
-      "subtitle": "Thanks for playing. Did you learn something new?",
+      "subtitle": "Keep the answer that changed how you see someone in the room.",
       "restartButton": "Play Again"
     }
   },
@@ -37,63 +41,78 @@
       "questions": [
         {
           "type": "open",
-          "question": "What text would you send right now if there weren't any consequences?"
+          "question": "What text would you send right now if there weren't any consequences?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What are you most likely to walk out on a date because of?"
+          "question": "What are you most likely to walk out on a date because of?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Who here would you trust with your biggest secret? Who wouldn't you trust?"
+          "question": "Who here would you trust with your biggest secret? Who wouldn't you trust?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Would you rather be the cheater or be cheated on? Explain."
+          "question": "Would you rather be the cheater or be cheated on? Explain.",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What's the most embarrassing thing you've done to get someone's attention?"
+          "question": "What's the most embarrassing thing you've done to get someone's attention?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What's your hot take on dating culture?"
+          "question": "What's your hot take on dating culture?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What's something basic that you love anyway?"
+          "question": "What's something basic that you love anyway?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Who here is going home first? Who's never leaving?"
+          "question": "Who here is going home first? Who's never leaving?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What's something about you that might be a red flag?"
+          "question": "What's something about you that might be a red flag?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Who here would you switch lives with?"
+          "question": "Who here would you switch lives with?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What do you think you can do better than everyone else in the room?"
+          "question": "What do you think you can do better than everyone else in the room?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Would you rather know everything about your partner's dating history or nothing? Explain."
+          "question": "Would you rather know everything about your partner's dating history or nothing? Explain.",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Who here is most likely to start a fight for fun?"
+          "question": "Who here is most likely to start a fight for fun?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What's something you're happy you've outgrown?"
+          "question": "What's something you're happy you've outgrown?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Who's most likely to leave together?"
+          "question": "Who's most likely to leave together?",
+          "energy": "kiki"
         }
       ]
     }

@@ -2,24 +2,27 @@
   "testID": "what-if-worlds",
   "app": {
     "title": "脑洞大开",
-    "subtitle": "探索想象力的狂野边界",
+    "subtitle": "24个假设问题和奇怪选择",
     "language": "chinese",
     "type": "normal",
-    "playerGroup": ["friends", "party", "family"]
+    "playerGroup": [
+      "friends",
+      "party",
+      "family"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "脑洞大开",
       "description": [
-        "这是一个关于假设性问题和奇特场景的游戏。",
-        "这里没有对错，只有最具创意的答案。",
-        "释放你的想象力，开始讨论吧！"
+        "认真对待每个虚构情境。",
+        "选一个答案，并说说原因。"
       ],
       "startButton": "进入多元宇宙"
     },
     "endScreen": {
       "title": "旅程结束",
-      "subtitle": "你已经探索了现实的边界。",
+      "subtitle": "回到现实，并开始怀疑自己至少一个刚刚暴露的偏好。",
       "restartButton": "再次游玩"
     }
   },
@@ -48,35 +51,43 @@
       "questions": [
         {
           "type": "open",
-          "question": "如果你能像《黑客帝国》那样瞬间下载一项技能到大脑，你会选什么？"
+          "question": "如果你能像《黑客帝国》那样瞬间下载一项技能到大脑，你会选什么？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "如果你能让时间暂停24小时（仅此一次），你会拿来做什么？"
+          "question": "如果你能让时间暂停24小时（仅此一次），你会拿来做什么？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你宁愿流利地讲所有语言，还是精通所有乐器？"
+          "question": "你宁愿流利地讲所有语言，还是精通所有乐器？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "如果现实生活中能有一个抬头显示器（HUD），你希望上面显示哪3个数据？"
+          "question": "如果现实生活中能有一个抬头显示器（HUD），你希望上面显示哪3个数据？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "如果你能让存在的一样东西“被发明前就消失”，你会选什么？"
+          "question": "如果你能让存在的一样东西“被发明前就消失”，你会选什么？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "如果你死后能看到自己的人生统计数据，你最想看哪一项？"
+          "question": "如果你死后能看到自己的人生统计数据，你最想看哪一项？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "如果你能瞬移到任何地方，但衣服不会跟着过去，你还会用吗？"
+          "question": "如果你能瞬移到任何地方，但衣服不会跟着过去，你还会用吗？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "如果你能和动物说话，你觉得哪个物种最烦人？"
+          "question": "如果你能和动物说话，你觉得哪个物种最烦人？",
+          "energy": "bouba"
         }
       ]
     },
@@ -85,35 +96,43 @@
       "questions": [
         {
           "type": "open",
-          "question": "如果你是第一个踏上火星的人，你的第一句话会说什么？"
+          "question": "如果你是第一个踏上火星的人，你的第一句话会说什么？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "如果丧尸此时此刻爆发，你会抓起房间里的什么东西当武器？"
+          "question": "如果丧尸此时此刻爆发，你会抓起房间里的什么东西当武器？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "如果你被困在一个电子游戏里一个月，你会选哪个游戏以确保存活？"
+          "question": "如果你被困在一个电子游戏里一个月，你会选哪个游戏以确保存活？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "如果你必须在某个电视剧的世界里度过余生，你会选哪部剧？"
+          "question": "如果你必须在某个电视剧的世界里度过余生，你会选哪部剧？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "如果外星人降临并要求见人类的领袖（不准是政客），你会推荐谁？"
+          "question": "如果外星人降临并要求见人类的领袖（不准是政客），你会推荐谁？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "如果你能和三个虚构人物共进晚餐，你会选谁？"
+          "question": "如果你能和三个虚构人物共进晚餐，你会选谁？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "如果你创立一个邪教，教义会是什么？信徒要穿什么？"
+          "question": "如果你创立一个邪教，教义会是什么？信徒要穿什么？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "如果你变成了鬼，你会去缠着谁？你会如何轻微地恶搞他们？"
+          "question": "如果你变成了鬼，你会去缠着谁？你会如何轻微地恶搞他们？",
+          "energy": "kiki"
         }
       ]
     },
@@ -122,35 +141,43 @@
       "questions": [
         {
           "type": "open",
-          "question": "你宁愿永远把你心里的想法都说出来，还是永远不能说话？"
+          "question": "你宁愿永远把你心里的想法都说出来，还是永远不能说话？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你宁愿知道你“如何”死，还是“何时”死？"
+          "question": "你宁愿知道你“如何”死，还是“何时”死？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你宁愿活在一个没有音乐的世界，还是没有电影的世界？"
+          "question": "你宁愿活在一个没有音乐的世界，还是没有电影的世界？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你宁愿因为一件可怕的事而闻名，还是一辈子默默无闻但做了一件伟大的事？"
+          "question": "你宁愿因为一件可怕的事而闻名，还是一辈子默默无闻但做了一件伟大的事？",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "你宁愿每次进房间都必须倒着走，还是每次出房间都必须侧空翻？"
+          "question": "你宁愿每次进房间都必须倒着走，还是每次出房间都必须侧空翻？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你宁愿手指长得像腿一样长，还是腿长得像手指一样短？"
+          "question": "你宁愿手指长得像腿一样长，还是腿长得像手指一样短？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你宁愿和100个鸭子大小的马打架，还是和1个马大小的鸭子打架？"
+          "question": "你宁愿和100个鸭子大小的马打架，还是和1个马大小的鸭子打架？",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "你宁愿拥有人生的“倒带键”还是“暂停键”？"
+          "question": "你宁愿拥有人生的“倒带键”还是“暂停键”？",
+          "energy": "bouba"
         }
       ]
     }

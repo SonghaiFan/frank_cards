@@ -19,6 +19,7 @@ interface AuthContextValue {
   error: string | null;
   isWorking: boolean;
   isPasswordRecovery: boolean;
+  isAdmin: boolean;
   clearError: () => void;
   signInWithPassword: (email: string, password: string) => Promise<void>;
   signUpWithPassword: (email: string, password: string) => Promise<boolean>;
@@ -42,6 +43,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string | null>(null);
   const [isWorking, setIsWorking] = useState(false);
   const [isPasswordRecovery, setIsPasswordRecovery] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     if (!configured) return;
@@ -81,6 +83,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       unsubscribe?.();
     };
   }, [configured]);
+
+  useEffect(() => {
+    const userId = session?.user.id;
+    if (!configured || !userId) {
+      setIsAdmin(false);
+      return;
+    }
+
+    let cancelled = false;
+    getSupabaseClient()
+      .then((client) => client.rpc("is_current_user_topic_admin"))
+      .then(({ data, error: adminError }) => {
+        if (adminError) throw adminError;
+        if (!cancelled) setIsAdmin(data === true);
+      })
+      .catch(() => {
+        if (!cancelled) setIsAdmin(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [configured, session?.user.id]);
 
   const clearError = useCallback(() => setError(null), []);
 
@@ -234,6 +259,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     error,
     isWorking,
     isPasswordRecovery,
+    isAdmin,
     clearError,
     signInWithPassword,
     signUpWithPassword,
@@ -246,6 +272,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     clearError,
     error,
     finishPasswordRecovery,
+    isAdmin,
     isWorking,
     isPasswordRecovery,
     requestPasswordReset,

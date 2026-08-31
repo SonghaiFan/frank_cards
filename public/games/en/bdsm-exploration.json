@@ -2,24 +2,26 @@
   "testID": "bdsm-exploration",
   "app": {
     "title": "BDSM & Kink Exploration",
-    "subtitle": "Safe, Sane, and Consensual discoveries",
+    "subtitle": "30 questions about boundaries, roles, play, and aftercare",
     "language": "english",
     "type": "premium",
-    "playerGroup": ["couple", "partners"]
+    "playerGroup": [
+      "couple",
+      "partners"
+    ]
   },
   "ui": {
     "startScreen": {
-      "title": "Kink Exploration",
+      "title": "BDSM & Kink Exploration",
       "description": [
-        "A safe space to discuss boundaries and fantasies.",
-        "Prioritize consent (SSC/RACK) above all else.",
-        "Honesty is the key to a fulfilling dynamic."
+        "Take turns discussing each question.",
+        "Be specific. Passing is always allowed, and consent can change at any time."
       ],
       "startButton": "Open the Box"
     },
     "endScreen": {
       "title": "Discovery Complete",
-      "subtitle": "Communication is the best aftercare",
+      "subtitle": "Keep the clarity. Nothing discussed here becomes permission by default.",
       "restartButton": "Discuss More"
     }
   },
@@ -51,51 +53,171 @@
     {
       "category": "boundaries",
       "questions": [
-        { "type": "open", "question": "What does SSC (Safe, Sane, Consensual) mean to you in practice?" },
-        { "type": "open", "question": "What is one 'Hard Limit' that we should establish right now?" },
-        { "type": "open", "question": "If one of us cannot satisfy a specific fantasy or kink for the other, how do we feel about 'outsourcing' that need to someone else?" },
-        { "type": "open", "question": "How would you feel about trying something completely new, even if we aren't sure we'll like it?" },
-        { "type": "open", "question": "Does the idea of even slightly 'unfair' treatment during sex bother you?" },
-        { "type": "open", "question": "Would you be willing to give up your current life to pursue an ideal BDSM lifestyle?" },
-        { "type": "open", "question": "Have you ever had fetishistic thoughts or sexual associations with specific objects?" },
-        { "type": "open", "question": "What would be your ideal safeword or safe-signal?" },
-        { "type": "open", "question": "Are there any physical or emotional triggers I should be aware of?" }
+        {
+          "type": "open",
+          "question": "What does informed, enthusiastic consent look like when the mood is already intense?",
+          "energy": "bouba"
+        },
+        {
+          "type": "open",
+          "question": "Name one hard limit and one limit that still needs a longer conversation.",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "If one desire cannot be met inside this relationship, what agreements would make an outside option honest rather than secretive?",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "What would help a new experience feel curious instead of pressured?",
+          "energy": "bouba"
+        },
+        {
+          "type": "open",
+          "question": "Where is the line between consensual unfairness in play and treatment that follows you outside the scene?",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "What part of an ideal power dynamic belongs only in fantasy, and what part would you genuinely want in daily life?",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "Is there an object, material, sound, or setting that changes the mood for you immediately?",
+          "energy": "bouba"
+        },
+        {
+          "type": "open",
+          "question": "What safeword or nonverbal signal would be easy for you to use under stress?",
+          "energy": "bouba"
+        },
+        {
+          "type": "open",
+          "question": "Which physical or emotional triggers should never be treated as a surprise?",
+          "energy": "kiki"
+        }
       ]
     },
     {
       "category": "dynamics",
       "questions": [
-        { "type": "open", "question": "Are you more drawn to being a dominant, a submissive, or a switch—and if so, how do you feel about switching roles between different sessions or moments?" },
-        { "type": "open", "question": "Would you want a partner to serve you and view your status as higher?" },
-        { "type": "open", "question": "How do you feel about serving a partner and admiring them with high respect?" },
-        { "type": "open", "question": "In the bedroom, do you find more pleasure in being the one in control, being the one who is controlled, or exploring both sides?" },
-        { "type": "open", "question": "How do you feel about a 24/7 power exchange dynamic—either in terms of surrendering entirely to your partner or taking on the full responsibility of guiding their life?" },
-        { "type": "open", "question": "How do you feel about taking on a guiding or teaching role, similar to a parent?" },
-        { "type": "open", "question": "Do you find pleasure in deliberately resisting a dominant partner's orders?" },
-        { "type": "wildcard", "question": "WILDCARD: Describe your partner's 'kinkiest' trait in three words." }
+        {
+          "type": "open",
+          "question": "Which role draws you in right now: leading, surrendering, switching, or refusing the labels?",
+          "energy": "bouba"
+        },
+        {
+          "type": "open",
+          "question": "What kind of service feels intimate to receive, and what kind would feel entitled?",
+          "energy": "bouba"
+        },
+        {
+          "type": "open",
+          "question": "What kind of service feels meaningful to give, and where would resentment begin?",
+          "energy": "bouba"
+        },
+        {
+          "type": "open",
+          "question": "When control is part of the pleasure, what makes that control feel earned?",
+          "energy": "bouba"
+        },
+        {
+          "type": "open",
+          "question": "If power exchange extended beyond a scene, which decisions would always remain yours alone?",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "Where could guidance feel erotic, and where would it become patronizing or unsafe?",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "Does playful resistance interest you? How would we tell it apart from a real no?",
+          "energy": "bouba"
+        },
+        {
+          "type": "wildcard",
+          "question": "Describe the energy you want us to create in three words.",
+          "energy": "bouba"
+        }
       ]
     },
     {
       "category": "activities",
       "questions": [
-        { "type": "open", "question": "How do you feel about physical pain and its consequences (like crying or bruising) during play?" },
-        { "type": "open", "question": "Does seeing fear in your partner's eyes and bringing them pain give you pleasure?" },
-        { "type": "open", "question": "What are your feelings on physical restraint and bondage (ropes, cuffs, etc.)—do you prefer to be the one bound, the one doing the binding, or both?" },
-        { "type": "open", "question": "How do you feel about humiliation and degradation (verbal or physical)—and do you have a preference for giving it, receiving it, or both?" },
-        { "type": "open", "question": "Are you interested in 'Pet Play' or animal roleplay—such as behaving like a pet, being treated like one (cages, feeding), or being the 'owner'?" },
-        { "type": "open", "question": "How do you feel about exhibitionism and voyeurism—such as being seen in semi-public spaces, sharing photos, or watching others?" },
-        { "type": "open", "question": "Do you like the idea of your body being 'tortured' or controlled by various tools?" },
-        { "type": "open", "question": "How do you feel about age-gap dynamics in a relationship?" },
-        { "type": "wildcard", "question": "WILDCARD: If we were to buy one new 'toy' next week, what should it be?" }
+        {
+          "type": "open",
+          "question": "What kinds of pain interest you, and what visible or lasting marks are off the table?",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "How should fear be handled so that it stays chosen, legible, and reversible?",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "With restraint, what matters more to you: sensation, trust, helplessness, control, or something else?",
+          "energy": "bouba"
+        },
+        {
+          "type": "open",
+          "question": "Which words could feel thrilling in a scene but harmful outside it?",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "What part of roleplay interests you most: behavior, ritual, care, costume, or power?",
+          "energy": "bouba"
+        },
+        {
+          "type": "open",
+          "question": "What privacy rule would make photos, being watched, or being seen feel genuinely consensual?",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "Which tools interest you, and what training or safety check would we need before using them?",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "How could an age or experience gap distort consent, even when both people say yes?",
+          "energy": "kiki"
+        },
+        {
+          "type": "wildcard",
+          "question": "Choose one new thing to research together. Research comes before buying.",
+          "energy": "bouba"
+        }
       ]
     },
     {
       "category": "aftercare",
       "questions": [
-        { "type": "open", "question": "What does your ideal 'Aftercare' look like? (Cuddling, silence, snacks?)" },
-        { "type": "open", "question": "How can I tell if you're in a 'Sub-drop' or feeling low after a session?" },
-        { "type": "open", "question": "What's the best way for us to give and receive feedback after playing?" },
-        { "type": "wildcard", "question": "WILDCARD: Give each other a long, grounding hug for 30 seconds." }
+        {
+          "type": "open",
+          "question": "After an intense experience, what helps you return to yourself?",
+          "energy": "bouba"
+        },
+        {
+          "type": "open",
+          "question": "What are your early signs of a drop, shutdown, or emotional crash?",
+          "energy": "kiki"
+        },
+        {
+          "type": "open",
+          "question": "What feedback would be hardest to hear, and how should it be said so we do not avoid it?",
+          "energy": "kiki"
+        },
+        {
+          "type": "wildcard",
+          "question": "Offer a grounding gesture. Ask first whether touch is wanted.",
+          "energy": "bouba"
+        }
       ]
     }
   ]

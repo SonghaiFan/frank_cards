@@ -2,23 +2,27 @@
   "testID": "xxx",
   "app": {
     "title": "XXX",
-    "subtitle": "Intimate, honest questions about sex and desire",
+    "subtitle": "15 questions about sex and desire",
     "language": "english",
     "type": "premium",
-    "playerGroup": ["couple", "friends", "strangers"]
+    "playerGroup": [
+      "couple",
+      "friends",
+      "strangers"
+    ]
   },
   "ui": {
     "startScreen": {
       "title": "XXX",
       "description": [
-        "A 18+ game for honest conversations about sex, desire, and vulnerability.",
-        "Take turns answering. Listen deeply. Share honestly."
+        "Take turns and answer only what you want to answer.",
+        "Desire, uncertainty, refusal, and changing your mind are all valid."
       ],
       "startButton": "Begin"
     },
     "endScreen": {
       "title": "Conversation Complete",
-      "subtitle": "Thank you for your honesty and openness.",
+      "subtitle": "Keep the honesty. Nothing shared here creates an obligation later.",
       "restartButton": "Restart"
     }
   },
@@ -37,63 +41,78 @@
       "questions": [
         {
           "type": "open",
-          "question": "What do you wish you knew about other people's sex lives?"
+          "question": "What do you wish people spoke about more honestly when they talk about sex?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "When was the last time something turned you on?"
+          "question": "What last made you feel desire before anything physical happened?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "I wish I didn't have to ask for _____"
+          "question": "Finish the sentence: I wish I did not have to ask for...",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What do you feel guilty for wanting? Not wanting?"
+          "question": "Which desire, or lack of desire, have you judged in yourself?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Think about one thing you wish you had done differently in bed. Why?"
+          "question": "What would you do differently in a past sexual experience if honesty had felt easier?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "When was the last time something turned you off?"
+          "question": "What turns you off that you have been tempted to tolerate anyway?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Have you ever tried something and didn't like it? Why?"
+          "question": "What did you try because you thought you should like it?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "Think about the best sex you've ever had. What stands out?"
+          "question": "Think of deeply satisfying sex. What made it feel good beyond technique?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "Besides pleasure, what do you use sex for?"
+          "question": "Besides pleasure, what need have you asked sex to meet?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What part does shame play in your sex life?"
+          "question": "Where does shame still get to make decisions in your sex life?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What have you come to like?"
+          "question": "What have you learned to enjoy on your own terms?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "If you could relive one moment in bed, what would it be?"
+          "question": "Which intimate moment would you revisit for the feeling, not the performance?",
+          "energy": "bouba"
         },
         {
           "type": "open",
-          "question": "What kind of sexual partner are you to yourself?"
+          "question": "How do you treat yourself as a sexual partner?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What would you ask for in bed if there were no consequences?"
+          "question": "What would you ask for if rejection did not feel like a verdict on you?",
+          "energy": "kiki"
         },
         {
           "type": "open",
-          "question": "What are you craving in your life right now?"
+          "question": "What are you craving that sex alone cannot provide?",
+          "energy": "bouba"
         }
       ]
     }
