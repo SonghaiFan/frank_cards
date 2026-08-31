@@ -15,6 +15,7 @@ interface KneeConversationIllustrationProps {
   femaleClothingColor?: string;
   isDeparting?: boolean;
   isEngaged: boolean;
+  isLoading?: boolean;
   maleClothingColor?: string;
 }
 
@@ -24,6 +25,7 @@ const KneeConversationIllustration: React.FC<KneeConversationIllustrationProps> 
   femaleClothingColor,
   isDeparting = false,
   isEngaged,
+  isLoading = false,
   maleClothingColor,
 }) => {
   const reducedMotion = useReducedMotion();
@@ -150,7 +152,7 @@ const KneeConversationIllustration: React.FC<KneeConversationIllustrationProps> 
     : {
         delay: isDeparting ? departureDelay : 0,
         duration: isDeparting ? 0.82 : isEngaged ? 2.35 : 1.65,
-        ease: [0.22, 1, 0.36, 1] as const,
+        ease: [0.16, 1, 0.3, 1] as const,
       };
 
   return (
@@ -171,6 +173,7 @@ const KneeConversationIllustration: React.FC<KneeConversationIllustrationProps> 
       >
         <svg aria-hidden="true" className="h-full w-full overflow-visible" focusable="false" preserveAspectRatio="xMidYMid meet" viewBox="0 0 334 448" xmlns="http://www.w3.org/2000/svg">
           <FemaleFigure
+            animateCoffeeSurface={isLoading && !reducedMotion}
             clothingColor={femaleClothingColor}
             headRotate={femaleHeadRotate}
             headX={femaleHeadX}
@@ -185,7 +188,7 @@ const KneeConversationIllustration: React.FC<KneeConversationIllustrationProps> 
         data-layer="male"
         className="absolute bottom-[-12%] left-[4%] h-[39%] w-[92%] will-change-transform lg:bottom-[-2%] lg:h-[52%]"
         initial={reducedMotion ? false : { y: "125%" }}
-        animate={{ y: isDeparting ? "125%" : isEngaged ? "0%" : "23%" }}
+        animate={{ y: isDeparting || isLoading ? "125%" : isEngaged ? "0%" : "23%" }}
         transition={figureTransition}
         onAnimationComplete={notifyFigureLayout}
       >

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { ConversationGame } from "../types/ConversationGame";
 import Card from "./Card";
 import PackLikeButton from "./PackLikeButton";
+import { useTranslation } from "react-i18next";
 
 interface CardPackProps {
   game: ConversationGame;
@@ -44,6 +45,7 @@ const CardPack: React.FC<CardPackProps> = ({
   style,
   className = "cursor-pointer relative",
 }) => {
+  const { t } = useTranslation();
 
   if (minimal) isSelected = false;
 
@@ -191,7 +193,7 @@ const CardPack: React.FC<CardPackProps> = ({
                   (game.creator.displayName || "F").charAt(0).toUpperCase()
                 )}
               </span>
-              <span>{game.creator.displayName || "FrankCards Community"}</span>
+              <span>{game.creator.displayName || t("customMode.communityCreator")}</span>
             </div>
           ) : null}
 

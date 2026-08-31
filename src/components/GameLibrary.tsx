@@ -12,6 +12,7 @@ import { LIBRARY_DESKTOP_QUERY, useMediaQuery } from "../hooks/useMediaQuery";
 
 interface QuickGameLibraryProps {
   games: ConversationGame[];
+  isLoading?: boolean;
   onStartGame: (game: ConversationGame) => void;
   onSwitchToCustom: () => void;
 }
@@ -57,6 +58,8 @@ const panelVariants = {
     opacity: 0,
   }),
 };
+
+const deceleratingEase = [0.16, 1, 0.3, 1] as const;
 
 interface MobilePackProgressProps {
   activeIndex: number;
@@ -227,6 +230,23 @@ const CardWheel = memo(function CardWheel({
   visibleRange,
 }: CardWheelProps) {
   const [scrollTop, setScrollTop] = useState(0);
+  const [isEntranceVisible, setIsEntranceVisible] = useState(Boolean(reducedMotion));
+  const [hasCompletedEntrance, setHasCompletedEntrance] = useState(Boolean(reducedMotion));
+
+  useEffect(() => {
+    if (reducedMotion) {
+      setIsEntranceVisible(true);
+      setHasCompletedEntrance(true);
+      return;
+    }
+
+    const entranceFrame = window.requestAnimationFrame(() => setIsEntranceVisible(true));
+    const entranceTimer = window.setTimeout(() => setHasCompletedEntrance(true), 1100);
+    return () => {
+      window.cancelAnimationFrame(entranceFrame);
+      window.clearTimeout(entranceTimer);
+    };
+  }, [reducedMotion]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -251,6 +271,7 @@ const CardWheel = memo(function CardWheel({
   }, [containerRef]);
 
   const viewportCenter = (containerRef.current?.clientHeight || window.innerHeight) / 2;
+  const focusedItemIndex = allItems.findIndex((game) => game.testID === focusedGameId);
 
   return (
     <motion.div
@@ -277,6 +298,8 @@ const CardWheel = memo(function CardWheel({
           const scale = Math.max(0, 1 - Math.abs(relativePos) * 0.4);
           const opacity = Math.max(0, 1 - Math.abs(relativePos) * 0.6);
           const isPlaceholder = game.testID === "intro-card" || game.testID === "end-card";
+          const distanceFromFocus = Math.abs(index - Math.max(0, focusedItemIndex));
+          const entranceRotation = index <= focusedItemIndex ? -2.4 : 2.4;
 
           return (
             <div
@@ -289,20 +312,39 @@ const CardWheel = memo(function CardWheel({
                 zIndex: Math.round(100 - Math.abs(relativePos) * 100),
               }}
             >
-              <CardPack
-                game={game}
-                index={index}
-                isSelected={focusedGameId === game.testID}
-                isHovered={false}
-                onToggle={() => onStartGame(game)}
-                onHoverStart={() => {}}
-                onHoverEnd={() => {}}
-                minimal={isPlaceholder}
-                sharedLayoutId={focusedGameId === game.testID && !isPlaceholder ? `active-card-${game.testID}` : undefined}
-                disableEntranceAnimation={true}
-                style={{ width: "400px", height: "250px" }}
-                className="relative cursor-pointer group shadow-2xl rounded-3xl"
-              />
+              <motion.div
+                data-card-entrance
+                initial={false}
+                animate={isEntranceVisible || hasCompletedEntrance
+                  ? { opacity: 1, rotate: 0, scale: 1, y: 0 }
+                  : {
+                      opacity: 0,
+                      rotate: entranceRotation,
+                      scale: 0.975,
+                      y: 16,
+                    }}
+                transition={{
+                  duration: reducedMotion ? 0 : 0.82,
+                  delay: reducedMotion || hasCompletedEntrance ? 0 : 0.08 + Math.min(distanceFromFocus, 3) * 0.055,
+                  ease: deceleratingEase,
+                }}
+                style={{ transformOrigin: "50% 58%" }}
+              >
+                <CardPack
+                  game={game}
+                  index={index}
+                  isSelected={focusedGameId === game.testID}
+                  isHovered={false}
+                  onToggle={() => onStartGame(game)}
+                  onHoverStart={() => {}}
+                  onHoverEnd={() => {}}
+                  minimal={isPlaceholder}
+                  sharedLayoutId={focusedGameId === game.testID && !isPlaceholder ? `active-card-${game.testID}` : undefined}
+                  disableEntranceAnimation={true}
+                  style={{ width: "400px", height: "250px" }}
+                  className="relative cursor-pointer group shadow-2xl rounded-3xl"
+                />
+              </motion.div>
             </div>
           );
         })}
@@ -313,6 +355,7 @@ const CardWheel = memo(function CardWheel({
 
 const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
   games,
+  isLoading = false,
   onStartGame,
   onSwitchToCustom,
 }) => {
@@ -459,7 +502,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`theme-canvas relative w-full h-full ${isLaunching ? 'overflow-hidden' : 'overflow-y-auto'} overflow-x-hidden no-scrollbar scroll-smooth ${isMobile ? 'snap-y snap-mandatory' : ''}`}
+      className={`theme-canvas relative w-full h-full ${isLaunching || isLoading ? 'overflow-hidden' : 'overflow-y-auto'} overflow-x-hidden no-scrollbar scroll-smooth ${isMobile && !isLoading ? 'snap-y snap-mandatory' : ''}`}
       style={{ scrollBehavior: 'smooth' }}
       data-launching={isLaunching ? "true" : "false"}
       data-topic-count={games.length}
@@ -468,10 +511,10 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
       {/* Scrollable Track - height defined by number of items */}
       <div
         className="relative w-full"
-        style={{ height: `${TOTAL_HEIGHT}px` }}
+        style={{ height: isLoading ? "100%" : `${TOTAL_HEIGHT}px` }}
       >
         {/* Snap Points for Mobile */}
-        {isMobile && allItems.map((_, index) => (
+        {isMobile && !isLoading && allItems.map((_, index) => (
           <div
             key={`snap-${index}`}
             className="absolute w-full pointer-events-none snap-start snap-always"
@@ -513,38 +556,74 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
                 departureDelay={isLaunching ? 0.08 : 0}
                 isDeparting={isLaunching}
                 isEngaged={focusedGame.testID !== "intro-card" && focusedGame.testID !== "end-card"}
+                isLoading={isLoading}
                 femaleClothingColor={femaleThemeColor}
                 maleClothingColor={maleThemeColor}
                 className="knee-conversation-background absolute inset-0 h-full w-full max-w-none"
               />
             </div>
 
+            <AnimatePresence initial={false}>
+              {isLoading ? (
+                <motion.div
+                  key="library-loading-brand"
+                  className="library-loading-brand"
+                  initial={false}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: reducedMotion ? 0 : 0.54, ease: deceleratingEase }}
+                  role="status"
+                  aria-live="polite"
+                  aria-busy="true"
+                >
+                  <motion.h1
+                    layoutId="frankcards-brand"
+                    aria-label="FrankCards"
+                    transition={{ layout: { duration: reducedMotion ? 0 : 0.92, ease: deceleratingEase } }}
+                  >
+                    <span className="sr-only">Frank</span>
+                    <span aria-hidden="true" className="frank-signature" />
+                    <span>Cards</span>
+                  </motion.h1>
+                  <p>{t("gameLibrary.loadingBody")}</p>
+                </motion.div>
+              ) : null}
+            </AnimatePresence>
+
             {/* 1. Background & Intro Panel Layer */}
-            <motion.div
+            {!isLoading ? (
+              <motion.div
+              layout="position"
               data-layer="library-copy"
               animate={{ x: isLaunching ? "110vw" : 0 }}
               transition={{
                 delay: isLaunching && !reducedMotion ? 0.2 : 0,
                 duration: reducedMotion ? 0 : 0.72,
-                ease: [0.22, 1, 0.36, 1],
+                ease: deceleratingEase,
+                layout: { duration: reducedMotion ? 0 : 0.58, ease: deceleratingEase },
               }}
               onAnimationComplete={handleLaunchAnimationComplete}
               className={`absolute inset-0 w-full h-full flex items-center z-10 ${isMobile ? 'justify-center' : 'justify-end pl-[380px] xl:pl-[520px]'}`}
             >
-              <div className={`transition-[width,padding] duration-300 ${
+              <motion.div
+                layout
+                transition={{ layout: { duration: reducedMotion ? 0 : 0.58, ease: deceleratingEase } }}
+                className={`transition-[width,padding] duration-300 ${
                 isMobile
                   ? 'w-full max-w-2xl px-4 sm:px-8'
                   : 'w-full max-w-[30rem] px-8 pr-8 xl:max-w-2xl xl:pr-24'
-              }`}>
+                }`}
+              >
                 <AnimatePresence mode="wait">
                   <motion.div
+                    layout
                     key={focusedGame.testID}
                     custom={direction}
                     variants={panelVariants}
                     initial="enter"
                     animate="center"
                     exit="exit"
-                    transition={{ duration: 0.4 }}
+                    transition={{ duration: 0.4, layout: { duration: reducedMotion ? 0 : 0.58, ease: deceleratingEase } }}
                     onAnimationComplete={notifyContourLayout}
                   >
                     {focusedGame.testID === "intro-card" ? (
@@ -588,12 +667,13 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </div>
-            </motion.div>
+              </motion.div>
+              </motion.div>
+            ) : null}
 
             {/* Mobile Scroll Hint */}
             <AnimatePresence>
-              {isMobile && focusedGame.testID === "intro-card" && (
+              {isMobile && !isLoading && focusedGame.testID === "intro-card" && (
                 <motion.div
                   initial={{ opacity: 0, y: 0 }}
                   animate={{ opacity: 1, y: 10 }}
@@ -626,7 +706,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
             </AnimatePresence>
 
             {/* 2. Wheel Layer - Desktop Only */}
-            {!isMobile && (
+            {!isMobile && !isLoading && (
               <CardWheel
                 allItems={allItems}
                 containerRef={containerRef}

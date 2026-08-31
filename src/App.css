@@ -508,40 +508,20 @@ body {
   animation: app-status-arrive 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.app-loading-background {
+.library-loading-brand {
   position: absolute;
   inset: 0;
-  overflow: hidden;
-}
-
-.app-loading-background .theme-color-blur-mesh {
-  -webkit-mask-image: none;
-  mask-image: none;
-}
-
-.app-loading-figure {
-  position: absolute;
-  z-index: 1;
-  top: -8.5rem;
-  left: 50%;
-  width: clamp(17rem, 26vw, 20rem);
-  aspect-ratio: 334 / 448;
-  transform: translateX(-50%);
-  filter: drop-shadow(0 18px 22px rgb(23 23 21 / 0.08));
-}
-
-.app-status-content-loading {
-  width: min(92vw, 52rem);
-  animation: none;
-}
-
-.app-loading-brand {
+  z-index: 12;
   display: grid;
+  place-content: center;
   place-items: center;
   gap: 1rem;
+  padding: 2rem;
+  text-align: center;
+  pointer-events: none;
 }
 
-.app-loading-brand h1 {
+.library-loading-brand h1 {
   display: flex;
   align-items: center;
   margin: 0;
@@ -552,7 +532,7 @@ body {
   line-height: 1;
 }
 
-.app-loading-brand p {
+.library-loading-brand p {
   max-width: 34ch;
   margin: 0;
   color: var(--material-muted-ink);

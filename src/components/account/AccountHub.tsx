@@ -1,5 +1,5 @@
 import { lazy, Suspense, useCallback, useEffect, useState } from "react";
-import { AnimatePresence } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShieldHalved, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
@@ -11,6 +11,11 @@ import ThemeToggle from "../ThemeToggle";
 const AuthDialog = lazy(() => import("./AuthDialog"));
 const MyTopicsPanel = lazy(() => import("./MyTopicsPanel"));
 const AdminReviewPanel = lazy(() => import("./AdminReviewPanel"));
+
+const languageLayoutTransition = {
+  duration: 0.58,
+  ease: [0.16, 1, 0.3, 1] as const,
+};
 
 interface PanelLoadingFallbackProps {
   alignEnd: boolean;
@@ -67,7 +72,12 @@ export default function AccountHub({ authDialogRequest, isLanguageSwitching, onC
 
   return (
     <>
-      <nav className="account-toolbar" aria-label={t("account.toolbarLabel")}>
+      <motion.nav
+        layout
+        className="account-toolbar"
+        aria-label={t("account.toolbarLabel")}
+        transition={{ layout: languageLayoutTransition }}
+      >
         <LanguageSwitcher
           className="account-language-button"
           isSwitching={isLanguageSwitching}
@@ -82,18 +92,21 @@ export default function AccountHub({ authDialogRequest, isLanguageSwitching, onC
         ) : (
           <>
             {authenticated && isAdmin ? (
-              <button
+              <motion.button
+                layout
                 type="button"
                 className="account-toolbar-button"
                 onClick={() => setOpenPanel("admin")}
                 aria-haspopup="dialog"
                 aria-label={t("admin.reviewTitle")}
+                transition={{ layout: languageLayoutTransition }}
               >
                 <FontAwesomeIcon icon={faShieldHalved} />
                 <span>{t("admin.toolbar")}</span>
-              </button>
+              </motion.button>
             ) : null}
-            <button
+            <motion.button
+              layout
               type="button"
               className="account-toolbar-button"
               onClick={() => {
@@ -102,6 +115,7 @@ export default function AccountHub({ authDialogRequest, isLanguageSwitching, onC
               }}
               aria-haspopup="dialog"
               aria-label={authenticated ? t("account.myTopics") : t("account.signIn")}
+              transition={{ layout: languageLayoutTransition }}
             >
               {authenticated && profile?.avatar_url ? (
                 <img className="account-toolbar-avatar" src={profile.avatar_url} alt="" />
@@ -109,10 +123,10 @@ export default function AccountHub({ authDialogRequest, isLanguageSwitching, onC
                 <FontAwesomeIcon icon={faUser} />
               )}
               <span>{authenticated ? profile?.display_name || t("account.myTopics") : t("account.guestMode")}</span>
-            </button>
+            </motion.button>
           </>
         )}
-      </nav>
+      </motion.nav>
 
       <Suspense fallback={<PanelLoadingFallback alignEnd={openPanel === "topics" || openPanel === "admin"} onClose={closePanel} />}>
         <AnimatePresence>

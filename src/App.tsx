@@ -174,11 +174,9 @@ function App() {
     return <MinimumScreenSize height={viewportHeight} width={viewportWidth} />;
   }
 
-  const statusVariant = loadStatus === "loading"
-    ? "loading"
-    : loadStatus === "error"
+  const statusVariant = loadStatus === "error"
       ? "error"
-      : games.length === 0
+      : loadStatus === "ready" && games.length === 0
         ? "empty"
         : null;
 
@@ -193,14 +191,14 @@ function App() {
                 key={`app-status-${statusVariant}`}
                 data-app-scene="status"
                 className="absolute inset-0 z-30 overflow-hidden"
-                initial={statusVariant === "loading" ? false : { opacity: 0, y: 10, scale: 0.995 }}
+                initial={{ opacity: 0, y: 10, scale: 0.995 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -16, scale: 0.985 }}
                 transition={{ duration: 0.72, ease: [0.16, 1, 0.3, 1] }}
               >
                 <AppStatusScreen
                   variant={statusVariant}
-                  onRetry={statusVariant === "loading" ? undefined : handleRetryTopics}
+                  onRetry={handleRetryTopics}
                 />
               </motion.div>
             ) : (
@@ -217,7 +215,7 @@ function App() {
                   ease: [0.16, 1, 0.3, 1],
                 }}
               >
-                {!isSessionActive ? (
+                {!isSessionActive && loadStatus === "ready" ? (
                   <AccountHub
                     authDialogRequest={authDialogRequest}
                     isLanguageSwitching={isLanguageSwitching}
@@ -258,6 +256,7 @@ function App() {
                         {viewMode === "quick" ? (
                           <QuickGameLibrary
                             games={games}
+                            isLoading={loadStatus === "loading"}
                             onStartGame={handleQuickStart}
                             onSwitchToCustom={handleSwitchToCustom}
                           />

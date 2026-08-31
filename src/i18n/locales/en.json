@@ -322,6 +322,7 @@
     "collectionLabel": "Conversation pack source",
     "official": "Official",
     "community": "Community",
+    "communityCreator": "FrankCards Community",
     "communityEmpty": "No approved Community packs are available yet."
   }
 }
