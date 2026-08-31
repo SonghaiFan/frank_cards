@@ -16,6 +16,7 @@ import { useAuth } from "./auth/AuthProvider";
 import { PackLikesProvider } from "./social/PackLikesProvider";
 
 type TopicLoadStatus = "loading" | "ready" | "error";
+type AuthEntryMode = "signIn" | "signUp";
 
 function App() {
   const { i18n } = useTranslation();
@@ -71,14 +72,17 @@ function App() {
   const [viewMode, setViewMode] = useState<"customize" | "quick">("quick");
 
   const [sessionMode, setSessionMode] = useState<"quick" | "custom">("quick");
-  const [authDialogRequest, setAuthDialogRequest] = useState(0);
+  const [authDialogRequest, setAuthDialogRequest] = useState<{ id: number; mode: AuthEntryMode }>({
+    id: 0,
+    mode: "signIn",
+  });
   const [pendingCustomUnlock, setPendingCustomUnlock] = useState(false);
   const packIds = useMemo(() => (
     [...games, ...communityGames].map((game) => game.testID)
   ), [communityGames, games]);
 
-  const requestAuthentication = useCallback(() => {
-    setAuthDialogRequest((request) => request + 1);
+  const requestAuthentication = useCallback((mode: AuthEntryMode = "signIn") => {
+    setAuthDialogRequest((request) => ({ id: request.id + 1, mode }));
   }, []);
 
   const handleSwitchToCustom = useCallback(() => {
@@ -87,7 +91,7 @@ function App() {
       return;
     }
     setPendingCustomUnlock(true);
-    requestAuthentication();
+    requestAuthentication("signUp");
   }, [authStatus, requestAuthentication]);
 
   useEffect(() => {
@@ -156,7 +160,7 @@ function App() {
         : null;
 
   return (
-    <PackLikesProvider packIds={packIds} onRequireAuth={requestAuthentication}>
+    <PackLikesProvider packIds={packIds} onRequireAuth={() => requestAuthentication("signIn")}>
       <MotionConfig reducedMotion="user">
       <LayoutGroup id="frankcards-conversation-stage">
         <div className="relative h-[100dvh] w-screen overflow-hidden material-canvas">

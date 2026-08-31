@@ -40,7 +40,7 @@ function PanelLoadingFallback({ alignEnd, onClose }: PanelLoadingFallbackProps) 
 }
 
 interface AccountHubProps {
-  authDialogRequest: number;
+  authDialogRequest: { id: number; mode: "signIn" | "signUp" };
   onTopicsChanged: () => void;
   onUseTopic: (game: ConversationGame) => void;
 }
@@ -49,6 +49,7 @@ export default function AccountHub({ authDialogRequest, onTopicsChanged, onUseTo
   const { t } = useTranslation();
   const { isAdmin, isPasswordRecovery, profile, status } = useAuth();
   const [openPanel, setOpenPanel] = useState<"admin" | "auth" | "topics" | null>(null);
+  const [authEntryMode, setAuthEntryMode] = useState<"signIn" | "signUp">("signIn");
   const closePanel = useCallback(() => setOpenPanel(null), []);
   const authenticated = status === "authenticated" && !isPasswordRecovery;
 
@@ -57,8 +58,10 @@ export default function AccountHub({ authDialogRequest, onTopicsChanged, onUseTo
   }, [isPasswordRecovery]);
 
   useEffect(() => {
-    if (authDialogRequest > 0 && status !== "authenticated") setOpenPanel("auth");
-  }, [authDialogRequest, status]);
+    if (authDialogRequest.id <= 0 || status === "authenticated") return;
+    setAuthEntryMode(authDialogRequest.mode);
+    setOpenPanel("auth");
+  }, [authDialogRequest.id, authDialogRequest.mode, status]);
 
   return (
     <>
@@ -87,7 +90,10 @@ export default function AccountHub({ authDialogRequest, onTopicsChanged, onUseTo
             <button
               type="button"
               className="account-toolbar-button"
-              onClick={() => setOpenPanel(authenticated ? "topics" : "auth")}
+              onClick={() => {
+                if (!authenticated) setAuthEntryMode("signIn");
+                setOpenPanel(authenticated ? "topics" : "auth");
+              }}
               aria-haspopup="dialog"
               aria-label={authenticated ? t("account.myTopics") : t("account.signIn")}
             >
@@ -96,7 +102,7 @@ export default function AccountHub({ authDialogRequest, onTopicsChanged, onUseTo
               ) : (
                 <FontAwesomeIcon icon={faUser} />
               )}
-              <span>{authenticated ? profile?.display_name || t("account.myTopics") : t("account.signIn")}</span>
+              <span>{authenticated ? profile?.display_name || t("account.myTopics") : t("account.guestMode")}</span>
             </button>
           </>
         )}
@@ -104,7 +110,7 @@ export default function AccountHub({ authDialogRequest, onTopicsChanged, onUseTo
 
       <Suspense fallback={<PanelLoadingFallback alignEnd={openPanel === "topics" || openPanel === "admin"} onClose={closePanel} />}>
         <AnimatePresence>
-          {openPanel === "auth" ? <AuthDialog key="auth" onClose={closePanel} /> : null}
+          {openPanel === "auth" ? <AuthDialog key="auth" initialMode={authEntryMode} onClose={closePanel} /> : null}
           {openPanel === "topics" ? <MyTopicsPanel key="topics" onClose={closePanel} onTopicsChanged={onTopicsChanged} onUseTopic={onUseTopic} /> : null}
           {openPanel === "admin" ? <AdminReviewPanel key="admin" onClose={closePanel} onTopicsChanged={onTopicsChanged} onUseTopic={onUseTopic} /> : null}
         </AnimatePresence>

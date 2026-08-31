@@ -44,10 +44,10 @@ const GameIntroPanel: React.FC<GameIntroPanelProps> = ({
           onClick={onSwitchToCustom}
           disabled={status === "loading"}
         >
-          {t(authenticated ? "quickMode.switchToCustom" : "account.signIn")}
+          {t(authenticated ? "quickMode.switchToCustom" : "account.joinFrankCards")}
         </button>
         <p className="custom-mode-unlock-hint" style={{ color: uiColor }}>
-          {t(authenticated ? "quickMode.customModeHint" : "account.customModeUnlockHint")}
+          {t(authenticated ? "quickMode.customModeHint" : "account.joinFrankCardsHint")}
         </p>
       </div>
     </div>

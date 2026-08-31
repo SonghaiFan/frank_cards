@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useAuth } from "../../auth/AuthProvider";
 
 interface AuthDialogProps {
+  initialMode?: "signIn" | "signUp";
   onClose: () => void;
 }
 
@@ -20,7 +21,7 @@ type AuthMode =
 
 type EditableAuthMode = "signIn" | "signUp" | "forgotPassword";
 
-export default function AuthDialog({ onClose }: AuthDialogProps) {
+export default function AuthDialog({ initialMode = "signIn", onClose }: AuthDialogProps) {
   const { t } = useTranslation();
   const {
     clearError,
@@ -37,7 +38,7 @@ export default function AuthDialog({ onClose }: AuthDialogProps) {
     updatePassword,
   } = useAuth();
   const [mode, setMode] = useState<AuthMode>(() => (
-    isPasswordRecovery ? "passwordRecovery" : "signIn"
+    isPasswordRecovery ? "passwordRecovery" : initialMode
   ));
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -388,13 +389,6 @@ export default function AuthDialog({ onClose }: AuthDialogProps) {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: mode === "signUp" ? 10 : -10 }}
               >
-                {mode === "signUp" ? (
-                  <button className="account-back-button" type="button" onClick={() => switchMode("signIn")}>
-                    <FontAwesomeIcon icon={faArrowLeft} />
-                    <span>{t("common.back")}</span>
-                  </button>
-                ) : null}
-
                 <p className="account-kicker">FrankCards</p>
                 <h2 id="account-auth-title">{t(mode === "signUp" ? "account.createAccountTitle" : "account.signInTitle")}</h2>
                 <p>{t(mode === "signUp" ? "account.createAccountBody" : "account.signInBody")}</p>
@@ -449,7 +443,13 @@ export default function AuthDialog({ onClose }: AuthDialogProps) {
                       {t("account.needAccount")}
                     </button>
                   </div>
-                ) : null}
+                ) : (
+                  <div className="account-auth-links account-auth-links-single">
+                    <button className="account-text-button" type="button" onClick={() => switchMode("signIn")} disabled={isWorking}>
+                      {t("account.haveAccount")}
+                    </button>
+                  </div>
+                )}
               </motion.form>
             )}
           </AnimatePresence>
