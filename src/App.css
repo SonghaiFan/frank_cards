@@ -970,8 +970,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  box-sizing: border-box;
+  min-height: 100dvh;
+  overflow-y: auto;
+  padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
   background: var(--material-overlay);
+  overscroll-behavior: contain;
 }
 
 .account-overlay-align-end {
@@ -981,6 +985,7 @@ body {
 
 .account-sheet {
   position: relative;
+  box-sizing: border-box;
   width: min(100%, 31rem);
   max-height: min(46rem, calc(100dvh - 2rem));
   overflow: auto;
@@ -1049,6 +1054,7 @@ body {
 
 .account-auth-flow {
   min-width: 0;
+  min-height: 0;
   overflow: auto;
 }
 
@@ -3253,9 +3259,16 @@ body {
 }
 
 @media (max-width: 639px) {
+  .account-overlay {
+    align-items: flex-start;
+  }
+
   .account-auth-sheet {
     display: block;
     width: min(100%, 31rem);
+    max-height: calc(100dvh - 2rem - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   .account-auth-benefits {
@@ -3275,6 +3288,11 @@ body {
 
   .account-auth-flow .account-sheet-copy {
     min-height: auto;
+    padding: 1.5rem 1.5rem calc(1.5rem + env(safe-area-inset-bottom));
+  }
+
+  .account-auth-flow {
+    overflow: visible;
   }
 
   .topic-studio-header {
