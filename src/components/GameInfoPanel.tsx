@@ -43,7 +43,11 @@ const GameInfoPanel: React.FC<GameInfoPanelProps> = ({
             {game.ui.startScreen.title}
           </motion.h1>
 
-          <motion.div layout="position" transition={{ layout: languageLayoutTransition }}>
+          <motion.div
+            layout="position"
+            className="mx-auto w-full max-w-[24rem] lg:ml-auto lg:mr-0 lg:max-w-[22rem]"
+            transition={{ layout: languageLayoutTransition }}
+          >
             <ContourText
               color={uiColor}
               paragraphs={game.ui.startScreen.description}

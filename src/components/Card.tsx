@@ -30,7 +30,7 @@ const Card: React.FC<CardProps> = ({
   };
 
   const baseClasses =
-    "material-card theme-paper-card rounded-3xl";
+    "material-card theme-paper-card select-none rounded-3xl";
   const sizeClass = sizeClasses[size];
   const variantClass = variantClasses[variant];
 

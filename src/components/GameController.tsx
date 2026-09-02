@@ -17,7 +17,7 @@ interface GameControllerProps {
   games: ConversationGame[];
   onExit: () => void;
   mode: "quick" | "custom";
-  sharedLayoutId?: string;
+  sessionEntryId?: string;
 }
 
 const prepareQuickQuestions = (game: ConversationGame) => {
@@ -40,7 +40,7 @@ const prepareQuickQuestions = (game: ConversationGame) => {
   return [...nonEndQuestions, ...endQuestions];
 };
 
-const GameController: React.FC<GameControllerProps> = ({ games, onExit, mode, sharedLayoutId }) => {
+const GameController: React.FC<GameControllerProps> = ({ games, onExit, mode, sessionEntryId }) => {
   console.log("GameController mounted with games:", games?.length);
 
   const [currentStage, setCurrentStage] = useState<GameStage>(() => {
@@ -306,7 +306,7 @@ const GameController: React.FC<GameControllerProps> = ({ games, onExit, mode, sh
           questions={mixedQuestions}
           onExit={onExit}
           onComplete={handleGameComplete}
-          sharedLayoutId={sharedLayoutId}
+          sessionEntryId={sessionEntryId}
         />
       );
 

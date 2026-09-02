@@ -1,17 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 import { ConversationGame } from "../types/ConversationGame";
 import { useAppTheme } from "../hooks/useAppTheme";
+import { LIBRARY_DESKTOP_QUERY, useMediaQuery } from "../hooks/useMediaQuery";
 import { resolveGameSurfaceTheme } from "../utils/gameTheme";
 import QuestionCard from "./QuestionCard";
+
+const SWIPE_THRESHOLD_PX = 48;
+const SWIPE_AXIS_BIAS = 1.15;
+
+interface SwipeStart {
+  pointerId: number;
+  x: number;
+  y: number;
+  captured: boolean;
+}
 
 interface GamePlayProps {
   game: ConversationGame;
   questions: any[];
   onExit: () => void;
   onComplete: () => void;
-  sharedLayoutId?: string;
+  sessionEntryId?: string;
 }
 
 const GamePlay: React.FC<GamePlayProps> = ({
@@ -19,13 +30,17 @@ const GamePlay: React.FC<GamePlayProps> = ({
   questions,
   onExit,
   onComplete,
-  sharedLayoutId,
+  sessionEntryId,
 }) => {
   const { t } = useTranslation();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const [direction, setDirection] = useState(0);
   const isDarkTheme = useAppTheme() === "dark";
+  const isDesktop = useMediaQuery(LIBRARY_DESKTOP_QUERY);
+  const isMobile = !isDesktop;
+  const swipeStartRef = useRef<SwipeStart | null>(null);
+  const suppressCardClickUntilRef = useRef(0);
 
   const currentQuestion = questions[currentQuestionIndex] || null;
   const currentCategory = currentQuestion
@@ -47,7 +62,7 @@ const GamePlay: React.FC<GamePlayProps> = ({
     isWildcard: isWildMode,
   });
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setDirection(1);
     setIsCardFlipped(false);
     if (currentQuestionIndex < questions.length - 1) {
@@ -55,21 +70,76 @@ const GamePlay: React.FC<GamePlayProps> = ({
     } else {
       onComplete();
     }
-  };
+  }, [currentQuestionIndex, onComplete, questions.length]);
 
-  const handlePrevious = () => {
+  const handlePrevious = useCallback(() => {
     setDirection(-1);
     setIsCardFlipped(false);
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
     }
-  };
+  }, [currentQuestionIndex]);
 
-  const handleCardClick = () => {
+  const handleCardClick = useCallback(() => {
+    if (Date.now() < suppressCardClickUntilRef.current) return;
+
     if (currentQuestion?.more) {
-      setIsCardFlipped(!isCardFlipped);
+      setIsCardFlipped((flipped) => !flipped);
     }
-  };
+  }, [currentQuestion?.more]);
+
+  const handleSwipeStart = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    if (!isMobile || !event.isPrimary) return;
+
+    swipeStartRef.current = {
+      pointerId: event.pointerId,
+      x: event.clientX,
+      y: event.clientY,
+      captured: false,
+    };
+  }, [isMobile]);
+
+  const handleSwipeMove = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    const swipeStart = swipeStartRef.current;
+    if (!isMobile || !swipeStart || swipeStart.pointerId !== event.pointerId || swipeStart.captured) {
+      return;
+    }
+
+    const horizontalDistance = event.clientX - swipeStart.x;
+    const verticalDistance = event.clientY - swipeStart.y;
+    const hasHorizontalIntent =
+      Math.abs(horizontalDistance) > 8 &&
+      Math.abs(horizontalDistance) > Math.abs(verticalDistance) * SWIPE_AXIS_BIAS;
+
+    if (hasHorizontalIntent) {
+      event.currentTarget.setPointerCapture(event.pointerId);
+      swipeStart.captured = true;
+    }
+  }, [isMobile]);
+
+  const handleSwipeEnd = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    const swipeStart = swipeStartRef.current;
+    swipeStartRef.current = null;
+
+    if (!isMobile || !swipeStart || swipeStart.pointerId !== event.pointerId) return;
+
+    const horizontalDistance = event.clientX - swipeStart.x;
+    const verticalDistance = event.clientY - swipeStart.y;
+    const isHorizontalSwipe = Math.abs(horizontalDistance) > Math.abs(verticalDistance) * SWIPE_AXIS_BIAS;
+
+    if (!isHorizontalSwipe || Math.abs(horizontalDistance) < SWIPE_THRESHOLD_PX) return;
+
+    suppressCardClickUntilRef.current = Date.now() + 350;
+    if (horizontalDistance < 0) {
+      handleNext();
+    } else {
+      handlePrevious();
+    }
+  }, [handleNext, handlePrevious, isMobile]);
+
+  const handleSwipeCancel = useCallback(() => {
+    swipeStartRef.current = null;
+  }, []);
 
   // Keyboard navigation
   useEffect(() => {
@@ -107,7 +177,7 @@ const GamePlay: React.FC<GamePlayProps> = ({
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [currentQuestionIndex, isCardFlipped, currentQuestion, onExit]);
+  }, [currentQuestion, currentQuestionIndex, handleCardClick, handleNext, handlePrevious, isCardFlipped, onExit]);
 
   return (
     <motion.div
@@ -144,7 +214,40 @@ const GamePlay: React.FC<GamePlayProps> = ({
 
       {/* Main Card - Centered & Focused */}
       <div className="flex-1 flex items-center justify-center px-4 sm:px-8 py-8 sm:py-16 relative z-10">
-        <div className="w-full max-w-4xl">
+        <button
+          type="button"
+          aria-label={t("common.previous")}
+          title={t("common.previous")}
+          data-mobile-edge-nav="previous"
+          className="absolute inset-y-0 left-0 z-20 flex w-12 touch-manipulation items-center justify-start pl-1 text-3xl opacity-25 transition-opacity active:opacity-70 disabled:pointer-events-none disabled:opacity-0 lg:hidden"
+          style={{ color: uiColor }}
+          onClick={handlePrevious}
+          disabled={currentQuestionIndex === 0}
+        >
+          <span aria-hidden="true">‹</span>
+        </button>
+
+        <button
+          type="button"
+          aria-label={t("common.next")}
+          title={t("common.next")}
+          data-mobile-edge-nav="next"
+          className="absolute inset-y-0 right-0 z-20 flex w-12 touch-manipulation items-center justify-end pr-1 text-3xl opacity-25 transition-opacity active:opacity-70 lg:hidden"
+          style={{ color: uiColor }}
+          onClick={handleNext}
+        >
+          <span aria-hidden="true">›</span>
+        </button>
+
+        <div
+          className="w-full max-w-4xl"
+          data-mobile-swipe-surface
+          onPointerCancel={handleSwipeCancel}
+          onPointerDown={handleSwipeStart}
+          onPointerMove={handleSwipeMove}
+          onPointerUp={handleSwipeEnd}
+          style={{ touchAction: isMobile ? "pan-y" : undefined }}
+        >
           {/* Category Indicator - Minimal */}
           {currentCategory && (
             <motion.div
@@ -181,7 +284,8 @@ const GamePlay: React.FC<GamePlayProps> = ({
             cardColor={cardColor}
             textColor={textColor}
             onCardClick={handleCardClick}
-            sharedLayoutId={sharedLayoutId}
+            readerRotation={isMobile && currentQuestionIndex % 2 === 1 ? 180 : 0}
+            sessionEntryId={sessionEntryId}
           />
 
           {/* Category Description - Subtle */}

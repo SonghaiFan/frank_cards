@@ -16,7 +16,6 @@ interface CardPackProps {
   disableEntranceAnimation?: boolean;
   minimal?: boolean;
   showSelectionIndicator?: boolean;
-  sharedLayoutId?: string;
   size?: "small" | "medium" | "large";
   style?: React.CSSProperties;
   className?: string;
@@ -40,7 +39,6 @@ const CardPack: React.FC<CardPackProps> = ({
   disableEntranceAnimation = false,
   minimal = false,
   showSelectionIndicator = true,
-  sharedLayoutId,
   size = "medium",
   style,
   className = "cursor-pointer relative",
@@ -52,7 +50,6 @@ const CardPack: React.FC<CardPackProps> = ({
   return (
     <motion.div
       layout={!disableEntranceAnimation}
-      layoutId={sharedLayoutId}
       initial={disableEntranceAnimation ? false : { opacity: 0, y: 50 }}
       animate={disableEntranceAnimation ? undefined : { opacity: 1, y: 0 }}
       transition={{
@@ -64,7 +61,7 @@ const CardPack: React.FC<CardPackProps> = ({
       className={`${className} ${!style ? sizeClasses[size] : ''}`} // Apply size class ONLY if no style override to prevent conflicts, or just append it
       style={{
         ...style,
-        borderRadius: sharedLayoutId ? "1.5rem" : style?.borderRadius,
+        borderRadius: style?.borderRadius,
       }}
       onHoverStart={onHoverStart}
       onHoverEnd={onHoverEnd}

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { AnimatePresence, LayoutGroup, motion, MotionConfig } from "motion/react";
+import { AnimatePresence, LayoutGroup, motion, MotionConfig, type Variants } from "motion/react";
 import { useTranslation } from "react-i18next";
 import "./App.css";
 import type { ConversationGame } from "./types/ConversationGame";
@@ -29,6 +29,19 @@ const loadTopicsForLanguage = async (language: AppLanguage) => {
     communityGames: communityTopics.map((topic) => topic.game),
     games: builtInTopics.map((topic) => topic.game),
   };
+};
+
+const librarySceneVariants: Variants = {
+  active: { opacity: 1 },
+  exit: (preserveBackdrop: boolean) => ({
+    // During a pack launch the outgoing library remains as the visual
+    // backdrop until GamePlay's color surface has finished filling in.
+    opacity: preserveBackdrop ? 0.999 : 0,
+    transition: {
+      duration: preserveBackdrop ? 1.65 : 1.4,
+      ease: "easeInOut",
+    },
+  }),
 };
 
 function App() {
@@ -183,7 +196,6 @@ function App() {
   return (
     <PackLikesProvider packIds={packIds} onRequireAuth={() => requestAuthentication("signIn")}>
       <MotionConfig reducedMotion="user">
-      <LayoutGroup id="frankcards-conversation-stage">
         <div className="relative h-[100dvh] w-screen overflow-hidden material-canvas">
           <AnimatePresence initial={false} mode="sync">
             {statusVariant ? (
@@ -225,7 +237,7 @@ function App() {
                   />
                 ) : null}
                 <div className="relative isolate h-full w-full flex-1 overflow-hidden">
-                  <AnimatePresence initial={false} mode="sync">
+                  <AnimatePresence custom={isSessionActive} initial={false} mode="sync">
                     {isSessionActive ? (
                       <motion.div
                         key={`session-${selectedGames.map((game) => game.testID).join("-")}`}
@@ -240,7 +252,7 @@ function App() {
                           games={selectedGames}
                           onExit={handleGameExit}
                           mode={sessionMode}
-                          sharedLayoutId={selectedGames.length === 1 ? `active-card-${selectedGames[0].testID}` : undefined}
+                          sessionEntryId={selectedGames.length === 1 ? `session-entry-${selectedGames[0].testID}` : undefined}
                         />
                       </motion.div>
                     ) : (
@@ -249,28 +261,30 @@ function App() {
                         data-scene="library"
                         className="absolute inset-0 z-10 overflow-hidden"
                         initial={false}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 1.4, ease: "easeInOut" }}
+                        animate="active"
+                        exit="exit"
+                        variants={librarySceneVariants}
                       >
-                        {viewMode === "quick" ? (
-                          <QuickGameLibrary
-                            games={games}
-                            isLoading={loadStatus === "loading"}
-                            onStartGame={handleQuickStart}
-                            onSwitchToCustom={handleSwitchToCustom}
-                          />
-                        ) : (
-                          <GameLibrary
-                            games={games}
-                            communityGames={communityGames}
-                            selectedGames={selectedGames}
-                            onToggleGame={handleToggleGame}
-                            onStartSession={handleStartSession}
-                            onBackToQuick={() => setViewMode("quick")}
-                            onClearSelection={() => setSelectedGames([])}
-                          />
-                        )}
+                        <LayoutGroup id={`frankcards-library-${viewMode}`}>
+                          {viewMode === "quick" ? (
+                            <QuickGameLibrary
+                              games={games}
+                              isLoading={loadStatus === "loading"}
+                              onStartGame={handleQuickStart}
+                              onSwitchToCustom={handleSwitchToCustom}
+                            />
+                          ) : (
+                            <GameLibrary
+                              games={games}
+                              communityGames={communityGames}
+                              selectedGames={selectedGames}
+                              onToggleGame={handleToggleGame}
+                              onStartSession={handleStartSession}
+                              onBackToQuick={() => setViewMode("quick")}
+                              onClearSelection={() => setSelectedGames([])}
+                            />
+                          )}
+                        </LayoutGroup>
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -279,7 +293,6 @@ function App() {
             )}
           </AnimatePresence>
         </div>
-      </LayoutGroup>
       </MotionConfig>
     </PackLikesProvider>
   );

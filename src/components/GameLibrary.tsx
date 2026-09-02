@@ -65,6 +65,9 @@ interface MobilePackProgressProps {
   activeIndex: number;
   games: ConversationGame[];
   label: string;
+  onScrubEnd: () => void;
+  onScrubStart: () => void;
+  onSelectIndex: (index: number) => void;
   uiColor: string;
 }
 
@@ -72,20 +75,86 @@ const MobilePackProgress = memo(function MobilePackProgress({
   activeIndex,
   games,
   label,
+  onScrubEnd,
+  onScrubStart,
+  onSelectIndex,
   uiColor,
 }: MobilePackProgressProps) {
+  const activePointerRef = useRef<number | null>(null);
+  const lastSelectedIndexRef = useRef(activeIndex);
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    lastSelectedIndexRef.current = activeIndex;
+  }, [activeIndex]);
+
+  const selectFromPointerPosition = useCallback((clientY: number) => {
+    const track = trackRef.current;
+    const firstSlot = track?.firstElementChild as HTMLElement | null;
+    const lastSlot = track?.lastElementChild as HTMLElement | null;
+    if (!track || !firstSlot || !lastSlot || games.length === 0) return;
+
+    const firstRect = firstSlot.getBoundingClientRect();
+    const lastRect = lastSlot.getBoundingClientRect();
+    const start = firstRect.top + firstRect.height / 2;
+    const end = lastRect.top + lastRect.height / 2;
+    const progress = end === start ? 0 : Math.max(0, Math.min(1, (clientY - start) / (end - start)));
+    const nextIndex = Math.round(progress * (games.length - 1));
+
+    if (nextIndex === lastSelectedIndexRef.current) return;
+    lastSelectedIndexRef.current = nextIndex;
+    onSelectIndex(nextIndex);
+  }, [games.length, onSelectIndex]);
+
   return (
     <div
       aria-label={label}
+      aria-orientation="vertical"
       aria-valuemax={games.length}
       aria-valuemin={1}
       aria-valuenow={activeIndex + 1}
-      className="pointer-events-none absolute left-3 top-1/2 z-40 -translate-y-1/2"
+      className="absolute left-0 top-1/2 z-40 -translate-y-1/2 cursor-ns-resize touch-none px-3 py-4 outline-none focus-visible:rounded-full focus-visible:ring-2 focus-visible:ring-current"
       data-mobile-pack-progress
-      role="progressbar"
+      onKeyDown={(event) => {
+        if (event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
+        event.preventDefault();
+        const offset = event.key === "ArrowUp" ? -1 : 1;
+        onSelectIndex(Math.max(0, Math.min(games.length - 1, activeIndex + offset)));
+      }}
+      onLostPointerCapture={(event) => {
+        if (activePointerRef.current !== event.pointerId) return;
+        activePointerRef.current = null;
+        onScrubEnd();
+      }}
+      onPointerCancel={(event) => {
+        if (activePointerRef.current !== event.pointerId) return;
+        activePointerRef.current = null;
+        onScrubEnd();
+      }}
+      onPointerDown={(event) => {
+        if (!event.isPrimary) return;
+        activePointerRef.current = event.pointerId;
+        lastSelectedIndexRef.current = -1;
+        event.currentTarget.setPointerCapture(event.pointerId);
+        event.currentTarget.focus({ preventScroll: true });
+        onScrubStart();
+        selectFromPointerPosition(event.clientY);
+      }}
+      onPointerMove={(event) => {
+        if (activePointerRef.current !== event.pointerId) return;
+        selectFromPointerPosition(event.clientY);
+      }}
+      onPointerUp={(event) => {
+        if (activePointerRef.current !== event.pointerId) return;
+        activePointerRef.current = null;
+        event.currentTarget.releasePointerCapture(event.pointerId);
+        onScrubEnd();
+      }}
+      role="slider"
       style={{ color: uiColor }}
+      tabIndex={0}
     >
-      <div aria-hidden="true" className="flex flex-col items-center gap-1">
+      <div ref={trackRef} aria-hidden="true" className="flex flex-col items-center gap-1">
         {games.map((game, index) => {
           const isActive = index === activeIndex;
 
@@ -339,7 +408,6 @@ const CardWheel = memo(function CardWheel({
                   onHoverStart={() => {}}
                   onHoverEnd={() => {}}
                   minimal={isPlaceholder}
-                  sharedLayoutId={focusedGameId === game.testID && !isPlaceholder ? `active-card-${game.testID}` : undefined}
                   disableEntranceAnimation={true}
                   style={{ width: "400px", height: "250px" }}
                   className="relative cursor-pointer group shadow-2xl rounded-3xl"
@@ -363,7 +431,9 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
   const [focusedGameId, setFocusedGameId] = useState<string>(games[0]?.testID || "");
   const [direction, setDirection] = useState(1); // 1 = down/next, -1 = up/prev
   const [isLaunching, setIsLaunching] = useState(false);
+  const [isPackScrubbing, setIsPackScrubbing] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const launchFrameRef = useRef<number | null>(null);
   const pendingGameRef = useRef<ConversationGame | null>(null);
   const lastIndexRef = useRef(0);
   const notifyContourLayout = useCallback(() => {
@@ -467,6 +537,29 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
 
   const focusedGame = allItems.find((g) => g.testID === focusedGameId) || allItems[0];
   const focusedPackIndex = filteredGames.findIndex((game) => game.testID === focusedGameId);
+  const handleMobilePackScrubStart = useCallback(() => {
+    const container = containerRef.current;
+    if (container) container.style.scrollBehavior = "auto";
+    setIsPackScrubbing(true);
+  }, []);
+  const handleMobilePackScrubEnd = useCallback(() => {
+    const container = containerRef.current;
+    if (container) container.style.scrollBehavior = "smooth";
+    setIsPackScrubbing(false);
+  }, []);
+  const handleMobilePackSelect = useCallback((packIndex: number) => {
+    const container = containerRef.current;
+    const game = filteredGames[packIndex];
+    if (!container || !game) return;
+
+    const itemIndex = packIndex + 1;
+    if (itemIndex !== lastIndexRef.current) {
+      setDirection(itemIndex > lastIndexRef.current ? 1 : -1);
+      lastIndexRef.current = itemIndex;
+    }
+    setFocusedGameId((currentId) => currentId === game.testID ? currentId : game.testID);
+    container.scrollTop = itemIndex * ITEM_HEIGHT;
+  }, [filteredGames, ITEM_HEIGHT]);
   const focusedThemeColors = Object.values(focusedGame.theme.categories).map((category) => category.color);
   const femaleThemeColor = focusedThemeColors[0];
   const maleThemeColor = focusedThemeColors[1] || createCompanionColor(femaleThemeColor);
@@ -480,7 +573,12 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
   const panelUiColor = "var(--material-ink)";
 
   const handleStartGame = useCallback((game: ConversationGame) => {
-    if (isLaunching || game.testID === "intro-card" || game.testID === "end-card") return;
+    if (
+      isLaunching ||
+      pendingGameRef.current ||
+      game.testID === "intro-card" ||
+      game.testID === "end-card"
+    ) return;
 
     if (reducedMotion) {
       onStartGame(game);
@@ -489,15 +587,23 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
 
     pendingGameRef.current = game;
     setIsLaunching(true);
+
+    // Commit the destination on the next painted frame. AnimatePresence keeps
+    // this library mounted as the source scene, so both sides share one handoff
+    // instead of leaving an empty interval between two separate animations.
+    launchFrameRef.current = window.requestAnimationFrame(() => {
+      launchFrameRef.current = null;
+      const pendingGame = pendingGameRef.current;
+      pendingGameRef.current = null;
+      if (pendingGame) onStartGame(pendingGame);
+    });
   }, [isLaunching, onStartGame, reducedMotion]);
 
-  const handleLaunchAnimationComplete = useCallback(() => {
-    if (!isLaunching || !pendingGameRef.current) return;
-
-    const game = pendingGameRef.current;
-    pendingGameRef.current = null;
-    onStartGame(game);
-  }, [isLaunching, onStartGame]);
+  useEffect(() => () => {
+    if (launchFrameRef.current !== null) {
+      window.cancelAnimationFrame(launchFrameRef.current);
+    }
+  }, []);
 
   return (
     <div
@@ -541,6 +647,9 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
                 current: focusedPackIndex + 1,
                 total: filteredGames.length,
               })}
+              onScrubEnd={handleMobilePackScrubEnd}
+              onScrubStart={handleMobilePackScrubStart}
+              onSelectIndex={handleMobilePackSelect}
               uiColor={panelUiColor}
             />
           ) : null}
@@ -602,7 +711,6 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
                 ease: deceleratingEase,
                 layout: { duration: reducedMotion ? 0 : 0.58, ease: deceleratingEase },
               }}
-              onAnimationComplete={handleLaunchAnimationComplete}
               className={`absolute inset-0 w-full h-full flex items-center z-10 ${isMobile ? 'justify-center' : 'justify-end pl-[380px] xl:pl-[520px]'}`}
             >
               <motion.div
@@ -614,7 +722,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
                   : 'w-full max-w-[30rem] px-8 pr-8 xl:max-w-2xl xl:pr-24'
                 }`}
               >
-                <AnimatePresence mode="wait">
+                <AnimatePresence mode={isPackScrubbing ? "sync" : "wait"}>
                   <motion.div
                     layout
                     key={focusedGame.testID}
@@ -623,7 +731,10 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
                     initial="enter"
                     animate="center"
                     exit="exit"
-                    transition={{ duration: 0.4, layout: { duration: reducedMotion ? 0 : 0.58, ease: deceleratingEase } }}
+                    transition={{
+                      duration: isPackScrubbing ? 0 : 0.4,
+                      layout: { duration: reducedMotion || isPackScrubbing ? 0 : 0.58, ease: deceleratingEase },
+                    }}
                     onAnimationComplete={notifyContourLayout}
                   >
                     {focusedGame.testID === "intro-card" ? (

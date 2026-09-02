@@ -18,7 +18,8 @@ interface QuestionCardProps {
   cardColor: string;
   textColor: string;
   onCardClick: () => void;
-  sharedLayoutId?: string;
+  readerRotation?: 0 | 180;
+  sessionEntryId?: string;
 }
 
 const QuestionCard: React.FC<QuestionCardProps> = ({
@@ -29,7 +30,8 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
   cardColor,
   textColor,
   onCardClick,
-  sharedLayoutId,
+  readerRotation = 0,
+  sessionEntryId,
 }) => {
   // Mouse movement tracking with optimized values
   const cardRef = useRef<HTMLDivElement>(null);
@@ -49,8 +51,8 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
   });
 
   // Optimized mouse move handler with reliable calculations
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
+  const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType !== "mouse" || !cardRef.current) return;
 
     const rect = cardRef.current.getBoundingClientRect();
     const halfWidth = rect.width / 2;
@@ -68,7 +70,9 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
     mouseY.set(clampedY);
   };
 
-  const handleMouseLeave = () => {
+  const handlePointerLeave = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType !== "mouse") return;
+
     // Ensure reliable reset with immediate value setting
     requestAnimationFrame(() => {
       mouseX.set(0);
@@ -82,167 +86,170 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
       x: direction > 0 ? 300 : -300,
       opacity: 0,
       scale: 0.8,
-      rotateY: direction > 0 ? 25 : -25,
     }),
     center: {
       x: 0,
       y: 0,
       opacity: 1,
       scale: 1,
-      rotateY: 0,
-      filter: "blur(0px)",
     },
     exit: (direction: number) => ({
       x: direction < 0 ? 300 : -300,
       opacity: 0,
       scale: 0.8,
-      rotateY: direction < 0 ? 25 : -25,
     }),
   };
-  const activeSharedLayoutId = currentQuestionIndex === 0 ? sharedLayoutId : undefined;
+  const isSessionEntry = currentQuestionIndex === 0 && Boolean(sessionEntryId);
 
   return (
     <div className="flex justify-center items-center">
       <div
         className="relative perspective-1000 w-[92vw] max-w-[380px] sm:w-[440px] sm:max-w-[440px] md:w-[520px] md:max-w-[520px] h-[220px] sm:h-[280px] md:h-[340px]"
         ref={cardRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
+        onPointerMove={handlePointerMove}
+        onPointerLeave={handlePointerLeave}
       >
-        <AnimatePresence mode="wait" custom={direction}>
+        <AnimatePresence mode="sync" custom={direction}>
           <motion.div
             key={currentQuestionIndex}
-            data-card-transition={activeSharedLayoutId ? "shared-entry" : "question-sequence"}
-            className="relative w-full h-full"
+            data-card-transition={isSessionEntry ? "session-entry" : "question-sequence"}
+            className="absolute inset-0 h-full w-full"
             style={{
-              transformStyle: "preserve-3d",
               rotateX,
               rotateY,
             }}
             custom={direction}
             variants={cardVariants}
-            initial={activeSharedLayoutId ? {
-              opacity: 0,
-              y: 36,
-              scale: 0.92,
-              filter: "blur(10px)",
-            } : "enter"}
+            initial={isSessionEntry ? false : "enter"}
             animate="center"
             exit="exit"
-            transition={activeSharedLayoutId ? {
-              opacity: { duration: 0.38, delay: 0.08 },
-              y: { duration: 0.72, delay: 0.05, ease: [0.22, 1, 0.36, 1] },
-              scale: { duration: 0.72, delay: 0.05, ease: [0.22, 1, 0.36, 1] },
-              filter: { duration: 0.5, delay: 0.05, ease: "easeOut" },
-            } : {
+            transition={isSessionEntry ? { duration: 0 } : {
               x: { type: "spring", stiffness: 300, damping: 30 },
               opacity: { duration: 0.2 },
               scale: { duration: 0.2 },
-              rotateX: { duration: 0.1 },
-              rotateY: { duration: 0.1 },
             }}
           >
-            {/* Card Container with Flip Animation */}
-            <motion.div
+            <div
               className="relative w-full h-full"
+              data-reader-rotation={readerRotation}
               style={{
-                transformStyle: "preserve-3d",
-                borderRadius: "1.5rem",
+                transform: `rotate(${readerRotation}deg)`,
+                transformOrigin: "50% 50%",
               }}
-              animate={{
-                rotateY: isCardFlipped ? 180 : 0,
-              }}
-              transition={{
-                duration: 0.6,
-                ease: [0.16, 1, 0.3, 1], // Custom bezier curve for natural feel
-                layout: { duration: 0.6 },
-              }}
-              layoutId={activeSharedLayoutId || `card-${currentQuestionIndex}`}
             >
-              {/* Front Side - Question */}
-              <Card
-                size="large"
-                variant="question"
-                aria-hidden={isCardFlipped}
-                className={`absolute inset-0 text-center shadow-2xl ${
+              {/* Rotate each face inside its own perspective scene. This keeps
+                  the near edge visibly wider than the far edge during the flip. */}
+              <div
+                className={`relative h-full w-full ${
                   currentQuestion?.more ? "cursor-pointer" : "cursor-default"
                 }`}
-                style={{
-                  backfaceVisibility: "hidden",
-                  backgroundColor: cardColor,
-                  willChange: "transform", // Optimize for animations
-                }}
+                data-card-flip-target
                 onClick={currentQuestion?.more ? onCardClick : undefined}
-              >
-                {currentQuestion?.energy ? (
-                  <CardEnergyIcon
-                    className="pointer-events-none absolute right-6 top-6 text-lg opacity-75 sm:right-8 sm:top-8 sm:text-xl"
-                    energy={currentQuestion.energy}
-                    style={{ color: textColor }}
-                  />
-                ) : null}
-                <div className="text-center h-full flex flex-col justify-center">
-                  <h2
-                    className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight font-sans tracking-tight px-2"
-                    style={{ color: textColor }}
-                  >
-                    {currentQuestion?.question
-                      ? currentQuestion.question
-                          .split("\n")
-                          .map((line: string, idx: number) => (
-                            <span key={idx}>
-                              {line}
-                              {idx !==
-                                currentQuestion.question.split("\n").length -
-                                  1 && <br />}
-                            </span>
-                          ))
-                      : null}
-                  </h2>
-                </div>
-              </Card>
-
-              {/* Back Side - more */}
-              <Card
-                size="large"
-                variant="question"
-                aria-hidden={!isCardFlipped}
-                className="absolute inset-0 shadow-2xl cursor-pointer"
                 style={{
-                  backfaceVisibility: "hidden",
-                  transform: "rotateY(180deg)",
-                  backgroundColor: cardColor,
-                  willChange: "transform", // Optimize for animations
+                  borderRadius: "1.5rem",
+                  perspective: "1000px",
+                  transformStyle: "preserve-3d",
+                  WebkitTransformStyle: "preserve-3d",
                 }}
-                onClick={onCardClick}
               >
-                {currentQuestion?.energy ? (
-                  <CardEnergyIcon
-                    className="pointer-events-none absolute right-6 top-6 text-lg opacity-75 sm:right-8 sm:top-8 sm:text-xl"
-                    energy={currentQuestion.energy}
-                    style={{ color: textColor }}
-                  />
-                ) : null}
-                <div className="text-center h-full flex flex-col justify-center">
-                  {currentQuestion?.more && (
-                    <div className="space-y-3 text-left">
-                      {Array.isArray(currentQuestion.more)
+                <Card
+                  size="large"
+                  variant="question"
+                  aria-hidden={isCardFlipped}
+                  initial={false}
+                  animate={{ rotateY: isCardFlipped ? -180 : 0 }}
+                  transition={{
+                    duration: 0.6,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className={`absolute inset-0 text-center shadow-2xl ${
+                    currentQuestion?.more ? "cursor-pointer" : "cursor-default"
+                  } ${
+                    isCardFlipped ? "pointer-events-none" : ""
+                  }`}
+                  style={{
+                    backgroundColor: cardColor,
+                    backfaceVisibility: "hidden",
+                    WebkitBackfaceVisibility: "hidden",
+                    transformOrigin: "50% 50%",
+                    willChange: "transform",
+                  }}
+                >
+                  {currentQuestion?.energy ? (
+                    <CardEnergyIcon
+                      className="pointer-events-none absolute right-6 top-6 text-lg opacity-75 sm:right-8 sm:top-8 sm:text-xl"
+                      energy={currentQuestion.energy}
+                      style={{ color: textColor }}
+                    />
+                  ) : null}
+                  <div className="text-center h-full flex flex-col justify-center">
+                    <h2
+                      className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight font-sans tracking-tight px-2"
+                      style={{ color: textColor }}
+                    >
+                      {currentQuestion?.question
+                        ? currentQuestion.question
+                            .split("\n")
+                            .map((line: string, idx: number) => (
+                              <span key={idx}>
+                                {line}
+                                {idx !==
+                                  currentQuestion.question.split("\n").length - 1 && <br />}
+                              </span>
+                            ))
+                        : null}
+                    </h2>
+                  </div>
+                </Card>
+
+                <Card
+                  size="large"
+                  variant="question"
+                  aria-hidden={!isCardFlipped}
+                  initial={false}
+                  animate={{ rotateY: isCardFlipped ? 0 : 180 }}
+                  transition={{
+                    duration: 0.6,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className={`absolute inset-0 cursor-pointer text-center shadow-2xl ${
+                    isCardFlipped ? "" : "pointer-events-none"
+                  }`}
+                  style={{
+                    backgroundColor: cardColor,
+                    backfaceVisibility: "hidden",
+                    WebkitBackfaceVisibility: "hidden",
+                    transform: "rotateY(180deg)",
+                    transformOrigin: "50% 50%",
+                    willChange: "transform",
+                  }}
+                >
+                  {currentQuestion?.energy ? (
+                    <CardEnergyIcon
+                      className="pointer-events-none absolute right-6 top-6 text-lg opacity-75 sm:right-8 sm:top-8 sm:text-xl"
+                      energy={currentQuestion.energy}
+                      style={{ color: textColor }}
+                    />
+                  ) : null}
+                  <div className="h-full w-full overflow-y-auto text-left">
+                    <div className="space-y-3">
+                      {Array.isArray(currentQuestion?.more)
                         ? currentQuestion.more.map(
                             (option: string, index: number) => (
                               <p
                                 key={index}
-                                className="text-xs sm:text-sm font-light leading-relaxed"
+                                className="text-xs font-light leading-relaxed sm:text-sm"
                                 style={{ color: textColor }}
                               >
                                 • {option}
                               </p>
                             )
                           )
-                        : Object.entries(currentQuestion.more).map(
+                        : Object.entries(currentQuestion?.more ?? {}).map(
                             ([key, value]) => (
                               <p
                                 key={key}
-                                className="text-xs sm:text-sm font-light leading-relaxed"
+                                className="text-xs font-light leading-relaxed sm:text-sm"
                                 style={{ color: textColor }}
                               >
                                 <span
@@ -256,10 +263,10 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
                             )
                           )}
                     </div>
-                  )}
-                </div>
-              </Card>
-            </motion.div>
+                  </div>
+                </Card>
+              </div>
+            </div>
           </motion.div>
         </AnimatePresence>
       </div>
