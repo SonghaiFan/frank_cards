@@ -113,7 +113,7 @@ const MobilePackProgress = memo(function MobilePackProgress({
       aria-valuemax={games.length}
       aria-valuemin={1}
       aria-valuenow={activeIndex + 1}
-      className="absolute left-0 top-1/2 z-40 -translate-y-1/2 cursor-ns-resize touch-none px-3 py-4 outline-none focus-visible:rounded-full focus-visible:ring-2 focus-visible:ring-current"
+      className="absolute left-0 top-1/2 z-40 -translate-y-1/2 cursor-ns-resize touch-none px-3 py-4 outline-none focus-visible:rounded-full"
       data-mobile-pack-progress
       onKeyDown={(event) => {
         if (event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
