@@ -18,7 +18,9 @@
     "build": "npm run generate-games && tsc && vite build",
     "preview": "vite preview",
     "tauri": "tauri",
-    "generate-games": "node scripts/generate-game-index.js"
+    "generate-games": "node scripts/generate-game-index.js",
+    "icons:generate": "tauri icon src-tauri/icons/frankcards-app-icon.png --output src-tauri/icons --ios-color '#f7f7f1'",
+    "ios:sync-icons": "npm run icons:generate && node scripts/sync-ios-icons.mjs"
   },
   "dependencies": {
     "@ai-sdk/openai-compatible": "^3.0.41",

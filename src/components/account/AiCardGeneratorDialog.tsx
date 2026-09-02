@@ -1,6 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faRotate, faWandMagicSparkles, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faChevronDown, faRotate, faWandMagicSparkles, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 import {
@@ -31,6 +31,7 @@ export default function AiCardGeneratorDialog({
 }: AiCardGeneratorDialogProps) {
   const { t } = useTranslation();
   const [providerId, setProviderId] = useState<AiProviderId>("openai");
+  const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
   const initialPreset = AI_PROVIDER_PRESETS[0];
   const [baseUrl, setBaseUrl] = useState(initialPreset.baseUrl);
   const [model, setModel] = useState(initialPreset.model);
@@ -41,6 +42,14 @@ export default function AiCardGeneratorDialog({
   const [result, setResult] = useState<GeneratedConversationDraft | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
+
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && !isGenerating) onClose();
+    };
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [isGenerating, onClose]);
 
   const provider = useMemo(
     () => AI_PROVIDER_PRESETS.find((item) => item.id === providerId) ?? AI_PROVIDER_PRESETS[0],
@@ -58,6 +67,15 @@ export default function AiCardGeneratorDialog({
   };
 
   const generate = async () => {
+    if (!baseUrl.trim() || !model.trim() || !apiKey.trim()) {
+      setIsAdvancedOpen(true);
+      setError(t("account.aiConnectionRequired"));
+      return;
+    }
+    if (!topic.trim()) {
+      setError(t("account.aiTopicRequired"));
+      return;
+    }
     setIsGenerating(true);
     setError(null);
     try {
@@ -111,56 +129,63 @@ export default function AiCardGeneratorDialog({
 
         <div className="topic-ai-body">
           <form className="topic-ai-form" onSubmit={(event) => { event.preventDefault(); void generate(); }}>
-            <fieldset>
-              <legend>{t("account.aiProvider")}</legend>
-              <div className="topic-ai-provider-grid">
+            <label>
+              <span>{t("account.aiProvider")}</span>
+              <select
+                value={providerId}
+                onChange={(event) => selectProvider(event.target.value as AiProviderId)}
+              >
                 {AI_PROVIDER_PRESETS.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    className={providerId === item.id ? "is-selected" : ""}
-                    onClick={() => selectProvider(item.id)}
-                  >
+                  <option key={item.id} value={item.id}>
                     {item.id === "custom" ? t("account.aiCustomProvider") : item.label}
-                  </button>
+                  </option>
                 ))}
+              </select>
+            </label>
+
+            <details
+              className="topic-ai-advanced"
+              open={isAdvancedOpen}
+              onToggle={(event) => setIsAdvancedOpen(event.currentTarget.open)}
+            >
+              <summary>
+                <span>{t("account.aiAdvancedSettings")}</span>
+                <FontAwesomeIcon icon={faChevronDown} aria-hidden="true" />
+              </summary>
+              <div className="topic-ai-advanced-fields">
+                <label>
+                  <span>{t("account.aiBaseUrl")}</span>
+                  <input
+                    type="url"
+                    value={baseUrl}
+                    onChange={(event) => { setBaseUrl(event.target.value); setProviderId("custom"); }}
+                    placeholder="https://api.example.com/v1"
+                  />
+                </label>
+
+                <label>
+                  <span>{t("account.aiModel")}</span>
+                  <input
+                    value={model}
+                    onChange={(event) => setModel(event.target.value)}
+                    placeholder={provider.model || "model-name"}
+                  />
+                </label>
+
+                <label>
+                  <span>{t("account.aiApiKey")}</span>
+                  <input
+                    type="password"
+                    value={apiKey}
+                    onChange={(event) => setApiKey(event.target.value)}
+                    placeholder="••••••••••••••••"
+                    autoComplete="off"
+                    spellCheck={false}
+                  />
+                  <small>{t("account.aiApiKeyHint")}</small>
+                </label>
               </div>
-            </fieldset>
-
-            <label>
-              <span>{t("account.aiBaseUrl")}</span>
-              <input
-                type="url"
-                value={baseUrl}
-                onChange={(event) => { setBaseUrl(event.target.value); setProviderId("custom"); }}
-                placeholder="https://api.example.com/v1"
-                required
-              />
-            </label>
-
-            <label>
-              <span>{t("account.aiModel")}</span>
-              <input
-                value={model}
-                onChange={(event) => setModel(event.target.value)}
-                placeholder={provider.model || "model-name"}
-                required
-              />
-            </label>
-
-            <label>
-              <span>{t("account.aiApiKey")}</span>
-              <input
-                type="password"
-                value={apiKey}
-                onChange={(event) => setApiKey(event.target.value)}
-                placeholder="••••••••••••••••"
-                autoComplete="off"
-                spellCheck={false}
-                required
-              />
-              <small>{t("account.aiApiKeyHint")}</small>
-            </label>
+            </details>
 
             <label>
               <span>{t("account.aiTopic")}</span>

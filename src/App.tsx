@@ -257,7 +257,7 @@ function App() {
                       </motion.div>
                     ) : (
                       <motion.div
-                        key={`library-${viewMode}`}
+                        key="library-home"
                         data-scene="library"
                         className="absolute inset-0 z-10 overflow-hidden"
                         initial={false}
@@ -265,25 +265,36 @@ function App() {
                         exit="exit"
                         variants={librarySceneVariants}
                       >
-                        <LayoutGroup id={`frankcards-library-${viewMode}`}>
-                          {viewMode === "quick" ? (
-                            <QuickGameLibrary
-                              games={games}
-                              isLoading={loadStatus === "loading"}
-                              onStartGame={handleQuickStart}
-                              onSwitchToCustom={handleSwitchToCustom}
-                            />
-                          ) : (
-                            <GameLibrary
-                              games={games}
-                              communityGames={communityGames}
-                              selectedGames={selectedGames}
-                              onToggleGame={handleToggleGame}
-                              onStartSession={handleStartSession}
-                              onBackToQuick={() => setViewMode("quick")}
-                              onClearSelection={() => setSelectedGames([])}
-                            />
-                          )}
+                        <LayoutGroup id="frankcards-library-home">
+                          <QuickGameLibrary
+                            games={games}
+                            isCustomMode={viewMode === "customize"}
+                            isLoading={loadStatus === "loading"}
+                            onStartGame={handleQuickStart}
+                            onSwitchToCustom={handleSwitchToCustom}
+                          />
+                          <AnimatePresence initial={false}>
+                            {viewMode === "customize" ? (
+                              <motion.div
+                                key="custom-home-content"
+                                className="absolute inset-0 z-30 overflow-hidden"
+                                initial={{ opacity: 0, y: 18 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 14 }}
+                                transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
+                              >
+                                <GameLibrary
+                                  games={games}
+                                  communityGames={communityGames}
+                                  selectedGames={selectedGames}
+                                  onToggleGame={handleToggleGame}
+                                  onStartSession={handleStartSession}
+                                  onBackToQuick={() => setViewMode("quick")}
+                                  onClearSelection={() => setSelectedGames([])}
+                                />
+                              </motion.div>
+                            ) : null}
+                          </AnimatePresence>
                         </LayoutGroup>
                       </motion.div>
                     )}

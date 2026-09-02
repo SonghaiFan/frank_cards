@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:serif="http://www.serif.com/" viewBox="0 0 1024 1024">
+  <linearGradient id="frankcards-background" x1="92" y1="88" x2="932" y2="936" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#f7f7f1"/>
+    <stop offset="0.54" stop-color="#e9eee9"/>
+    <stop offset="1" stop-color="#dce8ee"/>
+  </linearGradient>
+  <rect width="1024" height="1024" fill="url(#frankcards-background)"/>
+</svg>

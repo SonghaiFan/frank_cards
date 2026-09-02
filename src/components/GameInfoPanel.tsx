@@ -29,7 +29,7 @@ const GameInfoPanel: React.FC<GameInfoPanelProps> = ({
     <motion.div
       layout
       data-game-info-panel
-      className="flex h-[40dvh] min-h-72 max-h-[21rem] w-full min-w-0 max-w-full flex-col text-center lg:ml-auto lg:h-[34rem] lg:min-h-0 lg:max-h-none lg:w-full lg:text-right xl:w-[34rem]"
+      className="game-info-panel flex h-[40dvh] min-h-72 max-h-[21rem] w-full min-w-0 max-w-full flex-col text-center lg:ml-auto lg:h-[34rem] lg:min-h-0 lg:max-h-none lg:w-full lg:text-right xl:w-[34rem]"
       transition={{ layout: languageLayoutTransition }}
     >
       <motion.div layout data-game-info-scroll className="min-h-0 flex-1 overflow-y-auto no-scrollbar py-2" transition={{ layout: languageLayoutTransition }}>

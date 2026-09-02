@@ -1,4 +1,4 @@
-import { lazy, Suspense, useMemo, useState } from "react";
+import { lazy, Suspense, useMemo, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
@@ -45,6 +45,8 @@ interface TopicStudioProps {
   onCancel: () => void;
   onSave: (input: SaveTopicInput) => Promise<void>;
 }
+
+type MobileStudioPanel = "edit" | "cards" | "pack";
 
 interface StudioCard {
   id: string;
@@ -101,12 +103,12 @@ const createEmptyDraft = (language: TopicLanguage, t: (key: string) => string): 
   const chinese = language === "zh";
   return {
     testID: `draft-${Date.now()}`,
-    title: t("account.studioUntitled"),
+    title: "",
     subtitle: "",
     language,
     appType: "normal",
     playerGroups: ["friends"],
-    startTitle: t("account.studioUntitled"),
+    startTitle: "",
     startDescription: "",
     startButton: chinese ? "开始" : "Begin",
     endTitle: chinese ? "聊得很好" : "A good conversation",
@@ -174,6 +176,10 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
   const [isSaving, setIsSaving] = useState(false);
   const [isAiDialogOpen, setIsAiDialogOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [attemptedSave, setAttemptedSave] = useState(false);
+  const [mobilePanel, setMobilePanel] = useState<MobileStudioPanel>("edit");
+  const titleInputRef = useRef<HTMLTextAreaElement>(null);
+  const cardInputRef = useRef<HTMLTextAreaElement>(null);
 
   const activeCard = useMemo(
     () => draft.cards.find((card) => card.id === selectedView) ?? null,
@@ -183,6 +189,9 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
   const activeCategory = draft.categories[activeCategoryKey];
   const editingCategory = draft.categories[editingCategoryKey];
   const startDescriptionCount = countTextUnits(draft.startDescription);
+  const blankCardIndex = draft.cards.findIndex((card) => !card.question.trim());
+  const titleIsComplete = Boolean(draft.title.trim());
+  const draftIsReady = titleIsComplete && blankCardIndex === -1;
   const surfaceTheme = resolveGameSurfaceTheme({
     categoryColor: activeCategory?.color ?? "#20201e",
     isDarkTheme,
@@ -229,6 +238,7 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
     };
     setDraft((current) => ({ ...current, cards: [...current.cards, card] }));
     setSelectedView(card.id);
+    setMobilePanel("edit");
     setEditingCategoryKey(category);
     setIsFlipped(false);
     setError(null);
@@ -319,16 +329,21 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
   };
 
   const save = async () => {
+    setAttemptedSave(true);
     if (!draft.title.trim()) {
       setError(t("account.studioTitleRequired"));
       setSelectedView("cover");
+      setMobilePanel("edit");
+      requestAnimationFrame(() => titleInputRef.current?.focus());
       return;
     }
     const blankCard = draft.cards.find((card) => !card.question.trim());
     if (blankCard) {
       setError(t("account.studioQuestionRequired"));
       setSelectedView(blankCard.id);
+      setMobilePanel("edit");
       setIsFlipped(false);
+      requestAnimationFrame(() => titleInputRef.current?.focus());
       return;
     }
 
@@ -380,14 +395,38 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
       cards: nextCards,
     }));
     setSelectedView(nextCards[0]?.id ?? "cover");
+    setMobilePanel("edit");
     setEditingCategoryKey(generated.categories[0]?.key ?? "");
     setIsFlipped(false);
     setError(null);
     setIsAiDialogOpen(false);
+    setAttemptedSave(false);
+  };
+
+  const goToNextRequiredField = () => {
+    if (!titleIsComplete) {
+      setSelectedView("cover");
+      setMobilePanel("edit");
+      setIsFlipped(false);
+      requestAnimationFrame(() => cardInputRef.current?.focus());
+      return;
+    }
+    if (blankCardIndex >= 0) {
+      const blankCard = draft.cards[blankCardIndex];
+      setSelectedView(blankCard.id);
+      setEditingCategoryKey(blankCard.category);
+      setMobilePanel("edit");
+      setIsFlipped(false);
+      requestAnimationFrame(() => cardInputRef.current?.focus());
+      return;
+    }
+    setSelectedView("cover");
+    setMobilePanel("edit");
+    setIsFlipped(false);
   };
 
   return (
-    <div className="topic-studio">
+    <div className="topic-studio" data-mobile-panel={mobilePanel}>
       <header className="topic-studio-header">
         <button className="topic-studio-icon-button" type="button" onClick={onCancel} aria-label={t("common.back")}>
           <FontAwesomeIcon icon={faArrowLeft} />
@@ -396,7 +435,26 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
           <p>{topic ? t("account.studioEditing") : t("account.studioCreating")}</p>
           <h2>{draft.title || t("account.studioUntitled")}</h2>
         </div>
-        {error ? <p className="topic-studio-error" role="alert">{error}</p> : null}
+        <div className="topic-studio-feedback" aria-live="polite">
+          <button
+            className={`topic-studio-readiness${draftIsReady ? " is-ready" : ""}`}
+            type="button"
+            onClick={goToNextRequiredField}
+          >
+            <span className="topic-studio-readiness-dot" aria-hidden="true" />
+            <span>
+              <small>{draftIsReady ? t("account.studioReadyEyebrow") : t("account.studioNextEyebrow")}</small>
+              <strong>
+                {draftIsReady
+                  ? t("account.studioReady")
+                  : !titleIsComplete
+                    ? t("account.studioNextTitle")
+                    : t("account.studioNextQuestion", { number: blankCardIndex + 1 })}
+              </strong>
+            </span>
+          </button>
+          {error ? <p className="topic-studio-error" role="alert">{error}</p> : null}
+        </div>
         <div className="topic-studio-header-actions">
           <button className="topic-studio-ai-button" type="button" onClick={() => setIsAiDialogOpen(true)}>
             <FontAwesomeIcon icon={faWandMagicSparkles} />
@@ -409,33 +467,22 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
         </div>
       </header>
 
+      <nav className="topic-studio-mobile-tabs" aria-label={t("account.studioMobileNavigation")}>
+        {(["edit", "cards", "pack"] as const).map((panel) => (
+          <button
+            key={panel}
+            type="button"
+            className={mobilePanel === panel ? "is-selected" : ""}
+            aria-current={mobilePanel === panel ? "page" : undefined}
+            onClick={() => setMobilePanel(panel)}
+          >
+            {t(`account.studioMobile.${panel}`)}
+          </button>
+        ))}
+      </nav>
+
       <div className="topic-studio-workspace">
         <aside className="topic-studio-rail topic-studio-property-panel topic-studio-pack-panel" aria-label={t("account.studioPackDetails")}>
-          <section className="topic-studio-inspector-section">
-            <h3>{t("account.studioPackDetails")}</h3>
-            <label>
-              <span>{t("account.languageLabel")}</span>
-              <select
-                value={draft.language}
-                onChange={(event) => setDraft((current) => ({ ...current, language: event.target.value as TopicLanguage }))}
-              >
-                <option value="en">English</option>
-                <option value="zh">中文</option>
-              </select>
-            </label>
-            <label>
-              <span>{t("account.studioPackType")}</span>
-              <select
-                value={draft.appType}
-                onChange={(event) => setDraft((current) => ({ ...current, appType: event.target.value as ConversationGameType }))}
-              >
-                <option value="normal">{t("gameLibrary.type.normal")}</option>
-                <option value="edition">{t("gameLibrary.type.edition")}</option>
-                <option value="premium">{t("gameLibrary.type.premium")}</option>
-              </select>
-            </label>
-          </section>
-
           <section className="topic-studio-inspector-section">
             <h3>{t("account.studioPackScreens")}</h3>
             <div className="topic-studio-screen-list">
@@ -444,7 +491,7 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
                   key={view}
                   type="button"
                   className={selectedView === view ? "is-selected" : ""}
-                  onClick={() => { setSelectedView(view); setIsFlipped(false); }}
+                  onClick={() => { setSelectedView(view); setMobilePanel("edit"); setIsFlipped(false); }}
                 >
                   {t(`account.studioScreen.${view}`)}
                 </button>
@@ -453,31 +500,71 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
             <p className="topic-studio-panel-hint">{t("account.studioScreenEditHint")}</p>
           </section>
 
-          <section className="topic-studio-inspector-section">
-            <h3>{t("account.audienceLabel")}</h3>
-            <div className="topic-studio-chip-grid">
-              {PLAYER_GROUPS.map((group) => (
-                <button
-                  key={group}
-                  type="button"
-                  className={draft.playerGroups.includes(group) ? "is-selected" : ""}
-                  onClick={() => togglePlayerGroup(group)}
+          <details className="topic-studio-disclosure">
+            <summary>
+              <span>{t("account.studioPackDetails")}</span>
+              <small>{t("account.studioPackDetailsHint")}</small>
+            </summary>
+            <div className="topic-studio-disclosure-body">
+              <label>
+                <span>{t("account.languageLabel")}</span>
+                <select
+                  value={draft.language}
+                  onChange={(event) => setDraft((current) => ({ ...current, language: event.target.value as TopicLanguage }))}
                 >
-                  {t(`account.audience.${group}`)}
-                </button>
-              ))}
+                  <option value="en">English</option>
+                  <option value="zh">中文</option>
+                </select>
+              </label>
+              <label>
+                <span>{t("account.studioPackType")}</span>
+                <select
+                  value={draft.appType}
+                  onChange={(event) => setDraft((current) => ({ ...current, appType: event.target.value as ConversationGameType }))}
+                >
+                  <option value="normal">{t("gameLibrary.type.normal")}</option>
+                  <option value="edition">{t("gameLibrary.type.edition")}</option>
+                  <option value="premium">{t("gameLibrary.type.premium")}</option>
+                </select>
+              </label>
             </div>
-          </section>
+          </details>
 
-          <section className="topic-studio-category-manager" aria-labelledby="studio-category-heading">
-            <div className="topic-studio-rail-section-heading">
-              <h3 id="studio-category-heading">{t("account.studioCategories")}</h3>
-              <button type="button" onClick={addCategory}>
-                <FontAwesomeIcon icon={faPlus} />
-                <span>{t("account.studioNewCategoryAction")}</span>
-              </button>
+          <details className="topic-studio-disclosure">
+            <summary>
+              <span>{t("account.audienceLabel")}</span>
+              <small>{t("account.studioAudienceCount", { count: draft.playerGroups.length })}</small>
+            </summary>
+            <div className="topic-studio-disclosure-body">
+              <div className="topic-studio-chip-grid">
+                {PLAYER_GROUPS.map((group) => (
+                  <button
+                    key={group}
+                    type="button"
+                    className={draft.playerGroups.includes(group) ? "is-selected" : ""}
+                    onClick={() => togglePlayerGroup(group)}
+                  >
+                    {t(`account.audience.${group}`)}
+                  </button>
+                ))}
+              </div>
             </div>
-            <div className="topic-studio-category-list">
+          </details>
+
+          <details className="topic-studio-disclosure topic-studio-category-manager">
+            <summary>
+              <span>{t("account.studioCategories")}</span>
+              <small>{t("account.studioCategoryCount", { count: Object.keys(draft.categories).length })}</small>
+            </summary>
+            <div className="topic-studio-disclosure-body">
+              <div className="topic-studio-rail-section-heading">
+                <p>{t("account.studioCategoryHint")}</p>
+                <button type="button" onClick={addCategory}>
+                  <FontAwesomeIcon icon={faPlus} />
+                  <span>{t("account.studioNewCategoryAction")}</span>
+                </button>
+              </div>
+              <div className="topic-studio-category-list">
               {Object.entries(draft.categories).map(([key, category]) => {
                 const cardCount = draft.cards.filter((card) => card.category === key).length;
                 return (
@@ -494,10 +581,10 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
                   </button>
                 );
               })}
-            </div>
+              </div>
 
-            {editingCategory ? (
-              <div className="topic-studio-category-editor">
+              {editingCategory ? (
+                <div className="topic-studio-category-editor">
                 <label>
                   <span>{t("account.studioCategoryName")}</span>
                   <input value={editingCategory.name} onChange={(event) => updateEditingCategory({ name: event.target.value })} />
@@ -525,9 +612,10 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
                     </label>
                   </div>
                 </div>
-              </div>
-            ) : null}
-          </section>
+                </div>
+              ) : null}
+            </div>
+          </details>
 
         </aside>
 
@@ -541,7 +629,9 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
         >
           {selectedView === "cover" ? (
             <div className="topic-studio-cover-stage">
-              <p className="topic-studio-stage-hint">{t("account.studioScreenDirectEditHint")}</p>
+              <p className={`topic-studio-stage-hint${attemptedSave && !titleIsComplete ? " is-error" : ""}`}>
+                {attemptedSave && !titleIsComplete ? t("account.studioTitleRequired") : t("account.studioScreenDirectEditHint")}
+              </p>
               <Card
                 size="large"
                 variant="game"
@@ -550,9 +640,12 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
               >
                 <textarea
                   className="topic-studio-cover-title"
+                  ref={titleInputRef}
                   value={draft.title}
                   onChange={(event) => updateTitle(event.target.value)}
                   aria-label={t("account.topicTitleLabel")}
+                  aria-invalid={attemptedSave && !titleIsComplete}
+                  placeholder={t("account.studioUntitled")}
                   rows={2}
                 />
                 <textarea
@@ -674,10 +767,12 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
                       style={{ color: surfaceTheme.cardTextColor }}
                     />
                     <textarea
+                      ref={cardInputRef}
                       value={activeCard.question}
                       onChange={(event) => updateActiveCard({ question: event.target.value })}
                       placeholder={t("account.studioFrontPlaceholder")}
                       aria-label={t("account.studioFront")}
+                      aria-invalid={attemptedSave && !activeCard.question.trim()}
                       style={{ color: surfaceTheme.cardTextColor }}
                       autoFocus={!activeCard.question}
                       tabIndex={isFlipped ? -1 : 0}
@@ -725,13 +820,16 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
 
         <aside className="topic-studio-inspector topic-studio-property-panel topic-studio-card-panel" aria-label={t("account.studioCards")}>
           <div className="topic-studio-card-list">
-            <h3 className="topic-studio-rail-heading">{t("account.studioCards")}</h3>
+            <div className="topic-studio-card-list-heading">
+              <h3 className="topic-studio-rail-heading">{t("account.studioCards")}</h3>
+              <small>{t("account.studioCardCount", { count: draft.cards.length })}</small>
+            </div>
             {draft.cards.map((card, index) => {
               const category = draft.categories[card.category];
               return (
                 <button
                   key={card.id}
-                  className={`topic-studio-rail-item${selectedView === card.id ? " is-active" : ""}`}
+                  className={`topic-studio-rail-item${selectedView === card.id ? " is-active" : ""}${attemptedSave && !card.question.trim() ? " is-incomplete" : ""}`}
                   type="button"
                   onClick={() => {
                     setSelectedView(card.id);
@@ -754,60 +852,75 @@ export default function TopicStudio({ topic, onCancel, onSave }: TopicStudioProp
 
           {activeCard && activeCategory ? (
             <>
-              <section className="topic-studio-inspector-section">
-                <h3>{t("account.studioCardType")}</h3>
-                <div className="topic-studio-type-grid">
-                  {EDITABLE_QUESTION_TYPES.map((type) => (
-                    <button
-                      key={type}
-                      type="button"
-                      className={activeCard.type === type ? "is-selected" : ""}
-                      onClick={() => updateActiveCard({ type })}
-                    >
-                      {t(`account.questionType.${type}`)}
-                    </button>
-                  ))}
+              <details className="topic-studio-disclosure topic-studio-card-disclosure">
+                <summary>
+                  <span>{t("account.studioCardType")}</span>
+                  <small>{t(`account.questionType.${activeCard.type}`)}</small>
+                </summary>
+                <div className="topic-studio-disclosure-body">
+                  <div className="topic-studio-type-grid">
+                    {EDITABLE_QUESTION_TYPES.map((type) => (
+                      <button
+                        key={type}
+                        type="button"
+                        className={activeCard.type === type ? "is-selected" : ""}
+                        onClick={() => updateActiveCard({ type })}
+                      >
+                        {t(`account.questionType.${type}`)}
+                      </button>
+                    ))}
+                  </div>
+                  <p className="topic-studio-type-description">
+                    {t(`account.questionTypeDescription.${activeCard.type}`)}
+                  </p>
                 </div>
-                <p className="topic-studio-type-description">
-                  {t(`account.questionTypeDescription.${activeCard.type}`)}
-                </p>
-              </section>
+              </details>
 
-              <section className="topic-studio-inspector-section">
-                <h3>{t("account.studioCardEnergy")}</h3>
-                <div className="topic-studio-type-grid">
-                  {CARD_ENERGIES.map((energy) => (
-                    <button
-                      key={energy}
-                      type="button"
-                      className={activeCard.energy === energy ? "is-selected" : ""}
-                      onClick={() => updateActiveCard({ energy })}
-                    >
-                      <CardEnergyIcon decorative energy={energy} />
-                      <span>{t(`cardEnergy.${energy}.label`)}</span>
-                    </button>
-                  ))}
+              <details className="topic-studio-disclosure topic-studio-card-disclosure">
+                <summary>
+                  <span>{t("account.studioCardEnergy")}</span>
+                  <small>{t(`cardEnergy.${activeCard.energy}.label`)}</small>
+                </summary>
+                <div className="topic-studio-disclosure-body">
+                  <div className="topic-studio-type-grid">
+                    {CARD_ENERGIES.map((energy) => (
+                      <button
+                        key={energy}
+                        type="button"
+                        className={activeCard.energy === energy ? "is-selected" : ""}
+                        onClick={() => updateActiveCard({ energy })}
+                      >
+                        <CardEnergyIcon decorative energy={energy} />
+                        <span>{t(`cardEnergy.${energy}.label`)}</span>
+                      </button>
+                    ))}
+                  </div>
+                  <p className="topic-studio-type-description">
+                    {t(`cardEnergy.${activeCard.energy}.description`)}
+                  </p>
                 </div>
-                <p className="topic-studio-type-description">
-                  {t(`cardEnergy.${activeCard.energy}.description`)}
-                </p>
-              </section>
+              </details>
 
-              <section className="topic-studio-inspector-section">
-                <h3>{t("account.studioCardCategory")}</h3>
-                <label>
-                  <span>{t("account.studioCardCategoryHint")}</span>
-                  <select
-                    value={activeCard.category}
-                    onChange={(event) => {
-                      updateActiveCard({ category: event.target.value });
-                      setEditingCategoryKey(event.target.value);
-                    }}
-                  >
-                    {Object.entries(draft.categories).map(([key, category]) => <option key={key} value={key}>{category.name}</option>)}
-                  </select>
-                </label>
-              </section>
+              <details className="topic-studio-disclosure topic-studio-card-disclosure">
+                <summary>
+                  <span>{t("account.studioCardCategory")}</span>
+                  <small>{activeCategory.name}</small>
+                </summary>
+                <div className="topic-studio-disclosure-body">
+                  <label>
+                    <span>{t("account.studioCardCategoryHint")}</span>
+                    <select
+                      value={activeCard.category}
+                      onChange={(event) => {
+                        updateActiveCard({ category: event.target.value });
+                        setEditingCategoryKey(event.target.value);
+                      }}
+                    >
+                      {Object.entries(draft.categories).map(([key, category]) => <option key={key} value={key}>{category.name}</option>)}
+                    </select>
+                  </label>
+                </div>
+              </details>
             </>
           ) : (
             <section className="topic-studio-inspector-section topic-studio-cover-inspector-hint">

@@ -32,7 +32,7 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, communityGames, select
   const visibleGames = collection === "community" ? communityGames : games;
 
   // Easter egg hook for premium unlock
-  const { handleClick, isUnlocked, clickProgress } = useEasterEgg({
+  const { handleClick, isUnlocked } = useEasterEgg({
     clickCount: 4,
     timeWindow: 2000,
     onUnlock: () => {
@@ -111,14 +111,18 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, communityGames, select
   };
 
   return (
-    <div className="theme-canvas h-full w-full flex flex-col items-center px-4 sm:px-8 py-8 sm:py-16 overflow-y-auto relative">
+    <div className="custom-game-library h-full w-full flex flex-col items-center px-4 sm:px-8 py-8 sm:py-16 overflow-y-auto relative">
       {/* Back Button */}
       <motion.button
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.3 }}
-        className="theme-interactive-text absolute top-4 left-4 sm:top-8 sm:left-8 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-xl sm:text-2xl transition-colors duration-200 z-50"
+        aria-label={t("common.back")}
+        className="custom-library-back theme-interactive-text absolute w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center text-xl sm:text-2xl transition-colors duration-200 z-50"
         onClick={onBackToQuick}
+        title={t("common.back")}
+        type="button"
+        whileTap={{ scale: 0.96 }}
       >
         ←
       </motion.button>
@@ -128,43 +132,20 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, communityGames, select
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="text-center max-w-2xl mb-8 sm:mb-16 mt-8 sm:mt-0"
+        className="custom-library-header text-center max-w-2xl mb-8 sm:mb-16"
       >
-        {/* App Title with Interactive Icon */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-10 sm:mb-6">
-          <motion.div
-            className="relative cursor-pointer"
+        <div className="mb-10 sm:mb-6">
+          <motion.button
+            aria-label={t("customMode.title")}
+            className="custom-library-title-trigger"
             onClick={handleClick}
+            type="button"
             whileTap={{ scale: 0.95 }}
           >
-            <motion.img
-              src="/card-icon.svg"
-              alt="FrankCards Icon"
-              className="w-20 h-20 md:w-24 md:h-24 object-contain"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-            />
-            {/* Subtle progress indicator */}
-            {clickProgress > 0 && clickProgress < 1 && (
-              <motion.div
-                className="theme-selection-ring absolute inset-0 rounded-full border-2"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{
-                  opacity: [0, 0.2, 0],
-                  scale: [0.8, 1.1, 1.2],
-                }}
-                transition={{
-                  duration: 0.5,
-                  times: [0, 0.5, 1],
-                  repeat: 0,
-                }}
-              />
-            )}
-          </motion.div>
-          <h1 className="theme-text-primary text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-none">
-            {t("customMode.title")}
-          </h1>
+            <h1 className="theme-text-primary text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-none">
+              {t("customMode.title")}
+            </h1>
+          </motion.button>
         </div>
         <p className="theme-text-primary text-xl sm:text-2xl font-bold mb-2">
           {t("customMode.subtitle")}

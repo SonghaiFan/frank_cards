@@ -5,6 +5,7 @@ import {
   useReducedMotion,
   useSpring,
   useTransform,
+  type MotionValue,
 } from "motion/react";
 import FemaleFigure from "./illustrations/FemaleFigure";
 import MaleFigure from "./illustrations/MaleFigure";
@@ -17,6 +18,8 @@ interface KneeConversationIllustrationProps {
   isEngaged: boolean;
   isLoading?: boolean;
   maleClothingColor?: string;
+  pullRotation?: MotionValue<number>;
+  scrollProgress?: MotionValue<number>;
 }
 
 const KneeConversationIllustration: React.FC<KneeConversationIllustrationProps> = ({
@@ -27,6 +30,8 @@ const KneeConversationIllustration: React.FC<KneeConversationIllustrationProps> 
   isEngaged,
   isLoading = false,
   maleClothingColor,
+  pullRotation,
+  scrollProgress,
 }) => {
   const reducedMotion = useReducedMotion();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -39,6 +44,12 @@ const KneeConversationIllustration: React.FC<KneeConversationIllustrationProps> 
   const femaleLookY = useSpring(femaleLookYTarget, springConfig);
   const maleLookX = useSpring(maleLookXTarget, springConfig);
   const maleLookY = useSpring(maleLookYTarget, springConfig);
+  const fallbackScrollProgress = useMotionValue(0);
+  const activeScrollProgress = scrollProgress ?? fallbackScrollProgress;
+  const sceneScale = useSpring(
+    useTransform(activeScrollProgress, [0, 1], [1, 1.025], { clamp: true }),
+    { stiffness: 72, damping: 24, mass: 0.8 },
+  );
 
   const femaleHeadX = useTransform(femaleLookX, [-1, 1], [11, -11]);
   const femaleHeadY = useTransform(femaleLookY, [-1, 1], [6, -6]);
@@ -156,11 +167,12 @@ const KneeConversationIllustration: React.FC<KneeConversationIllustrationProps> 
       };
 
   return (
-    <div
+    <motion.div
       ref={rootRef}
       className={`knee-conversation-illustration ${className}`}
       data-departing={isDeparting ? "true" : "false"}
       data-engaged={isEngaged ? "true" : "false"}
+      style={reducedMotion ? undefined : { scale: sceneScale }}
     >
       <motion.div
         id="female-figure-viewport"
@@ -179,6 +191,8 @@ const KneeConversationIllustration: React.FC<KneeConversationIllustrationProps> 
             headX={femaleHeadX}
             headY={femaleHeadY}
             reducedMotion={reducedMotion}
+            pullRotation={pullRotation}
+            scrollProgress={activeScrollProgress}
           />
         </svg>
       </motion.div>
@@ -202,7 +216,7 @@ const KneeConversationIllustration: React.FC<KneeConversationIllustrationProps> 
           />
         </svg>
       </motion.div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -1,6 +1,6 @@
 import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCamera, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faCamera, faCheck, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../auth/AuthProvider";
 
@@ -18,6 +18,7 @@ export default function ProfileEditor() {
   } = useAuth();
   const [displayName, setDisplayName] = useState(profile?.display_name ?? "");
   const [saved, setSaved] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     setDisplayName(profile?.display_name ?? "");
@@ -50,8 +51,30 @@ export default function ProfileEditor() {
   const fallbackInitial = (profile?.display_name || user?.email || "F").trim().charAt(0).toUpperCase();
 
   return (
-    <section className="account-profile-card" aria-labelledby="account-profile-title">
-      <div className="account-profile-avatar-wrap">
+    <section
+      className="account-profile-card"
+      aria-labelledby="account-profile-title"
+      data-expanded={isExpanded}
+    >
+      <button
+        className="account-profile-mobile-summary"
+        type="button"
+        aria-expanded={isExpanded}
+        aria-controls="account-profile-details"
+        onClick={() => setIsExpanded((current) => !current)}
+      >
+        <span className="account-profile-summary-avatar" aria-hidden="true">
+          {profile?.avatar_url ? <img src={profile.avatar_url} alt="" /> : fallbackInitial}
+        </span>
+        <span className="account-profile-summary-copy">
+          <strong>{profile?.display_name || user?.email || t("account.profileTitle")}</strong>
+          <small>{t("account.editProfile")}</small>
+        </span>
+        <FontAwesomeIcon icon={faChevronDown} />
+      </button>
+
+      <div className="account-profile-details" id="account-profile-details">
+        <div className="account-profile-avatar-wrap">
         <span className="account-profile-avatar" aria-hidden="true">
           {profile?.avatar_url ? <img src={profile.avatar_url} alt="" /> : fallbackInitial}
         </span>
@@ -65,9 +88,9 @@ export default function ProfileEditor() {
             onChange={(event) => void selectAvatar(event)}
           />
         </label>
-      </div>
+        </div>
 
-      <form className="account-profile-form" onSubmit={(event) => void submitProfile(event)}>
+        <form className="account-profile-form" onSubmit={(event) => void submitProfile(event)}>
         <div>
           <h3 id="account-profile-title">{t("account.profileTitle")}</h3>
           <p>{t("account.profileBody")}</p>
@@ -97,7 +120,8 @@ export default function ProfileEditor() {
           {saved ? <FontAwesomeIcon icon={faCheck} /> : null}
           <span>{t(saved ? "account.profileSaved" : isProfileWorking ? "account.profileSaving" : "account.saveProfile")}</span>
         </button>
-      </form>
+        </form>
+      </div>
     </section>
   );
 }

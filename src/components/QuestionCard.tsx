@@ -3,6 +3,7 @@ import {
   motion,
   AnimatePresence,
   useMotionValue,
+  useReducedMotion,
   useSpring,
   useTransform,
 } from "motion/react";
@@ -37,6 +38,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
   const cardRef = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+  const reducedMotion = useReducedMotion();
 
   // Spring animations with reliable settings
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), {
@@ -123,17 +125,33 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
             initial={isSessionEntry ? false : "enter"}
             animate="center"
             exit="exit"
-            transition={isSessionEntry ? { duration: 0 } : {
-              x: { type: "spring", stiffness: 300, damping: 30 },
-              opacity: { duration: 0.2 },
-              scale: { duration: 0.2 },
-            }}
+            transition={
+              isSessionEntry
+                ? { duration: 0 }
+                : {
+                    x: { type: "spring", stiffness: 420, damping: 34 },
+                    opacity: { duration: 0.2 },
+                    scale: { duration: 0.2 },
+                  }
+            }
           >
-            <div
+            <motion.div
               className="relative w-full h-full"
               data-reader-rotation={readerRotation}
+              initial={{ rotate: isSessionEntry ? readerRotation : 90 }}
+              animate={{ rotate: readerRotation }}
+              exit={{ rotate: 90 }}
+              transition={
+                isSessionEntry || reducedMotion
+                  ? { duration: 0 }
+                  : {
+                      rotate: {
+                        duration: 0.54,
+                        ease: [0.16, 1, 0.3, 1],
+                      },
+                    }
+              }
               style={{
-                transform: `rotate(${readerRotation}deg)`,
                 transformOrigin: "50% 50%",
               }}
             >
@@ -265,8 +283,8 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
                     </div>
                   </div>
                 </Card>
-              </div>
-            </div>
+                </div>
+            </motion.div>
           </motion.div>
         </AnimatePresence>
       </div>

@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, animate, motion, useMotionValue, useReducedMotion } from "motion/react";
 import { ConversationGame } from "../types/ConversationGame";
 import CardPack from "./CardPack";
 import { useTranslation } from "react-i18next";
@@ -12,10 +12,20 @@ import { LIBRARY_DESKTOP_QUERY, useMediaQuery } from "../hooks/useMediaQuery";
 
 interface QuickGameLibraryProps {
   games: ConversationGame[];
+  isCustomMode?: boolean;
   isLoading?: boolean;
   onStartGame: (game: ConversationGame) => void;
   onSwitchToCustom: () => void;
 }
+
+interface PullGesture {
+  lastDistance: number;
+  maxDistance: number;
+  startY: number;
+}
+
+const PULL_ACTION_THRESHOLD = 72;
+const MAX_PULL_DISTANCE = 112;
 
 const createCompanionColor = (color?: string) => {
   if (!color) return undefined;
@@ -65,6 +75,7 @@ interface MobilePackProgressProps {
   activeIndex: number;
   games: ConversationGame[];
   label: string;
+  onScrubProgress: (progress: number) => void;
   onScrubEnd: () => void;
   onScrubStart: () => void;
   onSelectIndex: (index: number) => void;
@@ -75,20 +86,16 @@ const MobilePackProgress = memo(function MobilePackProgress({
   activeIndex,
   games,
   label,
+  onScrubProgress,
   onScrubEnd,
   onScrubStart,
   onSelectIndex,
   uiColor,
 }: MobilePackProgressProps) {
   const activePointerRef = useRef<number | null>(null);
-  const lastSelectedIndexRef = useRef(activeIndex);
   const trackRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    lastSelectedIndexRef.current = activeIndex;
-  }, [activeIndex]);
-
-  const selectFromPointerPosition = useCallback((clientY: number) => {
+  const scrubFromPointerPosition = useCallback((clientY: number) => {
     const track = trackRef.current;
     const firstSlot = track?.firstElementChild as HTMLElement | null;
     const lastSlot = track?.lastElementChild as HTMLElement | null;
@@ -99,12 +106,8 @@ const MobilePackProgress = memo(function MobilePackProgress({
     const start = firstRect.top + firstRect.height / 2;
     const end = lastRect.top + lastRect.height / 2;
     const progress = end === start ? 0 : Math.max(0, Math.min(1, (clientY - start) / (end - start)));
-    const nextIndex = Math.round(progress * (games.length - 1));
-
-    if (nextIndex === lastSelectedIndexRef.current) return;
-    lastSelectedIndexRef.current = nextIndex;
-    onSelectIndex(nextIndex);
-  }, [games.length, onSelectIndex]);
+    onScrubProgress(progress);
+  }, [games.length, onScrubProgress]);
 
   return (
     <div
@@ -134,15 +137,14 @@ const MobilePackProgress = memo(function MobilePackProgress({
       onPointerDown={(event) => {
         if (!event.isPrimary) return;
         activePointerRef.current = event.pointerId;
-        lastSelectedIndexRef.current = -1;
         event.currentTarget.setPointerCapture(event.pointerId);
         event.currentTarget.focus({ preventScroll: true });
         onScrubStart();
-        selectFromPointerPosition(event.clientY);
+        scrubFromPointerPosition(event.clientY);
       }}
       onPointerMove={(event) => {
         if (activePointerRef.current !== event.pointerId) return;
-        selectFromPointerPosition(event.clientY);
+        scrubFromPointerPosition(event.clientY);
       }}
       onPointerUp={(event) => {
         if (activePointerRef.current !== event.pointerId) return;
@@ -423,6 +425,7 @@ const CardWheel = memo(function CardWheel({
 
 const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
   games,
+  isCustomMode = false,
   isLoading = false,
   onStartGame,
   onSwitchToCustom,
@@ -436,6 +439,11 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
   const launchFrameRef = useRef<number | null>(null);
   const pendingGameRef = useRef<ConversationGame | null>(null);
   const lastIndexRef = useRef(0);
+  const libraryScrollProgress = useMotionValue(0);
+  const pullRotation = useMotionValue(0);
+  const pullGestureRef = useRef<PullGesture | null>(null);
+  const pullReleaseAnimationRef = useRef<ReturnType<typeof animate> | null>(null);
+  const scrubSnapTimerRef = useRef<number | null>(null);
   const notifyContourLayout = useCallback(() => {
     document.dispatchEvent(new Event("frankcards:figure-layout"));
   }, []);
@@ -511,6 +519,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
     let frame: number | null = null;
     const updateFocusedGame = () => {
       frame = null;
+      libraryScrollProgress.set(Math.max(0, container.scrollTop / ITEM_HEIGHT));
       const index = Math.round(container.scrollTop / ITEM_HEIGHT);
 
       if (index !== lastIndexRef.current) {
@@ -533,20 +542,119 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
       container.removeEventListener("scroll", handleScroll);
       if (frame !== null) window.cancelAnimationFrame(frame);
     };
-  }, [allItems, ITEM_HEIGHT]);
+  }, [allItems, ITEM_HEIGHT, libraryScrollProgress]);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container || reducedMotion || !isMobile || isLoading) return;
+
+    const finishPull = () => {
+      const gesture = pullGestureRef.current;
+      pullGestureRef.current = null;
+      delete container.dataset.pullArmed;
+      if (!gesture || gesture.maxDistance < 4) return;
+
+      const currentRotation = pullRotation.get();
+      const releaseVelocity = Math.max(360, Math.abs(pullRotation.getVelocity()));
+      const momentumDegrees = Math.min(1080, Math.max(360, releaseVelocity * 0.48));
+      const targetRotation = Math.ceil((currentRotation + momentumDegrees) / 360) * 360;
+      const duration = Math.min(2.25, Math.max(1.15, (targetRotation - currentRotation) / releaseVelocity * 1.35));
+
+      pullReleaseAnimationRef.current?.stop();
+      pullReleaseAnimationRef.current = animate(pullRotation, targetRotation, {
+        duration,
+        ease: [0.08, 0.72, 0.16, 1],
+      });
+
+      if (gesture.maxDistance >= PULL_ACTION_THRESHOLD) {
+        document.dispatchEvent(new CustomEvent("frankcards:pull-to-action", {
+          detail: { distance: gesture.maxDistance },
+        }));
+      }
+    };
+
+    const handleTouchStart = (event: TouchEvent) => {
+      if (event.touches.length !== 1 || container.scrollTop > 0) return;
+      pullReleaseAnimationRef.current?.stop();
+      const startY = event.touches[0].clientY;
+      pullGestureRef.current = { lastDistance: 0, maxDistance: 0, startY };
+    };
+
+    const handleTrackedTouchMove = (event: TouchEvent) => {
+      const gesture = pullGestureRef.current;
+      if (!gesture || event.touches.length !== 1 || container.scrollTop > 0) return;
+      const rawDistance = Math.max(0, event.touches[0].clientY - gesture.startY);
+      const resistedDistance = Math.min(MAX_PULL_DISTANCE, rawDistance * 0.58);
+      const delta = resistedDistance - gesture.lastDistance;
+      gesture.lastDistance = resistedDistance;
+      gesture.maxDistance = Math.max(gesture.maxDistance, resistedDistance);
+      pullRotation.set(pullRotation.get() + delta * 3.2);
+      container.dataset.pullArmed = resistedDistance >= PULL_ACTION_THRESHOLD ? "true" : "false";
+    };
+
+    container.addEventListener("touchstart", handleTouchStart, { passive: true });
+    container.addEventListener("touchmove", handleTrackedTouchMove, { passive: true });
+    container.addEventListener("touchend", finishPull, { passive: true });
+    container.addEventListener("touchcancel", finishPull, { passive: true });
+
+    return () => {
+      container.removeEventListener("touchstart", handleTouchStart);
+      container.removeEventListener("touchmove", handleTrackedTouchMove);
+      container.removeEventListener("touchend", finishPull);
+      container.removeEventListener("touchcancel", finishPull);
+      pullReleaseAnimationRef.current?.stop();
+      pullGestureRef.current = null;
+      delete container.dataset.pullArmed;
+    };
+  }, [isLoading, isMobile, pullRotation, reducedMotion]);
 
   const focusedGame = allItems.find((g) => g.testID === focusedGameId) || allItems[0];
   const focusedPackIndex = filteredGames.findIndex((game) => game.testID === focusedGameId);
   const handleMobilePackScrubStart = useCallback(() => {
     const container = containerRef.current;
-    if (container) container.style.scrollBehavior = "auto";
+    if (scrubSnapTimerRef.current !== null) {
+      window.clearTimeout(scrubSnapTimerRef.current);
+      scrubSnapTimerRef.current = null;
+    }
+    if (container) {
+      container.style.scrollBehavior = "auto";
+      container.style.scrollSnapType = "none";
+    }
     setIsPackScrubbing(true);
   }, []);
+
+  const handleMobilePackScrubProgress = useCallback((progress: number) => {
+    const container = containerRef.current;
+    if (!container || filteredGames.length === 0) return;
+
+    const continuousPackIndex = progress * Math.max(0, filteredGames.length - 1);
+    const continuousItemPosition = continuousPackIndex + 1;
+    libraryScrollProgress.set(continuousItemPosition);
+    container.scrollTop = continuousItemPosition * ITEM_HEIGHT;
+  }, [filteredGames.length, ITEM_HEIGHT, libraryScrollProgress]);
+
   const handleMobilePackScrubEnd = useCallback(() => {
     const container = containerRef.current;
-    if (container) container.style.scrollBehavior = "smooth";
+    if (container) {
+      const nearestItemIndex = Math.max(
+        1,
+        Math.min(filteredGames.length, Math.round(container.scrollTop / ITEM_HEIGHT)),
+      );
+      const behavior = reducedMotion ? "auto" : "smooth";
+
+      container.style.scrollBehavior = behavior;
+      container.scrollTo({
+        top: nearestItemIndex * ITEM_HEIGHT,
+        behavior,
+      });
+
+      scrubSnapTimerRef.current = window.setTimeout(() => {
+        container.style.scrollSnapType = "";
+        scrubSnapTimerRef.current = null;
+      }, reducedMotion ? 0 : 420);
+    }
     setIsPackScrubbing(false);
-  }, []);
+  }, [filteredGames.length, ITEM_HEIGHT, reducedMotion]);
   const handleMobilePackSelect = useCallback((packIndex: number) => {
     const container = containerRef.current;
     const game = filteredGames[packIndex];
@@ -603,13 +711,17 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
     if (launchFrameRef.current !== null) {
       window.cancelAnimationFrame(launchFrameRef.current);
     }
+    if (scrubSnapTimerRef.current !== null) {
+      window.clearTimeout(scrubSnapTimerRef.current);
+    }
   }, []);
 
   return (
     <div
       ref={containerRef}
       className={`theme-canvas relative w-full h-full ${isLaunching || isLoading ? 'overflow-hidden' : 'overflow-y-auto'} overflow-x-hidden no-scrollbar scroll-smooth ${isMobile && !isLoading ? 'snap-y snap-mandatory' : ''}`}
-      style={{ scrollBehavior: 'smooth' }}
+      style={{ scrollBehavior: isPackScrubbing ? "auto" : "smooth" }}
+      data-home-mode={isCustomMode ? "custom" : "quick"}
       data-launching={isLaunching ? "true" : "false"}
       data-topic-count={games.length}
       data-item-count={allItems.length}
@@ -632,14 +744,14 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
         ))}
 
         {/* Sticky Viewport - Standard CSS Sticky to keep UI fixed while scrolling */}
-        <div className="sticky top-0 h-screen w-full overflow-hidden flex justify-center">
+        <div className="sticky top-0 h-[100dvh] w-full overflow-hidden flex justify-center">
           <ThemeColorBlurBackground
             gameId={focusedGame.testID}
             palette={themeMeshPalette}
             reducedMotion={reducedMotion}
           />
 
-          {isMobile && !isLaunching && focusedPackIndex >= 0 ? (
+          {isMobile && !isCustomMode && !isLaunching && focusedPackIndex >= 0 ? (
             <MobilePackProgress
               activeIndex={focusedPackIndex}
               games={filteredGames}
@@ -648,6 +760,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
                 total: filteredGames.length,
               })}
               onScrubEnd={handleMobilePackScrubEnd}
+              onScrubProgress={handleMobilePackScrubProgress}
               onScrubStart={handleMobilePackScrubStart}
               onSelectIndex={handleMobilePackSelect}
               uiColor={panelUiColor}
@@ -666,6 +779,8 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
                 isDeparting={isLaunching}
                 isEngaged={focusedGame.testID !== "intro-card" && focusedGame.testID !== "end-card"}
                 isLoading={isLoading}
+                scrollProgress={libraryScrollProgress}
+                pullRotation={pullRotation}
                 femaleClothingColor={femaleThemeColor}
                 maleClothingColor={maleThemeColor}
                 className="knee-conversation-background absolute inset-0 h-full w-full max-w-none"
@@ -704,19 +819,23 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
               <motion.div
               layout="position"
               data-layer="library-copy"
-              animate={{ x: isLaunching ? "110vw" : 0 }}
+              aria-hidden={isCustomMode}
+              animate={{
+                opacity: isCustomMode ? 0 : 1,
+                x: isLaunching ? "110vw" : isCustomMode ? -24 : 0,
+              }}
               transition={{
                 delay: isLaunching && !reducedMotion ? 0.2 : 0,
-                duration: reducedMotion ? 0 : 0.72,
+                duration: reducedMotion ? 0 : isCustomMode ? 0.34 : 0.72,
                 ease: deceleratingEase,
                 layout: { duration: reducedMotion ? 0 : 0.58, ease: deceleratingEase },
               }}
-              className={`absolute inset-0 w-full h-full flex items-center z-10 ${isMobile ? 'justify-center' : 'justify-end pl-[380px] xl:pl-[520px]'}`}
+              className={`absolute inset-0 w-full h-full flex items-center z-10 ${isCustomMode ? "pointer-events-none" : ""} ${isMobile ? 'justify-center' : 'justify-end pl-[380px] xl:pl-[520px]'}`}
             >
               <motion.div
                 layout
                 transition={{ layout: { duration: reducedMotion ? 0 : 0.58, ease: deceleratingEase } }}
-                className={`transition-[width,padding] duration-300 ${
+                className={`game-library-copy transition-[width,padding] duration-300 ${
                 isMobile
                   ? 'w-full max-w-2xl px-4 sm:px-8'
                   : 'w-full max-w-[30rem] px-8 pr-8 xl:max-w-2xl xl:pr-24'
@@ -726,14 +845,18 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
                   <motion.div
                     layout
                     key={focusedGame.testID}
+                    className="game-library-panel-slot"
                     custom={direction}
                     variants={panelVariants}
                     initial="enter"
                     animate="center"
                     exit="exit"
                     transition={{
-                      duration: isPackScrubbing ? 0 : 0.4,
-                      layout: { duration: reducedMotion || isPackScrubbing ? 0 : 0.58, ease: deceleratingEase },
+                      duration: reducedMotion ? 0 : isPackScrubbing ? 0.24 : 0.4,
+                      layout: {
+                        duration: reducedMotion ? 0 : isPackScrubbing ? 0.28 : 0.58,
+                        ease: deceleratingEase,
+                      },
                     }}
                     onAnimationComplete={notifyContourLayout}
                   >
@@ -782,42 +905,8 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
               </motion.div>
             ) : null}
 
-            {/* Mobile Scroll Hint */}
-            <AnimatePresence>
-              {isMobile && !isLoading && focusedGame.testID === "intro-card" && (
-                <motion.div
-                  initial={{ opacity: 0, y: 0 }}
-                  animate={{ opacity: 1, y: 10 }}
-                  exit={{ opacity: 0 }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                    ease: "easeInOut"
-                  }}
-                  className="absolute bottom-8 left-0 right-0 flex justify-center items-center z-50 pointer-events-none"
-                >
-                  <div className="theme-translucent-chip p-2 backdrop-blur-sm rounded-full">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="opacity-60"
-                    >
-                      <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
-                    </svg>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
             {/* 2. Wheel Layer - Desktop Only */}
-            {!isMobile && !isLoading && (
+            {!isCustomMode && !isMobile && !isLoading && (
               <CardWheel
                 allItems={allItems}
                 containerRef={containerRef}

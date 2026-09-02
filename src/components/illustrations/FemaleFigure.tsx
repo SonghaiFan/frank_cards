@@ -1,5 +1,5 @@
-import React from "react";
-import { motion, type MotionValue } from "motion/react";
+import React, { useEffect } from "react";
+import { animate, motion, useMotionValue, useTransform, type MotionValue } from "motion/react";
 
 interface FemaleFigureProps {
   animateCoffeeSurface?: boolean;
@@ -8,6 +8,8 @@ interface FemaleFigureProps {
   headX: MotionValue<number>;
   headY: MotionValue<number>;
   reducedMotion?: boolean | null;
+  pullRotation?: MotionValue<number>;
+  scrollProgress?: MotionValue<number>;
 }
 
 const handLoop = {
@@ -23,7 +25,58 @@ const FemaleFigure: React.FC<FemaleFigureProps> = ({
   headX,
   headY,
   reducedMotion,
-}) => (
+  pullRotation,
+  scrollProgress,
+}) => {
+  const loadingRotation = useMotionValue(0);
+  const fallbackScrollProgress = useMotionValue(0);
+  const fallbackPullRotation = useMotionValue(0);
+  const activeScrollProgress = scrollProgress ?? fallbackScrollProgress;
+  const activePullRotation = pullRotation ?? fallbackPullRotation;
+  const coffeeRotation = useTransform(
+    [loadingRotation, activeScrollProgress, activePullRotation],
+    (values: number[]) => values[0] + values[1] * 95 + values[2],
+  );
+  const coffeeTransform = useTransform(coffeeRotation, (angle) => `rotate(${angle}deg)`);
+
+  useEffect(() => {
+    if (reducedMotion) {
+      loadingRotation.set(0);
+      return;
+    }
+
+    let cancelled = false;
+    let controls: ReturnType<typeof animate> | null = null;
+
+    if (animateCoffeeSurface) {
+      const turn = () => {
+        controls = animate(loadingRotation, loadingRotation.get() + 360, {
+          duration: 2.8,
+          ease: "easeInOut",
+          onComplete: () => {
+            if (!cancelled) turn();
+          },
+        });
+      };
+      turn();
+    } else {
+      const current = loadingRotation.get();
+      const remainder = ((current % 360) + 360) % 360;
+      if (remainder > 0.5) {
+        controls = animate(loadingRotation, current + (360 - remainder), {
+          duration: 0.9,
+          ease: [0.22, 1, 0.36, 1],
+        });
+      }
+    }
+
+    return () => {
+      cancelled = true;
+      controls?.stop();
+    };
+  }, [animateCoffeeSurface, loadingRotation, reducedMotion]);
+
+  return (
   <g id="female-figure" data-figure="female">
     <g id="female-left-leg" data-part="left-leg">
       <path d="M176.52,195.002c3.415,0.622 113.81,-3.26 114.037,-2.984c0.217,0.286 -25.558,198.17 -25.558,198.17c-5.459,19.28 -22.299,57.173 -49.654,56.813c-28.76,-0.379 -39.208,-27.969 -44.565,-50.097c-2.917,-12.048 4.539,-185.879 5.74,-201.902Z" fill="#0d1115" />
@@ -67,10 +120,11 @@ const FemaleFigure: React.FC<FemaleFigureProps> = ({
       </g>
       <g id="female-coffe" data-part="coffee" clipPath="url(#female-coffee-clip)">
         <circle cx="170.479" cy="371.627" r="29.493" fill="#a96342" />
-        <g
+        <motion.g
           id="female-coffee-foam"
           data-part="coffee-foam"
-          className={animateCoffeeSurface ? "loading-coffee-surface" : undefined}
+          className="loading-coffee-surface"
+          style={{ transform: coffeeTransform }}
         >
           <path d="M154 368 C162 367 166 364 169 358 C174 348 181 343 189 346 C198 350 201 361 199 375 C197 390 187 399 172 400 C157 400 145 394 142 384 C139 376 145 369 154 368Z" fill="#391914" />
 
@@ -84,10 +138,11 @@ const FemaleFigure: React.FC<FemaleFigureProps> = ({
           <circle cx="153.3" cy="348.7" r="0.65" fill="#2a120e" />
           <circle cx="163" cy="362" r="0.7" fill="#2a120e" />
           <circle cx="175.5" cy="355" r="0.55" fill="#2a120e" />
-        </g>
+        </motion.g>
       </g>
     </motion.g>
   </g>
-);
+  );
+};
 
 export default FemaleFigure;

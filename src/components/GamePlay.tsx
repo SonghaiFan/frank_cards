@@ -191,18 +191,19 @@ const GamePlay: React.FC<GamePlayProps> = ({
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-        className="flex justify-between items-center p-4 sm:p-8 relative z-10"
+        className="game-play-header flex justify-between items-center p-4 sm:p-8 relative z-10"
       >
         <button
-          className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-xl sm:text-2xl transition-opacity duration-200 hover:opacity-65"
+          className="game-play-exit w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center text-xl sm:text-2xl transition-opacity duration-200 hover:opacity-65"
           style={{ color: uiColor }}
           onClick={onExit}
+          aria-label={t("common.exit")}
         >
           ←
         </button>
 
         <div
-          className="text-xs sm:text-sm font-medium opacity-90"
+          className="game-play-header-progress text-xs sm:text-sm font-medium opacity-90"
           style={{ color: uiColor }}
         >
           {t("gameInterface.progressIndicator", {
@@ -219,12 +220,11 @@ const GamePlay: React.FC<GamePlayProps> = ({
           aria-label={t("common.previous")}
           title={t("common.previous")}
           data-mobile-edge-nav="previous"
-          className="absolute inset-y-0 left-0 z-20 flex w-12 touch-manipulation items-center justify-start pl-1 text-3xl opacity-25 transition-opacity active:opacity-70 disabled:pointer-events-none disabled:opacity-0 lg:hidden"
+          className="absolute inset-y-0 left-0 z-20 w-[18%] max-w-20 touch-manipulation opacity-0 disabled:pointer-events-none lg:hidden"
           style={{ color: uiColor }}
           onClick={handlePrevious}
           disabled={currentQuestionIndex === 0}
         >
-          <span aria-hidden="true">‹</span>
         </button>
 
         <button
@@ -232,11 +232,10 @@ const GamePlay: React.FC<GamePlayProps> = ({
           aria-label={t("common.next")}
           title={t("common.next")}
           data-mobile-edge-nav="next"
-          className="absolute inset-y-0 right-0 z-20 flex w-12 touch-manipulation items-center justify-end pr-1 text-3xl opacity-25 transition-opacity active:opacity-70 lg:hidden"
+          className="absolute inset-y-0 right-0 z-20 w-[18%] max-w-20 touch-manipulation opacity-0 lg:hidden"
           style={{ color: uiColor }}
           onClick={handleNext}
         >
-          <span aria-hidden="true">›</span>
         </button>
 
         <div
@@ -312,12 +311,12 @@ const GamePlay: React.FC<GamePlayProps> = ({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
-        className="flex justify-between items-center p-4 sm:p-8 relative z-10"
+        className="game-play-navigation flex justify-between items-end p-4 sm:p-8 relative z-10"
       >
         <motion.button
           whileHover={{ scale: 1.08, x: -2, transition: { duration: 0.2 } }}
           whileTap={{ scale: 0.95 }}
-          className="flex items-center gap-1 sm:gap-2 transition-colors duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
+          className="game-play-nav-button hidden items-center gap-1 transition-colors duration-200 disabled:opacity-40 disabled:cursor-not-allowed lg:flex lg:gap-2"
           style={{ color: uiColor }}
           onClick={handlePrevious}
           disabled={currentQuestionIndex === 0}
@@ -327,32 +326,40 @@ const GamePlay: React.FC<GamePlayProps> = ({
         </motion.button>
 
         {/* Progress Indicator - Animated */}
-        <div
-          className="flex-1 mx-4 sm:mx-8 h-1 rounded-full overflow-hidden"
-          style={{
-            backgroundColor: isWildMode
-              ? "rgba(174, 174, 174, 0.2)"
-              : "rgba(255, 255, 255, 0.2)",
-          }}
-        >
-          <motion.div
-            className="h-full rounded-full"
-            style={{ backgroundColor: uiColor }}
-            animate={{
-              width: `${((currentQuestionIndex + 1) / questions.length) * 100
-                }%`,
+        <div className="game-play-progress flex-1 mx-0 sm:mx-8">
+          <div className="game-play-progress-label mb-2 text-center text-xs font-medium lg:hidden" style={{ color: uiColor }}>
+            {t("gameInterface.progressIndicator", {
+              current: currentQuestionIndex + 1,
+              total: questions.length,
+            })}
+          </div>
+          <div
+            className="h-1 rounded-full overflow-hidden"
+            style={{
+              backgroundColor: isWildMode
+                ? "rgba(174, 174, 174, 0.2)"
+                : "rgba(255, 255, 255, 0.2)",
             }}
-            transition={{
-              duration: 0.3,
-              ease: "easeOut",
-            }}
-          />
+          >
+            <motion.div
+              className="h-full rounded-full"
+              style={{ backgroundColor: uiColor }}
+              animate={{
+                width: `${((currentQuestionIndex + 1) / questions.length) * 100
+                  }%`,
+              }}
+              transition={{
+                duration: 0.3,
+                ease: "easeOut",
+              }}
+            />
+          </div>
         </div>
 
         <motion.button
           whileHover={{ scale: 1.08, x: 2, transition: { duration: 0.2 } }}
           whileTap={{ scale: 0.95 }}
-          className="flex items-center gap-1 sm:gap-2 transition-colors duration-200"
+          className="game-play-nav-button hidden items-center gap-1 transition-colors duration-200 lg:flex lg:gap-2"
           style={{ color: uiColor }}
           onClick={handleNext}
         >
