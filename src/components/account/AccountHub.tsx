@@ -5,8 +5,7 @@ import { faShieldHalved, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../auth/AuthProvider";
 import type { ConversationGame } from "../../types/ConversationGame";
-import LanguageSwitcher from "../LanguageSwitcher";
-import ThemeToggle from "../ThemeToggle";
+import SettingsMenu from "../SettingsMenu";
 
 const AuthDialog = lazy(() => import("./AuthDialog"));
 const MyTopicsPanel = lazy(() => import("./MyTopicsPanel"));
@@ -78,12 +77,10 @@ export default function AccountHub({ authDialogRequest, isLanguageSwitching, onC
         aria-label={t("account.toolbarLabel")}
         transition={{ layout: languageLayoutTransition }}
       >
-        <LanguageSwitcher
-          className="account-language-button"
-          isSwitching={isLanguageSwitching}
+        <SettingsMenu
+          isLanguageSwitching={isLanguageSwitching}
           onChangeLanguage={onChangeLanguage}
         />
-        <ThemeToggle />
         {status === "loading" ? (
           <div className="account-toolbar-button account-toolbar-loading" role="status" aria-label={t("account.loadingAccount")}>
             <span className="account-toolbar-spinner" aria-hidden="true" />

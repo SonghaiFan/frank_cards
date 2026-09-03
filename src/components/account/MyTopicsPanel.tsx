@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightFromBracket, faGlobe, faPen, faPlay, faPlus, faRotateLeft, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightFromBracket, faGlobe, faPen, faPlay, faPlus, faRotateLeft, faTrash, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../auth/AuthProvider";
 import type { MutableTopicRepository } from "../../data/topics/TopicRepository";
 import type { ConversationGame } from "../../types/ConversationGame";
 import type { SaveTopicInput, TopicRecord } from "../../types/Topic";
-import TopicStudio from "./TopicStudio";
+import CardPack from "../CardPack";
+import TopicStudio from "./TopicStudioPlay";
 import ProfileEditor from "./ProfileEditor";
 
 interface MyTopicsPanelProps {
@@ -32,11 +33,14 @@ const countQuestions = (topic: TopicRecord): number => topic.game.questions.redu
 );
 
 export default function MyTopicsPanel({ onClose, onTopicsChanged, onUseTopic }: MyTopicsPanelProps) {
-  const { i18n, t } = useTranslation();
+  const { t } = useTranslation();
   const { signOut, user } = useAuth();
   const [topics, setTopics] = useState<TopicRecord[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [studioTopic, setStudioTopic] = useState<TopicRecord | "new" | null>(null);
+  const [hoveredTopicId, setHoveredTopicId] = useState<string | null>(null);
+  const [selectedTopicId, setSelectedTopicId] = useState<string | null>(null);
+  const [deleteCandidate, setDeleteCandidate] = useState<TopicRecord | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [workingTopicId, setWorkingTopicId] = useState<string | null>(null);
   const userId = user?.id ?? null;
@@ -61,11 +65,16 @@ export default function MyTopicsPanel({ onClose, onTopicsChanged, onUseTopic }: 
 
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && studioTopic === null) onClose();
+      if (event.key !== "Escape") return;
+      if (deleteCandidate) {
+        setDeleteCandidate(null);
+      } else if (studioTopic === null) {
+        onClose();
+      }
     };
     window.addEventListener("keydown", handleEscape);
     return () => window.removeEventListener("keydown", handleEscape);
-  }, [onClose, studioTopic]);
+  }, [deleteCandidate, onClose, studioTopic]);
 
   const handleStudioSave = async (input: SaveTopicInput) => {
     const repository = await loadRepository();
@@ -102,6 +111,23 @@ export default function MyTopicsPanel({ onClose, onTopicsChanged, onUseTopic }: 
       onTopicsChanged();
     } catch (workflowError) {
       setError(workflowError instanceof Error ? workflowError.message : t("account.workflowError"));
+    } finally {
+      setWorkingTopicId(null);
+    }
+  };
+
+  const handleDeleteTopic = async (topic: TopicRecord) => {
+    setWorkingTopicId(topic.id);
+    setError(null);
+    try {
+      const repository = await loadRepository();
+      await repository.delete(topic.id);
+      setTopics((current) => current.filter((item) => item.id !== topic.id));
+      setSelectedTopicId((current) => current === topic.id ? null : current);
+      setDeleteCandidate(null);
+      onTopicsChanged();
+    } catch {
+      setError(t("account.deleteTopicError"));
     } finally {
       setWorkingTopicId(null);
     }
@@ -195,65 +221,74 @@ export default function MyTopicsPanel({ onClose, onTopicsChanged, onUseTopic }: 
                   </div>
                 ) : (
                   <div className="account-topic-list">
-                    {topics.map((topic) => (
-                      <article className="account-topic-row" key={topic.id}>
-                        <div>
-                          <h3>{topic.game.app.title}</h3>
-                          <p>{topic.game.app.subtitle || t("account.noSubtitle")}</p>
-                        </div>
-                        <dl>
-                          <div>
-                            <dt>{t("account.statusLabel")}</dt>
-                            <dd>{t(`account.status.${topic.status}`)}</dd>
+                    {topics.map((topic, index) => {
+                      const questionCount = countQuestions(topic);
+                      const canPlay = questionCount > 0;
+                      const isSelected = selectedTopicId === topic.id;
+                      const workflowLabel = t(
+                        workingTopicId === topic.id
+                          ? "account.workflowWorking"
+                          : topic.status === "draft" || topic.status === "rejected"
+                            ? "account.submitForReview"
+                            : topic.status === "pending_review"
+                              ? "account.withdrawReview"
+                              : "account.unpublish",
+                      );
+
+                      return (
+                        <article className={`account-topic-pack${isSelected ? " is-selected" : ""}`} key={topic.id}>
+                          <div className={`account-topic-pack-preview${canPlay ? "" : " is-disabled"}`}>
+                            <div className="account-topic-pack-shell">
+                              <CardPack
+                                game={topic.game}
+                                index={index}
+                                isSelected={isSelected}
+                                isHovered={hoveredTopicId === topic.id}
+                                onToggle={() => {
+                                  setSelectedTopicId((current) => current === topic.id ? null : topic.id);
+                                  setDeleteCandidate(null);
+                                }}
+                                onHoverStart={() => setHoveredTopicId(topic.id)}
+                                onHoverEnd={() => setHoveredTopicId(null)}
+                                disableEntranceAnimation
+                                showSelectionIndicator={false}
+                                showLikeButton={false}
+                                disableInteractionMotion
+                                className="account-topic-pack-card cursor-pointer relative"
+                              />
+
+                              <span className="account-topic-pack-status">{t(`account.status.${topic.status}`)}</span>
+
+                              <AnimatePresence initial={false}>
+                                {isSelected ? (
+                                  <motion.div className="account-topic-pack-actions" initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}>
+                                    {deleteCandidate?.id === topic.id ? (
+                                      <>
+                                        <button className="account-topic-pack-action" type="button" onClick={() => setDeleteCandidate(null)} disabled={workingTopicId === topic.id} aria-label={t("account.cancel")} title={t("account.cancel")}><FontAwesomeIcon icon={faXmark} /></button>
+                                        <button className="account-topic-pack-action account-topic-pack-delete account-topic-pack-delete-confirm" type="button" onClick={() => void handleDeleteTopic(topic)} disabled={workingTopicId === topic.id} aria-label={t("account.deleteTopicConfirm", { title: topic.game.app.title })} title={t("account.deleteTopicConfirm", { title: topic.game.app.title })}><FontAwesomeIcon icon={faTrash} /><span>{t("account.confirmDelete")}</span></button>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <button className="account-topic-pack-action" type="button" onClick={() => handleUseTopic(topic)} disabled={!canPlay} aria-label={t("account.useTopic")} title={t("account.useTopic")}><FontAwesomeIcon icon={faPlay} /></button>
+                                        <button className="account-topic-pack-action" type="button" onClick={() => setStudioTopic(topic)} aria-label={t("account.editTopic")} title={t("account.editTopic")}><FontAwesomeIcon icon={faPen} /></button>
+                                        <button className="account-topic-pack-action" type="button" onClick={() => void handleWorkflowAction(topic)} disabled={workingTopicId === topic.id || !canPlay} aria-label={workflowLabel} title={workflowLabel}><FontAwesomeIcon icon={topic.status === "draft" || topic.status === "rejected" ? faGlobe : faRotateLeft} /></button>
+                                        <button className="account-topic-pack-action account-topic-pack-delete" type="button" onClick={() => setDeleteCandidate(topic)} disabled={workingTopicId === topic.id} aria-label={t("account.deleteTopic")} title={t("account.deleteTopic")}><FontAwesomeIcon icon={faTrash} /></button>
+                                      </>
+                                    )}
+                                  </motion.div>
+                                ) : null}
+                              </AnimatePresence>
+                            </div>
                           </div>
-                          <div>
-                            <dt>{t("account.questionsLabel")}</dt>
-                            <dd>{countQuestions(topic)}</dd>
-                          </div>
-                          <div>
-                            <dt>{t("account.updatedLabel")}</dt>
-                            <dd>{topic.updatedAt ? new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium" }).format(new Date(topic.updatedAt)) : t("account.justNow")}</dd>
-                          </div>
-                        </dl>
-                        <div className="account-topic-row-actions">
-                          <button className="account-topic-edit-button" type="button" onClick={() => setStudioTopic(topic)}>
-                            <FontAwesomeIcon icon={faPen} />
-                            <span>{t("account.editTopic")}</span>
-                          </button>
-                          <button
-                            className="account-topic-use-button"
-                            type="button"
-                            onClick={() => handleUseTopic(topic)}
-                            disabled={countQuestions(topic) === 0}
-                          >
-                            <FontAwesomeIcon icon={faPlay} />
-                            <span>{t("account.useTopic")}</span>
-                          </button>
-                          <button
-                            className="account-topic-community-button"
-                            type="button"
-                            onClick={() => void handleWorkflowAction(topic)}
-                            disabled={workingTopicId === topic.id || countQuestions(topic) === 0}
-                          >
-                            <FontAwesomeIcon icon={topic.status === "draft" || topic.status === "rejected" ? faGlobe : faRotateLeft} />
-                            <span>{t(
-                              workingTopicId === topic.id
-                                ? "account.workflowWorking"
-                                : topic.status === "draft" || topic.status === "rejected"
-                                  ? "account.submitForReview"
-                                  : topic.status === "pending_review"
-                                    ? "account.withdrawReview"
-                                    : "account.unpublish",
-                            )}</span>
-                          </button>
-                        </div>
-                        {topic.rejectionReason ? (
-                          <p className="account-topic-rejection" role="note">
-                            {t("account.rejectionReason", { reason: topic.rejectionReason })}
-                          </p>
-                        ) : null}
-                      </article>
-                    ))}
+
+                          {isSelected && topic.rejectionReason ? (
+                            <p className="account-topic-rejection" role="note">
+                              {t("account.rejectionReason", { reason: topic.rejectionReason })}
+                            </p>
+                          ) : null}
+                        </article>
+                      );
+                    })}
                   </div>
                 )}
               </div>

@@ -53,7 +53,7 @@ export default function ProfileEditor() {
   return (
     <section
       className="account-profile-card"
-      aria-labelledby="account-profile-title"
+      aria-label={t("account.editProfile")}
       data-expanded={isExpanded}
     >
       <button
@@ -67,7 +67,7 @@ export default function ProfileEditor() {
           {profile?.avatar_url ? <img src={profile.avatar_url} alt="" /> : fallbackInitial}
         </span>
         <span className="account-profile-summary-copy">
-          <strong>{profile?.display_name || user?.email || t("account.profileTitle")}</strong>
+          <strong>{profile?.display_name || t("account.profileTitle")}</strong>
           <small>{t("account.editProfile")}</small>
         </span>
         <FontAwesomeIcon icon={faChevronDown} />
@@ -75,51 +75,50 @@ export default function ProfileEditor() {
 
       <div className="account-profile-details" id="account-profile-details">
         <div className="account-profile-avatar-wrap">
-        <span className="account-profile-avatar" aria-hidden="true">
-          {profile?.avatar_url ? <img src={profile.avatar_url} alt="" /> : fallbackInitial}
-        </span>
-        <label className="account-avatar-upload">
-          <FontAwesomeIcon icon={faCamera} />
-          <span>{t("account.uploadAvatar")}</span>
-          <input
-            type="file"
-            accept="image/png,image/jpeg,image/webp"
-            disabled={isProfileWorking}
-            onChange={(event) => void selectAvatar(event)}
-          />
-        </label>
+          <span className="account-profile-avatar" aria-hidden="true">
+            {profile?.avatar_url ? <img src={profile.avatar_url} alt="" /> : fallbackInitial}
+          </span>
+          <label className="account-avatar-upload">
+            <FontAwesomeIcon icon={faCamera} />
+            <span>{t("account.uploadAvatar")}</span>
+            <input
+              type="file"
+              accept="image/png,image/jpeg,image/webp"
+              disabled={isProfileWorking}
+              onChange={(event) => void selectAvatar(event)}
+            />
+          </label>
         </div>
 
         <form className="account-profile-form" onSubmit={(event) => void submitProfile(event)}>
-        <div>
-          <h3 id="account-profile-title">{t("account.profileTitle")}</h3>
-          <p>{t("account.profileBody")}</p>
-        </div>
-        <label className="account-field">
-          <span>{t("account.usernameLabel")}</span>
-          <input
-            type="text"
-            value={displayName}
-            onChange={(event) => {
-              setDisplayName(event.target.value);
-              setSaved(false);
-              if (profileError) clearProfileError();
-            }}
-            minLength={1}
-            maxLength={80}
-            disabled={isProfileLoading || isProfileWorking}
-            placeholder={t("account.usernamePlaceholder")}
-          />
-        </label>
-        {profileError ? <p className="account-field-error" role="alert">{profileError}</p> : null}
-        <button
-          className="account-profile-save"
-          type="submit"
-          disabled={isProfileLoading || isProfileWorking || !displayName.trim() || displayName.trim() === profile?.display_name}
-        >
-          {saved ? <FontAwesomeIcon icon={faCheck} /> : null}
-          <span>{t(saved ? "account.profileSaved" : isProfileWorking ? "account.profileSaving" : "account.saveProfile")}</span>
-        </button>
+          <label className="account-field">
+            <span>{t("account.usernameLabel")}</span>
+            <input
+              aria-describedby="account-profile-visibility-note"
+              id="account-display-name"
+              type="text"
+              value={displayName}
+              onChange={(event) => {
+                setDisplayName(event.target.value);
+                setSaved(false);
+                if (profileError) clearProfileError();
+              }}
+              minLength={1}
+              maxLength={80}
+              disabled={isProfileLoading || isProfileWorking}
+              placeholder={t("account.usernamePlaceholder")}
+            />
+          </label>
+          <p className="account-profile-visibility-note" id="account-profile-visibility-note">{t("account.profileBody")}</p>
+          {profileError ? <p className="account-field-error" role="alert">{profileError}</p> : null}
+          <button
+            className="account-profile-save"
+            type="submit"
+            disabled={isProfileLoading || isProfileWorking || !displayName.trim() || displayName.trim() === profile?.display_name}
+          >
+            {saved ? <FontAwesomeIcon icon={faCheck} /> : null}
+            <span>{t(saved ? "account.profileSaved" : isProfileWorking ? "account.profileSaving" : "account.saveProfile")}</span>
+          </button>
         </form>
       </div>
     </section>

@@ -770,9 +770,19 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
           <div className="relative w-full h-full max-w-[1400px]">
 
             {/* Two top-down figures enter from the top and bottom between the cards and copy. */}
-            <div
+            <motion.div
               key="conversation-figures"
+              aria-hidden={isCustomMode}
               className="pointer-events-none absolute inset-y-0 left-1/2 z-[5] w-full -translate-x-1/2 overflow-hidden lg:w-[520px] xl:w-[650px] 2xl:w-[720px]"
+              initial={false}
+              animate={{
+                filter: isCustomMode ? "blur(2px)" : "blur(0px)",
+                opacity: isCustomMode ? 0.4 : 1,
+              }}
+              transition={{
+                duration: reducedMotion ? 0 : 0.6,
+                ease: [0.16, 1, 0.3, 1],
+              }}
             >
               <KneeConversationIllustration
                 departureDelay={isLaunching ? 0.08 : 0}
@@ -785,7 +795,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
                 maleClothingColor={maleThemeColor}
                 className="knee-conversation-background absolute inset-0 h-full w-full max-w-none"
               />
-            </div>
+            </motion.div>
 
             <AnimatePresence initial={false}>
               {isLoading ? (

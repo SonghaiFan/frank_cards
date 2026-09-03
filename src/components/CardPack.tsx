@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ConversationGame } from "../types/ConversationGame";
 import Card from "./Card";
@@ -6,6 +6,7 @@ import PackLikeButton from "./PackLikeButton";
 import { useTranslation } from "react-i18next";
 
 interface CardPackProps {
+  children?: React.ReactNode;
   game: ConversationGame;
   index: number;
   isSelected: boolean;
@@ -16,6 +17,9 @@ interface CardPackProps {
   disableEntranceAnimation?: boolean;
   minimal?: boolean;
   showSelectionIndicator?: boolean;
+  showLikeButton?: boolean;
+  expandOnSelect?: boolean;
+  disableInteractionMotion?: boolean;
   size?: "small" | "medium" | "large";
   style?: React.CSSProperties;
   className?: string;
@@ -29,6 +33,7 @@ const sizeClasses = {
 };
 
 const CardPack: React.FC<CardPackProps> = ({
+  children,
   game,
   index,
   isSelected,
@@ -39,11 +44,25 @@ const CardPack: React.FC<CardPackProps> = ({
   disableEntranceAnimation = false,
   minimal = false,
   showSelectionIndicator = true,
+  showLikeButton = true,
+  expandOnSelect = true,
+  disableInteractionMotion = false,
   size = "medium",
   style,
   className = "cursor-pointer relative",
 }) => {
   const { t } = useTranslation();
+  const [canHover, setCanHover] = useState(false);
+
+  useEffect(() => {
+    const hoverQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const updateHoverSupport = () => setCanHover(hoverQuery.matches);
+
+    updateHoverSupport();
+    hoverQuery.addEventListener("change", updateHoverSupport);
+
+    return () => hoverQuery.removeEventListener("change", updateHoverSupport);
+  }, []);
 
   if (minimal) isSelected = false;
 
@@ -62,9 +81,10 @@ const CardPack: React.FC<CardPackProps> = ({
       style={{
         ...style,
         borderRadius: style?.borderRadius,
+        touchAction: "manipulation",
       }}
-      onHoverStart={onHoverStart}
-      onHoverEnd={onHoverEnd}
+      onHoverStart={canHover && !disableInteractionMotion ? onHoverStart : undefined}
+      onHoverEnd={canHover && !disableInteractionMotion ? onHoverEnd : undefined}
       onClick={
         minimal
           ? undefined
@@ -75,7 +95,7 @@ const CardPack: React.FC<CardPackProps> = ({
       <div className="relative w-full h-full"> {/* Ensure container fills wrapper */}
         {/* Background Cards - Dynamic based on categories */}
         <AnimatePresence>
-          {(isHovered || isSelected) && (
+          {(isHovered || (isSelected && expandOnSelect)) && (
             <>
               {Object.entries(game.theme.categories).map(
                 (categoryEntry, cardIndex) => {
@@ -89,6 +109,7 @@ const CardPack: React.FC<CardPackProps> = ({
                       className="absolute top-0 left-0"
                       style={{
                         width: '100%',
+                        maxWidth: 'none',
                         height: '100%',
                         aspectRatio: style?.aspectRatio || "400/250",
                         backgroundColor: category.color,
@@ -137,15 +158,16 @@ const CardPack: React.FC<CardPackProps> = ({
             } ${minimal ? 'justify-center items-center opacity-80 hover:opacity-100' : ''}`}
           style={{
             width: '100%',
+            maxWidth: 'none',
             height: '100%',
             aspectRatio: style?.aspectRatio || "400/250",
             backgroundColor: "var(--paper-card)",
           }}
-          whileHover={{
+          whileHover={canHover && !disableInteractionMotion ? {
             scale: 1.02,
             y: -4,
-          }}
-          whileTap={{ scale: 0.98 }}
+          } : undefined}
+          whileTap={disableInteractionMotion ? undefined : { scale: 0.98 }}
           transition={{
             duration: 0.2,
             ease: "easeOut",
@@ -169,53 +191,57 @@ const CardPack: React.FC<CardPackProps> = ({
             </div>
           )}
 
-          {!minimal ? <PackLikeButton packId={game.testID} /> : null}
+          {children ?? (
+            <>
+              {!minimal && showLikeButton ? <PackLikeButton packId={game.testID} /> : null}
 
-          {/* Game Title */}
-          <h2 className="theme-text-primary text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-center leading-tight px-2">
-            {game.app.title}
-          </h2>
+              {/* Game Title */}
+              <h2 className="theme-text-primary text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-center leading-tight px-2">
+                {game.app.title}
+              </h2>
 
-          {/* Game Description */}
-          <p className="theme-text-secondary text-xs sm:text-sm font-medium text-center leading-relaxed px-2">
-            {game.app.subtitle}
-          </p>
+              {/* Game Description */}
+              <p className="theme-text-secondary text-xs sm:text-sm font-medium text-center leading-relaxed px-2">
+                {game.app.subtitle}
+              </p>
 
-          {game.creator ? (
-            <div className="pack-creator">
-              <span className="pack-creator-avatar" aria-hidden="true">
-                {game.creator.avatarUrl ? (
-                  <img src={game.creator.avatarUrl} alt="" />
-                ) : (
-                  (game.creator.displayName || "F").charAt(0).toUpperCase()
-                )}
-              </span>
-              <span>{game.creator.displayName || t("customMode.communityCreator")}</span>
-            </div>
-          ) : null}
+              {game.creator ? (
+                <div className="pack-creator">
+                  <span className="pack-creator-avatar" aria-hidden="true">
+                    {game.creator.avatarUrl ? (
+                      <img src={game.creator.avatarUrl} alt="" />
+                    ) : (
+                      (game.creator.displayName || "F").charAt(0).toUpperCase()
+                    )}
+                  </span>
+                  <span>{game.creator.displayName || t("customMode.communityCreator")}</span>
+                </div>
+              ) : null}
 
-          {/* Category Dots */}
-          <div className="flex justify-center gap-1.5 sm:gap-2 mt-3 sm:mt-4">
-            {Object.values(game.theme.categories).map((category, index) => (
-              <div
-                key={index}
-                className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full"
-                style={{ backgroundColor: category.color }}
-                title={category.name}
-              />
-            ))}
-          </div>
+              {/* Category Dots */}
+              <div className="flex justify-center gap-1.5 sm:gap-2 mt-3 sm:mt-4">
+                {Object.values(game.theme.categories).map((category, index) => (
+                  <div
+                    key={index}
+                    className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full"
+                    style={{ backgroundColor: category.color }}
+                    title={category.name}
+                  />
+                ))}
+              </div>
 
-          {/* Card Count Indicator - Hidden in minimal mode */}
-          {!minimal && (
-            <div className="theme-text-secondary mt-3 sm:mt-4 text-xs font-semibold uppercase tracking-wider text-center px-2">
-              {game.questions.reduce(
-                (total: number, category: any) =>
-                  total + category.questions.length,
-                0
-              )}{" "}
-              Cards • {Object.keys(game.theme.categories).length} Categories
-            </div>
+              {/* Card Count Indicator - Hidden in minimal mode */}
+              {!minimal && (
+                <div className="theme-text-secondary mt-3 sm:mt-4 text-xs font-semibold uppercase tracking-wider text-center px-2">
+                  {game.questions.reduce(
+                    (total: number, category: any) =>
+                      total + category.questions.length,
+                    0
+                  )}{" "}
+                  Cards • {Object.keys(game.theme.categories).length} Categories
+                </div>
+              )}
+            </>
           )}
         </Card>
       </div>

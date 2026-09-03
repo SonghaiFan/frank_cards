@@ -1,21 +1,38 @@
 import { useSyncExternalStore } from "react";
 
 export type AppTheme = "light" | "dark";
+export type AppThemePreference = AppTheme | "system";
 
 const THEME_STORAGE_KEY = "frankcards-theme";
 const THEME_CHANGE_EVENT = "frankcards:theme-change";
+let themePreferenceFallback: AppThemePreference = "system";
 
 function getSystemTheme(): AppTheme {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
-function getStoredTheme(): AppTheme | null {
+function getStoredThemePreference(): AppThemePreference | null {
   try {
     const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-    return storedTheme === "light" || storedTheme === "dark" ? storedTheme : null;
+    return storedTheme === "light" || storedTheme === "dark" || storedTheme === "system"
+      ? storedTheme
+      : null;
   } catch {
     return null;
   }
+}
+
+function applyThemePreference(preference: AppThemePreference) {
+  if (preference === "system") {
+    delete document.documentElement.dataset.theme;
+    return;
+  }
+
+  document.documentElement.dataset.theme = preference;
+}
+
+export function getAppThemePreference(): AppThemePreference {
+  return getStoredThemePreference() ?? themePreferenceFallback;
 }
 
 export function getAppTheme(): AppTheme {
@@ -24,16 +41,17 @@ export function getAppTheme(): AppTheme {
 }
 
 export function initializeAppTheme(): AppTheme {
-  const theme = getStoredTheme() ?? getSystemTheme();
-  document.documentElement.dataset.theme = theme;
-  return theme;
+  const preference = getAppThemePreference();
+  applyThemePreference(preference);
+  return getAppTheme();
 }
 
-export function setAppTheme(theme: AppTheme) {
-  document.documentElement.dataset.theme = theme;
+export function setAppTheme(preference: AppThemePreference) {
+  themePreferenceFallback = preference;
+  applyThemePreference(preference);
 
   try {
-    localStorage.setItem(THEME_STORAGE_KEY, theme);
+    localStorage.setItem(THEME_STORAGE_KEY, preference);
   } catch {
     // The theme still applies for this visit when storage is unavailable.
   }
@@ -42,8 +60,39 @@ export function setAppTheme(theme: AppTheme) {
 }
 
 function subscribeToTheme(onStoreChange: () => void) {
+  const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  const legacyMediaQuery = mediaQuery as MediaQueryList & {
+    addListener?: (listener: () => void) => void;
+    removeListener?: (listener: () => void) => void;
+  };
+  const handleSystemThemeChange = () => {
+    if (getAppThemePreference() === "system") onStoreChange();
+  };
+  const handleStorageChange = (event: StorageEvent) => {
+    if (event.key !== THEME_STORAGE_KEY) return;
+    themePreferenceFallback = getStoredThemePreference() ?? "system";
+    applyThemePreference(getAppThemePreference());
+    onStoreChange();
+  };
+
   document.addEventListener(THEME_CHANGE_EVENT, onStoreChange);
-  return () => document.removeEventListener(THEME_CHANGE_EVENT, onStoreChange);
+  window.addEventListener("storage", handleStorageChange);
+  // Older iOS WebViews expose the legacy MediaQueryList listener API only.
+  if (typeof mediaQuery.addEventListener === "function") {
+    mediaQuery.addEventListener("change", handleSystemThemeChange);
+  } else {
+    legacyMediaQuery.addListener?.(handleSystemThemeChange);
+  }
+
+  return () => {
+    document.removeEventListener(THEME_CHANGE_EVENT, onStoreChange);
+    window.removeEventListener("storage", handleStorageChange);
+    if (typeof mediaQuery.removeEventListener === "function") {
+      mediaQuery.removeEventListener("change", handleSystemThemeChange);
+    } else {
+      legacyMediaQuery.removeListener?.(handleSystemThemeChange);
+    }
+  };
 }
 
 export function useAppTheme(): AppTheme {
@@ -51,5 +100,13 @@ export function useAppTheme(): AppTheme {
     subscribeToTheme,
     getAppTheme,
     () => "light",
+  );
+}
+
+export function useAppThemePreference(): AppThemePreference {
+  return useSyncExternalStore(
+    subscribeToTheme,
+    getAppThemePreference,
+    () => "system",
   );
 }

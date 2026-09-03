@@ -227,7 +227,7 @@ function App() {
                   ease: [0.16, 1, 0.3, 1],
                 }}
               >
-                {!isSessionActive && loadStatus === "ready" ? (
+                {loadStatus === "ready" ? (
                   <AccountHub
                     authDialogRequest={authDialogRequest}
                     isLanguageSwitching={isLanguageSwitching}

@@ -256,8 +256,9 @@ export class SupabaseTopicRepository implements MutableTopicRepository {
     try {
       const client = await getSupabaseClient();
       await requireUser(client);
-      const { error } = await client.from("topics").delete().eq("id", id);
+      const { data, error } = await client.from("topics").delete().eq("id", id).select("id").maybeSingle();
       if (error) throw error;
+      if (!data) throw new TopicRepositoryError("Could not delete the topic.");
     } catch (error) {
       if (error instanceof TopicRepositoryError) throw error;
       throw new TopicRepositoryError("Could not delete the topic.", error);

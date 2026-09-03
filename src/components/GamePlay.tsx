@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
 import { ConversationGame } from "../types/ConversationGame";
+import { useAlternateReaderSide } from "../hooks/useAppPreferences";
 import { useAppTheme } from "../hooks/useAppTheme";
 import { LIBRARY_DESKTOP_QUERY, useMediaQuery } from "../hooks/useMediaQuery";
 import { resolveGameSurfaceTheme } from "../utils/gameTheme";
@@ -36,6 +37,7 @@ const GamePlay: React.FC<GamePlayProps> = ({
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const [direction, setDirection] = useState(0);
+  const alternateReaderSide = useAlternateReaderSide();
   const isDarkTheme = useAppTheme() === "dark";
   const isDesktop = useMediaQuery(LIBRARY_DESKTOP_QUERY);
   const isMobile = !isDesktop;
@@ -283,7 +285,7 @@ const GamePlay: React.FC<GamePlayProps> = ({
             cardColor={cardColor}
             textColor={textColor}
             onCardClick={handleCardClick}
-            readerRotation={isMobile && currentQuestionIndex % 2 === 1 ? 180 : 0}
+            readerRotation={isMobile && alternateReaderSide && currentQuestionIndex % 2 === 1 ? 180 : 0}
             sessionEntryId={sessionEntryId}
           />
 

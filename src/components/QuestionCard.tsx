@@ -11,10 +11,12 @@ import Card from "./Card";
 import CardEnergyIcon from "./CardEnergyIcon";
 
 interface QuestionCardProps {
+  backContent?: React.ReactNode;
   currentQuestionIndex: number;
   direction: number;
   isCardFlipped: boolean;
   currentQuestion: any;
+  frontContent?: React.ReactNode;
   isWildcard: boolean;
   cardColor: string;
   textColor: string;
@@ -24,10 +26,12 @@ interface QuestionCardProps {
 }
 
 const QuestionCard: React.FC<QuestionCardProps> = ({
+  backContent,
   currentQuestionIndex,
   direction,
   isCardFlipped,
   currentQuestion,
+  frontContent,
   cardColor,
   textColor,
   onCardClick,
@@ -102,6 +106,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
     }),
   };
   const isSessionEntry = currentQuestionIndex === 0 && Boolean(sessionEntryId);
+  const canFlip = Boolean(currentQuestion?.more) || backContent !== undefined;
 
   return (
     <div className="flex justify-center items-center">
@@ -159,10 +164,10 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
                   the near edge visibly wider than the far edge during the flip. */}
               <div
                 className={`relative h-full w-full ${
-                  currentQuestion?.more ? "cursor-pointer" : "cursor-default"
+                  canFlip ? "cursor-pointer" : "cursor-default"
                 }`}
                 data-card-flip-target
-                onClick={currentQuestion?.more ? onCardClick : undefined}
+                onClick={canFlip ? onCardClick : undefined}
                 style={{
                   borderRadius: "1.5rem",
                   perspective: "1000px",
@@ -181,7 +186,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
                     ease: [0.16, 1, 0.3, 1],
                   }}
                   className={`absolute inset-0 text-center shadow-2xl ${
-                    currentQuestion?.more ? "cursor-pointer" : "cursor-default"
+                    canFlip ? "cursor-pointer" : "cursor-default"
                   } ${
                     isCardFlipped ? "pointer-events-none" : ""
                   }`}
@@ -200,24 +205,26 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
                       style={{ color: textColor }}
                     />
                   ) : null}
-                  <div className="text-center h-full flex flex-col justify-center">
-                    <h2
-                      className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight font-sans tracking-tight px-2"
-                      style={{ color: textColor }}
-                    >
-                      {currentQuestion?.question
-                        ? currentQuestion.question
-                            .split("\n")
-                            .map((line: string, idx: number) => (
-                              <span key={idx}>
-                                {line}
-                                {idx !==
-                                  currentQuestion.question.split("\n").length - 1 && <br />}
-                              </span>
-                            ))
-                        : null}
-                    </h2>
-                  </div>
+                  {frontContent ?? (
+                    <div className="text-center h-full flex flex-col justify-center">
+                      <h2
+                        className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight font-sans tracking-tight px-2"
+                        style={{ color: textColor }}
+                      >
+                        {currentQuestion?.question
+                          ? currentQuestion.question
+                              .split("\n")
+                              .map((line: string, idx: number) => (
+                                <span key={idx}>
+                                  {line}
+                                  {idx !==
+                                    currentQuestion.question.split("\n").length - 1 && <br />}
+                                </span>
+                              ))
+                          : null}
+                      </h2>
+                    </div>
+                  )}
                 </Card>
 
                 <Card
@@ -249,39 +256,41 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
                       style={{ color: textColor }}
                     />
                   ) : null}
-                  <div className="h-full w-full overflow-y-auto text-left">
-                    <div className="space-y-3">
-                      {Array.isArray(currentQuestion?.more)
-                        ? currentQuestion.more.map(
-                            (option: string, index: number) => (
-                              <p
-                                key={index}
-                                className="text-xs font-light leading-relaxed sm:text-sm"
-                                style={{ color: textColor }}
-                              >
-                                • {option}
-                              </p>
-                            )
-                          )
-                        : Object.entries(currentQuestion?.more ?? {}).map(
-                            ([key, value]) => (
-                              <p
-                                key={key}
-                                className="text-xs font-light leading-relaxed sm:text-sm"
-                                style={{ color: textColor }}
-                              >
-                                <span
-                                  className="font-medium"
+                  {backContent ?? (
+                    <div className="h-full w-full overflow-y-auto text-left">
+                      <div className="space-y-3">
+                        {Array.isArray(currentQuestion?.more)
+                          ? currentQuestion.more.map(
+                              (option: string, index: number) => (
+                                <p
+                                  key={index}
+                                  className="text-xs font-light leading-relaxed sm:text-sm"
                                   style={{ color: textColor }}
                                 >
-                                  {key}.
-                                </span>{" "}
-                                {value as string}
-                              </p>
+                                  • {option}
+                                </p>
+                              )
                             )
-                          )}
+                          : Object.entries(currentQuestion?.more ?? {}).map(
+                              ([key, value]) => (
+                                <p
+                                  key={key}
+                                  className="text-xs font-light leading-relaxed sm:text-sm"
+                                  style={{ color: textColor }}
+                                >
+                                  <span
+                                    className="font-medium"
+                                    style={{ color: textColor }}
+                                  >
+                                    {key}.
+                                  </span>{" "}
+                                  {value as string}
+                                </p>
+                              )
+                            )}
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </Card>
                 </div>
             </motion.div>
