@@ -2620,6 +2620,88 @@ body {
   cursor: not-allowed;
 }
 
+.account-delete-section {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 0.35rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid color-mix(in srgb, var(--material-ink) 10%, transparent);
+}
+
+.account-delete-section h3,
+.account-delete-confirmation h4 {
+  margin: 0;
+  color: var(--material-ink);
+  font-size: 0.9rem;
+  font-weight: 850;
+  letter-spacing: -0.02em;
+}
+
+.account-delete-section p,
+.account-delete-confirmation p {
+  margin: 0.35rem 0 0;
+  color: var(--material-muted-ink);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.account-delete-trigger,
+.account-delete-cancel,
+.account-delete-confirm {
+  min-height: 2.45rem;
+  border-radius: 999px;
+  padding: 0.55rem 0.9rem;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.account-delete-trigger {
+  justify-self: start;
+  border: 1px solid color-mix(in srgb, var(--material-error) 55%, transparent);
+  color: var(--material-error);
+  background: transparent;
+}
+
+.account-delete-confirmation {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.95rem;
+  border-radius: 0.95rem;
+  background: color-mix(in srgb, var(--material-error) 8%, var(--paper-card));
+}
+
+.account-delete-confirmation .account-field { gap: 0.35rem; }
+.account-delete-confirmation .account-field input { border-color: color-mix(in srgb, var(--material-error) 34%, var(--material-border)); }
+
+.account-delete-actions { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+
+.account-delete-cancel {
+  border: 1px solid color-mix(in srgb, var(--material-ink) 18%, transparent);
+  color: var(--material-ink);
+  background: var(--paper-card);
+}
+
+.account-delete-confirm {
+  border: 0;
+  color: var(--material-surface);
+  background: var(--material-error);
+}
+
+.account-delete-confirm:disabled,
+.account-delete-cancel:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.account-delete-trigger:focus-visible,
+.account-delete-cancel:focus-visible,
+.account-delete-confirm:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--material-error) 70%, transparent);
+  outline-offset: 3px;
+}
+
 .account-topics-content {
   display: grid;
   gap: 1.35rem;

@@ -198,7 +198,7 @@ export default function MyTopicsPanel({ onClose, onTopicsChanged, onUseTopic }: 
                 <p>{t("account.myTopicsBody")}</p>
               </div>
 
-              <ProfileEditor />
+              <ProfileEditor onAccountDeleted={onClose} />
 
               <div className="account-topics-content">
                 <button className="account-create-button" type="button" onClick={() => setStudioTopic("new")}>

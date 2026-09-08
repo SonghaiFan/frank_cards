@@ -32,3 +32,6 @@ content_path = "./supabase/templates/recovery.html"
 [auth.email.template.magic_link]
 subject = "Your FrankCards sign-in link"
 content_path = "./supabase/templates/magic_link.html"
+
+[functions.delete-account]
+verify_jwt = true

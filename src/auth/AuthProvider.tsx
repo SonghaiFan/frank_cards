@@ -36,6 +36,7 @@ interface AuthContextValue {
   finishPasswordRecovery: () => void;
   updateProfile: (displayName: string) => Promise<void>;
   uploadAvatar: (file: File) => Promise<void>;
+  deleteAccount: () => Promise<void>;
   signOut: () => Promise<void>;
 }
 
@@ -352,6 +353,41 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [configured, session?.user.id]);
 
+  const deleteAccount = useCallback(async () => {
+    if (!configured || !session?.user.id) {
+      throw new Error("You need to be signed in to delete an account.");
+    }
+
+    setIsWorking(true);
+    setError(null);
+    try {
+      const client = await getSupabaseClient();
+      const { data, error: deleteError } = await client.functions.invoke<{ deleted?: boolean }>("delete-account", {
+        body: { confirmation: "DELETE" },
+      });
+      if (deleteError || !data?.deleted) {
+        throw new Error("Your account could not be deleted. Please try again or contact FrankCards support.");
+      }
+
+      // The server invalidates the account first. Clear this device's persisted
+      // session independently, so the UI does not wait for an auth event.
+      await client.auth.signOut({ scope: "local" }).catch(() => undefined);
+      setSession(null);
+      setStatus("anonymous");
+      setIsPasswordRecovery(false);
+      setProfile(null);
+      setIsAdmin(false);
+    } catch (deleteError) {
+      const message = deleteError instanceof Error
+        ? deleteError.message
+        : "Your account could not be deleted. Please try again or contact FrankCards support.";
+      setError(message);
+      throw new Error(message);
+    } finally {
+      setIsWorking(false);
+    }
+  }, [configured, session?.user.id]);
+
   const signOut = useCallback(async () => {
     if (!configured) return;
 
@@ -395,10 +431,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     finishPasswordRecovery,
     updateProfile,
     uploadAvatar,
+    deleteAccount,
     signOut,
   }), [
     clearError,
     clearProfileError,
+    deleteAccount,
     error,
     finishPasswordRecovery,
     isAdmin,

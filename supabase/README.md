@@ -43,6 +43,18 @@ Database migrations do not upload hosted Auth email templates. In the Supabase D
 
 Save each template separately. The HTML uses Supabase's `{{ .ConfirmationURL }}` variable, includes a plain fallback link, and carries the FrankCards signature. The handwritten wordmark is served as a PNG from the public GitHub repository through jsDelivr for broad email-client support, so push `public/frank-signature-email.png` before testing the hosted templates. The matching entries in `supabase/config.toml` apply to the local Supabase stack after restarting it with `supabase stop && supabase start`.
 
+## Account deletion Edge Function
+
+The authenticated `delete-account` function deletes the caller's avatar storage objects before permanently deleting their Auth user. The existing foreign keys then cascade to their profile, topics, and likes.
+
+Deploy it with:
+
+```bash
+supabase functions deploy delete-account
+```
+
+Do not set or expose a service-role key in the Vite app. Supabase provides `SUPABASE_SERVICE_ROLE_KEY` to the deployed function. Test with a disposable user first because deletion is permanent.
+
 ## Community review workflow
 
 User-created topics are private drafts by default. A creator can submit a draft for review, but cannot publish it directly. An administrator can preview the pending topic and either:

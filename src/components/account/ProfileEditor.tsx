@@ -4,10 +4,18 @@ import { faCamera, faCheck, faChevronDown } from "@fortawesome/free-solid-svg-ic
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../auth/AuthProvider";
 
-export default function ProfileEditor() {
+interface ProfileEditorProps {
+  onAccountDeleted: () => void;
+}
+
+export default function ProfileEditor({ onAccountDeleted }: ProfileEditorProps) {
   const { t } = useTranslation();
   const {
+    clearError,
     clearProfileError,
+    deleteAccount,
+    error,
+    isWorking,
     isProfileLoading,
     isProfileWorking,
     profile,
@@ -19,6 +27,8 @@ export default function ProfileEditor() {
   const [displayName, setDisplayName] = useState(profile?.display_name ?? "");
   const [saved, setSaved] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [deleteConfirmation, setDeleteConfirmation] = useState("");
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
   useEffect(() => {
     setDisplayName(profile?.display_name ?? "");
@@ -49,6 +59,16 @@ export default function ProfileEditor() {
   };
 
   const fallbackInitial = (profile?.display_name || user?.email || "F").trim().charAt(0).toUpperCase();
+
+  const requestAccountDeletion = async () => {
+    if (deleteConfirmation !== "DELETE") return;
+    try {
+      await deleteAccount();
+      onAccountDeleted();
+    } catch {
+      // AuthProvider exposes a readable error for the confirmation panel.
+    }
+  };
 
   return (
     <section
@@ -120,6 +140,38 @@ export default function ProfileEditor() {
             <span>{t(saved ? "account.profileSaved" : isProfileWorking ? "account.profileSaving" : "account.saveProfile")}</span>
           </button>
         </form>
+
+        <section className="account-delete-section" aria-labelledby="account-delete-title">
+          <div>
+            <h3 id="account-delete-title">{t("account.deleteAccountTitle")}</h3>
+            <p>{t("account.deleteAccountBody")}</p>
+          </div>
+          {isDeleteOpen ? (
+            <div className="account-delete-confirmation" role="alertdialog" aria-labelledby="account-delete-confirm-title">
+              <h4 id="account-delete-confirm-title">{t("account.deleteAccountConfirmTitle")}</h4>
+              <p>{t("account.deleteAccountConfirmBody")}</p>
+              <label className="account-field" htmlFor="account-delete-confirmation">
+                <span>{t("account.deleteAccountPhraseLabel")}</span>
+                <input
+                  id="account-delete-confirmation"
+                  type="text"
+                  value={deleteConfirmation}
+                  onChange={(event) => { setDeleteConfirmation(event.target.value); if (error) clearError(); }}
+                  autoComplete="off"
+                  disabled={isWorking}
+                  placeholder="DELETE"
+                />
+              </label>
+              {error ? <p className="account-field-error" role="alert">{error}</p> : null}
+              <div className="account-delete-actions">
+                <button className="account-delete-cancel" type="button" onClick={() => { setDeleteConfirmation(""); setIsDeleteOpen(false); clearError(); }} disabled={isWorking}>{t("account.cancel")}</button>
+                <button className="account-delete-confirm" type="button" onClick={() => void requestAccountDeletion()} disabled={deleteConfirmation !== "DELETE" || isWorking}>{t(isWorking ? "account.deletingAccount" : "account.deleteAccountConfirm")}</button>
+              </div>
+            </div>
+          ) : (
+            <button className="account-delete-trigger" type="button" onClick={() => { clearError(); setIsDeleteOpen(true); }}>{t("account.deleteAccount")}</button>
+          )}
+        </section>
       </div>
     </section>
   );
