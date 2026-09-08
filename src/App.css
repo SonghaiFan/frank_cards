@@ -2632,19 +2632,17 @@ body {
 
 .account-topic-list {
   display: grid;
-  gap: clamp(2rem, 5vw, 3rem);
+  gap: clamp(1.5rem, 4vw, 3rem);
 }
 
 .account-topic-pack {
   position: relative;
-  padding: 0.75rem 0 1rem;
 }
 
 .account-topic-pack-preview {
   display: grid;
   min-width: 0;
   place-items: center;
-  padding: 0.75rem 0 1rem;
   isolation: isolate;
 }
 
@@ -2658,11 +2656,17 @@ body {
   max-width: 100%;
 }
 
-.account-topic-pack-status {
+.account-topic-pack-status-wrap {
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
   z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.account-topic-pack-status {
   display: inline-flex;
   align-items: center;
   pointer-events: none;
@@ -2673,6 +2677,71 @@ body {
   font-size: 0.68rem;
   font-weight: 720;
   white-space: nowrap;
+}
+
+.account-topic-review-trigger {
+  display: grid;
+  width: 1.55rem;
+  height: 1.55rem;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  padding: 0;
+  background: color-mix(in srgb, var(--material-error) 10%, var(--material-input));
+  cursor: pointer;
+}
+
+.account-topic-review-trigger > span {
+  width: 0.48rem;
+  height: 0.48rem;
+  border-radius: 999px;
+  background: var(--material-error);
+  box-shadow: 0 0 0 0.18rem color-mix(in srgb, var(--material-error) 12%, transparent);
+}
+
+.account-topic-review-trigger[aria-expanded="true"] {
+  background: color-mix(in srgb, var(--material-error) 18%, var(--material-input));
+}
+
+.account-topic-review-popover {
+  position: absolute;
+  top: 3.25rem;
+  right: 0.75rem;
+  z-index: 40;
+  width: min(18rem, calc(100% - 1.5rem));
+  max-height: 10rem;
+  overflow-y: auto;
+  border-radius: 1rem;
+  padding: 1rem 2.6rem 1rem 1rem;
+  color: color-mix(in srgb, var(--material-error) 72%, var(--material-ink));
+  background: color-mix(in srgb, var(--material-surface) 94%, transparent);
+  box-shadow: 0 12px 30px var(--material-shadow-mid);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.account-topic-review-popover > button {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  display: grid;
+  width: 1.8rem;
+  height: 1.8rem;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  padding: 0;
+  color: inherit;
+  background: color-mix(in srgb, var(--material-error) 9%, transparent);
+  cursor: pointer;
+}
+
+.account-topic-review-popover > p {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 680;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 .account-topics-state {
@@ -2709,15 +2778,21 @@ body {
   font-size: 0.8rem;
 }
 
-.account-topic-pack-actions {
+.account-topic-pack-actions-slot {
   position: relative;
   z-index: 30;
-  display: inline-flex;
+  display: grid;
+  width: 100%;
+  place-items: center;
+  overflow: hidden;
+}
+
+.account-topic-pack-actions {
+  display: flex;
   width: max-content;
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
-  margin: 0.65rem auto 0;
 }
 
 .account-topic-pack-action {
@@ -2779,15 +2854,6 @@ body {
 .custom-library-collections button:focus-visible {
   outline: 3px solid color-mix(in srgb, var(--material-ink) 62%, transparent);
   outline-offset: 3px;
-}
-
-.account-topic-rejection {
-  padding: 0.85rem 1rem;
-  border-radius: 0.85rem;
-  color: color-mix(in srgb, var(--material-error) 76%, var(--material-ink)) !important;
-  background: color-mix(in srgb, var(--material-error) 10%, transparent);
-  font-size: 0.84rem;
-  font-weight: 700;
 }
 
 .admin-review-sheet {
@@ -5284,14 +5350,6 @@ body {
   .account-create-button {
     width: 100%;
     justify-self: stretch;
-  }
-
-  .account-topic-pack {
-    padding-block: 0.35rem 1.4rem;
-  }
-
-  .account-topic-pack-preview {
-    padding: 0.5rem 0 1.15rem;
   }
 
   .account-topic-pack-action {

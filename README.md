@@ -8,7 +8,7 @@
 
 为伴侣、朋友、家人，以及刚刚认识的人准备的对话卡牌。
 
-[在线使用](https://frank-cards.vercel.app/) · [下载 v2.1.0](https://github.com/SonghaiFan/frank_cards/releases/tag/v2.1.0) · [全部版本](https://github.com/SonghaiFan/frank_cards/releases) · **中文** / [English](public/README-EN.md)
+[在线使用](https://frank-cards.vercel.app/) · **中文** / [English](public/README-EN.md)
 
 </div>
 
@@ -40,11 +40,9 @@ FrankCards 把不容易开口的问题放进一场有节奏的卡牌体验里。
   </tr>
 </table>
 
-## 下载
+## 使用方式
 
-v2.1.0 提供 macOS（Apple Silicon 与 Intel）以及 Windows（`.exe` 与 `.msi`）安装包。前往 [Release 页面](https://github.com/SonghaiFan/frank_cards/releases/tag/v2.1.0) 下载。
-
-> macOS 版本目前尚未进行 Apple notarization，首次打开时系统可能显示安全提醒。
+FrankCards 目前提供网页端体验；iOS 版本将通过 App Store 发布。GitHub 用于维护源码与开发协作，不再提供桌面安装包下载。
 
 <details>
 <summary><strong>本地运行与参与开发</strong></summary>

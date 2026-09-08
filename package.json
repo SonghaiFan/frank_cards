@@ -1,7 +1,7 @@
 {
   "name": "frankcards",
   "private": true,
-  "version": "2.1.0",
+  "version": "1.0.0",
   "type": "module",
   "description": "Thoughtfully curated conversation cards for deeper human connection",
   "author": "FrankCards",

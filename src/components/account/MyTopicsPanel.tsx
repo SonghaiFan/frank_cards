@@ -40,6 +40,7 @@ export default function MyTopicsPanel({ onClose, onTopicsChanged, onUseTopic }: 
   const [studioTopic, setStudioTopic] = useState<TopicRecord | "new" | null>(null);
   const [hoveredTopicId, setHoveredTopicId] = useState<string | null>(null);
   const [selectedTopicId, setSelectedTopicId] = useState<string | null>(null);
+  const [reviewTopicId, setReviewTopicId] = useState<string | null>(null);
   const [deleteCandidate, setDeleteCandidate] = useState<TopicRecord | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [workingTopicId, setWorkingTopicId] = useState<string | null>(null);
@@ -68,13 +69,15 @@ export default function MyTopicsPanel({ onClose, onTopicsChanged, onUseTopic }: 
       if (event.key !== "Escape") return;
       if (deleteCandidate) {
         setDeleteCandidate(null);
+      } else if (reviewTopicId) {
+        setReviewTopicId(null);
       } else if (studioTopic === null) {
         onClose();
       }
     };
     window.addEventListener("keydown", handleEscape);
     return () => window.removeEventListener("keydown", handleEscape);
-  }, [deleteCandidate, onClose, studioTopic]);
+  }, [deleteCandidate, onClose, reviewTopicId, studioTopic]);
 
   const handleStudioSave = async (input: SaveTopicInput) => {
     const repository = await loadRepository();
@@ -236,7 +239,12 @@ export default function MyTopicsPanel({ onClose, onTopicsChanged, onUseTopic }: 
                       );
 
                       return (
-                        <article className={`account-topic-pack${isSelected ? " is-selected" : ""}`} key={topic.id}>
+                        <motion.article
+                          layout="position"
+                          transition={{ layout: { duration: 0.24, ease: [0.22, 1, 0.36, 1] } }}
+                          className={`account-topic-pack${isSelected ? " is-selected" : ""}`}
+                          key={topic.id}
+                        >
                           <div className={`account-topic-pack-preview${canPlay ? "" : " is-disabled"}`}>
                             <div className="account-topic-pack-shell">
                               <CardPack
@@ -247,6 +255,7 @@ export default function MyTopicsPanel({ onClose, onTopicsChanged, onUseTopic }: 
                                 onToggle={() => {
                                   setSelectedTopicId((current) => current === topic.id ? null : topic.id);
                                   setDeleteCandidate(null);
+                                  setReviewTopicId(null);
                                 }}
                                 onHoverStart={() => setHoveredTopicId(topic.id)}
                                 onHoverEnd={() => setHoveredTopicId(null)}
@@ -257,36 +266,69 @@ export default function MyTopicsPanel({ onClose, onTopicsChanged, onUseTopic }: 
                                 className="account-topic-pack-card cursor-pointer relative"
                               />
 
-                              <span className="account-topic-pack-status">{t(`account.status.${topic.status}`)}</span>
+                              <div className="account-topic-pack-status-wrap">
+                                <span className="account-topic-pack-status">{t(`account.status.${topic.status}`)}</span>
+                                {topic.rejectionReason ? (
+                                  <button
+                                    className="account-topic-review-trigger"
+                                    type="button"
+                                    aria-expanded={reviewTopicId === topic.id}
+                                    aria-label={t("account.rejectionReason", { reason: topic.rejectionReason })}
+                                    title={t("account.rejectionReason", { reason: topic.rejectionReason })}
+                                    onClick={() => setReviewTopicId((current) => current === topic.id ? null : topic.id)}
+                                  >
+                                    <span aria-hidden="true" />
+                                  </button>
+                                ) : null}
+                              </div>
+
+                              <AnimatePresence initial={false}>
+                                {reviewTopicId === topic.id && topic.rejectionReason ? (
+                                  <motion.aside
+                                    className="account-topic-review-popover"
+                                    role="note"
+                                    initial={{ opacity: 0, y: -5, scale: 0.98 }}
+                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                    exit={{ opacity: 0, y: -4, scale: 0.98 }}
+                                  >
+                                    <button type="button" onClick={() => setReviewTopicId(null)} aria-label={t("account.close")}>
+                                      <FontAwesomeIcon icon={faXmark} />
+                                    </button>
+                                    <p>{t("account.rejectionReason", { reason: topic.rejectionReason })}</p>
+                                  </motion.aside>
+                                ) : null}
+                              </AnimatePresence>
 
                               <AnimatePresence initial={false}>
                                 {isSelected ? (
-                                  <motion.div className="account-topic-pack-actions" initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}>
-                                    {deleteCandidate?.id === topic.id ? (
-                                      <>
-                                        <button className="account-topic-pack-action" type="button" onClick={() => setDeleteCandidate(null)} disabled={workingTopicId === topic.id} aria-label={t("account.cancel")} title={t("account.cancel")}><FontAwesomeIcon icon={faXmark} /></button>
-                                        <button className="account-topic-pack-action account-topic-pack-delete account-topic-pack-delete-confirm" type="button" onClick={() => void handleDeleteTopic(topic)} disabled={workingTopicId === topic.id} aria-label={t("account.deleteTopicConfirm", { title: topic.game.app.title })} title={t("account.deleteTopicConfirm", { title: topic.game.app.title })}><FontAwesomeIcon icon={faTrash} /><span>{t("account.confirmDelete")}</span></button>
-                                      </>
-                                    ) : (
-                                      <>
-                                        <button className="account-topic-pack-action" type="button" onClick={() => handleUseTopic(topic)} disabled={!canPlay} aria-label={t("account.useTopic")} title={t("account.useTopic")}><FontAwesomeIcon icon={faPlay} /></button>
-                                        <button className="account-topic-pack-action" type="button" onClick={() => setStudioTopic(topic)} aria-label={t("account.editTopic")} title={t("account.editTopic")}><FontAwesomeIcon icon={faPen} /></button>
-                                        <button className="account-topic-pack-action" type="button" onClick={() => void handleWorkflowAction(topic)} disabled={workingTopicId === topic.id || !canPlay} aria-label={workflowLabel} title={workflowLabel}><FontAwesomeIcon icon={topic.status === "draft" || topic.status === "rejected" ? faGlobe : faRotateLeft} /></button>
-                                        <button className="account-topic-pack-action account-topic-pack-delete" type="button" onClick={() => setDeleteCandidate(topic)} disabled={workingTopicId === topic.id} aria-label={t("account.deleteTopic")} title={t("account.deleteTopic")}><FontAwesomeIcon icon={faTrash} /></button>
-                                      </>
-                                    )}
+                                  <motion.div
+                                    className="account-topic-pack-actions-slot"
+                                    initial={{ height: 0, marginTop: 0, opacity: 0 }}
+                                    animate={{ height: "2.75rem", marginTop: "0.65rem", opacity: 1 }}
+                                    exit={{ height: 0, marginTop: 0, opacity: 0 }}
+                                  >
+                                    <div className="account-topic-pack-actions">
+                                      {deleteCandidate?.id === topic.id ? (
+                                        <>
+                                          <button className="account-topic-pack-action" type="button" onClick={() => setDeleteCandidate(null)} disabled={workingTopicId === topic.id} aria-label={t("account.cancel")} title={t("account.cancel")}><FontAwesomeIcon icon={faXmark} /></button>
+                                          <button className="account-topic-pack-action account-topic-pack-delete account-topic-pack-delete-confirm" type="button" onClick={() => void handleDeleteTopic(topic)} disabled={workingTopicId === topic.id} aria-label={t("account.deleteTopicConfirm", { title: topic.game.app.title })} title={t("account.deleteTopicConfirm", { title: topic.game.app.title })}><FontAwesomeIcon icon={faTrash} /><span>{t("account.confirmDelete")}</span></button>
+                                        </>
+                                      ) : (
+                                        <>
+                                          <button className="account-topic-pack-action" type="button" onClick={() => handleUseTopic(topic)} disabled={!canPlay} aria-label={t("account.useTopic")} title={t("account.useTopic")}><FontAwesomeIcon icon={faPlay} /></button>
+                                          <button className="account-topic-pack-action" type="button" onClick={() => setStudioTopic(topic)} aria-label={t("account.editTopic")} title={t("account.editTopic")}><FontAwesomeIcon icon={faPen} /></button>
+                                          <button className="account-topic-pack-action" type="button" onClick={() => void handleWorkflowAction(topic)} disabled={workingTopicId === topic.id || !canPlay} aria-label={workflowLabel} title={workflowLabel}><FontAwesomeIcon icon={topic.status === "draft" || topic.status === "rejected" ? faGlobe : faRotateLeft} /></button>
+                                          <button className="account-topic-pack-action account-topic-pack-delete" type="button" onClick={() => setDeleteCandidate(topic)} disabled={workingTopicId === topic.id} aria-label={t("account.deleteTopic")} title={t("account.deleteTopic")}><FontAwesomeIcon icon={faTrash} /></button>
+                                        </>
+                                      )}
+                                    </div>
                                   </motion.div>
                                 ) : null}
                               </AnimatePresence>
                             </div>
                           </div>
 
-                          {isSelected && topic.rejectionReason ? (
-                            <p className="account-topic-rejection" role="note">
-                              {t("account.rejectionReason", { reason: topic.rejectionReason })}
-                            </p>
-                          ) : null}
-                        </article>
+                        </motion.article>
                       );
                     })}
                   </div>

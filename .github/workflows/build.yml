@@ -1,33 +1,18 @@
-name: Build and Release
+name: Web CI
 
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - main
+  pull_request:
   workflow_dispatch:
 
-# Add permissions for the GitHub token to create releases
 permissions:
-  contents: write
-  packages: write
+  contents: read
 
 jobs:
-  build:
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - platform: macos-latest
-            args: "--target aarch64-apple-darwin"
-            arch: "silicon"
-          - platform: macos-latest
-            args: "--target x86_64-apple-darwin"
-            arch: "intel"
-          - platform: windows-latest
-            args: ""
-            arch: "windows"
-
-    runs-on: ${{ matrix.platform }}
+  verify-web:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -39,46 +24,14 @@ jobs:
           node-version: "20"
           cache: "npm"
 
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows builds.
-          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
-
-      - name: Rust cache
-        uses: swatinem/rust-cache@v2
-        with:
-          workspaces: "./src-tauri -> target"
-
-      - name: Install frontend dependencies
+      - name: Install dependencies
         run: npm ci
 
-      - name: Verify account configuration
-        shell: bash
+      - name: Type check
+        run: npx tsc --noEmit
+
+      - name: Build web app
         env:
-          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
-        run: node -e "if (!process.env.VITE_SUPABASE_URL || !process.env.VITE_SUPABASE_PUBLISHABLE_KEY) { throw new Error('Missing VITE_SUPABASE_URL or VITE_SUPABASE_PUBLISHABLE_KEY GitHub Actions secret') }"
-
-      - name: Build the app
-        uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
-        with:
-          tagName: v__VERSION__
-          releaseName: "FrankCards v__VERSION__"
-          releaseBody: |
-            FrankCards v2.1.0 brings a more direct voice to every built-in pack.
-
-            - Rewritten English and Chinese questions across all 22 packs
-            - Bouba and Kiki card energies for gentle and sharper conversations
-            - Separate Official and moderated Community collections in Custom Mode
-            - Editable creator packs with submission and admin review
-            - Improved email verification, password recovery, and mobile navigation
-
-            Download the installer for your Mac or Windows PC from the assets below.
-          releaseDraft: false
-          prerelease: false
-          args: ${{ matrix.args }}
+          VITE_SUPABASE_URL: https://placeholder.invalid
+          VITE_SUPABASE_PUBLISHABLE_KEY: ci-placeholder-key
+        run: npm run build

@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "FrankCards",
-  "version": "2.1.0",
-  "identifier": "com.cuecards.desktop",
+  "version": "1.0.0",
+  "identifier": "com.songhaifan.frankcards",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",

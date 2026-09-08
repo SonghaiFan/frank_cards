@@ -8,7 +8,7 @@
 
 Conversation cards for partners, friends, families, and people who have only just met.
 
-[Use online](https://frank-cards.vercel.app/) · [Download v2.1.0](https://github.com/SonghaiFan/frank_cards/releases/tag/v2.1.0) · [All releases](https://github.com/SonghaiFan/frank_cards/releases) · [中文](../README.md) / **English**
+[Use online](https://frank-cards.vercel.app/) · [中文](../README.md) / **English**
 
 </div>
 
@@ -40,11 +40,9 @@ Built-in packs work without an account. After signing in, create a private pack,
   </tr>
 </table>
 
-## Download
+## How to use FrankCards
 
-v2.1.0 includes installers for macOS (Apple Silicon and Intel) and Windows (`.exe` and `.msi`). Download the right build from the [release page](https://github.com/SonghaiFan/frank_cards/releases/tag/v2.1.0).
-
-> The macOS build is not yet notarized by Apple, so macOS may show a security prompt the first time it opens.
+FrankCards is currently available on the web; the iOS version will be released through the App Store. GitHub is used for source code and development collaboration, not desktop installer downloads.
 
 <details>
 <summary><strong>Run locally or contribute</strong></summary>
