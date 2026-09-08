@@ -58,6 +58,7 @@ body {
 
 /* Dark mode CSS variables */
 :root {
+  --question-card-aspect-ratio: 19 / 11;
   --app-safe-area-top: env(safe-area-inset-top, 0px);
   --app-safe-area-right: env(safe-area-inset-right, 0px);
   --app-safe-area-bottom: env(safe-area-inset-bottom, 0px);
@@ -72,6 +73,20 @@ body {
   --shadow-color: rgba(0, 0, 0, 0.1);
   --slider-track: #f3f4f6;
   --slider-thumb: #1a1a1a;
+}
+
+.game-question-card-frame {
+  height: auto;
+  aspect-ratio: var(--question-card-aspect-ratio);
+}
+
+/* QuestionCard owns the geometry. Card's generic responsive size utilities
+   must never give either face a different height at another breakpoint. */
+.game-question-card-frame .material-card {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  aspect-ratio: inherit;
 }
 
 :root[data-native-platform="ios"] {
@@ -1319,16 +1334,11 @@ body {
   }
 
   .game-question-card-frame {
-    width: min(56vw, 27rem, calc((100dvh - 8.75rem) * 8 / 5));
-    max-width: min(56vw, 27rem, calc((100dvh - 8.75rem) * 8 / 5));
-    height: auto;
-    aspect-ratio: 8 / 5;
+    width: min(56vw, 27rem, calc((100dvh - 8.75rem) * 19 / 11));
+    max-width: min(56vw, 27rem, calc((100dvh - 8.75rem) * 19 / 11));
   }
 
   .game-question-card-frame .material-card {
-    width: 100%;
-    max-width: none;
-    height: 100%;
     padding: 1.5rem 2rem;
   }
 
@@ -1342,6 +1352,10 @@ body {
 
   .game-play-progress-label {
     margin-bottom: 0.25rem;
+  }
+
+  .game-play-keyboard-hints {
+    display: none;
   }
 }
 

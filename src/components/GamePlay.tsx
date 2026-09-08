@@ -379,7 +379,7 @@ const GamePlay: React.FC<GamePlayProps> = ({
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.5 }}
         transition={{ delay: 1 }}
-        className="fixed bottom-4 left-1/2 -translate-x-1/2 text-xs font-light text-center hidden sm:block"
+        className="game-play-keyboard-hints fixed bottom-4 left-1/2 -translate-x-1/2 text-xs font-light text-center hidden sm:block"
         style={{ color: uiColor }}
       >
         <p>{t("navigation.keyboardHints")}</p>

@@ -111,7 +111,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
   return (
     <div className="game-question-card flex justify-center items-center">
       <div
-        className="game-question-card-frame relative aspect-[8/5] perspective-1000 w-[92vw] max-w-[380px] sm:w-[440px] sm:max-w-[440px] md:w-[520px] md:max-w-[520px]"
+        className="game-question-card-frame relative perspective-1000 w-[92vw] max-w-[380px] sm:w-[440px] sm:max-w-[440px] md:w-[520px] md:max-w-[520px]"
         ref={cardRef}
         onPointerMove={handlePointerMove}
         onPointerLeave={handlePointerLeave}
