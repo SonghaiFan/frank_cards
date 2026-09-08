@@ -5,6 +5,7 @@ import { ConversationGame } from "../types/ConversationGame";
 import CategorySelector from "./CategorySelector";
 import TimePercentageSlider from "./TimePercentageSlider";
 import Button from "./Button";
+import AppBackButton from "./AppBackButton";
 
 interface GameSettingsProps {
   game: ConversationGame;
@@ -34,16 +35,7 @@ const GameSettings: React.FC<GameSettingsProps> = ({
   return (
     <div className="theme-canvas h-full w-full overflow-y-auto">
       <div className="min-h-full flex flex-col items-center justify-center px-4 sm:px-8 py-8 sm:py-16">
-        {/* Back Button */}
-        <motion.button
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.3 }}
-          className="theme-interactive-text absolute top-4 left-4 sm:top-8 sm:left-8 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-xl sm:text-2xl transition-colors duration-200"
-          onClick={onBack}
-        >
-          ←
-        </motion.button>
+        <AppBackButton onClick={onBack} />
 
         {/* Main Content Container */}
         <div className="text-center max-w-2xl w-full space-y-8 sm:space-y-10">

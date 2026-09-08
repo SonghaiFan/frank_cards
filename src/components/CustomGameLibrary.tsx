@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "motion/react";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import AppBackButton from "./AppBackButton";
 import { ConversationGame } from "../types/ConversationGame";
 import { useEasterEgg } from "../hooks/useEasterEgg";
 import CardPack from "./CardPack";
@@ -112,20 +113,7 @@ const GameLibrary: React.FC<GameLibraryProps> = ({ games, communityGames, select
 
   return (
     <div className="custom-game-library h-full w-full flex flex-col items-center px-4 sm:px-8 py-8 sm:py-16 overflow-y-auto relative">
-      {/* Back Button */}
-      <motion.button
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.3 }}
-        aria-label={t("common.back")}
-        className="custom-library-back theme-interactive-text absolute w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center text-xl sm:text-2xl transition-colors duration-200 z-50"
-        onClick={onBackToQuick}
-        title={t("common.back")}
-        type="button"
-        whileTap={{ scale: 0.96 }}
-      >
-        ←
-      </motion.button>
+      <AppBackButton onClick={onBackToQuick} />
 
       {/* Header with Easter Egg */}
       <motion.div

@@ -16,10 +16,10 @@ const Card: React.FC<CardProps> = ({
   ...motionProps
 }) => {
   const sizeClasses = {
-    small: "w-full max-w-[300px] sm:max-w-[320px] h-[180px] sm:h-[200px]",
-    medium: "w-[90vw] max-w-[360px] sm:max-w-[400px] h-[200px] sm:h-[250px]",
+    small: "aspect-[8/5] w-full max-w-[300px] sm:max-w-[320px]",
+    medium: "aspect-[8/5] w-[90vw] max-w-[360px] sm:max-w-[400px]",
     large:
-      "w-[92vw] max-w-[380px] sm:max-w-[440px] md:max-w-[520px] h-[220px] sm:h-[280px] md:h-[340px]",
+      "aspect-[8/5] w-[92vw] max-w-[380px] sm:max-w-[440px] md:max-w-[520px]",
   };
 
   const variantClasses = {

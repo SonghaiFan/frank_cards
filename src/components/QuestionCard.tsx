@@ -109,9 +109,9 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
   const canFlip = Boolean(currentQuestion?.more) || backContent !== undefined;
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="game-question-card flex justify-center items-center">
       <div
-        className="relative perspective-1000 w-[92vw] max-w-[380px] sm:w-[440px] sm:max-w-[440px] md:w-[520px] md:max-w-[520px] h-[220px] sm:h-[280px] md:h-[340px]"
+        className="game-question-card-frame relative aspect-[8/5] perspective-1000 w-[92vw] max-w-[380px] sm:w-[440px] sm:max-w-[440px] md:w-[520px] md:max-w-[520px]"
         ref={cardRef}
         onPointerMove={handlePointerMove}
         onPointerLeave={handlePointerLeave}

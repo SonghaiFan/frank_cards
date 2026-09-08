@@ -1265,6 +1265,86 @@ body {
   }
 }
 
+/* A phone in landscape crosses the width-based sm/md breakpoints while its
+   available height gets much smaller. Size the play surface from that height
+   so rotating the device never pushes the question card below the viewport. */
+@media screen and (orientation: landscape) and (max-height: 600px) and (max-width: 1023px) {
+  :root[data-native-platform="ios"] {
+    --app-safe-area-top: env(safe-area-inset-top, 0px);
+    --app-safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .game-play-header {
+    min-height: calc(var(--app-safe-area-top) + 3rem);
+    align-items: flex-end;
+    padding:
+      var(--app-safe-area-top)
+      max(0.75rem, var(--app-safe-area-right))
+      0;
+  }
+
+  .game-play-header-progress {
+    display: none;
+  }
+
+  .game-play-main {
+    min-height: 0;
+    padding:
+      0
+      max(2.75rem, calc(var(--app-safe-area-right) + 1rem))
+      0
+      max(2.75rem, calc(var(--app-safe-area-left) + 1rem));
+  }
+
+  .game-play-content {
+    display: grid;
+    justify-items: center;
+  }
+
+  .game-library-figures {
+    width: 28rem;
+  }
+
+  .game-play-category {
+    margin-bottom: 0.35rem;
+  }
+
+  .game-play-description {
+    margin-top: 0.35rem;
+  }
+
+  .game-play-description p {
+    font-size: 0.7rem;
+    line-height: 1.25;
+  }
+
+  .game-question-card-frame {
+    width: min(56vw, 27rem, calc((100dvh - 8.75rem) * 8 / 5));
+    max-width: min(56vw, 27rem, calc((100dvh - 8.75rem) * 8 / 5));
+    height: auto;
+    aspect-ratio: 8 / 5;
+  }
+
+  .game-question-card-frame .material-card {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    padding: 1.5rem 2rem;
+  }
+
+  .game-play-navigation {
+    padding:
+      0.35rem
+      max(1.25rem, var(--app-safe-area-right))
+      max(0.5rem, var(--app-safe-area-bottom))
+      max(1.25rem, var(--app-safe-area-left));
+  }
+
+  .game-play-progress-label {
+    margin-bottom: 0.25rem;
+  }
+}
+
 @media (prefers-reduced-transparency: reduce) {
   .topic-studio-play-header > button,
   .topic-studio-play-header-actions > button,
@@ -3064,17 +3144,26 @@ body {
   z-index: 10;
 }
 
-.custom-library-back {
-  top: max(2rem, calc(var(--app-safe-area-top) + 0.6rem));
+.app-back-button {
+  position: fixed;
+  top: max(1rem, calc(var(--app-safe-area-top) + 0.6rem));
   left: max(1rem, calc(var(--app-safe-area-left) + 1rem));
+  z-index: 50;
+  display: flex;
+  width: 3rem;
+  height: 3rem;
+  align-items: center;
+  justify-content: center;
   border: 1px solid color-mix(in srgb, var(--material-ink) 9%, transparent);
   border-radius: 999px;
   background: color-mix(in srgb, var(--material-canvas) 88%, transparent);
+  font-size: 1.5rem;
   box-shadow: 0 7px 20px var(--material-shadow-soft);
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
   cursor: pointer;
   touch-action: manipulation;
+  transition: color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
 }
 
 .custom-library-title-trigger {

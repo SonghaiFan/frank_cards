@@ -375,7 +375,7 @@ const CardWheel = memo(function CardWheel({
           return (
             <div
               key={game.testID}
-              className="absolute left-4 top-1/2 w-full flex justify-center pointer-events-auto transition-transform duration-75 ease-out"
+              className="absolute left-4 top-1/2 w-full flex transform-gpu justify-center pointer-events-auto will-change-transform"
               style={{
                 marginTop: "-125px",
                 transform: `translateY(${arcY}px) translateX(${translateX}px) rotateZ(${angleDeg}deg) scale(${scale})`,
@@ -773,7 +773,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
             <motion.div
               key="conversation-figures"
               aria-hidden={isCustomMode}
-              className="pointer-events-none absolute inset-y-0 left-1/2 z-[5] w-full -translate-x-1/2 overflow-hidden lg:w-[520px] xl:w-[650px] 2xl:w-[720px]"
+              className="game-library-figures pointer-events-none absolute inset-y-0 left-1/2 z-[5] w-full -translate-x-1/2 overflow-hidden lg:w-[520px] xl:w-[650px] 2xl:w-[720px]"
               initial={false}
               animate={{
                 filter: isCustomMode ? "blur(2px)" : "blur(0px)",
