@@ -110,7 +110,7 @@
     "deleteAccountConfirmBody": "此操作无法撤销。输入 DELETE 后，账号及关联数据将被永久删除。",
     "deleteAccountPhraseLabel": "输入 DELETE 以确认",
     "deleteAccountConfirm": "永久删除账号",
-    "deletingAccount": "正在删除账号",
+    "deletingAccount": "正在删除账号…",
     "likePack": "给这个卡包点赞",
     "unlikePack": "取消点赞",
     "likeError": "暂时无法更新点赞",
@@ -384,7 +384,7 @@
   "quickMode": {
     "title": "聊会儿么",
     "subtitle": "快速模式",
-    "description": "向下滚动，探索对话包。",
+    "description": "向下翻开一段有起承转合的对话。",
     "cta": "开始 ↓",
     "cta2": "就这么多了",
     "switchToCustom": "进入自定义模式",
@@ -394,7 +394,7 @@
   "customMode": {
     "title": "想聊点不一样的",
     "subtitle": "自定义模式",
-    "description": "选择多个对话包，通过组合创造独特的对话体验。",
+    "description": "组合多个卡包，为眼前的人和此刻创造一段有引导的对话。",
     "collectionLabel": "对话包来源",
     "official": "官方",
     "community": "社区",

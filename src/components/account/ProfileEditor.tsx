@@ -147,22 +147,26 @@ export default function ProfileEditor({ onAccountDeleted }: ProfileEditorProps) 
             <p>{t("account.deleteAccountBody")}</p>
           </div>
           {isDeleteOpen ? (
-            <div className="account-delete-confirmation" role="alertdialog" aria-labelledby="account-delete-confirm-title">
+            <div className="account-delete-confirmation" role="group" aria-labelledby="account-delete-confirm-title" aria-describedby="account-delete-confirm-description">
               <h4 id="account-delete-confirm-title">{t("account.deleteAccountConfirmTitle")}</h4>
-              <p>{t("account.deleteAccountConfirmBody")}</p>
+              <p id="account-delete-confirm-description">{t("account.deleteAccountConfirmBody")}</p>
               <label className="account-field" htmlFor="account-delete-confirmation">
                 <span>{t("account.deleteAccountPhraseLabel")}</span>
                 <input
                   id="account-delete-confirmation"
+                  name="account-delete-confirmation"
                   type="text"
                   value={deleteConfirmation}
                   onChange={(event) => { setDeleteConfirmation(event.target.value); if (error) clearError(); }}
                   autoComplete="off"
+                  autoCapitalize="characters"
+                  spellCheck={false}
+                  enterKeyHint="done"
                   disabled={isWorking}
                   placeholder="DELETE"
                 />
               </label>
-              {error ? <p className="account-field-error" role="alert">{error}</p> : null}
+              {error ? <p className="account-field-error" aria-live="polite">{error}</p> : null}
               <div className="account-delete-actions">
                 <button className="account-delete-cancel" type="button" onClick={() => { setDeleteConfirmation(""); setIsDeleteOpen(false); clearError(); }} disabled={isWorking}>{t("account.cancel")}</button>
                 <button className="account-delete-confirm" type="button" onClick={() => void requestAccountDeletion()} disabled={deleteConfirmation !== "DELETE" || isWorking}>{t(isWorking ? "account.deletingAccount" : "account.deleteAccountConfirm")}</button>

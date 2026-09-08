@@ -2648,13 +2648,14 @@ body {
 .account-delete-trigger,
 .account-delete-cancel,
 .account-delete-confirm {
-  min-height: 2.45rem;
+  min-height: 2.75rem;
   border-radius: 999px;
   padding: 0.55rem 0.9rem;
   font: inherit;
   font-size: 0.78rem;
   font-weight: 800;
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 .account-delete-trigger {

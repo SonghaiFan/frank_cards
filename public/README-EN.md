@@ -4,9 +4,9 @@
 
 <img src="icon.png" width="112" alt="FrankCards icon" />
 
-### Turn hard-to-start conversations into cards you can open together.
+### Frankly Talking.
 
-Conversation cards for partners, friends, families, and people who have only just met.
+Turn hard-to-start conversations into cards you can open together—for partners, friends, families, and people who have only just met.
 
 [Use online](https://frank-cards.vercel.app/) · [中文](../README.md) / **English**
 

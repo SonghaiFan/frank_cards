@@ -110,7 +110,7 @@
     "deleteAccountConfirmBody": "This cannot be undone. Type DELETE to permanently remove your account and its associated data.",
     "deleteAccountPhraseLabel": "Type DELETE to confirm",
     "deleteAccountConfirm": "Permanently delete account",
-    "deletingAccount": "Deleting account",
+    "deletingAccount": "Deleting account…",
     "likePack": "Like this pack",
     "unlikePack": "Remove like",
     "likeError": "The like could not be updated",
@@ -383,7 +383,7 @@
   "quickMode": {
     "title": "Have a Talk",
     "subtitle": "Quick Mode",
-    "description": "Scroll down to explore curated conversation packs.",
+    "description": "Scroll into a guided conversation, card by card.",
     "cta": "Start ↓",
     "cta2": "So That's All",
     "switchToCustom": "Enter Custom Mode",
@@ -393,7 +393,7 @@
   "customMode": {
     "title": "Want to chat something different?",
     "subtitle": "Custom Mode",
-    "description": "Select multiple packs to combine them into a unique conversation experience.",
+    "description": "Combine packs into a guided conversation for the people and moment in front of you.",
     "collectionLabel": "Conversation pack source",
     "official": "Official",
     "community": "Community",

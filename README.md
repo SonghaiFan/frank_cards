@@ -4,9 +4,9 @@
 
 <img src="public/icon.png" width="112" alt="FrankCards 图标" />
 
-### 把难开口的话，变成可以一起翻开的卡片。
+### Frankly Talking.
 
-为伴侣、朋友、家人，以及刚刚认识的人准备的对话卡牌。
+把难开口的话，变成可以一起翻开的卡片。为伴侣、朋友、家人，以及刚刚认识的人准备。
 
 [在线使用](https://frank-cards.vercel.app/) · **中文** / [English](public/README-EN.md)
 

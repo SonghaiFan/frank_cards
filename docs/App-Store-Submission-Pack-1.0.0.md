@@ -14,7 +14,7 @@ SKU：`frankcards-ios`
 | 字段 | 建议填写 |
 | --- | --- |
 | App 名称 | FrankCards |
-| 副标题（30 字符内） | Better conversations, one card at a time |
+| 副标题（30 字符内） | Guided talks, card by card |
 | 主类别 | Lifestyle |
 | 次类别 | Entertainment（可选） |
 | 年龄分级 | 按 App Store Connect 问卷如实作答；不要为了取得较低等级而省略敏感主题或用户生成内容。 |
@@ -25,19 +25,19 @@ SKU：`frankcards-ios`
 ### Promotional Text（170 字符内，可后续更新）
 
 ```text
-Make space for the conversations that matter. Explore thoughtful card packs, or shape a private topic of your own.
+Use your phone like a shared card pack. FrankCards guides face-to-face conversations from an easy opening to deeper reflection and a meaningful close.
 ```
 
 ### Description
 
 ```text
-FrankCards helps people make room for better conversations.
+Frankly Talking.
 
-Choose a card pack, take turns, and let one good question lead naturally to the next. Explore a curated set of prompts for quiet reflection, close relationships, friends, family and new connections.
+Use the phone in your hand—or place it between you and use it like a physical card pack. Choose a pack, take turns, and let FrankCards guide the conversation from an easy opening through deeper exploration and reflection to a natural close.
 
 Want something more personal? Create a private topic, shape its cards and categories, and make the conversation fit the people in front of you. You can also submit a topic for Community review.
 
-FrankCards is designed to be calm, clear and easy to pass around: less choosing, more talking.
+FrankCards is designed for face-to-face conversation: not a stream of random prompts, but a thoughtful flow with direction.
 
 Features
 • Curated conversation-card packs
@@ -102,7 +102,7 @@ AI-assisted draft generation is optional. It requires the reviewer to supply an 
 
 这些不是文案问题；在当前代码中还没有完整实现。请先完成，再提交审核。
 
-- [ ] **应用内删除账号**：用户能从已登录界面发起删除；删除 Auth 账号、个人资料、头像、私有主题、点赞，以及其公开主题的处理方式必须符合隐私政策并真正执行。
+- [ ] **应用内删除账号**：代码、远端 Edge Function 与数据库级联已完成；使用临时账号在真机完成一次端到端删除验收后勾选。
 - [ ] **用户生成内容安全机制**：公开 Community 内容须有举报入口、拉黑用户能力，以及可见的联系渠道；当前已有提交前审核流程，但尚未发现举报与拉黑功能。
 - [x] **Privacy Policy 页面**：`/privacy/` 已列明数据类别、用途、Supabase 与可选 AI 供应商、保留/删除方式及联系方法；推送并部署后才可填入 App Store Connect。
 - [x] **Support 页面**：`/support/` 已提供联系邮箱、常见问题与账号删除请求说明；推送并部署后才可填入 App Store Connect。

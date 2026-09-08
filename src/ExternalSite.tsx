@@ -4,7 +4,7 @@ type ExternalPage = "marketing" | "privacy" | "support";
 
 const Brand = () => (
   <a className="site-brand" href="/" aria-label="FrankCards home">
-    <img src="/frank-signature.svg" alt="Frank" />
+    <img src="/frank-signature.svg" alt="Frank" width="78" height="33" />
     <strong>Cards</strong>
   </a>
 );
@@ -33,20 +33,20 @@ function MarketingPage() {
       <main>
         <section className="marketing-hero" aria-labelledby="marketing-title">
           <div className="marketing-copy">
-            <h1 id="marketing-title">A good question changes the room.</h1>
-            <p>FrankCards helps people put their phones down, take turns, and make space for the conversations that matter.</p>
+            <h1 id="marketing-title">Frankly Talking.</h1>
+            <p>Use the phone in your hand—or place it between you and use it like a physical card pack. FrankCards guides a face-to-face conversation from the first question to a meaningful close.</p>
             <div className="marketing-actions">
               <a className="button" href="/">Open FrankCards</a>
               <a className="button secondary" href="/support/">Get support</a>
             </div>
           </div>
           <figure className="marketing-art">
-            <img src="/media/frankcards-flat-conversation.jpg" alt="Two people sharing coffee and conversation cards at a table" />
+            <img src="/media/frankcards-flat-conversation.jpg" alt="Two people sharing coffee and conversation cards at a table" width="1536" height="1024" />
           </figure>
         </section>
         <section className="marketing-note" aria-label="About FrankCards">
-          <h2>Less choosing. More talking.</h2>
-          <p>Start with a curated pack, or make a private topic that fits the people in front of you. Every card gives the next person somewhere honest to begin.</p>
+          <h2>A conversation with direction.</h2>
+          <p>Each pack follows a thoughtful flow—from an easy opening, through deeper exploration and reflection, to a natural close. Start with a curated pack, or create one for the people and moment in front of you.</p>
         </section>
       </main>
       <Footer page="marketing" />
@@ -71,7 +71,7 @@ function SupportPage() {
               <details><summary>Why do I need an account?</summary><p>Built-in packs can be explored without an account. An account is needed to create and save your own topics, upload an avatar, like Community packs, or submit a topic for review.</p></details>
               <details><summary>How do Community topics work?</summary><p>Topics you create stay private until you submit them. Community submissions are reviewed before they are published.</p></details>
               <details><summary>What happens when I use AI-assisted drafting?</summary><p>It is optional. Your topic and card settings are sent to the compatible AI provider you select. Your API key is used for that request and is not saved by FrankCards.</p></details>
-              <details><summary>How can I request account deletion?</summary><p>Email us from the address linked to your account with the subject “FrankCards account deletion”. Include the email address of the account you want removed. We will verify the request before processing it.</p></details>
+              <details><summary>How do I delete my account?</summary><p>In FrankCards, open My Topics, expand Public profile, and choose Delete account. Type DELETE to confirm permanent removal of your account and associated data. If you cannot access the app, contact us from the email address linked to your account.</p></details>
             </div>
           </section>
           <aside className="support-contact" aria-labelledby="contact-title">
