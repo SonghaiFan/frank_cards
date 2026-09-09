@@ -39,7 +39,8 @@
     "shortDescription": "Thoughtfully curated conversation cards for deeper human connection",
     "category": "Lifestyle",
     "iOS": {
-      "developmentTeam": "3XYUL6YP53"
+      "developmentTeam": "3XYUL6YP53",
+      "minimumSystemVersion": "15.0"
     },
     "macOS": {
       "signingIdentity": "-"

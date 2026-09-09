@@ -1317,7 +1317,71 @@ body {
   }
 
   .game-library-figures {
-    width: 28rem;
+    width: 22rem;
+  }
+
+  /* Short landscape phones use the wide interaction model, but need their own
+     composition: one bounded wheel column, a clear gutter, and one copy column. */
+  .game-library-copy-layer {
+    justify-content: flex-end;
+    padding-right: max(1.25rem, var(--app-safe-area-right));
+    padding-left: max(21.5rem, calc(var(--app-safe-area-left) + 21rem));
+  }
+
+  .game-library-copy-layer .game-library-copy {
+    width: min(100%, 27rem);
+    max-width: 27rem;
+    padding: 1rem 0;
+  }
+
+  .library-card-wheel-item {
+    left: 0;
+  }
+
+  .game-library-copy-layer .game-info-panel,
+  .game-library-copy-layer .game-intro-panel {
+    height: min(74dvh, 18rem);
+    min-height: 0;
+    max-height: 18rem;
+  }
+
+  .game-library-copy-layer .game-info-panel h1 {
+    max-width: 100%;
+    margin-bottom: 0.85rem;
+    font-size: clamp(1.9rem, 5.2vw, 2.45rem);
+    line-height: 1.02;
+  }
+
+  .game-library-copy-layer .game-info-panel [data-contour-mode] {
+    width: min(100%, 24rem);
+    max-width: 24rem;
+  }
+
+  .game-library-copy-layer .game-info-panel .theme-text-secondary {
+    font-size: clamp(0.92rem, 2.25vw, 1.08rem);
+    line-height: 1.42;
+  }
+
+  .game-library-copy-layer .game-info-panel > div:last-child {
+    padding-top: 1rem;
+  }
+
+  .game-library-copy-layer .game-info-panel > div:last-child button {
+    padding: 0.75rem 1.5rem;
+  }
+
+  .game-library-copy-layer .game-intro-brand {
+    margin-bottom: 1.5rem;
+  }
+
+  .game-library-copy-layer .game-intro-brand h1 {
+    font-size: clamp(2.4rem, 6vw, 3.25rem);
+  }
+
+  .game-library-copy-layer .game-intro-description {
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.45;
   }
 
   .game-play-category {

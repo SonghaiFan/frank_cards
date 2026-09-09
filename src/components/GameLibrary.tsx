@@ -7,7 +7,11 @@ import GameInfoPanel from "./GameInfoPanel";
 import GameIntroPanel from "./GameIntroPanel";
 import KneeConversationIllustration from "./KneeConversationIllustration";
 import { useEasterEgg } from "../hooks/useEasterEgg";
-import { LIBRARY_DESKTOP_QUERY, useMediaQuery } from "../hooks/useMediaQuery";
+import {
+  COMPACT_LANDSCAPE_QUERY,
+  LIBRARY_DESKTOP_QUERY,
+  useMediaQuery,
+} from "../hooks/useMediaQuery";
 
 
 interface QuickGameLibraryProps {
@@ -275,6 +279,8 @@ const ThemeColorBlurBackground = memo(function ThemeColorBlurBackground({
 
 interface CardWheelProps {
   allItems: ConversationGame[];
+  cardHeight: number;
+  cardWidth: number;
   containerRef: React.RefObject<HTMLDivElement>;
   focusedGameId: string;
   initialOffset: number;
@@ -284,11 +290,14 @@ interface CardWheelProps {
   onStartGame: (game: ConversationGame) => void;
   radius: number;
   reducedMotion: boolean | null;
+  wheelWidth?: number;
   visibleRange: number;
 }
 
 const CardWheel = memo(function CardWheel({
   allItems,
+  cardHeight,
+  cardWidth,
   containerRef,
   focusedGameId,
   initialOffset,
@@ -298,6 +307,7 @@ const CardWheel = memo(function CardWheel({
   onStartGame,
   radius,
   reducedMotion,
+  wheelWidth,
   visibleRange,
 }: CardWheelProps) {
   const [scrollTop, setScrollTop] = useState(0);
@@ -352,19 +362,20 @@ const CardWheel = memo(function CardWheel({
         duration: reducedMotion ? 0 : 0.72,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="absolute top-0 left-0 bottom-0 w-[400px] xl:w-[500px] pointer-events-none z-20 flex items-center overflow-visible will-change-transform"
+      className="library-card-wheel absolute top-0 left-0 bottom-0 w-[400px] xl:w-[500px] pointer-events-none z-20 flex items-center overflow-visible will-change-transform"
+      style={wheelWidth ? { width: `${wheelWidth}px` } : undefined}
     >
       <div className="relative w-full h-full">
         {allItems.map((game, index) => {
           const itemY = index * itemHeight + (itemHeight / 2) + initialOffset;
           const dist = itemY - (scrollTop + viewportCenter);
-          const relativePos = dist / 600;
+          const relativePos = dist / (wheelWidth ? 360 : 600);
 
           if (Math.abs(relativePos) > visibleRange) return null;
 
           const angleDeg = relativePos * maxAngle;
           const angleRad = (angleDeg * Math.PI) / 180;
-          const translateX = (Math.cos(angleRad) * radius) - radius + 50;
+          const translateX = (Math.cos(angleRad) * radius) - radius + (wheelWidth ? 0 : 50);
           const arcY = Math.sin(angleRad) * radius;
           const scale = Math.max(0, 1 - Math.abs(relativePos) * 0.4);
           const opacity = Math.max(0, 1 - Math.abs(relativePos) * 0.6);
@@ -375,9 +386,9 @@ const CardWheel = memo(function CardWheel({
           return (
             <div
               key={game.testID}
-              className="absolute left-4 top-1/2 w-full flex transform-gpu justify-center pointer-events-auto will-change-transform"
+              className="library-card-wheel-item absolute left-4 top-1/2 w-full flex transform-gpu justify-center pointer-events-auto will-change-transform"
               style={{
-                marginTop: "-125px",
+                marginTop: `${cardHeight / -2}px`,
                 transform: `translateY(${arcY}px) translateX(${translateX}px) rotateZ(${angleDeg}deg) scale(${scale})`,
                 opacity,
                 zIndex: Math.round(100 - Math.abs(relativePos) * 100),
@@ -411,7 +422,7 @@ const CardWheel = memo(function CardWheel({
                   onHoverEnd={() => {}}
                   minimal={isPlaceholder}
                   disableEntranceAnimation={true}
-                  style={{ width: "400px", height: "250px" }}
+                  style={{ width: `${cardWidth}px`, height: `${cardHeight}px` }}
                   className="relative cursor-pointer group shadow-2xl rounded-3xl"
                 />
               </motion.div>
@@ -464,6 +475,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
   // Constants for geometry
   const [viewportHeight, setViewportHeight] = useState(window.innerHeight);
   const isDesktopLayout = useMediaQuery(LIBRARY_DESKTOP_QUERY);
+  const isCompactLandscape = useMediaQuery(COMPACT_LANDSCAPE_QUERY);
   const isWideDesktop = useMediaQuery("(min-width: 80rem)");
 
   useEffect(() => {
@@ -477,10 +489,12 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
   const isMobile = !isDesktopLayout;
 
   // Constants for geometry
-  const ITEM_HEIGHT = isMobile ? 180 : isWideDesktop ? 200 : 190;
-  const RADIUS = isMobile ? 500 : isWideDesktop ? 800 : 620;
+  const ITEM_HEIGHT = isMobile ? 180 : isCompactLandscape ? 150 : isWideDesktop ? 200 : 190;
+  const RADIUS = isMobile ? 500 : isCompactLandscape ? 460 : isWideDesktop ? 800 : 620;
   const MAX_ANGLE = 60;
-  const VISIBLE_RANGE = isMobile ? 1.5 : isWideDesktop ? 2 : 1.75;
+  const VISIBLE_RANGE = isMobile ? 1.5 : isCompactLandscape ? 1.25 : isWideDesktop ? 2 : 1.75;
+  const WHEEL_CARD_WIDTH = isCompactLandscape ? 280 : 400;
+  const WHEEL_CARD_HEIGHT = WHEEL_CARD_WIDTH * 5 / 8;
 
   const introGame = useMemo<ConversationGame>(() => ({
     testID: "intro-card",
@@ -840,7 +854,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
                 ease: deceleratingEase,
                 layout: { duration: reducedMotion ? 0 : 0.58, ease: deceleratingEase },
               }}
-              className={`absolute inset-0 w-full h-full flex items-center z-10 ${isCustomMode ? "pointer-events-none" : ""} ${isMobile ? 'justify-center' : 'justify-end pl-[380px] xl:pl-[520px]'}`}
+              className={`game-library-copy-layer absolute inset-0 w-full h-full flex items-center z-10 ${isCustomMode ? "pointer-events-none" : ""} ${isMobile ? 'justify-center' : 'justify-end pl-[380px] xl:pl-[520px]'}`}
             >
               <motion.div
                 layout
@@ -919,6 +933,8 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
             {!isCustomMode && !isMobile && !isLoading && (
               <CardWheel
                 allItems={allItems}
+                cardHeight={WHEEL_CARD_HEIGHT}
+                cardWidth={WHEEL_CARD_WIDTH}
                 containerRef={containerRef}
                 focusedGameId={focusedGameId}
                 initialOffset={INITIAL_OFFSET}
@@ -928,6 +944,7 @@ const QuickGameLibrary: React.FC<QuickGameLibraryProps> = ({
                 onStartGame={handleStartGame}
                 radius={RADIUS}
                 reducedMotion={reducedMotion}
+                wheelWidth={isCompactLandscape ? 320 : undefined}
                 visibleRange={VISIBLE_RANGE}
               />
             )}

@@ -5,6 +5,9 @@ import { useCallback, useSyncExternalStore } from "react";
 export const LIBRARY_DESKTOP_QUERY =
   "(min-width: 64rem), (orientation: landscape) and (min-width: 40rem)";
 
+export const COMPACT_LANDSCAPE_QUERY =
+  "(orientation: landscape) and (max-height: 37.5rem) and (max-width: 63.9375rem)";
+
 export const useMediaQuery = (query: string) => {
   const subscribe = useCallback((onStoreChange: () => void) => {
     const mediaQuery = window.matchMedia(query);

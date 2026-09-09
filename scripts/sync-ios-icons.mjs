@@ -20,6 +20,22 @@ function run(command, args) {
   throw new Error(`${command} failed${detail ? `:\n${detail}` : ""}`);
 }
 
+function renderOpaqueIcon(width, height, output) {
+  run("ffmpeg", [
+    "-y",
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-i",
+    sourceIcon,
+    "-filter_complex",
+    `[0:v]scale=${width}:${height}:flags=lanczos[icon];color=c=0xF7F7F1:s=${width}x${height}[background];[background][icon]overlay=0:0:format=auto,format=rgb24`,
+    "-frames:v",
+    "1",
+    output,
+  ]);
+}
+
 try {
   await access(destinationDirectory);
 } catch {
@@ -51,8 +67,8 @@ for (const iconName of iconNames) {
   const [width, height] = dimensions.split("x");
 
   for (const output of [sourceDestination, destination]) {
-    run("sips", ["-s", "format", "png", "-z", height, width, sourceIcon, "--out", output]);
+    renderOpaqueIcon(width, height, output);
   }
 }
 
-console.log(`Rendered ${iconNames.length} iOS icons directly from the Icon Composer export.`);
+console.log(`Rendered ${iconNames.length} opaque iOS icons from the Icon Composer export.`);
