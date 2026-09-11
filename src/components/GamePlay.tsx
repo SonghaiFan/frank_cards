@@ -4,7 +4,11 @@ import { useTranslation } from "react-i18next";
 import { ConversationGame } from "../types/ConversationGame";
 import { useAlternateReaderSide } from "../hooks/useAppPreferences";
 import { useAppTheme } from "../hooks/useAppTheme";
-import { LIBRARY_DESKTOP_QUERY, useMediaQuery } from "../hooks/useMediaQuery";
+import {
+  COMPACT_LANDSCAPE_QUERY,
+  LIBRARY_DESKTOP_QUERY,
+  useMediaQuery,
+} from "../hooks/useMediaQuery";
 import { resolveGameSurfaceTheme } from "../utils/gameTheme";
 import QuestionCard from "./QuestionCard";
 
@@ -40,7 +44,9 @@ const GamePlay: React.FC<GamePlayProps> = ({
   const alternateReaderSide = useAlternateReaderSide();
   const isDarkTheme = useAppTheme() === "dark";
   const isDesktop = useMediaQuery(LIBRARY_DESKTOP_QUERY);
+  const isCompactLandscape = useMediaQuery(COMPACT_LANDSCAPE_QUERY);
   const isMobile = !isDesktop;
+  const usesTouchNavigation = isMobile || isCompactLandscape;
   const swipeStartRef = useRef<SwipeStart | null>(null);
   const suppressCardClickUntilRef = useRef(0);
 
@@ -91,7 +97,7 @@ const GamePlay: React.FC<GamePlayProps> = ({
   }, [currentQuestion?.more]);
 
   const handleSwipeStart = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
-    if (!isMobile || !event.isPrimary) return;
+    if (!usesTouchNavigation || !event.isPrimary) return;
 
     swipeStartRef.current = {
       pointerId: event.pointerId,
@@ -99,11 +105,11 @@ const GamePlay: React.FC<GamePlayProps> = ({
       y: event.clientY,
       captured: false,
     };
-  }, [isMobile]);
+  }, [usesTouchNavigation]);
 
   const handleSwipeMove = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
     const swipeStart = swipeStartRef.current;
-    if (!isMobile || !swipeStart || swipeStart.pointerId !== event.pointerId || swipeStart.captured) {
+    if (!usesTouchNavigation || !swipeStart || swipeStart.pointerId !== event.pointerId || swipeStart.captured) {
       return;
     }
 
@@ -117,13 +123,13 @@ const GamePlay: React.FC<GamePlayProps> = ({
       event.currentTarget.setPointerCapture(event.pointerId);
       swipeStart.captured = true;
     }
-  }, [isMobile]);
+  }, [usesTouchNavigation]);
 
   const handleSwipeEnd = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
     const swipeStart = swipeStartRef.current;
     swipeStartRef.current = null;
 
-    if (!isMobile || !swipeStart || swipeStart.pointerId !== event.pointerId) return;
+    if (!usesTouchNavigation || !swipeStart || swipeStart.pointerId !== event.pointerId) return;
 
     const horizontalDistance = event.clientX - swipeStart.x;
     const verticalDistance = event.clientY - swipeStart.y;
@@ -137,7 +143,7 @@ const GamePlay: React.FC<GamePlayProps> = ({
     } else {
       handlePrevious();
     }
-  }, [handleNext, handlePrevious, isMobile]);
+  }, [handleNext, handlePrevious, usesTouchNavigation]);
 
   const handleSwipeCancel = useCallback(() => {
     swipeStartRef.current = null;
@@ -217,7 +223,7 @@ const GamePlay: React.FC<GamePlayProps> = ({
 
       {/* Main Card - Centered & Focused */}
       <div className="game-play-main flex-1 flex items-center justify-center px-4 sm:px-8 py-8 sm:py-16 relative z-10">
-        {isMobile ? (
+        {usesTouchNavigation ? (
           <>
             <button
               type="button"
@@ -251,7 +257,7 @@ const GamePlay: React.FC<GamePlayProps> = ({
           onPointerDown={handleSwipeStart}
           onPointerMove={handleSwipeMove}
           onPointerUp={handleSwipeEnd}
-          style={{ touchAction: isMobile ? "pan-y" : undefined }}
+          style={{ touchAction: usesTouchNavigation ? "pan-y" : undefined }}
         >
           {/* Category Indicator - Minimal */}
           {currentCategory && (
